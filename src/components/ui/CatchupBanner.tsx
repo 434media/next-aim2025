@@ -44,7 +44,7 @@ export default function CatchupBanner() {
             Relive AIM Health R&D Summit 2024
           </h2>
           <p className="text-lg text-white/90 mb-6">
-            Check out the highlights and catch anything you might have missed from last year's groundbreaking event.
+            Check out the highlights and catch anything you might have missed from last year&apos;s groundbreaking event.
           </p>
           <Button onClick={() => setIsOpen(true)} variant="primary" className="w-full sm:w-auto text-lg py-3 px-6">
             <RiPlayFill className="mr-2 size-5" aria-hidden="true" />
