@@ -16,10 +16,10 @@ export default function HeroSection() {
     <div className="relative min-h-screen">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
-        <video autoPlay muted loop playsInline className="w-full h-full object-cover md:rounded-b-3xl">
+        <video autoPlay muted loop playsInline className="w-full h-full object-cover">
           <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+Cut+Down.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-neutral-950/30 md:rounded-b-3xl" />
+        <div className="absolute inset-0 bg-neutral-950/30" />
       </div>
 
       {/* Scroll Indicator */}
