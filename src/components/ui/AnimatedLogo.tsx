@@ -21,7 +21,7 @@ export function AnimatedLogo() {
     offset: ["start end", "end start"],
   })
 
-  const logoY = useTransform(scrollYProgress, [0.5, 0.9], ["50%", "0%"])
+ /*  const logoY = useTransform(scrollYProgress, [0.5, 0.9], ["50%", "0%"]) */
   const textY = useTransform(scrollYProgress, [0, 0.4], ["50%", "0%"])
   const branchesY = useTransform(scrollYProgress, [0.2, 0.6], ["50%", "0%"])
 
