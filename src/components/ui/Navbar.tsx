@@ -24,7 +24,7 @@ const eventInfo = {
   location: "San Antonio, TX",
 }
 
-const EarlyBirdBanner = ({ scrolled }: { scrolled: boolean }) => {
+const EarlyBirdBanner = () => {
   const [timeLeft, setTimeLeft] = useState("")
 
   useEffect(() => {
@@ -40,13 +40,13 @@ const EarlyBirdBanner = ({ scrolled }: { scrolled: boolean }) => {
       const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
 
       if (days > 1) {
-        return `${days} days left for early bird pricing`
+        return `${days} Days Left for Early Bird Pricing`
       } else if (days === 1) {
-        return "1 day left for early bird pricing"
+        return "1 Day Left for Early Bird Pricing"
       } else if (hours > 1) {
-        return `${hours} hours left for early bird pricing`
+        return `${hours} Hours Left for Early Bird Pricing`
       } else if (hours === 1) {
-        return "1 hour left for early bird pricing"
+        return "1 Hour Left for Early Bird Pricing"
       } else {
         return "Less than an hour left for early bird pricing"
       }
@@ -75,16 +75,9 @@ const EarlyBirdBanner = ({ scrolled }: { scrolled: boolean }) => {
         className="group"
       >
         <motion.div
-          animate={{
-            backgroundColor: scrolled
-              ? ["hsla(220, 100%, 15%, 0.9)", "hsla(220, 100%, 20%, 0.9)"]
-              : ["hsla(220, 100%, 15%, 0.3)", "hsla(220, 100%, 20%, 0.3)"],
-            transition: {
-              duration: 2,
-              repeat: Number.POSITIVE_INFINITY,
-              repeatType: "reverse",
-            },
-          }}
+          initial={false}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           className="rounded-full border border-blue-400/20 px-4 py-2 group-hover:border-orange-500/20 transition-colors"
         >
           <p className="text-sm font-medium text-orange-500">{timeLeft} <RiArrowRightUpLine className="inline-block w-4 h-4" /></p>
@@ -157,7 +150,7 @@ export default function NavBar() {
 
             {/* CTA Button and Menu */}
             <div className="flex items-center gap-4">
-              <EarlyBirdBanner scrolled={scrolled} />
+              <EarlyBirdBanner />
 
               <button
                 onClick={() => setIsOpen(true)}

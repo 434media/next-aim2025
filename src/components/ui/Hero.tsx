@@ -23,15 +23,15 @@ export function Hero() {
             </span>
           </a>
         </FadeDiv>
-        <h1 className="mt-8 text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-gray-900">
+        <h1 className="mt-8 text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-[#10131d]">
           <FadeSpan>Two</FadeSpan> <FadeSpan>Events</FadeSpan>
           <br className="block" />
           <FadeSpan>One</FadeSpan> <FadeSpan>Mission</FadeSpan>
         </h1>
         <p className="mt-5 max-w-3xl text-center text-base sm:text-lg md:text-xl text-gray-700 sm:mt-8 tracking-tight">
-          <FadeSpan>Join us <strong className="font-semibold">June 16-17, 2025</strong> for{" "}
-            <strong className="font-semibold">Military Medical Industry Day (MMID)</strong>{" "}
-            <FadeSpan>and the <strong className="font-semibold">SURF conference</strong>,</FadeSpan>
+          <FadeSpan>Join us <strong className="font-semibold text-[#10131d]">June 16-17, 2025</strong> for{" "}
+            <strong className="font-semibold text-[#10131d]">Military Medical Industry Day (MMID)</strong>{" "}
+            <FadeSpan>and the <strong className="font-semibold text-[#10131d]">SURF conference</strong>,</FadeSpan>
           </FadeSpan>{" "}
           <FadeSpan>a powerful combination driving innovation in military medicine</FadeSpan>
         </p>
@@ -47,7 +47,7 @@ export function Hero() {
           </FadeDiv>
           <FadeDiv>
             <a
-              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-gradient-to-b from-neutral-600 to-neutral-800 px-6 py-3 text-base font-medium tracking-wide text-white shadow-md transition-all duration-200 ease-in-out hover:from-neutral-700 hover:to-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2"
+              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-gradient-to-b from-neutral-600 to-[#10131d] px-6 py-3 text-base font-medium tracking-wide text-white shadow-md transition-all duration-200 ease-in-out hover:from-neutral-700 hover:to-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2"
               href="https://support.velocitytx.org/campaign/642575/donate"
             >
               Become a Sponsor
