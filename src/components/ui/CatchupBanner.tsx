@@ -15,7 +15,7 @@ export default function CatchupBanner() {
         <div
           className="absolute inset-0 opacity-5"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath stroke='rgba(255,255,255,1)' d='M0 40h40V0H0z'/%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width=&apos;40&apos; height=&apos;40&apos; viewBox=&apos;0 0 40 40&apos; xmlns=&apos;http://www.w3.org/2000/svg&apos;%3E%3Cg fill=&apos;none&apos; fill-rule=&apos;evenodd&apos;%3E%3Cpath stroke=&apos;rgba(255,255,255,1)&apos; d=&apos;M0 40h40V0H0z&apos;/%3E%3C/g%3E%3C/svg%3E")`,
             backgroundSize: "40px 40px",
           }}
         />
@@ -29,7 +29,7 @@ export default function CatchupBanner() {
                 Relive AIM Health R&D Summit 2024
               </h2>
               <p className="text-base sm:text-lg text-gray-300">
-                Check out the highlights and catch anything you might have missed from last year's groundbreaking event.
+                Check out the highlights and catch anything you might have missed from last year&apos;s groundbreaking event.
               </p>
               <Button onClick={() => setIsOpen(true)} variant="primary" className="w-full sm:w-auto text-lg py-6 px-8">
                 <RiPlayFill className="mr-2 size-6" aria-hidden="true" />

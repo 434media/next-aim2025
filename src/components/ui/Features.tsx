@@ -146,7 +146,7 @@ export default function Features() {
           </p>
           <p className="mt-4 text-balance text-gray-700">
             MMID connects military buyers with medical technology providers, driving the development of advanced
-            technologies that ensure our service members' health and readiness.
+            technologies that ensure our service members&apos; health and readiness.
           </p>
         </div>
         <div className="relative col-span-2 flex items-center justify-center overflow-hidden">
@@ -440,7 +440,7 @@ export default function Features() {
             Promoting Cross-Sector Collaboration in the Development of Life-Saving Innovations
           </p>
           <p className="mt-4 text-balance text-gray-700">
-            Designed to advance emerging technologies from the bench to the battlefield, AIM draws top minds from across the life sciences ecosystem in a collaborative forum where groundbreaking ideas are shared, partnerships are forged, and solutions to some of healthcare's toughest challenges are discovered
+            Designed to advance emerging technologies from the bench to the battlefield, AIM draws top minds from across the life sciences ecosystem in a collaborative forum where groundbreaking ideas are shared, partnerships are forged, and solutions to some of healthcare&apos;s toughest challenges are discovered
           </p>
         </div>
         <div className="relative col-span-2 flex items-center justify-center overflow-hidden">
