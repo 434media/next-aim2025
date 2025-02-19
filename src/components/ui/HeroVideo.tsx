@@ -32,7 +32,7 @@ export default function HeroSection() {
           className="absolute bottom-3 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
         >
           <motion.span
-            className="text-white/70 text-sm uppercase tracking-widest"
+            className="text-white/70 text-sm uppercase tracking-widest text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}

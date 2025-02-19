@@ -80,7 +80,7 @@ const EarlyBirdBanner = () => {
           whileTap={{ scale: 0.95 }}
           className="rounded-full border border-blue-400/20 px-4 py-2 group-hover:border-orange-500/20 transition-colors"
         >
-          <p className="text-sm font-medium text-orange-500">{timeLeft} <RiArrowRightUpLine className="inline-block w-4 h-4" /></p>
+          <p className="text-sm uppercase font-bold text-orange-500">{timeLeft} <RiArrowRightUpLine className="inline-block w-4 h-4" /></p>
         </motion.div>
       </a>
     </motion.div>
@@ -120,7 +120,7 @@ export default function NavBar() {
     <>
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          scrolled ? "bg-white/90 shadow-md" : "bg-transparent"
+          scrolled ? "bg-white/90 shadow-md" : "bg-white/10"
         } backdrop-blur-sm`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
