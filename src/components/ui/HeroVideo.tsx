@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform } from "motion/react"
 
 export default function HeroSection() {
   const [isClient, setIsClient] = useState(false)

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
+import { motion, AnimatePresence, useScroll, useTransform } from "motion/react"
 import Link from "next/link"
 import Image from "next/image"
 import { Bars3CenterLeftIcon, XMarkIcon } from "@heroicons/react/24/outline"

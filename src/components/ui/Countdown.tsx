@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useEffect, useState, useRef, memo, useCallback } from "react"
-import { motion, useScroll, useTransform, animate } from "framer-motion"
+import { motion, useScroll, useTransform, animate } from "motion/react"
 import clsx from "clsx"
 
 interface TimeLeft {
