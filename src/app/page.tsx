@@ -1,5 +1,4 @@
 import { AnimatedLogo } from "@/components/ui/AnimatedLogo"
-import { CallToAction } from "@/components/ui/CallToAction"
 import CatchupBanner from "@/components/ui/CatchupBanner"
 import Countdown from "@/components/ui/Countdown"
 import FeatureDivider from "@/components/ui/FeatureDivider"
