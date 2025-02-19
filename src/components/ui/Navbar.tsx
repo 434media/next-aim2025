@@ -137,7 +137,7 @@ export default function NavBar() {
               <Link href="/" className="flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-orange-500 rounded-md">
                 <motion.div
                   initial={false}
-                  animate={{ filter: scrolled ? "invert(0)" : "invert(1)" }}
+                  animate={{ filter: scrolled ? "invert(0)" : "invert(0)" }}
                   transition={{ duration: 0.3 }}
                 >
                   <AIMLogo className="h-12 md:h-16 w-auto" aria-label="AIM Summit Logo" />
