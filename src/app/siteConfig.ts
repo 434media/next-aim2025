@@ -1,7 +1,7 @@
 export const siteConfig = {
-  name: "Solar Technologies",
-  url: "https://solar.tremor.so",
-  description: "Automation for every Farm.",
+  name: "AIM Health R&D Summit",
+  url: "https://aimsatx.com",
+  description: "Academia, Industry, and Military Researchers Promoting Cross-Sector Collaboration in the Development of Life-Saving Innovations",
   baseLinks: {
     home: "/",
   },

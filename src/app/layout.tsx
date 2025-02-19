@@ -3,21 +3,21 @@ import type { Metadata } from "next"
 import "./globals.css"
 
 import Footer from "@/components/ui/Footer"
-import { NavBar } from "@/components/ui/Navbar"
+import NavBar from "@/components/ui/Navbar"
 import { siteConfig } from "./siteConfig"
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://yoururl.com"),
+  metadataBase: new URL("https://aimsatx.com"),
   title: siteConfig.name,
   description: siteConfig.description,
   keywords: ["Marketing", "Database", "Software"],
   authors: [
     {
-      name: "yourname",
-      url: "",
+      name: "AIM Health R&D Summit",
+      url: "https://aimsatx.com",
     },
   ],
-  creator: "yourname",
+  creator: "AIM Health R&D Summit",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    creator: "@yourname",
+    creator: "@devsatx",
   },
   icons: {
     icon: "/favicon.ico",
