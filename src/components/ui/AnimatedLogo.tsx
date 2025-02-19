@@ -5,13 +5,13 @@ import { motion, useScroll, useTransform } from "motion/react"
 import Image from "next/image"
 import GameOfLife from "./HeroBackground"
 
-const militaryBranches = [
-  { name: "Army", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/sealArmy.png" },
-  { name: "Navy", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/sealNavy.png" },
-  { name: "Air Force", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/airforce.png" },
-  { name: "Marine Corps", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/sealMarineCorps.png" },
-  { name: "Coast Guard", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/sealCoastGuard.png" },
-  { name: "Space Force", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/space-force-logo.png" },
+const partners = [
+  { name: "COSA", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/cosa_quatrefoil_texas_k.png" },
+  { name: "Bexar County", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/Bexar+Seal+High+Res+B_W+1200.png" },
+  { name: "59th", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/59th_Medical_Wing.png" },
+  { name: "VelocityTX", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/VelocityTX+Logo+MAIN+RGB+(1).png" },
+  { name: "UTHSA", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/UTHSA_logo.svg" },
+  { name: "UTSA", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/utsa-wordmark.svg" },
 ]
 
 export function AnimatedLogo() {
@@ -36,7 +36,7 @@ export function AnimatedLogo() {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <h2 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-[#10131d] tracking-tight mb-2">
-            We&apos;re Military City, USA
+            Military Health City, USA
           </h2>
           <motion.div
             className="h-1 w-24 bg-orange-500 mx-auto"
@@ -50,7 +50,7 @@ export function AnimatedLogo() {
           style={{ y: branchesY }}
           className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 gap-6 justify-items-center mb-12 sm:mb-16"
         >
-          {militaryBranches.map((branch) => (
+          {partners.map((branch) => (
             <div key={branch.name} className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40">
               <Image
                 src={branch.src || "/placeholder.svg"}
