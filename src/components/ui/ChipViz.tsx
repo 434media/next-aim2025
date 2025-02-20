@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "motion/react"
-import { AIMLogo } from "../../../public/AIMLogo"
+import Image from "next/image"
 
 const ChipViz = () => {
   const createVariants = ({
@@ -61,7 +61,13 @@ const ChipViz = () => {
                 className="absolute inset-[6px] rounded-full bg-white/10 p-1 backdrop-blur-[1px]"
               >
                 <div className="relative flex h-full w-full items-center justify-center rounded-full bg-linear-to-br from-white to-gray-300 shadow-lg shadow-black/40">
-                  <AIMLogo className="w-8" />
+                  <Image 
+                    src="https://ampd-asset.s3.us-east-2.amazonaws.com/mmid.png"
+                    alt="MMID"
+                    width={40}
+                    height={40}
+                    className="rounded-full mt-2"
+                  />
                 </div>
               </motion.div>
             </div>

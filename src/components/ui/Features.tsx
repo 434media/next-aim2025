@@ -7,19 +7,20 @@ import {
   RiPulseAiFill,
   RiFirstAidKitFill,
   RiCpuLine,
-  RiGeminiFill,
-  RiHospitalLine,
-  RiDatabase2Fill,
-  RiMedicineBottleLine,
   RiClaudeFill,
-  RiCodeFill,
   RiGlobalLine,
-  RiAiGenerate,
+  RiGeminiLine,
+  RiHeartPulseLine,
+  RiMentalHealthLine,
+  RiFundsFill,
+  RiMoneyDollarCircleFill,
+  RiPulseLine,
 } from "@remixicon/react"
 import { Icons } from "../Icons"
 import { Orbit } from "../Orbit"
 import ChipViz from "./ChipViz"
 import Image from "next/image"
+import { AIMLogo } from "../../../public/AIMLogo"
 
 export default function Features() {
   return (
@@ -136,15 +137,14 @@ export default function Features() {
         {/* Content */}
         <div className="col-span-2 my-auto px-2">
           <h2 className="relative text-lg font-semibold tracking-tight text-orange-500">
-            Military Medical Industry Day
+            Academia, Industry, and Military Researchers
             <div className="absolute top-1 -left-[8px] h-5 w-[3px] rounded-r-sm bg-orange-500" />
           </h2>
           <p className="mt-2 text-3xl font-semibold tracking-tighter text-balance text-gray-900 md:text-4xl">
-            Bridging the Gap Between the Armed Forces and the Private Sector
+            Promoting Cross-Sector Collaboration
           </p>
           <p className="mt-4 text-balance text-gray-700">
-            <strong>MMID</strong> connects military buyers with medical technology providers, driving the development of advanced
-            technologies that ensure our service members&apos; health and readiness.
+            <strong>AIM</strong> draws top minds from across the life sciences ecosystem in a collaborative forum where groundbreaking ideas are shared, partnerships are forged, and solutions to some of healthcare&apos;s toughest challenges are discovered
           </p>
         </div>
         <div className="relative col-span-2 flex items-center justify-center overflow-hidden">
@@ -291,12 +291,7 @@ export default function Features() {
                 <div className="relative flex h-48 w-48 items-center justify-center">
                   <div className="rounded-full p-1 ring-1 ring-black/10">
                     <div className="relative z-10 flex size-20 items-center justify-center rounded-full bg-white ring-1 shadow-[inset_0px_-15px_20px_rgba(0,0,0,0.1),0_7px_10px_0_rgba(0,0,0,0.15)] ring-black/20">
-                      <Image
-                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/mmid.png"
-                        alt="Military Medical Industry Day Logo"
-                        fill
-                        className="object-contain mt-2"
-                      />
+                      <AIMLogo className="size-15 -mt-2" /> 
                     </div>
                     <div className="absolute inset-12 animate-[spin_8s_linear_infinite] rounded-full bg-linear-to-t from-transparent via-orange-400 to-transparent blur-lg" />
                   </div>
@@ -308,11 +303,11 @@ export default function Features() {
 
         <div className="col-span-2 my-auto px-2">
           <h2 className="relative text-lg font-semibold tracking-tight text-orange-500">
-            San Antonio Military Health & Universities Research Forum
+            Military Health & Universities Research Forum
             <div className="absolute top-1 -left-[8px] h-5 w-[3px] rounded-r-sm bg-orange-500" />
           </h2>
           <p className="mt-2 text-3xl font-semibold tracking-tighter text-balance text-gray-900 md:text-4xl">
-            Presented by UTSA and UT Health San Antonio
+            Advancing Health Outcomes and Readiness
           </p>
           <p className="mt-4 text-balance text-gray-700">
             <strong>SURF</strong> showcases cutting-edge research, fostering vital connections among academic, military, and
@@ -376,7 +371,7 @@ export default function Features() {
                   <div className="absolute inset-0 size-12 animate-pulse bg-orange-200 blur-[3px]"></div>
                   <div className="relative flex h-12 w-12 items-center justify-center bg-white ring-1 shadow-sm ring-black/15">
                     <span className="text-sm font-medium text-gray-500">
-                      <RiGlobalLine className="size-5 text-gray-950" />
+                      <RiMentalHealthLine className="size-5 text-gray-950" />
                     </span>
                   </div>
                 </div>
@@ -387,7 +382,7 @@ export default function Features() {
                   <div className="absolute inset-0 size-12 animate-pulse bg-orange-200 blur-[3px]"></div>
                   <div className="relative flex h-12 w-12 items-center justify-center bg-white ring-1 shadow-sm ring-black/15">
                     <span className="">
-                      <RiMedicineBottleLine className="size-5 text-gray-950" />
+                      <RiHeartPulseLine className="size-5 text-gray-950" />
                     </span>
                   </div>
                 </div>
@@ -398,7 +393,7 @@ export default function Features() {
                   <div className="absolute inset-0 size-12 animate-pulse bg-orange-200 blur-[3px]"></div>
                   <div className="relative flex h-12 w-12 items-center justify-center bg-white ring-1 shadow-sm ring-black/15">
                     <span className="text-sm font-medium text-gray-500">
-                      <RiGeminiFill className="size-5 text-gray-900" />
+                      <RiGlobalLine className="size-5 text-gray-900" />
                     </span>
                   </div>
                 </div>
@@ -409,7 +404,7 @@ export default function Features() {
                   <div className="absolute inset-0 size-12 animate-pulse bg-orange-200 blur-[3px]"></div>
                   <div className="relative flex h-12 w-12 items-center justify-center bg-white ring-1 shadow-sm ring-black/15">
                     <span className="text-sm font-medium text-gray-500">
-                      <RiAiGenerate className="size-5 text-gray-950" />
+                      <RiPulseLine className="size-5 text-gray-950" />
                     </span>
                   </div>
                 </div>
@@ -420,7 +415,7 @@ export default function Features() {
                   <div className="absolute inset-0 size-12 animate-pulse bg-orange-200 blur-[3px]"></div>
                   <div className="relative flex h-12 w-12 items-center justify-center bg-white ring-1 shadow-sm ring-black/15">
                     <span className="text-sm font-medium text-gray-500">
-                      <RiHospitalLine className="size-5 text-gray-950" />
+                      <RiGeminiLine className="size-5 text-gray-950" />
                     </span>
                   </div>
                 </div>
@@ -441,14 +436,14 @@ export default function Features() {
         </div>
         <div className="col-span-2 my-auto px-2">
           <h2 className="relative text-lg font-semibold tracking-tight text-orange-500">
-            Academia, Industry, and Military Researchers
+            Military Medical Industry Day
             <div className="absolute top-1 -left-[7px] h-5 w-[3px] rounded-r-sm bg-orange-500" />
           </h2>
           <p className="mt-2 text-3xl font-semibold tracking-tighter text-balance text-gray-900 md:text-4xl">
-            Promoting Cross-Sector Collaboration in the Development of Life-Saving Innovations
+            Bridging the Gap Between the Armed Forces and the Private Sector
           </p>
           <p className="mt-4 text-balance text-gray-700">
-            Designed to advance emerging technologies from the bench to the battlefield, <strong>AIM</strong> draws top minds from across the life sciences ecosystem in a collaborative forum where groundbreaking ideas are shared, partnerships are forged, and solutions to some of healthcare&apos;s toughest challenges are discovered
+            <strong>MMID</strong> connects military buyers with medical technology providers, driving the development of advanced technologies that ensure our service members&apos; health and readiness
           </p>
         </div>
         <div className="relative col-span-2 flex items-center justify-center overflow-hidden">
@@ -500,7 +495,7 @@ export default function Features() {
               <div className="absolute top-[6rem] right-[6rem] z-20">
                 <div className="relative mx-auto w-fit rounded-full bg-gray-50 p-1 ring-1 shadow-md shadow-black/10 ring-black/10">
                   <div className="w-fit rounded-full bg-linear-to-b from-white to-gray-100 p-3 ring-1 shadow-[inset_0px_-2px_6px_rgba(0,0,0,0.05),0_7px_10px_0_rgba(0,0,0,0.10)] ring-white/50 ring-inset">
-                    <RiCodeFill
+                    <RiClaudeFill
                       className="size-5 text-gray-900"
                       aria-hidden="true"
                     />
@@ -510,7 +505,7 @@ export default function Features() {
               <div className="absolute right-[6rem] bottom-[6rem] z-20">
                 <div className="relative mx-auto w-fit rounded-full bg-gray-50 p-1 ring-1 shadow-md shadow-black/10 ring-black/10">
                   <div className="w-fit rounded-full bg-linear-to-b from-white to-gray-100 p-3 ring-1 shadow-[inset_0px_-2px_6px_rgba(0,0,0,0.05),0_7px_10px_0_rgba(0,0,0,0.10)] ring-white/50 ring-inset">
-                    <RiClaudeFill
+                    <RiFundsFill
                       className="size-5 text-gray-900"
                       aria-hidden="true"
                     />
@@ -520,7 +515,7 @@ export default function Features() {
               <div className="absolute bottom-[6rem] left-[6rem] z-20">
                 <div className="relative mx-auto w-fit rounded-full bg-gray-50 p-1 ring-1 shadow-md shadow-black/10 ring-black/10">
                   <div className="w-fit rounded-full bg-linear-to-b from-white to-gray-100 p-3 ring-1 shadow-[inset_0px_-2px_6px_rgba(0,0,0,0.05),0_7px_10px_0_rgba(0,0,0,0.10)] ring-white/50 ring-inset">
-                    <RiDatabase2Fill
+                    <RiMoneyDollarCircleFill
                       className="size-5 text-gray-900"
                       aria-hidden="true"
                     />
