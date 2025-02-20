@@ -12,16 +12,14 @@ import {
   RiDatabase2Fill,
   RiMedicineBottleLine,
   RiClaudeFill,
-  RiRobot2Fill,
   RiCodeFill,
   RiGlobalLine,
   RiAiGenerate,
 } from "@remixicon/react"
-import { AIMLogo } from "../../../public/AIMLogo"
 import { Icons } from "../Icons"
 import { Orbit } from "../Orbit"
 import ChipViz from "./ChipViz"
-import { UTSALogo } from "../../../public/UTSALogo"
+import Image from "next/image"
 
 export default function Features() {
   return (
@@ -145,7 +143,7 @@ export default function Features() {
             Bridging the Gap Between the Armed Forces and the Private Sector
           </p>
           <p className="mt-4 text-balance text-gray-700">
-            MMID connects military buyers with medical technology providers, driving the development of advanced
+            <strong>MMID</strong> connects military buyers with medical technology providers, driving the development of advanced
             technologies that ensure our service members&apos; health and readiness.
           </p>
         </div>
@@ -293,7 +291,12 @@ export default function Features() {
                 <div className="relative flex h-48 w-48 items-center justify-center">
                   <div className="rounded-full p-1 ring-1 ring-black/10">
                     <div className="relative z-10 flex size-20 items-center justify-center rounded-full bg-white ring-1 shadow-[inset_0px_-15px_20px_rgba(0,0,0,0.1),0_7px_10px_0_rgba(0,0,0,0.15)] ring-black/20">
-                      <AIMLogo className="size-10" />
+                      <Image
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/mmid.png"
+                        alt="Military Medical Industry Day Logo"
+                        fill
+                        className="object-contain mt-2"
+                      />
                     </div>
                     <div className="absolute inset-12 animate-[spin_8s_linear_infinite] rounded-full bg-linear-to-t from-transparent via-orange-400 to-transparent blur-lg" />
                   </div>
@@ -312,7 +315,7 @@ export default function Features() {
             Presented by UTSA and UT Health San Antonio
           </p>
           <p className="mt-4 text-balance text-gray-700">
-            SURF showcases cutting-edge research, fostering vital connections among academic, military, and
+            <strong>SURF</strong> showcases cutting-edge research, fostering vital connections among academic, military, and
             industry partners to advance health outcomes and readiness
           </p>
         </div>
@@ -360,7 +363,12 @@ export default function Features() {
             <div className="pointer-events-none relative h-full select-none">
               <div className="absolute top-[192px] left-[191.8px]">
                 <div className="flex h-12 w-12 items-center justify-center bg-white ring-1 shadow-sm ring-black/15">
-                  <UTSALogo className="h-8 w-8" />
+                  <Image
+                    src="https://ampd-asset.s3.us-east-2.amazonaws.com/surf.png"
+                    alt="SURF Logo"
+                    fill
+                    className="object-contain"
+                  />
                 </div>
               </div>
               <div className="absolute top-[144px] left-[48px]">
@@ -390,7 +398,7 @@ export default function Features() {
                   <div className="absolute inset-0 size-12 animate-pulse bg-orange-200 blur-[3px]"></div>
                   <div className="relative flex h-12 w-12 items-center justify-center bg-white ring-1 shadow-sm ring-black/15">
                     <span className="text-sm font-medium text-gray-500">
-                      <RiAiGenerate className="size-5 text-gray-900" />
+                      <RiGeminiFill className="size-5 text-gray-900" />
                     </span>
                   </div>
                 </div>
@@ -401,7 +409,7 @@ export default function Features() {
                   <div className="absolute inset-0 size-12 animate-pulse bg-orange-200 blur-[3px]"></div>
                   <div className="relative flex h-12 w-12 items-center justify-center bg-white ring-1 shadow-sm ring-black/15">
                     <span className="text-sm font-medium text-gray-500">
-                      <RiGeminiFill className="size-5 text-gray-950" />
+                      <RiAiGenerate className="size-5 text-gray-950" />
                     </span>
                   </div>
                 </div>
@@ -440,7 +448,7 @@ export default function Features() {
             Promoting Cross-Sector Collaboration in the Development of Life-Saving Innovations
           </p>
           <p className="mt-4 text-balance text-gray-700">
-            Designed to advance emerging technologies from the bench to the battlefield, AIM draws top minds from across the life sciences ecosystem in a collaborative forum where groundbreaking ideas are shared, partnerships are forged, and solutions to some of healthcare&apos;s toughest challenges are discovered
+            Designed to advance emerging technologies from the bench to the battlefield, <strong>AIM</strong> draws top minds from across the life sciences ecosystem in a collaborative forum where groundbreaking ideas are shared, partnerships are forged, and solutions to some of healthcare&apos;s toughest challenges are discovered
           </p>
         </div>
         <div className="relative col-span-2 flex items-center justify-center overflow-hidden">
@@ -482,7 +490,7 @@ export default function Features() {
               <div className="absolute top-[6rem] left-[6rem] z-20">
                 <div className="relative mx-auto w-fit rounded-full bg-gray-50 p-1 ring-1 shadow-md shadow-black/10 ring-black/10">
                   <div className="w-fit rounded-full bg-linear-to-b from-white to-gray-100 p-3 ring-1 shadow-[inset_0px_-2px_6px_rgba(0,0,0,0.09),0_3px_5px_0_rgba(0,0,0,0.19)] ring-white/50 ring-inset">
-                    <RiRobot2Fill
+                    <RiOpenaiFill
                       className="size-5 text-gray-900"
                       aria-hidden="true"
                     />

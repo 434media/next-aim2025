@@ -61,7 +61,7 @@ const ChipViz = () => {
                 className="absolute inset-[6px] rounded-full bg-white/10 p-1 backdrop-blur-[1px]"
               >
                 <div className="relative flex h-full w-full items-center justify-center rounded-full bg-linear-to-br from-white to-gray-300 shadow-lg shadow-black/40">
-                  <AIMLogo className="w-6" />
+                  <AIMLogo className="w-8" />
                 </div>
               </motion.div>
             </div>
