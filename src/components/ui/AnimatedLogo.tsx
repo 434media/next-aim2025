@@ -85,7 +85,7 @@ export function AnimatedLogo() {
 
         <motion.div style={{ y: additionalPartnersY }} className="mt-10 pt-16 border-t border-gray-200">
           <h3 className="text-2xl sm:text-3xl font-bold text-center mb-8 text-[#10131d]">
-            Supporting the Military's Medical Mission
+            Supporting the Military&apos;s Medical Mission
           </h3>
           <div className="grid grid-cols-3 md:grid-cols-4 gap-3 md:gap-6 justify-items-center">
             {additionalPartners.map((partner, index) => (
