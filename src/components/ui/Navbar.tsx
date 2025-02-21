@@ -62,14 +62,14 @@ export default function NavBar() {
             <div className="flex items-center justify-between h-12 text-sm text-white">
               <div className="hidden md:flex items-center space-x-6">
                 <span className="flex items-center">
-                  <span className="font-semibold">{eventInfo.aim.name}</span>
+                  <span className="font-bold text-orange-600">{eventInfo.aim.name}</span>
                   <span className="mx-2">|</span>
                   <span>{eventInfo.aim.date}</span>
                 </span>
               </div>
               {/* Mobile: Show AIM event info */}
               <div className="md:hidden flex flex-col items-start">
-                <span className="font-semibold">{eventInfo.aim.name}</span>
+                <span className="font-bold text-orange-600">{eventInfo.aim.name}</span>
                 <span>{eventInfo.aim.date}</span>
               </div>
               {/* Desktop: Show venue and location */}

@@ -89,10 +89,10 @@ export default function Footer() {
         </h2>
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Vertical Lines */}
-          <div className="pointer-events-none absolute inset-0">
+          <div className="pointer-events-none absolute inset-0 hidden sm:block">
             {/* Left */}
             <div
-              className="absolute inset-y-0 left-4 sm:left-6 lg:left-8 w-px my-[-5rem]"
+              className="absolute inset-y-0 left-4 sm:left-6 lg:left-8 w-px my-[-5rem] hidden sm:block"
               style={{
                 maskImage: "linear-gradient(to bottom, transparent, white 5rem, white calc(100% - 5rem), transparent)",
               }}
@@ -112,7 +112,7 @@ export default function Footer() {
 
             {/* Right */}
             <div
-              className="absolute inset-y-0 right-4 sm:right-6 lg:right-8 w-px my-[-5rem]"
+              className="absolute inset-y-0 right-4 sm:right-6 lg:right-8 w-px my-[-5rem] hidden sm:block"
               style={{
                 maskImage: "linear-gradient(to bottom, transparent, white 5rem, white calc(100% - 5rem), transparent)",
               }}
@@ -133,7 +133,7 @@ export default function Footer() {
 
           {/* Top Border Pattern */}
           <svg
-            className="w-full border-y border-dashed border-neutral-200 stroke-neutral-200"
+            className="w-full border-y border-dashed border-neutral-200 stroke-neutral-200 hidden sm:block"
             height="64"
             style={{
               maskImage: "linear-gradient(to right, transparent, white 2rem, white calc(100% - 2rem), transparent)",

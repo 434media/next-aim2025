@@ -68,8 +68,8 @@ export function HeroVideo() {
       >
         <motion.div
           className="w-full h-full absolute inset-0 bg-neutral-950/95 border-b md:border-r border-white/20"
-          initial={{ filter: "blur(0px)" }}
-          animate={{ filter: "blur(8px)" }}
+          initial={{ filter: "blur(4px)" }}
+          animate={{ filter: "blur(0px)" }}
           transition={{ duration: 1 }}
           aria-hidden="true"
         />

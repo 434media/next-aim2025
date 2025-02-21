@@ -9,7 +9,7 @@ export function Hero() {
         <FadeDiv className="mx-auto w-full max-w-xs text-center">
           <a
             aria-label="View latest update: AIM Webinars Announced"
-            href="#"
+            href="https://www.eventbrite.com/e/sneak-preview-aim-2025-sme-encounter-sessions-tickets-1234940392959"
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex w-full items-center gap-3 rounded-full bg-white/5 px-2.5 py-1.5 pr-3 pl-1.5 font-medium text-gray-900 ring-1 ring-black/10 shadow-lg shadow-orange-400/20 backdrop-blur-[1px] transition-colors hover:bg-orange-500/[2.5%] focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
@@ -18,7 +18,7 @@ export function Hero() {
               News
             </span>
             <span className="flex items-center gap-1 truncate text-xs sm:text-sm">
-              <span className="truncate">Monthly Webinars Announced</span>
+              <span className="truncate">AIM 2025 SYMPOSIUM SERIES </span>
               <RiArrowRightUpLine className="size-4 shrink-0 text-gray-700 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </span>
           </a>
@@ -29,7 +29,7 @@ export function Hero() {
           <FadeSpan>One</FadeSpan> <FadeSpan>Mission</FadeSpan>
         </h1>
         <p className="mt-5 max-w-3xl text-center text-base sm:text-lg md:text-xl text-gray-700 sm:mt-8 tracking-tight">
-          <FadeSpan>Join us <strong className="font-semibold text-[#10131d]">June 16-17, 2025</strong> for{" "}
+          <FadeSpan>Join us for{" "}
             <strong className="font-semibold text-[#10131d]">Military Medical Industry Day (MMID)</strong>{" "}
             <FadeSpan>and the <strong className="font-semibold text-[#10131d]">SURF conference</strong>,</FadeSpan>
           </FadeSpan>{" "}

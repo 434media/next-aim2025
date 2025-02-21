@@ -33,7 +33,7 @@ export default function CatchupBanner() {
           src="https://ampd-asset.s3.us-east-2.amazonaws.com/d43879fd-7968-40bb-a498-9950749bf6cd_1.png"
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover"
+          className="object-cover brightness-50"
           priority
         />
       </div>
@@ -41,15 +41,24 @@ export default function CatchupBanner() {
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-between p-6 sm:p-10 lg:p-16">
         <div className="md:w-1/2 lg:w-3/5 mb-6 md:mb-0 md:pr-8">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-4">
-            Relive AIM Health R&D Summit 2024
+            Help Drive Military Medical Innovation
           </h2>
-          <p className="text-lg text-white/90 mb-6">
-            Check out the highlights and catch anything you might have missed from last year&apos;s groundbreaking event.
+          <p className="text-lg text-white/90 mb-6 text-balance tracking-tight">
+            <strong>AIM Health R&D Summit</strong> provides an unparalleled epicenter for the convergence of professionals from academia, industry, and the military
           </p>
-          <Button onClick={() => setIsOpen(true)} variant="primary" className="w-full sm:w-auto text-lg py-3 px-6">
-            <RiPlayFill className="mr-2 size-5" aria-hidden="true" />
-            Watch highlights
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 mt-6">
+            <Button onClick={() => setIsOpen(true)} variant="primary" className="w-full sm:w-auto text-lg py-3 px-6">
+              <RiPlayFill className="mr-2 size-5" aria-hidden="true" />
+              Watch highlights
+            </Button>
+            <Button
+              href="https://support.velocitytx.org/campaign/642575/donate"
+              variant="secondary"
+              className="w-full sm:w-auto text-lg py-3 px-6"
+            >
+              Become a Sponsor
+            </Button>
+          </div>
           <dl className="mt-12 grid grid-cols-1 gap-y-8 border-t border-white/20 pt-8 md:grid-cols-3">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
@@ -62,7 +71,7 @@ export default function CatchupBanner() {
         <div className="md:w-1/2 lg:w-2/5 relative">
           <div className="aspect-square w-full max-w-md mx-auto">
             <Image
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/d43879fd-7968-40bb-a498-9950749bf6cd_1.png"
+              src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+30.png"
               alt="AIM Summit 2024 visual"
               width={500}
               height={500}
