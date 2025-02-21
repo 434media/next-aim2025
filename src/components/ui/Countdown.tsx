@@ -292,7 +292,7 @@ export default function Countdown() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full overflow-hidden bg-white/5 py-12"
+      className="relative w-full overflow-hidden bg-white/5 py-12 -mt-16"
       aria-labelledby="countdown-heading"
     >
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

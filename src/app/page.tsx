@@ -5,6 +5,7 @@ import FeatureDivider from "@/components/ui/FeatureDivider"
 import Features from "@/components/ui/Features"
 import { Hero } from "@/components/ui/Hero"
 import { HeroVideo } from "@/components/ui/HeroVideo"
+import { SponsorShowcase } from "@/components/ui/SponsorShowcaase"
 import Testimonial from "@/components/ui/Testimonial"
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
         <CatchupBanner />
       </div>
       <FeatureDivider className="my-16 max-w-6xl" />
+      <SponsorShowcase />
       <Countdown />
     </main>
   )

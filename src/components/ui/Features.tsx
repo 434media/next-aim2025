@@ -15,12 +15,14 @@ import {
   RiFundsFill,
   RiMoneyDollarCircleFill,
   RiPulseLine,
+  RiPlayFill,
 } from "@remixicon/react"
 import { Icons } from "../Icons"
 import { Orbit } from "../Orbit"
 import ChipViz from "./ChipViz"
 import Image from "next/image"
 import { AIMLogo } from "../../../public/AIMLogo"
+import { Button } from "../Button"
 
 export default function Features() {
   return (
@@ -445,6 +447,16 @@ export default function Features() {
           <p className="mt-4 text-balance text-gray-700">
             <strong>MMID</strong> connects military buyers with medical technology providers, driving the development of advanced technologies that ensure our service members&apos; health and readiness
           </p>
+          <div className="mt-4">
+            <Button
+              href="https://www.youtube.com/playlist?list=PLu4stFKpxLBXb7TY7luPCEAHBg1CZQru8"
+              variant="primary"
+              className="text-sm py-3 px-6"
+            >
+              <RiPlayFill className="mr-2 size-5" aria-hidden="true" />
+              Watch Pre-Event Symposiums
+            </Button>
+          </div>
         </div>
         <div className="relative col-span-2 flex items-center justify-center overflow-hidden">
           <svg
