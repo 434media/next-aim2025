@@ -7,25 +7,17 @@ import GameOfLife from "./HeroBackground"
 
 const platinumSponsors = [
   {
-    name: "TechInnovate",
+    name: "Southwest Research Institute",
     src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/Southwest_Research_Institute_SwRi.png",
   },
   {
-    name: "MediFuture",
+    name: "The Metis Foundation",
     src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/High+resolution%2C+no+background+logo.png",
   },
-  { name: "DefenseTech", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/TXBiomedical.svg" },
-]
-
-const goldSponsors = [
-  { name: "CyberShield", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/frost-logo-black.svg" },
-  { name: "BioAdvance", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/designplex.webp" },
-  {
-    name: "AeroMed",
-    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/solventum-logo-horz-black-4.svg",
-  },
-  { name: "EcoMilTech", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/Bio+Bridge+Global.jpg" },
-  { name: "NanoHealth", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/DOCUmation.png" },
+  { name: "Articulate Labs", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/al-logo.png" },
+  { name: "DesignPlex", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/designplex.webp" },
+  { name: "SATOP", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/satop+(1).png" },
+  { name: "SBIR Advisors", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/sbiradvisors.png" },
 ]
 
 export function SponsorShowcase() {
@@ -37,7 +29,6 @@ export function SponsorShowcase() {
 
   const textY = useTransform(scrollYProgress, [0, 0.4], ["50%", "0%"])
   const platinumSponsorsY = useTransform(scrollYProgress, [0.2, 0.6], ["50%", "0%"])
-  const goldSponsorsY = useTransform(scrollYProgress, [0.4, 0.8], ["50%", "0%"])
 
   return (
     <section ref={containerRef} className="relative w-full overflow-hidden bg-gray-50 py-16 sm:py-24">
@@ -55,9 +46,6 @@ export function SponsorShowcase() {
               Sponsors
             </span>
           </h2>
-          <p className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto mb-8">
-            Join leading organizations in supporting the military&apos;s medical mission
-          </p>
           <motion.div
             className="h-1 w-24 bg-orange-500 mx-auto mt-6"
             initial={{ width: 0 }}
@@ -85,28 +73,6 @@ export function SponsorShowcase() {
                   fill
                   className="object-contain transition-transform hover:scale-105 hover:opacity-80"
                   aria-label={`${sponsor.name} - Platinum Sponsor`}
-                />
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div style={{ y: goldSponsorsY }}>
-          <div className="grid grid-cols-3 sm:grid-cols-5 gap-4 sm:gap-6 justify-items-center">
-            {goldSponsors.map((sponsor, index) => (
-              <motion.div
-                key={sponsor.name}
-                className="relative w-20 h-20 sm:w-32 sm:h-32"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Image
-                  src={sponsor.src || "/placeholder.svg"}
-                  alt={`${sponsor.name} logo`}
-                  fill
-                  className="object-contain transition-transform hover:scale-105 hover:opacity-80"
-                  aria-label={`${sponsor.name} - Gold Sponsor`}
                 />
               </motion.div>
             ))}

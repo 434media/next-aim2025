@@ -24,16 +24,16 @@ export function Hero() {
           </a>
         </FadeDiv>
         <h1 className="mt-8 text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-[#10131d]">
-          <FadeSpan>Two</FadeSpan> <FadeSpan>Events</FadeSpan>
+          <FadeSpan>Two</FadeSpan> <FadeSpan>Days</FadeSpan>
           <br className="block" />
           <FadeSpan>One</FadeSpan> <FadeSpan>Mission</FadeSpan>
         </h1>
         <p className="mt-5 max-w-3xl text-center text-base sm:text-lg md:text-xl text-gray-700 sm:mt-8 tracking-tight">
-          <FadeSpan>Join us for{" "}
-            <strong className="font-semibold text-[#10131d]">Military Medical Industry Day (MMID)</strong>{" "}
-            <FadeSpan>and the <strong className="font-semibold text-[#10131d]">SURF conference</strong>,</FadeSpan>
+          <FadeSpan>The{" "}
+            <strong className="font-semibold text-[#10131d]">AIM Health R&D Summit</strong>{" "}
+            <FadeSpan>serves as a premier platform uniting <strong className="font-semibold text-[#10131d]">academia, industry, and the military</strong></FadeSpan>
           </FadeSpan>{" "}
-          <FadeSpan>a powerful combination driving innovation in military medicine</FadeSpan>
+          <FadeSpan>to drive collaboration and innovation in life sciences.</FadeSpan>
         </p>
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
           <FadeDiv>

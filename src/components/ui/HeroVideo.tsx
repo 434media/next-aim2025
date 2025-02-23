@@ -90,8 +90,8 @@ export function HeroVideo() {
                 className="text-lg sm:text-xl text-white/90 max-w-2xl leading-relaxed text-balance"
                 variants={fadeInUp}
               >
-                Join us for two groundbreaking events uniting military medical professionals, industry leaders, and
-                innovators to shape the future of battlefield medicine.
+                The <strong>AIM Health R&D Summit</strong> is a premier platform for driving innovation in life sciences, bringing together academia, industry, and the military.
+                Join us in <strong>Military Health City, USA</strong> for two groundbreaking days shaping the future of battlefield medicine.
               </motion.p>
 
               <motion.div className="flex flex-col sm:flex-row gap-4 pt-4" variants={fadeInUp}>
@@ -111,7 +111,7 @@ export function HeroVideo() {
 
       {/* Right Video Section */}
       <div className="relative w-full lg:w-1/2 order-2 min-h-[50vh]">
-        <motion.div className="absolute inset-0 bg-neutral-900" aria-hidden="true">
+        <motion.div className="absolute inset-0" aria-hidden="true">
           <AnimatePresence>
             {!isVideoLoaded && !isVideoError && (
               <motion.div
@@ -133,7 +133,7 @@ export function HeroVideo() {
             loop
             playsInline
             controls={false}
-            className="absolute inset-0 w-full h-full object-cover opacity-50"
+            className="absolute inset-0 w-full h-full object-cover"
             poster="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-poster.png"
             onLoadedData={handleVideoLoad}
             onError={handleVideoError}
