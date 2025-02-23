@@ -105,7 +105,7 @@ export function AnimatedLogo() {
             transition={{ duration: 0.5, delay: 0.7 }}
           />
           <div className="text-lg sm:text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto text-balance leading-relaxed">
-            San Antonio, "Military Health City USA," plays a pivotal role in military medicine and life science
+            San Antonio, &quot;Military Health City USA,&quot; plays a pivotal role in military medicine and life science
             innovation. Home to{" "}
             <LinkPreview
               href="https://bamc.tricare.mil/"
@@ -125,7 +125,7 @@ export function AnimatedLogo() {
               href="https://militaryhealthinstitute.org/"
               description="UT Health San Antonio's Military Health Institute (MHI) is dedicated to advancing military health and medicine through research, education, and community partnerships."
             > 
-              UT Health San Antonio's MHI
+              UT Health San Antonio&apos;s MHI
             </LinkPreview>,{" "}
             the city is a center for medical research and care. With key partners like{" "}
             <LinkPreview
