@@ -5,7 +5,7 @@ import FeatureDivider from "@/components/ui/FeatureDivider"
 import Features from "@/components/ui/Features"
 import { Hero } from "@/components/ui/Hero"
 import { HeroVideo } from "@/components/ui/HeroVideo"
-import { SponsorShowcase } from "@/components/ui/SponsorShowcaase"
+import { SponsorShowcase } from "@/components/ui/SponsorShowcase"
 import Testimonial from "@/components/ui/Testimonial"
 
 export default function Home() {

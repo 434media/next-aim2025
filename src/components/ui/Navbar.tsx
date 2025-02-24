@@ -7,8 +7,7 @@ import { RiArrowDownSLine, RiMenuLine, RiCloseLine } from "@remixicon/react"
 import { Button } from "../Button"
 
 const menuItems = [
-  { name: "Session Catalog", href: "#session-catalog" },
-  { name: "Pricing", href: "#pricing" },
+  { name: "AIM Pre-Conference Symposiums", href: "/pre-conference-symposiums" },
   {
     name: "Agenda",
     href: "#agenda",
@@ -22,20 +21,20 @@ const menuItems = [
     name: "Attend",
     href: "#attend",
     dropdown: [
-      { name: "Why Attend", href: "#why-attend" },
-      { name: "Bring Your Team", href: "#bring-your-team" },
+      { name: "Why Attend", href: "/why-attend" },
+      { name: "Bring Your Team", href: "/bring-your-team" },
     ],
   },
-  { name: "Sponsors & Exhibitors", href: "#sponsors-exhibitors" },
+  { name: "Sponsors & Exhibitors", href: "/sponsors-exhibitors" },
   {
     name: "More",
     href: "#more",
     dropdown: [
       { name: "Travel & Venue", href: "#travel-venue" },
-      { name: "FAQ", href: "#faq" },
-      { name: "Code of Conduct", href: "#code-of-conduct" },
-      { name: "Contact Us", href: "#contact" },
-      { name: "Privacy Policy", href: "#privacy" },
+      { name: "FAQ", href: "/faq" },
+      { name: "Code of Conduct", href: "/code-of-conduct" },
+      { name: "Contact Us", href: "/contact-us" },
+      { name: "Privacy Policy", href: "/privacy-policy" },
     ],
   },
 ]
@@ -158,6 +157,9 @@ export default function NavBar() {
                   variant="primary"
                   href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
                   className="text-sm py-2 md:hidden"
+                  target="_blank"
+                  rel="noopener noreferrer"
+
                 >
                   Register Now
                 </Button>
@@ -176,6 +178,8 @@ export default function NavBar() {
                   variant="primary"
                   href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
                   className="text-sm py-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Register Now
                 </Button>
@@ -271,6 +275,8 @@ export default function NavBar() {
                       variant="primary"
                       href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
                       className="w-full"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       Register Now
                     </Button>
