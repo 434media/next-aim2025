@@ -96,9 +96,9 @@ export default function CodeOfConduct() {
             conference organizer as soon as possible. You can report concerns by:
           </p>
           <ul className="list-disc pl-6 text-gray-700 space-y-2">
-            <li>Contacting a staff member wearing a designated "Staff" t-shirt</li>
-            <li>Emailing conduct@aimhealthsummit.com</li>
-            <li>Calling our emergency hotline: +1 (210) 555-0123</li>
+            <li>Contacting a staff member wearing a designated &quot;Staff&quot; t-shirt</li>
+            <li>Emailing barb@434media.com</li>
+            <li>Calling our emergency hotline: +1 (210) 852-6148</li>
           </ul>
         </motion.section>
 
