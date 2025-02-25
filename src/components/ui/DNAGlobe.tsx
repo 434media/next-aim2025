@@ -9,6 +9,11 @@ interface DNAGlobeProps {
   className?: string
 }
 
+interface Particle extends THREE.Mesh {
+  originalY: number
+  speed: number
+}
+
 export default function DNAGlobe({ width = 500, height = 500, className = "" }: DNAGlobeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -117,11 +122,11 @@ export default function DNAGlobe({ width = 500, height = 500, className = "" }: 
     })
 
     for (let i = 0; i < particleCount; i++) {
-      const particle = new THREE.Mesh(particleGeometry, particleMaterial)
+      const particle = new THREE.Mesh(particleGeometry, particleMaterial) as unknown as Particle
       particle.position.set((Math.random() - 0.5) * 40, (Math.random() - 0.5) * 40, (Math.random() - 0.5) * 40)
       // Store original position for animation
-      ;(particle as any).originalY = particle.position.y
-      ;(particle as any).speed = Math.random() * 0.02 + 0.01
+      particle.originalY = particle.position.y
+      particle.speed = Math.random() * 0.02 + 0.01
       particles.add(particle)
     }
     scene.add(particles)
@@ -153,12 +158,13 @@ export default function DNAGlobe({ width = 500, height = 500, className = "" }: 
 
       // Animate particles
       particles.children.forEach((particle: THREE.Object3D) => {
-        particle.position.y += (particle as any).speed
-        if (particle.position.y > 20) {
-          particle.position.y = -20
+        const p = particle as Particle
+        p.position.y += p.speed
+        if (p.position.y > 20) {
+          p.position.y = -20
         }
-        particle.position.x += Math.sin(phi + particle.position.y * 0.1) * 0.02
-        particle.position.z += Math.cos(phi + particle.position.y * 0.1) * 0.02
+        p.position.x += Math.sin(phi + p.position.y * 0.1) * 0.02
+        p.position.z += Math.cos(phi + p.position.y * 0.1) * 0.02
       })
 
       // Pulse effect on bars
@@ -199,4 +205,3 @@ export default function DNAGlobe({ width = 500, height = 500, className = "" }: 
     />
   )
 }
-
