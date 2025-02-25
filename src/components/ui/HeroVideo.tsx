@@ -1,9 +1,8 @@
 "use client"
 
-import type React from "react"
-import { useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { RiArrowRightUpLine, RiPlayCircleLine, RiPauseCircleLine, RiFileDownloadLine } from "@remixicon/react"
+import { RiArrowRightUpLine, RiPlayCircleLine, RiPauseCircleLine } from "@remixicon/react"
 import { Button } from "../Button"
 import { VisuallyHidden } from "@/components/ui/visually-hidden"
 
@@ -124,19 +123,16 @@ export function HeroVideo() {
                 <Button
                   variant="secondary"
                   href="https://drive.google.com/file/d/1-RqS13xFyYj5ivO5bmyYfAAWfgW5apBf/view?ts=67b8b8c3"
-                  download
                   className="text-lg py-3 px-8 w-full sm:w-auto hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <span className="flex items-center justify-center">
                     Sponsor Prospectus
-                    <RiFileDownloadLine className="ml-2 size-5" aria-hidden="true" />
+                    <RiArrowRightUpLine className="ml-2 size-5" aria-hidden="true" />
                   </span>
                 </Button>
               </motion.div>
-              <motion.p className="text-sm text-white/60 mt-2" variants={fadeInUp}>
-                <RiFileDownloadLine className="inline-block mr-1" />
-                PDF document will download
-              </motion.p>
             </motion.div>
           </div>
         </div>

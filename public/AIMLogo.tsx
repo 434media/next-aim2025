@@ -1,52 +1,33 @@
-import * as React from "react"
+import type * as React from "react"
 
-interface AIMLogoProps extends React.SVGProps<SVGSVGElement> {}
+interface AIMLogoProps extends React.SVGProps<SVGSVGElement> {
+  variant?: "default" | "white"
+}
 
-export function AIMLogo(props: AIMLogoProps) {
+export function AIMLogo({ variant = "default", ...props }: AIMLogoProps) {
+  const fillColor = variant === "white" ? "#FFFFFF" : "#0d1125"
+  const cls2Color = variant === "white" ? "#FFFFFF" : "#fff"
+  const cls5Color = variant === "white" ? "#FFFFFF" : "#759dbf"
+  const cls6Color = variant === "white" ? "#FFFFFF" : "#5a5a2c"
+
   return (
-    <svg
-      id="Layer_1"
-      data-name="Layer 1"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 346.94 250.38"
-      {...props}
-    >
+    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 346.94 250.38" {...props}>
       <defs>
         <style>
-          {
-            ".cls-2{fill:#fff}.cls-3{fill:#0d1125}.cls-5{fill:#759dbf}.cls-6{fill:#5a5a2c}"
-          }
+          {`.cls-2{fill:${cls2Color}}.cls-3{fill:${fillColor}}.cls-5{fill:${cls5Color}}.cls-6{fill:${cls6Color}}`}
         </style>
       </defs>
       <path
         d="M2.18 60.6h83.23V46.08h21.94v-7.74h11.59l28.16-14.98-.56-5.01c2.69-.4 5.38-.81 8.07-1.21 0-9.81 13.4-17.15 18.88-17.15 5.48 0 18.87 7.34 18.88 17.15 2.69.4 5.38.81 8.07 1.21l-.57 5.01 28.16 14.98h11.59v7.74h21.94V60.6h83.23v11.24H2.18V60.6z"
         fillRule="evenodd"
-        fill="#0d1125"
+        fill={fillColor}
       />
-      <path
-        className="cls-3"
-        d="M79.42 81.89H96.52000000000001V210.94H79.42z"
-      />
-      <path
-        className="cls-3"
-        d="M155.29 210.95L143.57 210.95 155.29 155.49 155.29 210.95z"
-      />
-      <path
-        className="cls-3"
-        d="M114.18 210.95L125.91 210.95 114.18 155.49 114.18 210.95z"
-      />
-      <path
-        className="cls-3"
-        d="M114.26 81.65L134.74 170.53 155.29 81.65 114.26 81.65z"
-      />
-      <path
-        className="cls-3"
-        d="M61.33 210.95L61.33 81.89 26.53 81.89 47.36 210.95 61.33 210.95z"
-      />
-      <path
-        className="cls-3"
-        d="M28.18 210.95L24.87 189.71 6.4 189.71 2.09 210.95 28.18 210.95z"
-      />
+      <path className="cls-3" d="M79.42 81.89H96.52000000000001V210.94H79.42z" />
+      <path className="cls-3" d="M155.29 210.95L143.57 210.95 155.29 155.49 155.29 210.95z" />
+      <path className="cls-3" d="M114.18 210.95L125.91 210.95 114.18 155.49 114.18 210.95z" />
+      <path className="cls-3" d="M114.26 81.65L134.74 170.53 155.29 81.65 114.26 81.65z" />
+      <path className="cls-3" d="M61.33 210.95L61.33 81.89 26.53 81.89 47.36 210.95 61.33 210.95z" />
+      <path className="cls-3" d="M28.18 210.95L24.87 189.71 6.4 189.71 2.09 210.95 28.18 210.95z" />
       <path
         className="cls-3"
         d="M28.25 157.73l-7.54 5.48 2.9 8.9-7.55-5.5-7.57 5.5 2.9-8.9-7.52-5.48h9.3l2.9-8.85 2.88 8.85h9.31z"
@@ -74,7 +55,7 @@ export function AIMLogo(props: AIMLogoProps) {
       </g>
       <text
         transform="translate(140.78 56.54)"
-        fill="#fff"
+        fill={cls2Color}
         fontFamily="Roboto-Bold,Roboto"
         fontSize="28.55px"
         fontWeight={700}
@@ -86,3 +67,4 @@ export function AIMLogo(props: AIMLogoProps) {
     </svg>
   )
 }
+
