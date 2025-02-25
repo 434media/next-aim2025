@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/Button"
 import { RiPlayFill } from "@remixicon/react"
 import { VisuallyHidden } from "@/components/ui/visually-hidden"
-import { motion, useInView } from "motion/react"
+import { motion, useInView, useScroll, useTransform } from "motion/react"
 
 const stats = [
   {
@@ -28,13 +28,38 @@ export default function CatchupBanner() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.5 })
 
+  const { scrollYProgress } = useScroll()
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
+
   return (
     <section
       className="relative mx-auto w-full max-w-6xl overflow-hidden rounded-xl shadow-2xl shadow-[#101310]/30"
       aria-label="AIM Summit 2024 Highlights"
       ref={ref}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-[#101310] via-[#366A79] to-[#4f4f2c]" />
+      <div className="absolute inset-0">
+        <motion.div
+          className="absolute inset-0"
+          initial={{ filter: "blur(10px) brightness(50%)" }}
+          animate={{ filter: "blur(0px) brightness(100%)" }}
+          transition={{ duration: 1.5 }}
+        >
+          <Image
+            alt="Medical research background"
+            src="https://ampd-asset.s3.us-east-2.amazonaws.com/milcityusa-2-testimonial.png"
+            fill
+            sizes="100vw"
+            className="object-cover"
+            priority
+          />
+        </motion.div>
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-br from-[#101310]/80 via-[#366A79]/70 to-[#4f4f2c]/80"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        />
+      </div>
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-between p-6 sm:p-10 lg:p-16">
         <div className="md:w-1/2 lg:w-3/5 mb-6 md:mb-0 md:pr-8">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-6 text-shadow-lg">
@@ -72,15 +97,18 @@ export default function CatchupBanner() {
           </dl>
         </div>
         <div className="md:w-1/2 lg:w-2/5 relative">
-          <div className="aspect-square w-full max-w-md mx-auto relative">
+          <motion.div
+            className="aspect-square w-full max-w-md mx-auto relative overflow-hidden rounded-xl shadow-lg border-4 border-white"
+            style={{ scale: imageScale }}
+          >
             <Image
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/med2.png"
               alt="AIM Summit 2024 visual"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="rounded-xl object-cover shadow-lg grayscale hover:grayscale-0 transition duration-300"
+              className="object-cover grayscale hover:grayscale-0 transition-grayscale duration-300"
             />
-          </div>
+          </motion.div>
         </div>
       </div>
 
