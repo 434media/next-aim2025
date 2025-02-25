@@ -158,7 +158,7 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 border-t border-white/10">
         <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-          <p className="text-[#548cac] text-sm">&copy; 2025 AIM Health R&D Summit. All rights reserved.</p>
+          <p className="text-[#548cac] text-sm">&copy; 434 MEDIA. All rights reserved.</p>
 
           <div className="flex gap-6" aria-label="Social media links">
             <SocialLink href="#" icon={RiYoutubeFill} label="YouTube" />
