@@ -53,23 +53,25 @@ export default function NavBar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
+    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
       <div className="relative flex flex-col">
         {/* Top Banner */}
-        <div className="bg-neutral-950">
+        <div className="bg-[#101310] transition-all duration-300">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-12 text-sm text-white">
               <div className="hidden md:flex items-center space-x-6">
                 <span className="flex items-center">
-                  <span className="font-bold text-orange-600">{eventInfo.aim.name}</span>
+                  <Link href="/">
+                    <span className="font-bold text-[#548cac] hover:text-[#548cac]/80">{eventInfo.aim.name}</span>
+                  </Link>
                   <span className="mx-2">|</span>
                   <span>{eventInfo.aim.date}</span>
                 </span>
               </div>
               {/* Mobile: Show AIM event info */}
               <div className="md:hidden flex flex-col items-start">
-                <span className="font-bold text-orange-600">{eventInfo.aim.name}</span>
-                <span>{eventInfo.aim.date}</span>
+                <span className="font-bold text-[#548cac]">{eventInfo.aim.name}</span>
+                <span className="text-xs">{eventInfo.aim.date}</span>
               </div>
               {/* Desktop: Show venue and location */}
               <div className="hidden md:flex items-center space-x-2">
@@ -79,14 +81,14 @@ export default function NavBar() {
               </div>
               {/* Mobile: Show only location */}
               <div className="md:hidden">
-                <span>{eventInfo.location}</span>
+                <span className="text-xs">{eventInfo.location}</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Main Navigation */}
-        <nav className="bg-white shadow-lg" aria-label="Main navigation">
+        <nav className="bg-[#101310]/80 backdrop-blur-sm transition-all duration-300" aria-label="Main navigation">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
               {/* Desktop Menu */}
@@ -95,19 +97,13 @@ export default function NavBar() {
                   <div
                     key={item.name}
                     className="relative"
-                    onMouseEnter={() => {
-                      const timer = setTimeout(() => setActiveDropdown(item.name), 100)
-                      return () => clearTimeout(timer)
-                    }}
-                    onMouseLeave={() => {
-                      const timer = setTimeout(() => setActiveDropdown(null), 100)
-                      return () => clearTimeout(timer)
-                    }}
+                    onMouseEnter={() => setActiveDropdown(item.name)}
+                    onMouseLeave={() => setActiveDropdown(null)}
                     onFocus={() => setActiveDropdown(item.name)}
                   >
                     <Link
                       href={item.href}
-                      className="group flex items-center text-sm font-medium text-neutral-700 hover:text-orange-600 transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded-md px-2 py-1"
+                      className="group flex items-center text-sm font-medium text-white hover:text-[#548cac] transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-md px-2 py-1"
                     >
                       {item.name}
                       {item.dropdown && (
@@ -124,7 +120,7 @@ export default function NavBar() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ duration: 0.2, ease: "easeOut" }}
-                          className="absolute top-full left-0 w-48 py-2 mt-1 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
+                          className="absolute top-full left-0 w-48 py-2 mt-1 bg-[#101310] rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
                           role="menu"
                         >
                           {item.dropdown.map((subItem) => (
@@ -136,7 +132,7 @@ export default function NavBar() {
                             >
                               <Link
                                 href={subItem.href}
-                                className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 hover:text-orange-600 focus:outline-none focus:bg-neutral-100 focus:text-orange-600"
+                                className="block px-4 py-2 text-sm text-white hover:bg-[#548cac]/20 hover:text-[#548cac] focus:outline-none focus:bg-[#548cac]/20 focus:text-[#548cac]"
                                 role="menuitem"
                                 onClick={() => setActiveDropdown(null)}
                               >
@@ -159,16 +155,15 @@ export default function NavBar() {
                   className="text-sm py-2 md:hidden"
                   target="_blank"
                   rel="noopener noreferrer"
-
                 >
                   Register Now
                 </Button>
                 <button
                   onClick={() => setIsOpen(true)}
-                  className="p-2 rounded-full transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-orange-500 md:hidden"
+                  className="p-2 rounded-full transition-colors hover:bg-[#548cac]/20 focus:outline-none focus:ring-2 focus:ring-[#548cac] md:hidden"
                   aria-label="Open menu"
                 >
-                  <RiMenuLine className="size-6 text-neutral-900" />
+                  <RiMenuLine className="size-6 text-white" />
                 </button>
               </div>
 
@@ -205,32 +200,32 @@ export default function NavBar() {
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 exit={{ opacity: 0, scale: 0.95, x: 20 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="fixed top-4 right-4 bottom-4 w-[calc(100%-2rem)] max-w-sm bg-white z-50 shadow-xl rounded-2xl overflow-hidden"
+                className="fixed top-4 right-4 bottom-4 w-[calc(100%-2rem)] max-w-sm bg-[#101310] z-50 shadow-xl rounded-2xl overflow-hidden"
                 role="dialog"
                 aria-modal="true"
                 aria-label="Navigation menu"
               >
                 <div className="flex flex-col h-full overflow-y-auto">
-                  <div className="flex items-center justify-between p-4 border-b">
-                    <h2 className="text-lg font-semibold text-neutral-900">Menu</h2>
+                  <div className="flex items-center justify-between p-4 border-b border-[#548cac]/20">
+                    <h2 className="text-lg font-semibold text-white">Menu</h2>
                     <button
                       onClick={() => setIsOpen(false)}
-                      className="p-2 rounded-full hover:bg-neutral-100 transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="p-2 rounded-full hover:bg-[#548cac]/20 transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac]"
                       aria-label="Close menu"
                     >
-                      <RiCloseLine className="size-6 text-neutral-900" />
+                      <RiCloseLine className="size-6 text-white" />
                     </button>
                   </div>
 
-                  <div className="p-4 border-b bg-neutral-50">
+                  <div className="p-4 border-b border-[#548cac]/20 bg-[#101310]/50">
                     <div className="space-y-3">
                       <div>
-                        <p className="text-sm font-semibold text-orange-600">{eventInfo.aim.name}</p>
-                        <p className="text-sm text-neutral-600">{eventInfo.aim.date}</p>
+                        <p className="text-sm font-semibold text-[#548cac]">{eventInfo.aim.name}</p>
+                        <p className="text-sm text-white/80">{eventInfo.aim.date}</p>
                       </div>
                       <div>
-                        <p className="text-sm text-neutral-600">{eventInfo.venue}</p>
-                        <p className="text-sm text-neutral-600">{eventInfo.location}</p>
+                        <p className="text-sm text-white/80">{eventInfo.venue}</p>
+                        <p className="text-sm text-white/80">{eventInfo.location}</p>
                       </div>
                     </div>
                   </div>
@@ -241,13 +236,13 @@ export default function NavBar() {
                         <li key={item.name}>
                           {item.dropdown ? (
                             <div className="space-y-2">
-                              <div className="text-lg font-medium text-neutral-900">{item.name}</div>
+                              <div className="text-lg font-medium text-white">{item.name}</div>
                               <ul className="pl-4 space-y-2" role="list">
                                 {item.dropdown.map((subItem) => (
                                   <li key={subItem.name}>
                                     <Link
                                       href={subItem.href}
-                                      className="block text-base text-neutral-700 hover:text-orange-600 transition-colors focus:outline-none focus:text-orange-600"
+                                      className="block text-base text-white/80 hover:text-[#548cac] transition-colors focus:outline-none focus:text-[#548cac]"
                                       onClick={() => setIsOpen(false)}
                                     >
                                       {subItem.name}
@@ -259,7 +254,7 @@ export default function NavBar() {
                           ) : (
                             <Link
                               href={item.href}
-                              className="block text-lg font-medium text-neutral-900 hover:text-orange-600 transition-colors focus:outline-none focus:text-orange-600"
+                              className="block text-lg font-medium text-white hover:text-[#548cac] transition-colors focus:outline-none focus:text-[#548cac]"
                               onClick={() => setIsOpen(false)}
                             >
                               {item.name}
@@ -270,7 +265,7 @@ export default function NavBar() {
                     </ul>
                   </nav>
 
-                  <div className="p-4 border-t bg-neutral-50">
+                  <div className="p-4 border-t border-[#548cac]/20 bg-[#101310]/50">
                     <Button
                       variant="primary"
                       href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"

@@ -5,37 +5,36 @@ import React from "react"
 
 const variants = {
   primary: clsx(
-    "inline-flex items-center justify-center px-4 py-[calc(theme(spacing.2)-1px)]",
-    "rounded-full border border-transparent bg-orange-500 shadow-md",
+    "inline-flex items-center justify-center px-4 py-2",
+    "rounded-full border border-transparent bg-[#548cac] shadow-md",
     "whitespace-nowrap text-base font-medium text-white",
-    "transition-colors duration-200 ease-in-out", // Add transition for smoother hover effect
-    "data-[disabled]:bg-gray-950 hover:bg-orange-500/90 data-[disabled]:opacity-40",
-    "focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2", // Improve focus styles for accessibility
+    "transition-colors duration-200 ease-in-out",
+    "hover:bg-[#548cac]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#548cac] focus-visible:ring-offset-2",
+    "disabled:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-60",
   ),
   secondary: clsx(
-    "relative inline-flex items-center justify-center px-4 py-[calc(theme(spacing.2)-1px)]",
-    "rounded-full border border-transparent bg-neutral-950/90 shadow-md ring-1 ring-[#D15052]/15",
-    "after:absolute after:inset-0 after:rounded-full after:shadow-[inset_0_0_2px_1px_#ffffff4d]",
+    "inline-flex items-center justify-center px-4 py-2",
+    "rounded-full border border-transparent bg-[#4f4f2c] shadow-md",
     "whitespace-nowrap text-base font-medium text-white",
-    "transition-colors duration-200 ease-in-out", // Add transition for smoother hover effect
-    "data-[disabled]:bg-deepNavyBlue/15 hover:bg-deepNavyBlue/20 data-[disabled]:opacity-40",
-    "focus:outline-none focus:ring-2 focus:ring-deepNavyBlue focus:ring-offset-2", // Improve focus styles for accessibility
+    "transition-colors duration-200 ease-in-out",
+    "hover:bg-[#4f4f2c]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4f4f2c] focus-visible:ring-offset-2",
+    "disabled:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-60",
   ),
   outline: clsx(
-    "inline-flex items-center justify-center px-4 py-[calc(theme(spacing.2)-1px)]",
-    "rounded-full border border-transparent bg-coolGreen shadow-md ring-1 ring-black/10",
-    "whitespace-nowrap text-sm font-medium text-white",
-    "transition-colors duration-200 ease-in-out", // Add transition for smoother hover effect
-    "data-[disabled]:bg-transparent hover:bg-coolGreen/90 data-[disabled]:opacity-40",
-    "focus:outline-none focus:ring-2 focus:ring-coolGreen focus:ring-offset-2", // Improve focus styles for accessibility
+    "inline-flex items-center justify-center px-4 py-2",
+    "rounded-full border border-[#101310] bg-transparent",
+    "whitespace-nowrap text-base font-medium text-[#101310]",
+    "transition-colors duration-200 ease-in-out",
+    "hover:bg-[#101310]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#101310] focus-visible:ring-offset-2",
+    "disabled:bg-transparent disabled:border-gray-300 disabled:text-gray-300 disabled:cursor-not-allowed disabled:opacity-60",
   ),
 }
 
 type ButtonProps = {
   variant?: keyof typeof variants
-  children: React.ReactNode // Explicitly type children
+  children: React.ReactNode
 } & (
-  | (React.ComponentPropsWithoutRef<typeof Link> & { href: string }) // Ensure href is required for Link
+  | (React.ComponentPropsWithoutRef<typeof Link> & { href: string })
   | (Omit<Headless.ButtonProps, "children"> & { href?: undefined })
 )
 
@@ -43,21 +42,32 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
   { variant = "primary", className, children, ...props },
   ref,
 ) {
-  const buttonClassName = clsx(className, variants[variant])
+  const buttonClassName = clsx("relative overflow-hidden", variants[variant], className)
+
+  const content = (
+    <>
+      <span className="relative z-10">{children}</span>
+      <span
+        className="absolute inset-0 transform transition-transform duration-200 ease-in-out group-hover:scale-105"
+        aria-hidden="true"
+      />
+    </>
+  )
 
   if ("href" in props && props.href !== undefined) {
     return (
       <Link {...props} className={buttonClassName} ref={ref as React.Ref<HTMLAnchorElement>}>
-        {children}
+        {content}
       </Link>
     )
   }
 
   return (
     <Headless.Button {...props} className={buttonClassName} ref={ref as React.Ref<HTMLButtonElement>}>
-      {children}
+      {content}
     </Headless.Button>
   )
 })
 
-Button.displayName = "Button" // Add display name for better debugging
+Button.displayName = "Button"
+
