@@ -3,7 +3,7 @@ import CatchupBanner from "@/components/ui/CatchupBanner"
 import Countdown from "@/components/ui/Countdown"
 import FeatureDivider from "@/components/ui/FeatureDivider"
 import Features from "@/components/ui/Features"
-import { Hero } from "@/components/ui/Hero"
+//import { Hero } from "@/components/ui/Hero"
 import { HeroVideo } from "@/components/ui/HeroVideo"
 import { SponsorShowcase } from "@/components/ui/SponsorShowcase"
 import Testimonial from "@/components/ui/Testimonial"
@@ -13,7 +13,6 @@ export default function Home() {
     <main className="relative mx-auto flex flex-col">
       <HeroVideo />
       <AnimatedLogo />
-      <Hero />
       <div className="pt-16 px-4 xl:px-0">
         <Features />
       </div>

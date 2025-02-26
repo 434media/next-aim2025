@@ -1,24 +1,9 @@
 "use client"
 
-import {
-  RiCircleLine,
-  RiDnaLine,
-  RiOpenaiFill,
-  RiPulseAiFill,
-  RiClaudeFill,
-  RiGlobalLine,
-  RiGeminiLine,
-  RiHeartPulseLine,
-  RiMentalHealthLine,
-  RiFundsFill,
-  RiMoneyDollarCircleFill,
-  RiPulseLine,
-  RiPlayFill,
-} from "@remixicon/react"
+import { RiCircleLine, RiPlayFill } from "@remixicon/react"
 import { Orbit } from "../Orbit"
 import ChipViz from "./ChipViz"
 import Image from "next/image"
-import { AIMLogo } from "../../../public/AIMLogo"
 import { Button } from "../Button"
 import { motion, useScroll, useTransform } from "motion/react"
 import { useRef } from "react"
@@ -111,19 +96,18 @@ export default function Features() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="relative text-lg font-semibold tracking-tight text-[#548cac]">
-            Academia, Industry, and Military Researchers
-            <div className="absolute top-1 -left-[8px] h-5 w-[3px] rounded-r-sm bg-[#548cac]" />
+          <h2 className="relative text-lg font-semibold tracking-tight text-[#101310]">
+            Academia
+            <div className="absolute top-1 -left-[8px] h-5 w-[3px] rounded-r-sm bg-[#101310]" />
           </h2>
-          <p className="mt-2 text-3xl font-semibold tracking-tighter text-balance text-[#101310] md:text-4xl">
-            Promoting Cross-Sector Collaboration
-          </p>
-          <p className="mt-4 text-balance text-gray-700">
-            <strong>AIM</strong> draws top minds from across the life sciences ecosystem in a collaborative forum where
-            groundbreaking ideas are shared, partnerships are forged, and solutions to some of healthcare&apos;s
-            toughest challenges are discovered. San Antonio, as &quot;Military Health City USA,&quot; provides the
-            perfect backdrop for this convergence of academia, industry, and military expertise, with UTSA and UT Health
-            San Antonio leading the charge in research and innovation.
+          <h3 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-balance text-[#101310]">
+            San Antonio is the Center for Medical Research and Care
+          </h3>
+          <p className="mt-4 text-base sm:text-lg text-balance leading-relaxed text-gray-700">
+            San Antonio Texas is a unique city, serving as a leader in government and civilian healthcare research
+            through organizations including the San Antonio Military Health System (SAMHS), The University of Texas
+            Health San Antonio (UTHSA), The University of Texas at San Antonio (UTSA), Texas Biomedical Research
+            Foundation and the Veterans Administration (VA).
           </p>
         </motion.div>
         <motion.div
@@ -157,6 +141,7 @@ export default function Features() {
                 durationSeconds={40}
                 radiusPx={140}
                 keepUpright
+                aria-label="Rotating logos of partner organizations"
                 orbitingObjects={[
                   <motion.div
                     key="utsa"
@@ -168,8 +153,8 @@ export default function Features() {
                     <Image
                       src="https://ampd-asset.s3.us-east-2.amazonaws.com/utsa-wordmark.svg"
                       alt="UTSA Logo"
-                      width={60}
-                      height={60}
+                      width={80}
+                      height={80}
                       className="z-10"
                     />
                     <motion.div
@@ -193,14 +178,23 @@ export default function Features() {
                   >
                     <div className="absolute size-16 rounded-full bg-white/90 ring-1 shadow-lg ring-black/5"></div>
                     <Image
+                      src="https://ampd-asset.s3.us-east-2.amazonaws.com/surf.png"
+                      alt="SURF Logo"
+                      width={80}
+                      height={80}
+                      className="z-10"
+                    />
+                  </motion.div>,
+                  <div key="obj1" className="relative flex items-center justify-center">
+                    <Image
                       src="https://ampd-asset.s3.us-east-2.amazonaws.com/UTHSA_logo.svg"
-                      alt="UTHSA Logo"
-                      width={60}
-                      height={60}
+                      alt="UT Health"
+                      width={80}
+                      height={80}
                       className="z-10"
                     />
                     <motion.div
-                      className="absolute size-16 rounded-full ring-2 ring-[#548cac]"
+                      className="absolute size-10 rounded-full ring-2 ring-[#548cac]"
                       animate={{
                         scale: [1, 1.2, 1],
                         opacity: [0.7, 0.3, 0.7],
@@ -212,9 +206,6 @@ export default function Features() {
                         delay: 1.5,
                       }}
                     />
-                  </motion.div>,
-                  <div key="obj1" className="relative flex items-center justify-center">
-                    <RiPulseAiFill className="z-10 size-5 text-[#548cac]" />
                     <div className="absolute size-10 rounded-full bg-white/50 ring-1 shadow-lg ring-black/5"></div>
                     <div className="absolute -top-5 left-4">
                       <div className="flex gap-1">
@@ -222,7 +213,7 @@ export default function Features() {
                           <RiCircleLine className="size-3 shrink-0 text-white" />
                         </div>
                         <div className="rounded-r-full bg-white/50 py-0.5 pr-1.5 pl-1 text-xs whitespace-nowrap ring-1 ring-gray-200">
-                          Health
+                          UT Health
                         </div>
                       </div>
                     </div>
@@ -240,7 +231,13 @@ export default function Features() {
                     />
                   </div>,
                   <div key="obj2" className="relative flex items-center justify-center">
-                    <RiDnaLine className="z-10 size-5 text-[#548cac]" />
+                    <Image
+                      src="https://ampd-asset.s3.us-east-2.amazonaws.com/Logotype-on-Light.svg"
+                      alt="VA Logo"
+                      width={80}
+                      height={80}
+                      className="z-10"
+                    />
                     <div className="absolute size-10 rounded-full bg-white/50 ring-1 shadow-lg ring-black/5"></div>
                     <motion.div
                       className="absolute size-10 rounded-full ring-1 ring-[#548cac]/50"
@@ -260,8 +257,14 @@ export default function Features() {
               >
                 <div className="relative flex h-48 w-48 items-center justify-center">
                   <div className="rounded-full p-1 ring-1 ring-black/10">
-                    <div className="relative z-10 flex size-20 items-center justify-center rounded-full bg-white ring-1 shadow-[inset_0px_-15px_20px_rgba(0,0,0,0.1),0_7px_10px_0_rgba(0,0,0,0.15)] ring-black/20">
-                      <AIMLogo className="size-15 -mt-2" />
+                    <div className="overflow-hidden relative z-10 flex size-20 items-center justify-center rounded-full bg-white ring-1 shadow-[inset_0px_-15px_20px_rgba(0,0,0,0.1),0_7px_10px_0_rgba(0,0,0,0.15)] ring-black/20">
+                      <Image
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-2025.svg"
+                        alt="AIM 2025 Logo"
+                        width={80}
+                        height={80}
+                        className="object-cover"
+                      />
                     </div>
                     <motion.div
                       className="absolute inset-12 rounded-full bg-[#548cac]/20"
@@ -290,16 +293,17 @@ export default function Features() {
           viewport={{ once: true }}
         >
           <h2 className="relative text-lg font-semibold tracking-tight text-[#548cac]">
-            Military Health & Universities Research Forum
+            Industry
             <div className="absolute top-1 -left-[8px] h-5 w-[3px] rounded-r-sm bg-[#548cac]" />
           </h2>
-          <p className="mt-2 text-3xl font-semibold tracking-tighter text-balance text-[#101310] md:text-4xl">
-            Advancing Health Outcomes and Readiness
-          </p>
-          <p className="mt-4 text-balance text-gray-700">
-            <strong>SURF</strong> showcases cutting-edge research, fostering vital connections among academic, military,
-            and industry partners to advance health outcomes and readiness. With partners like UTSA, UT Health San
-            Antonio, and the Defense Health Agency, SURF is at the forefront of military medical innovation.
+          <h2 className="relative text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-balance text-[#101310]">
+            Bioscience Ecosystem in San Antonio
+          </h2>
+          <p className="mt-4 text-base sm:text-lg text-balance leading-relaxed text-gray-700">
+            San Antonio's healthcare and bioscience industries are credited with an annual economic impact of $44B, and
+            account for nearly one-fifth of all local jobs. <strong className="text-[#548cac]">VelocityTX</strong>{" "}
+            serves as a critical connector to promote bioscience innovation and accelerate the process by which emerging
+            medical technologies can be leveraged by America's Warfighters.
           </p>
         </motion.div>
         <motion.div
@@ -339,11 +343,11 @@ export default function Features() {
               <div className="absolute top-[192px] left-[191.8px]">
                 <div className="relative flex h-12 w-12 items-center justify-center bg-white ring-1 shadow-sm ring-black/15">
                   <Image
-                    src="https://ampd-asset.s3.us-east-2.amazonaws.com/surf.png"
-                    alt="SURF Logo"
+                    src="https://ampd-asset.s3.us-east-2.amazonaws.com/InnovationShowcase-ezgif.com-video-to-gif-converter+(1)+(1).gif"
+                    alt="Innovation Showcase gif"
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-contain"
+                    className="object-cover"
                   />
                 </div>
               </div>
@@ -352,7 +356,13 @@ export default function Features() {
                   <div className="absolute inset-0 size-12 animate-pulse bg-[#548cac]/20 blur-[3px]"></div>
                   <div className="relative flex h-12 w-12 items-center justify-center bg-white ring-1 shadow-sm ring-black/15">
                     <span className="text-sm font-medium text-[#548cac]">
-                      <RiMentalHealthLine className="size-5 text-[#548cac]" />
+                      <Image
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/VelocityTX+Logo+BUTTON+RGB.png"
+                        alt="VelocityTX Logo"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-contain"
+                      />
                     </span>
                   </div>
                 </div>
@@ -363,7 +373,13 @@ export default function Features() {
                   <div className="absolute inset-0 size-12 animate-pulse bg-[#548cac]/20 blur-[3px]"></div>
                   <div className="relative flex h-12 w-12 items-center justify-center bg-white ring-1 shadow-sm ring-black/15">
                     <span className="">
-                      <RiHeartPulseLine className="size-5 text-[#548cac]" />
+                      <Image
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/healthcell.webp"
+                        alt="Health Cell Logo"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-contain"
+                      />
                     </span>
                   </div>
                 </div>
@@ -374,7 +390,13 @@ export default function Features() {
                   <div className="absolute inset-0 size-12 animate-pulse bg-[#548cac]/20 blur-[3px]"></div>
                   <div className="relative flex h-12 w-12 items-center justify-center bg-white ring-1 shadow-sm ring-black/15">
                     <span className="text-sm font-medium text-[#548cac]">
-                      <RiGlobalLine className="size-5 text-[#548cac]" />
+                      <Image
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/AlamoAngels-Horizontal-Logo-RGB_boxed-Copy.webp"
+                        alt="Alamo Angels Logo"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-contain"
+                      />
                     </span>
                   </div>
                 </div>
@@ -385,7 +407,13 @@ export default function Features() {
                   <div className="absolute inset-0 size-12 animate-pulse bg-[#548cac]/20 blur-[3px]"></div>
                   <div className="relative flex h-12 w-12 items-center justify-center bg-white ring-1 shadow-sm ring-black/15">
                     <span className="text-sm font-medium text-[#548cac]">
-                      <RiPulseLine className="size-5 text-[#548cac]" />
+                      <Image
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/biomed.webp"
+                        alt="Biomed Logo"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-contain"
+                      />
                     </span>
                   </div>
                 </div>
@@ -396,7 +424,13 @@ export default function Features() {
                   <div className="absolute inset-0 size-12 animate-pulse bg-[#548cac]/20 blur-[3px]"></div>
                   <div className="relative flex h-12 w-12 items-center justify-center bg-white ring-1 shadow-sm ring-black/15">
                     <span className="text-sm font-medium text-[#548cac]">
-                      <RiGeminiLine className="size-5 text-[#548cac]" />
+                      <Image
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/txbio.webp"
+                        alt="Texas Biomed Logo"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-contain w-full h-full"
+                      />
                     </span>
                   </div>
                 </div>
@@ -407,7 +441,13 @@ export default function Features() {
                   <div className="absolute inset-0 size-12 animate-pulse bg-[#548cac]/20 blur-[3px]"></div>
                   <div className="relative flex h-12 w-12 items-center justify-center bg-white ring-1 shadow-sm ring-black/15">
                     <span className="text-sm font-medium text-[#548cac]">
-                      <RiDnaLine className="size-5 text-[#548cac]" />
+                      <Image
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/mhm.png"
+                        alt="MHM Logo"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-contain"
+                      />
                     </span>
                   </div>
                 </div>
@@ -423,24 +463,25 @@ export default function Features() {
           viewport={{ once: true }}
         >
           <h2 className="relative text-lg font-semibold tracking-tight text-[#4f4f2c]">
-            Military Medical Industry Day
+            Military
             <div className="absolute top-1 -left-[7px] h-5 w-[3px] rounded-r-sm bg-[#4f4f2c]" />
           </h2>
-          <p className="mt-2 text-3xl font-semibold tracking-tighter text-balance text-[#101310] md:text-4xl">
-            Bridging the Gap Between the Armed Forces and the Private Sector
-          </p>
-          <p className="mt-4 text-balance text-gray-700">
-            <strong>MMID</strong> connects military buyers with medical technology providers, driving the development of
-            advanced technologies that ensure our service members&apos; health and readiness. This unique event,
-            supported by organizations like VelocityTX, catalyzes innovation in military medicine.
+          <h2 className="relative text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-balance text-[#101310]">
+            Military Medical Research Partners
+          </h2>
+          <p className="mt-4 text-base sm:text-lg text-balance leading-relaxed text-gray-700">
+            Long known as Military City, USA, San Antonio is home to the largest joint base in the US Department of
+            Defense, with a robust medical ecosystem all its own. Indeed, the city boasts 10 military treatment
+            facilities (MTF's), 12,000 clinical staff, 37 graduate medical education programs with nearly 600 residents,
+            four critical care air transport teams, a burn flight team, and the DOD's only Level 1 Trauma Center.
           </p>
           <div className="mt-4">
             <Button
               href="https://www.youtube.com/playlist?list=PLu4stFKpxLBXb7TY7luPCEAHBg1CZQru8"
               variant="primary"
-              className="text-sm py-3 px-6"
+              aria-label="Watch Pre-Event Symposiums on YouTube"
             >
-              <RiPlayFill className="mr-2 size-5" aria-hidden="true" />
+              <RiPlayFill className="mr-2 size-5 inline-flex" aria-hidden="true" />
               Watch Pre-Event Symposiums
             </Button>
           </div>
@@ -474,29 +515,53 @@ export default function Features() {
             <div className="relative">
               <div className="absolute top-[6rem] left-[6rem] z-20">
                 <div className="relative mx-auto w-fit rounded-full bg-gray-50 p-1 ring-1 shadow-md shadow-black/10 ring-black/10">
-                  <div className="w-fit rounded-full bg-linear-to-b from-white to-gray-100 p-3 ring-1 shadow-[inset_0px_-2px_6px_rgba(0,0,0,0.09),0_3px_5px_0_rgba(0,0,0,0.19)] ring-white/50 ring-inset">
-                    <RiOpenaiFill className="size-5 text-[#4f4f2c]" aria-hidden="true" />
+                  <div className="w-fit rounded-full bg-linear-to-b from-white to-gray-100 p-3 ring-1 shadow-[inset_0px_-2px_6px_rgba(0,0,0,0.05),0_7px_10px_0_rgba(0,0,0,0.10)] ring-white/50 ring-inset">
+                    <Image
+                      src="https://ampd-asset.s3.us-east-2.amazonaws.com/mmid.png"
+                      alt="MMID Logo"
+                      width={60}
+                      height={60}
+                      className="rounded-full"
+                    />
                   </div>
                 </div>
               </div>
               <div className="absolute top-[6rem] right-[6rem] z-20">
                 <div className="relative mx-auto w-fit rounded-full bg-gray-50 p-1 ring-1 shadow-md shadow-black/10 ring-black/10">
                   <div className="w-fit rounded-full bg-linear-to-b from-white to-gray-100 p-3 ring-1 shadow-[inset_0px_-2px_6px_rgba(0,0,0,0.05),0_7px_10px_0_rgba(0,0,0,0.10)] ring-white/50 ring-inset">
-                    <RiClaudeFill className="size-5 text-[#4f4f2c]" aria-hidden="true" />
+                    <Image
+                      src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/USAISR_LOGO_HI_RES+blank+background+black+and+white.jpg"
+                      alt="USAISR Logo"
+                      width={60}
+                      height={60}
+                      className="rounded-full"
+                    />
                   </div>
                 </div>
               </div>
               <div className="absolute right-[6rem] bottom-[6rem] z-20">
                 <div className="relative mx-auto w-fit rounded-full bg-gray-50 p-1 ring-1 shadow-md shadow-black/10 ring-black/10">
                   <div className="w-fit rounded-full bg-linear-to-b from-white to-gray-100 p-3 ring-1 shadow-[inset_0px_-2px_6px_rgba(0,0,0,0.05),0_7px_10px_0_rgba(0,0,0,0.10)] ring-white/50 ring-inset">
-                    <RiFundsFill className="size-5 text-[#4f4f2c]" aria-hidden="true" />
+                    <Image
+                      src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/namru.png"
+                      alt="NAMRU Logo"
+                      width={60}
+                      height={60}
+                      className="rounded-full"
+                    />
                   </div>
                 </div>
               </div>
               <div className="absolute bottom-[6rem] left-[6rem] z-20">
                 <div className="relative mx-auto w-fit rounded-full bg-gray-50 p-1 ring-1 shadow-md shadow-black/10 ring-black/10">
                   <div className="w-fit rounded-full bg-linear-to-b from-white to-gray-100 p-3 ring-1 shadow-[inset_0px_-2px_6px_rgba(0,0,0,0.05),0_7px_10px_0_rgba(0,0,0,0.10)] ring-white/50 ring-inset">
-                    <RiMoneyDollarCircleFill className="size-5 text-[#4f4f2c]" aria-hidden="true" />
+                    <Image
+                      src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/59th_Medical_Wing.png"
+                      alt="59th Medical Wing Logo"
+                      width={60}
+                      height={60}
+                      className="rounded-full"
+                    />
                   </div>
                 </div>
               </div>

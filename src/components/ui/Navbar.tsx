@@ -50,16 +50,20 @@ const eventInfo = {
 
 const initialNewsItems = [
   {
-    label: "AIM 2025 SYMPOSIUMS",
-    href: "https://www.eventbrite.com/e/sneak-preview-aim-2025-sme-encounter-sessions-tickets-1234940392959",
-  },
-  {
     label: "EARLY BIRD PRICING",
     href: "https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/",
   },
   {
-    label: "SME SNEAK PREVIEW",
+    label: "AIM 2025 SYMPOSIUMS",
     href: "https://www.eventbrite.com/e/sneak-preview-aim-2025-sme-encounter-sessions-tickets-1234940392959",
+  },
+  {
+    label: "NAVIGATING MEDICAL IP",
+    href: "https://www.eventbrite.com/e/pathways-to-innovation-navigating-medical-ip-with-the-federal-government-tickets-1237932362019",
+  },
+  {
+    label: "PATHWAYS TO COMMERCIALIZATION",
+    href: "https://www.eventbrite.com/e/pathways-to-commercialization-leveraging-federal-private-sector-funding-tickets-1238030736259",
   },
 ]
 

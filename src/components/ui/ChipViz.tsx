@@ -18,7 +18,7 @@ const ChipViz = () => {
         duration: 2,
         times: [0, 0.2, 1],
         ease: [0.23, 1, 0.32, 1],
-        repeat: Infinity,
+        repeat: Number.POSITIVE_INFINITY,
         repeatDelay: 2,
         delay,
       },
@@ -32,27 +32,27 @@ const ChipViz = () => {
           variants={createVariants({ scale: 1.1, delay: 0 })}
           initial="initial"
           animate="animate"
-          className="absolute -inset-px z-0 rounded-full bg-linear-to-r from-yellow-500 via-amber-500 to-orange-500 opacity-30 blur-xl"
+          className="absolute -inset-px z-0 rounded-full bg-linear-to-r from-[#101310] via-[#548cac] to-[#4f4f2c] opacity-30 blur-xl"
         />
         <motion.div
           variants={createVariants({ scale: 1.08, delay: 0.1 })}
           initial="initial"
           animate="animate"
-          className="relative z-0 min-h-[80px] min-w-[80px] rounded-full border bg-linear-to-b from-white to-orange-50 shadow-xl shadow-orange-500/20"
+          className="relative z-0 min-h-[80px] min-w-[80px] rounded-full border bg-linear-to-b from-white to-[#548cac]/10 shadow-xl shadow-[#548cac]/20"
         >
           <motion.div
             variants={createVariants({ scale: 1.06, delay: 0.2 })}
             initial="initial"
             animate="animate"
-            className="absolute inset-1 rounded-full bg-linear-to-t from-yellow-500 via-amber-500 to-orange-500 p-0.5 shadow-xl"
+            className="absolute inset-1 rounded-full bg-linear-to-t from-[#101310] via-[#548cac] to-[#4f4f2c] p-0.5 shadow-xl"
           >
-            <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-black/40 shadow-xs shadow-white/40 will-change-transform">
-              <div className="size-full bg-black/30" />
+            <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-[#101310]/40 shadow-xs shadow-white/40 will-change-transform">
+              <div className="size-full bg-[#101310]/30" />
               <motion.div
                 variants={createVariants({ scale: 1.04, delay: 0.3 })}
                 initial="initial"
                 animate="animate"
-                className="absolute inset-0 rounded-full bg-linear-to-t from-yellow-500 via-amber-500 to-orange-500 opacity-50 shadow-[inset_0_0_16px_4px_rgba(0,0,0,1)]"
+                className="absolute inset-0 rounded-full bg-linear-to-t from-[#101310] via-[#548cac] to-[#4f4f2c] opacity-50 shadow-[inset_0_0_16px_4px_rgba(16,19,16,1)]"
               />
               <motion.div
                 variants={createVariants({ scale: 1.02, delay: 0.4 })}
@@ -60,13 +60,13 @@ const ChipViz = () => {
                 animate="animate"
                 className="absolute inset-[6px] rounded-full bg-white/10 p-1 backdrop-blur-[1px]"
               >
-                <div className="relative flex h-full w-full items-center justify-center rounded-full bg-linear-to-br from-white to-gray-300 shadow-lg shadow-black/40">
-                  <Image 
-                    src="https://ampd-asset.s3.us-east-2.amazonaws.com/mmid.png"
-                    alt="MMID"
-                    width={40}
-                    height={40}
-                    className="rounded-full mt-2"
+                <div className="relative flex h-full w-full items-center justify-center rounded-full bg-linear-to-br from-white to-[#548cac]/30 shadow-lg shadow-[#101310]/40">
+                  <Image
+                    src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/dha_logo.png"
+                    alt="DHA Logo"
+                    width={60}
+                    height={60}
+                    className="rounded-full"
                   />
                 </div>
               </motion.div>
@@ -79,3 +79,4 @@ const ChipViz = () => {
 }
 
 export default ChipViz
+
