@@ -34,7 +34,7 @@ export function Hero() {
   }, [])
 
   return (
-    <section aria-label="hero" className="relative py-16 overflow-hidden">
+    <section aria-label="hero" className="relative py-16 overflow-hidden -mt-24 md:mt-0">
       <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-white/5 z-0" />
       <FadeContainer className="relative z-10 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <FadeDiv className="w-full max-w-xl md:max-w-sm px-4 sm:px-0">

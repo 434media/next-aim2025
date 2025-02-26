@@ -81,7 +81,7 @@ export function HeroVideo() {
           className="w-full h-full absolute inset-0 bg-aim-navy/95 border-b md:border-r border-bexar-blue/20"
           initial={{ filter: "blur(4px)" }}
           animate={{ filter: "blur(0px)" }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
           aria-hidden="true"
         />
         <div className="relative w-full max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-0">
@@ -128,7 +128,7 @@ export function HeroVideo() {
                   rel="noopener noreferrer"
                 >
                   <span className="flex items-center justify-center">
-                    Sponsor Prospectus
+                    Become a Sponsor
                     <RiArrowRightUpLine className="ml-2 size-5" aria-hidden="true" />
                   </span>
                 </Button>

@@ -67,4 +67,3 @@ export function AIMLogo({ variant = "default", ...props }: AIMLogoProps) {
     </svg>
   )
 }
-

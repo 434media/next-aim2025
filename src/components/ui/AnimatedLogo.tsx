@@ -1,9 +1,11 @@
 "use client"
 
 import React, { useRef } from "react"
-import { motion, useScroll, useTransform, AnimatePresence } from "motion/react"
+import { motion, useScroll, useTransform } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
+import { useMediaQuery } from "@/hooks/useMediaQuery"
+import { Marquee } from "./marquee"
 import GameOfLife from "./HeroBackground"
 
 const mainPartners = [
@@ -36,6 +38,8 @@ const additionalPartners = [
   },
 ]
 
+const allPartners = [...mainPartners, ...additionalPartners]
+
 interface LinkPreviewProps {
   children: React.ReactNode
   href: string
@@ -59,25 +63,42 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({ children, href, description }
       >
         {children}
       </Link>
-      <AnimatePresence>
-        {isHovered && (
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.2 }}
-            className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-2 w-64 bg-white rounded-lg shadow-lg p-4 text-sm text-[#101310]"
-          >
-            {description}
-          </motion.span>
-        )}
-      </AnimatePresence>
+      {isHovered && (
+        <motion.span
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.2 }}
+          className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-2 w-64 bg-white rounded-lg shadow-lg p-4 text-sm text-[#101310]"
+        >
+          {description}
+        </motion.span>
+      )}
     </motion.span>
   )
 }
 
+const PartnerImage = ({ src, name }: { src: string; name: string }) => (
+  <motion.div
+    whileHover={{ scale: 1.05 }}
+    className="relative w-32 h-32 overflow-hidden m-2 opacity-60 hover:opacity-80 transition-opacity"
+  >
+    <Image
+      src={src || "/placeholder.svg"}
+      alt={`${name} logo`}
+      layout="responsive"
+      width={100}
+      height={100}
+      className="object-contain"
+    />
+    <span className="sr-only">{name}</span>
+  </motion.div>
+)
+
 export function AnimatedLogo() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const isMobile = useMediaQuery("(max-width: 767px)")
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
@@ -88,11 +109,11 @@ export function AnimatedLogo() {
   const additionalPartnersY = useTransform(scrollYProgress, [0.4, 0.8], ["50%", "0%"])
 
   return (
-    <section ref={containerRef} className="relative w-full overflow-hidden bg-white py-20 sm:py-28">
+    <section ref={containerRef} className="relative w-full overflow-hidden bg-white/10 py-16 md:py-24">
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          style={{ y: textY }}
-          className="text-center mb-16 sm:mb-20"
+          style={isMobile ? {} : { y: textY }}
+          className="text-center"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -149,56 +170,92 @@ export function AnimatedLogo() {
           </div>
         </motion.div>
 
-        <motion.div
-          style={{ y: mainPartnersY }}
-          className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12 justify-items-center mb-20"
-        >
-          {mainPartners.map((partner, index) => (
+        <h3 className="sr-only">Our Partners</h3>
+        {isMobile ? (
+          <div className="relative w-full h-[600px] overflow-hidden bg-white/10">
             <motion.div
-              key={partner.name}
-              className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-44 md:h-44"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="absolute inset-0 flex items-center justify-center z-10"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
             >
               <Image
-                src={partner.src || "/placeholder.svg"}
-                alt={`${partner.name} logo`}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-contain transition-transform hover:scale-105"
+                src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-2025.svg"
+                alt="AIM Health R&D Summit Logo"
+                width={288}
+                height={208}
+                className="w-48 h-48 md:w-72 md:h-72"
               />
             </motion.div>
-          ))}
-        </motion.div>
-
-        <motion.div style={{ y: additionalPartnersY }} className="pt-16 border-t border-gray-200">
-          <h3 className="text-2xl sm:text-3xl font-bold text-center mb-12 text-[#101310]">
-            Supporting the Military&apos;s Medical Mission
-          </h3>
-          <div className="grid grid-cols-3 md:grid-cols-4 gap-8 md:gap-12 justify-items-center">
-            {additionalPartners.map((partner, index) => (
-              <motion.div
-                key={partner.name}
-                className="relative w-24 h-24 sm:w-32 sm:h-32"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Image
-                  src={partner.src || "/placeholder.svg"}
-                  alt={`${partner.name} logo`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-contain transition-transform hover:scale-105"
-                />
-              </motion.div>
-            ))}
+            <div className="absolute inset-0 flex flex-col justify-center" aria-hidden="true">
+              <Marquee pauseOnHover duration={10}>
+                {allPartners.map((partner) => (
+                  <PartnerImage key={partner.name} {...partner} />
+                ))}
+              </Marquee>
+              <Marquee reverse pauseOnHover duration={10}>
+                {allPartners.map((partner) => (
+                  <PartnerImage key={partner.name} {...partner} />
+                ))}
+              </Marquee>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-transparent to-white/60" />
+            <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/60 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white/60 to-transparent" />
           </div>
-        </motion.div>
-      </div>
+        ) : (
+          <>
+            <motion.div
+              style={{ y: mainPartnersY }}
+              className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12 justify-items-center md:mb-20"
+            >
+              {mainPartners.map((partner, index) => (
+                <motion.div
+                  key={partner.name}
+                  className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-44 md:h-44"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Image
+                    src={partner.src || "/placeholder.svg"}
+                    alt={`${partner.name} logo`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-contain transition-transform hover:scale-105"
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
 
-      <div className="absolute inset-0 -z-10 flex items-start justify-start">
+            <motion.div style={{ y: additionalPartnersY }} className="pt-16 border-t border-gray-200">
+              <h3 className="text-2xl sm:text-3xl font-bold text-center mb-12 text-[#101310]">
+                Supporting the Military&apos;s Medical Mission
+              </h3>
+              <div className="grid grid-cols-3 md:grid-cols-4 gap-8 md:gap-12 justify-items-center">
+                {additionalPartners.map((partner, index) => (
+                  <motion.div
+                    key={partner.name}
+                    className="relative w-24 h-24 sm:w-32 sm:h-32"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <Image
+                      src={partner.src || "/placeholder.svg"}
+                      alt={`${partner.name} logo`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-contain transition-transform hover:scale-105"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </div>
+      <div className="absolute inset-0 pointer-events-none">
         <GameOfLife />
       </div>
     </section>
