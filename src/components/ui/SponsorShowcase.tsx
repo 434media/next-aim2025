@@ -71,6 +71,7 @@ export function SponsorShowcase() {
                   src={sponsor.src || "/placeholder.svg"}
                   alt={`${sponsor.name} logo`}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-contain transition-transform hover:scale-105 hover:opacity-80"
                   aria-label={`${sponsor.name} - Platinum Sponsor`}
                 />

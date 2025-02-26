@@ -88,7 +88,7 @@ export function AnimatedLogo() {
   const additionalPartnersY = useTransform(scrollYProgress, [0.4, 0.8], ["50%", "0%"])
 
   return (
-    <section ref={containerRef} className="relative w-full overflow-hidden bg-white/10 sm:py-28">
+    <section ref={containerRef} className="relative w-full overflow-hidden bg-white py-20 sm:py-28">
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           style={{ y: textY }}
@@ -151,7 +151,7 @@ export function AnimatedLogo() {
 
         <motion.div
           style={{ y: mainPartnersY }}
-          className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12 justify-items-center md:mb-20"
+          className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12 justify-items-center mb-20"
         >
           {mainPartners.map((partner, index) => (
             <motion.div
@@ -165,6 +165,7 @@ export function AnimatedLogo() {
                 src={partner.src || "/placeholder.svg"}
                 alt={`${partner.name} logo`}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-contain transition-transform hover:scale-105"
               />
             </motion.div>
@@ -188,6 +189,7 @@ export function AnimatedLogo() {
                   src={partner.src || "/placeholder.svg"}
                   alt={`${partner.name} logo`}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-contain transition-transform hover:scale-105"
                 />
               </motion.div>

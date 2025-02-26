@@ -45,7 +45,7 @@ export default function Footer() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="flex items-center justify-between gap-6 first:pb-8 last:pt-8"
+              className="flex flex-col md:flex-row items-center justify-between gap-6 first:pb-8 last:pt-8"
             >
               <div>
                 <h2 className="text-2xl sm:text-3xl font-bold">Become a Sponsor</h2>
@@ -69,7 +69,7 @@ export default function Footer() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="flex items-center justify-between gap-6 first:pb-8 last:pt-8"
+              className="flex flex-col md:flex-row items-center justify-between gap-6 first:pb-8 last:pt-8"
             >
               <div>
                 <h2 className="text-2xl sm:text-3xl font-bold">Register Now</h2>

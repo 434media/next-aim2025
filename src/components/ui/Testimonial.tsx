@@ -21,14 +21,14 @@ export default function Testimonial() {
       className="relative mx-auto w-full max-w-6xl overflow-hidden rounded-2xl shadow-2xl shadow-[#366A79]/70 my-24"
       style={{ opacity, scale }}
     >
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 bg-gray-300">
         <Image
           alt="Medical research background"
           src="https://ampd-asset.s3.us-east-2.amazonaws.com/milcityusa-2-testimonial.png"
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover"
-          priority
+          loading="lazy"
         />
       </div>
       <div className="absolute inset-0 bg-gradient-to-br from-[#101310]/70 to-[#101310]/80" />
@@ -59,7 +59,7 @@ export default function Testimonial() {
                 <strong className="font-semibold">
                   Forums like MMID give us the opportunity to collaborate with organizations outside of DoD
                 </strong>{" "}
-                so they have a better idea how to engage with the military&apos;s medical mission and advance healthcare
+                so they have a better idea how to engage with the military's medical mission and advance healthcare
                 innovation
               </p>
             </blockquote>
@@ -75,11 +75,12 @@ export default function Testimonial() {
                 alt="Defense Health Agency Logo"
                 src="/images/smiller.png"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover rounded-full"
               />
             </div>
             <div>
-            <div className="text-lg font-medium text-white">Dr. Sean Biggerstaff</div>
+              <div className="text-lg font-medium text-white">Dr. Sean Biggerstaff</div>
               <div className="text-base text-[#548cac] font-semibold md:max-w-sm md:text-balance">
                 Acting Deputy Assistant Director, Research and Engineering, Defense Health Agency
               </div>

@@ -39,7 +39,7 @@ export default function CatchupBanner() {
     >
       <div className="absolute inset-0">
         <motion.div
-          className="absolute inset-0"
+          className="absolute inset-0 bg-gray-300"
           initial={{ filter: "blur(10px) brightness(50%)" }}
           animate={{ filter: "blur(0px) brightness(100%)" }}
           transition={{ duration: 1.5 }}
@@ -50,7 +50,7 @@ export default function CatchupBanner() {
             fill
             sizes="100vw"
             className="object-cover"
-            priority
+            loading="lazy"
           />
         </motion.div>
         <motion.div
@@ -98,7 +98,7 @@ export default function CatchupBanner() {
         </div>
         <div className="md:w-1/2 lg:w-2/5 relative">
           <motion.div
-            className="aspect-square w-full max-w-md mx-auto relative overflow-hidden rounded-xl shadow-lg border-4 border-white"
+            className="aspect-square w-full max-w-md mx-auto relative overflow-hidden rounded-xl shadow-lg"
             style={{ scale: imageScale }}
           >
             <Image
@@ -107,6 +107,7 @@ export default function CatchupBanner() {
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover grayscale hover:grayscale-0 transition-grayscale duration-300"
+              loading="lazy"
             />
           </motion.div>
         </div>
