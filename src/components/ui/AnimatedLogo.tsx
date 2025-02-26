@@ -1,52 +1,133 @@
 "use client"
 
-import React, { useRef, useMemo } from "react"
-import { motion, useScroll, useTransform } from "motion/react"
+import React, { useRef } from "react"
+import { motion, useScroll, useTransform, useSpring } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
-import { useMediaQuery } from "@/hooks/useMediaQuery"
-import dynamic from "next/dynamic"
 import ErrorBoundary from "./ErrorBoundary"
 
 const mainPartners = [
-  { name: "COSA", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/cosa_quatrefoil_texas_k.png" },
+  {
+    name: "COSA",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/cosa_quatrefoil_texas_k.png",
+    href: "https://www.sanantonio.gov/",
+  },
   {
     name: "Bexar County",
     src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/Bexar+Seal+High+Res+B_W+1200.png",
+    href: "https://www.bexar.org/",
   },
   {
     name: "VelocityTX",
     src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/VelocityTX+Logo+BUTTON+RGB.png",
+    href: "https://velocitytx.org/",
   },
-  { name: "UTSA", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/utsa-wordmark.svg" },
-  { name: "UTHSA", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/UTHSA_logo.svg" },
+  {
+    name: "UTSA",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/utsa-wordmark.svg",
+    href: "https://www.utsa.edu/",
+  },
+  {
+    name: "UTHSA",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/UTHSA_logo.svg",
+    href: "https://www.uthscsa.edu/",
+  },
 ]
 
 const additionalPartners = [
-  { name: "DHA", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/dha_logo.png" },
+  {
+    name: "DHA",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/dha_logo.png",
+    href: "https://www.health.mil/",
+  },
   {
     name: "USAISR",
     src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/USAISR_LOGO_HI_RES+blank+background+black+and+white.jpg",
+    href: "https://usaisr.amedd.army.mil/",
   },
-  { name: "NAMRU", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/namru.png" },
-  { name: "59th", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/59th_Medical_Wing.png" },
-  { name: "VA", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Logotype-on-Light.svg" },
-  { name: "BAMC", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/bamc.png" },
+  {
+    name: "NAMRU",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/namru.png",
+    href: "https://www.med.navy.mil/Naval-Medical-Research-Center/",
+  },
+  {
+    name: "59th",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/59th_Medical_Wing.png",
+    href: "https://www.59mdw.af.mil/",
+  },
+  {
+    name: "VA",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Logotype-on-Light.svg",
+    href: "https://www.va.gov/",
+  },
+  {
+    name: "BAMC",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/bamc.png",
+    href: "https://bamc.tricare.mil/",
+  },
   {
     name: "711th Human Performance Wing",
     src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/711+(1).png",
+    href: "https://www.afrl.af.mil/711HPW/",
   },
 ]
 
-const allPartners = [...mainPartners, ...additionalPartners]
+const ScrollDrivenMarquee = ({
+  items,
+  reverse = false,
+}: {
+  items: typeof mainPartners
+  reverse?: boolean
+}) => {
+  const marqueeVariants = {
+    animate: {
+      x: reverse ? [0, -1035] : [-1035, 0],
+      transition: {
+        x: {
+          repeat: Number.POSITIVE_INFINITY,
+          repeatType: "loop",
+          duration: 50,
+          ease: "linear",
+        },
+      },
+    },
+  }
 
-interface LinkPreviewProps {
-  children: React.ReactNode
-  href: string
-  description: string
+  return (
+    <div className="overflow-hidden py-6">
+      <motion.div className="flex gap-8 whitespace-nowrap" variants={marqueeVariants} animate="animate">
+        {[...items, ...items].map((partner, idx) => (
+          <a
+            key={`${partner.name}-${idx}`}
+            href={partner.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative flex-shrink-0 transition-opacity duration-300"
+          >
+            <div className="relative h-16 w-32 sm:h-24 sm:w-48 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+              <Image
+                src={partner.src || "/placeholder.svg"}
+                alt={`${partner.name} logo`}
+                fill
+                sizes="(max-width: 640px) 128px, 192px"
+                className="object-contain"
+              />
+            </div>
+            <span className="sr-only">{partner.name}</span>
+          </a>
+        ))}
+      </motion.div>
+    </div>
+  )
 }
 
-const LinkPreview: React.FC<LinkPreviewProps> = ({ children, href, description }) => {
+interface LinkPreviewProps {
+  children: React.ReactNode;
+  href: string;
+  description: string;
+}
+
+const LinkPreview = ({ children, href, description }: LinkPreviewProps) => {
   const [isHovered, setIsHovered] = React.useState(false)
 
   return (
@@ -69,7 +150,7 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({ children, href, description }
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
           transition={{ duration: 0.2 }}
-          className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-2 w-64 bg-white rounded-lg shadow-lg p-4 text-sm text-[#101310]"
+          className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-2 w-64 bg-white rounded-lg shadow-lg p-4 text-sm text-gray-900"
         >
           {description}
         </motion.span>
@@ -78,29 +159,8 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({ children, href, description }
   )
 }
 
-const PartnerImage = React.memo(({ src, name }: { src: string; name: string }) => (
-  <motion.div
-    whileHover={{ scale: 1.05 }}
-    className="relative w-32 h-32 overflow-hidden m-2 opacity-60 hover:opacity-80 transition-opacity"
-  >
-    <Image
-      src={src || "/placeholder.svg"}
-      alt={`${name} logo`}
-      layout="responsive"
-      width={100}
-      height={100}
-      className="object-contain"
-    />
-    <span className="sr-only">{name}</span>
-  </motion.div>
-))
-PartnerImage.displayName = "PartnerImage"
-
-const LazyGameOfLife = dynamic(() => import("./HeroBackground"), { ssr: false })
-
 export function AnimatedLogo() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const isMobile = useMediaQuery("(max-width: 767px)")
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -108,156 +168,108 @@ export function AnimatedLogo() {
   })
 
   const textY = useTransform(scrollYProgress, [0, 0.2], ["20%", "0%"])
-  const mainPartnersY = useTransform(scrollYProgress, [0.1, 0.3], ["20%", "0%"])
-  const additionalPartnersY = useTransform(scrollYProgress, [0.2, 0.4], ["20%", "0%"])
-
-  const visiblePartners = useMemo(() => allPartners.slice(0, 10), [])
+  const textOpacity = useTransform(scrollYProgress, [0, 0.2], [0.5, 1])
+  const spring = useSpring(textY, { damping: 15, stiffness: 100 })
 
   return (
     <ErrorBoundary fallback={<div>Something went wrong. Please try refreshing the page.</div>}>
-      <section ref={containerRef} className="relative w-full overflow-hidden bg-white py-20 sm:py-28">
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <motion.div
-            style={isMobile ? {} : { y: textY }}
-            className="text-center mb-16 sm:mb-20"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#101310] tracking-tight mb-6">
-              Military Health City USA
-            </h2>
-            <motion.div
-              className="h-1 w-24 bg-[#548cac] mx-auto mb-8"
-              initial={{ width: 0 }}
-              animate={{ width: 96 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-            />
-            <div className="text-lg sm:text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto text-balance leading-relaxed">
-              San Antonio, &quot;Military Health City USA,&quot; plays a pivotal role in military medicine and life
-              science innovation. Home to{" "}
-              <LinkPreview
-                href="https://bamc.tricare.mil/"
-                description="Brooke Army Medical Center (BAMC) is the largest DoD hospital and only Level 1 Trauma Center in the DoD."
-              >
-                BAMC
-              </LinkPreview>{" "}
-              (the largest DoD hospital), a robust{" "}
-              <LinkPreview
-                href="https://dha.mil/"
-                description="The Defense Health Agency (DHA) is a joint, integrated Combat Support Agency that enables the Army, Navy, and Air Force medical services to provide a medically ready force and ready medical force to Combatant Commands in both peacetime and wartime."
-              >
-                DHA
-              </LinkPreview>{" "}
-              presence, and{" "}
-              <LinkPreview
-                href="https://militaryhealthinstitute.org/"
-                description="UT Health San Antonio's Military Health Institute (MHI) is dedicated to advancing military health and medicine through research, education, and community partnerships."
-              >
-                UT Health San Antonio&apos;s MHI
-              </LinkPreview>
-              , the city is a center for medical research and care. With key partners like{" "}
-              <LinkPreview
-                href="https://velocitytx.org/"
-                description="VelocityTX is an innovation hub that accelerates the growth of bioscience and technology companies in San Antonio."
-              >
-                VelocityTX
-              </LinkPreview>{" "}
-              driving transformative initiatives like the Innovation District, San Antonio provides the perfect backdrop
-              for the{" "}
-              <LinkPreview
-                href="#"
-                description="The AIM Health R&D Summit is a premier event that brings together professionals from academia, industry, and the military to advance medical research and its commercialization."
-              >
-                AIM Health R&D Summit
-              </LinkPreview>
-              , uniting professionals from academia, industry, and the military to advance medical research and its
-              commercialization.
-            </div>
-          </motion.div>
-
-          <h3 className="sr-only">Our Partners</h3>
-          {isMobile ? (
-            <div className="relative w-full h-[500px] overflow-hidden bg-white mb-8">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-gray-900 focus:rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+      >
+        Skip to main content
+      </a>
+      <section ref={containerRef} id="main-content" className="relative w-full overflow-hidden bg-white/10 py-20 sm:py-28">
+        <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <motion.div style={{ y: spring, opacity: textOpacity }} className="text-center mb-20 sm:mb-24">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#101310] tracking-tight mb-6">
+                Military Health City USA
+              </h2>
               <motion.div
-                className="absolute top-4 left-1/2 -translate-x-1/2 z-10"
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Image
-                  src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-2025.svg"
-                  alt="AIM Health R&D Summit Logo"
-                  width={200}
-                  height={144}
-                  className="w-40 h-auto"
-                />
-              </motion.div>
-              <div className="absolute inset-0 flex flex-col justify-start pt-20" aria-hidden="true">
-                <div className="grid grid-cols-2 gap-4 mt-4">
-                  {visiblePartners.map((partner) => (
-                    <PartnerImage key={partner.name} {...partner} />
-                  ))}
-                </div>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-transparent to-white/60" />
-              <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-white/60 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white/60 to-transparent" />
-            </div>
-          ) : (
-            <>
-              <motion.div
-                style={{ y: mainPartnersY }}
-                className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12 justify-items-center mb-20"
-              >
-                {mainPartners.map((partner, index) => (
-                  <motion.div
-                    key={partner.name}
-                    className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-44 md:h-44"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="h-1 w-24 bg-[#548cac] mx-auto mb-8"
+                initial={{ width: 0 }}
+                animate={{ width: 96 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+              />
+              <div className="text-lg sm:text-xl md:text-2xl text-[#101310] max-w-5xl mx-auto text-balance tracking-tight space-y-6">
+                <p>
+                  San Antonio, &quot;Military Health City USA,&quot; plays a pivotal role in military medicine and life
+                  science innovation.
+                </p>
+                <p>
+                  Home to{" "}
+                  <LinkPreview
+                    href="https://bamc.tricare.mil/"
+                    description="Brooke Army Medical Center (BAMC) is the largest DoD hospital and only Level 1 Trauma Center in the DoD."
                   >
-                    <Image
-                      src={partner.src || "/placeholder.svg"}
-                      alt={`${partner.name} logo`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-contain transition-transform hover:scale-105"
-                    />
-                  </motion.div>
-                ))}
-              </motion.div>
-
-              <motion.div style={{ y: additionalPartnersY }} className="pt-16 border-t border-gray-200">
-                <h3 className="text-2xl sm:text-3xl font-bold text-center mb-12 text-[#101310]">
-                  Supporting the Military&apos;s Medical Mission
-                </h3>
-                <div className="grid grid-cols-3 md:grid-cols-4 gap-8 md:gap-12 justify-items-center">
-                  {additionalPartners.map((partner, index) => (
-                    <motion.div
-                      key={partner.name}
-                      className="relative w-24 h-24 sm:w-32 sm:h-32"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                      <Image
-                        src={partner.src || "/placeholder.svg"}
-                        alt={`${partner.name} logo`}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-contain transition-transform hover:scale-105"
-                      />
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </>
-          )}
+                    BAMC
+                  </LinkPreview>{" "}
+                  (the largest DoD hospital), a robust{" "}
+                  <LinkPreview
+                    href="https://dha.mil/"
+                    description="The Defense Health Agency (DHA) is a joint, integrated Combat Support Agency that enables the Army, Navy, and Air Force medical services to provide a medically ready force and ready medical force to Combatant Commands in both peacetime and wartime."
+                  >
+                    DHA
+                  </LinkPreview>{" "}
+                  presence, and{" "}
+                  <LinkPreview
+                    href="https://militaryhealthinstitute.org/"
+                    description="UT Health San Antonio's Military Health Institute (MHI) is dedicated to advancing military health and medicine through research, education, and community partnerships."
+                  >
+                    UT Health San Antonio&apos;s MHI,
+                  </LinkPreview>
+                  the city is a center for medical research and care.
+                </p>
+                <p>
+                  With key partners like{" "}
+                  <LinkPreview
+                    href="https://velocitytx.org/"
+                    description="VelocityTX is an innovation hub that accelerates the growth of bioscience and technology companies in San Antonio."
+                  >
+                    VelocityTX
+                  </LinkPreview>{" "}
+                  driving transformative initiatives like the Innovation District, San Antonio provides the perfect
+                  backdrop for the{" "}
+                  <LinkPreview
+                    href="#"
+                    description="The AIM Health R&D Summit is a premier event that brings together professionals from academia, industry, and the military to advance medical research and its commercialization."
+                  >
+                    AIM Health R&D Summit
+                  </LinkPreview>
+                  , uniting professionals from academia, industry, and the military to advance medical research and its
+                  commercialization.
+                </p>
+              </div>
+            </motion.div>
+          </div>
         </div>
-        <div className="absolute inset-0 pointer-events-none">
-          <LazyGameOfLife />
+
+        <div className="relative -mx-4 sm:-mx-6 lg:-mx-8">
+          <div className="mt-12 space-y-8">
+            <h3 className="sr-only">Our Partners</h3>
+            <ScrollDrivenMarquee items={mainPartners} />
+            <ScrollDrivenMarquee items={additionalPartners} reverse />
+          </div>
+        </div>
+
+        <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <motion.div
+              className="mt-16 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <h3 className="text-2xl sm:text-3xl font-bold text-[#101310] mb-8">
+                Supporting the Military&apos;s Medical Mission
+              </h3>
+              <p className="text-lg sm:text-xl text-[#548cac] max-w-3xl mx-auto">
+                Together, we're advancing healthcare innovation and improving outcomes for our service members,
+                veterans, and their families.
+              </p>
+            </motion.div>
+          </div>
         </div>
       </section>
     </ErrorBoundary>

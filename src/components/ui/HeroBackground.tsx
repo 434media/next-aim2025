@@ -1,12 +1,17 @@
 "use client"
+
 import { useEffect, useRef } from "react"
+import { useMediaQuery } from "@/hooks/useMediaQuery"
 
 type Grid = { alive: boolean; opacity: number }[][]
 
 const GameOfLife = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const isMobile = useMediaQuery("(max-width: 767px)")
 
   useEffect(() => {
+    if (isMobile) return
+
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext("2d")
@@ -16,7 +21,7 @@ const GameOfLife = () => {
     const cellSize = 6
     const cols = Math.floor(canvas.width / cellSize)
     const rows = Math.floor(canvas.height / cellSize)
-    const transitionSpeed = 0.2 // Controls fade speed
+    const transitionSpeed = 0.2
 
     let grid: Grid = Array(rows)
       .fill(null)
@@ -46,7 +51,6 @@ const GameOfLife = () => {
       ctx.fillStyle = "#F9FAFB"
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      // Update opacities
       for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
           const cell = grid[i][j]
@@ -59,13 +63,7 @@ const GameOfLife = () => {
           if (cell.opacity > 0) {
             ctx.fillStyle = `rgba(0, 0, 0, ${cell.opacity})`
             ctx.beginPath()
-            ctx.arc(
-              j * cellSize + cellSize / 2,
-              i * cellSize + cellSize / 2,
-              1,
-              0,
-              Math.PI * 2,
-            )
+            ctx.arc(j * cellSize + cellSize / 2, i * cellSize + cellSize / 2, 1, 0, Math.PI * 2)
             ctx.fill()
           }
         }
@@ -74,9 +72,7 @@ const GameOfLife = () => {
       const next = grid.map((row, i) =>
         row.map((cell, j) => {
           const neighbors = countNeighbors(grid, i, j)
-          const willBeAlive = cell.alive
-            ? neighbors >= 2 && neighbors <= 3
-            : neighbors === 3
+          const willBeAlive = cell.alive ? neighbors >= 2 && neighbors <= 3 : neighbors === 3
           return {
             alive: willBeAlive,
             opacity: cell.opacity,
@@ -85,9 +81,7 @@ const GameOfLife = () => {
       )
 
       grid = next
-      setTimeout(() => {
-        animationFrameId = requestAnimationFrame(draw)
-      }, 125)
+      animationFrameId = requestAnimationFrame(draw)
     }
 
     draw()
@@ -95,7 +89,11 @@ const GameOfLife = () => {
     return () => {
       cancelAnimationFrame(animationFrameId)
     }
-  }, [])
+  }, [isMobile])
+
+  if (isMobile) {
+    return null
+  }
 
   return (
     <div className="mask pointer-events-none overflow-hidden select-none">
@@ -105,3 +103,4 @@ const GameOfLife = () => {
 }
 
 export default GameOfLife
+
