@@ -1,12 +1,12 @@
 "use client"
 
-import React, { useRef } from "react"
+import React, { useRef, useMemo } from "react"
 import { motion, useScroll, useTransform } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
 import { useMediaQuery } from "@/hooks/useMediaQuery"
-import { Marquee } from "./marquee"
-import GameOfLife from "./HeroBackground"
+import dynamic from "next/dynamic"
+import ErrorBoundary from "./ErrorBoundary"
 
 const mainPartners = [
   { name: "COSA", src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/cosa_quatrefoil_texas_k.png" },
@@ -78,7 +78,7 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({ children, href, description }
   )
 }
 
-const PartnerImage = ({ src, name }: { src: string; name: string }) => (
+const PartnerImage = React.memo(({ src, name }: { src: string; name: string }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
     className="relative w-32 h-32 overflow-hidden m-2 opacity-60 hover:opacity-80 transition-opacity"
@@ -93,7 +93,10 @@ const PartnerImage = ({ src, name }: { src: string; name: string }) => (
     />
     <span className="sr-only">{name}</span>
   </motion.div>
-)
+))
+PartnerImage.displayName = "PartnerImage"
+
+const LazyGameOfLife = dynamic(() => import("./HeroBackground"), { ssr: false })
 
 export function AnimatedLogo() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -104,139 +107,113 @@ export function AnimatedLogo() {
     offset: ["start end", "end start"],
   })
 
-  const textY = useTransform(scrollYProgress, [0, 0.4], ["50%", "0%"])
-  const mainPartnersY = useTransform(scrollYProgress, [0.2, 0.6], ["50%", "0%"])
-  const additionalPartnersY = useTransform(scrollYProgress, [0.4, 0.8], ["50%", "0%"])
+  const textY = useTransform(scrollYProgress, [0, 0.2], ["20%", "0%"])
+  const mainPartnersY = useTransform(scrollYProgress, [0.1, 0.3], ["20%", "0%"])
+  const additionalPartnersY = useTransform(scrollYProgress, [0.2, 0.4], ["20%", "0%"])
+
+  const visiblePartners = useMemo(() => allPartners.slice(0, 10), [])
 
   return (
-    <section ref={containerRef} className="relative w-full overflow-hidden bg-white/10 py-16 md:py-24">
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div
-          style={isMobile ? {} : { y: textY }}
-          className="text-center"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#101310] tracking-tight mb-6">
-            Military Health City USA
-          </h2>
+    <ErrorBoundary fallback={<div>Something went wrong. Please try refreshing the page.</div>}>
+      <section ref={containerRef} className="relative w-full overflow-hidden bg-white py-20 sm:py-28">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="h-1 w-24 bg-[#548cac] mx-auto mb-8"
-            initial={{ width: 0 }}
-            animate={{ width: 96 }}
-            transition={{ duration: 0.5, delay: 0.7 }}
-          />
-          <div className="text-lg sm:text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto text-balance leading-relaxed">
-            San Antonio, &quot;Military Health City USA,&quot; plays a pivotal role in military medicine and life
-            science innovation. Home to{" "}
-            <LinkPreview
-              href="https://bamc.tricare.mil/"
-              description="Brooke Army Medical Center (BAMC) is the largest DoD hospital and only Level 1 Trauma Center in the DoD."
-            >
-              BAMC
-            </LinkPreview>{" "}
-            (the largest DoD hospital), a robust{" "}
-            <LinkPreview
-              href="https://dha.mil/"
-              description="The Defense Health Agency (DHA) is a joint, integrated Combat Support Agency that enables the Army, Navy, and Air Force medical services to provide a medically ready force and ready medical force to Combatant Commands in both peacetime and wartime."
-            >
-              DHA
-            </LinkPreview>{" "}
-            presence, and{" "}
-            <LinkPreview
-              href="https://militaryhealthinstitute.org/"
-              description="UT Health San Antonio's Military Health Institute (MHI) is dedicated to advancing military health and medicine through research, education, and community partnerships."
-            >
-              UT Health San Antonio&apos;s MHI
-            </LinkPreview>
-            , the city is a center for medical research and care. With key partners like{" "}
-            <LinkPreview
-              href="https://velocitytx.org/"
-              description="VelocityTX is an innovation hub that accelerates the growth of bioscience and technology companies in San Antonio."
-            >
-              VelocityTX
-            </LinkPreview>{" "}
-            driving transformative initiatives like the Innovation District, San Antonio provides the perfect backdrop
-            for the{" "}
-            <LinkPreview
-              href="#"
-              description="The AIM Health R&D Summit is a premier event that brings together professionals from academia, industry, and the military to advance medical research and its commercialization."
-            >
-              AIM Health R&D Summit
-            </LinkPreview>
-            , uniting professionals from academia, industry, and the military to advance medical research and its
-            commercialization.
-          </div>
-        </motion.div>
-
-        <h3 className="sr-only">Our Partners</h3>
-        {isMobile ? (
-          <div className="relative w-full h-[600px] overflow-hidden bg-white/10">
+            style={isMobile ? {} : { y: textY }}
+            className="text-center mb-16 sm:mb-20"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#101310] tracking-tight mb-6">
+              Military Health City USA
+            </h2>
             <motion.div
-              className="absolute inset-0 flex items-center justify-center z-10"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Image
-                src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-2025.svg"
-                alt="AIM Health R&D Summit Logo"
-                width={288}
-                height={208}
-                className="w-48 h-48 md:w-72 md:h-72"
-              />
-            </motion.div>
-            <div className="absolute inset-0 flex flex-col justify-center" aria-hidden="true">
-              <Marquee pauseOnHover duration={10}>
-                {allPartners.map((partner) => (
-                  <PartnerImage key={partner.name} {...partner} />
-                ))}
-              </Marquee>
-              <Marquee reverse pauseOnHover duration={10}>
-                {allPartners.map((partner) => (
-                  <PartnerImage key={partner.name} {...partner} />
-                ))}
-              </Marquee>
+              className="h-1 w-24 bg-[#548cac] mx-auto mb-8"
+              initial={{ width: 0 }}
+              animate={{ width: 96 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
+            />
+            <div className="text-lg sm:text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto text-balance leading-relaxed">
+              San Antonio, &quot;Military Health City USA,&quot; plays a pivotal role in military medicine and life
+              science innovation. Home to{" "}
+              <LinkPreview
+                href="https://bamc.tricare.mil/"
+                description="Brooke Army Medical Center (BAMC) is the largest DoD hospital and only Level 1 Trauma Center in the DoD."
+              >
+                BAMC
+              </LinkPreview>{" "}
+              (the largest DoD hospital), a robust{" "}
+              <LinkPreview
+                href="https://dha.mil/"
+                description="The Defense Health Agency (DHA) is a joint, integrated Combat Support Agency that enables the Army, Navy, and Air Force medical services to provide a medically ready force and ready medical force to Combatant Commands in both peacetime and wartime."
+              >
+                DHA
+              </LinkPreview>{" "}
+              presence, and{" "}
+              <LinkPreview
+                href="https://militaryhealthinstitute.org/"
+                description="UT Health San Antonio's Military Health Institute (MHI) is dedicated to advancing military health and medicine through research, education, and community partnerships."
+              >
+                UT Health San Antonio&apos;s MHI
+              </LinkPreview>
+              , the city is a center for medical research and care. With key partners like{" "}
+              <LinkPreview
+                href="https://velocitytx.org/"
+                description="VelocityTX is an innovation hub that accelerates the growth of bioscience and technology companies in San Antonio."
+              >
+                VelocityTX
+              </LinkPreview>{" "}
+              driving transformative initiatives like the Innovation District, San Antonio provides the perfect backdrop
+              for the{" "}
+              <LinkPreview
+                href="#"
+                description="The AIM Health R&D Summit is a premier event that brings together professionals from academia, industry, and the military to advance medical research and its commercialization."
+              >
+                AIM Health R&D Summit
+              </LinkPreview>
+              , uniting professionals from academia, industry, and the military to advance medical research and its
+              commercialization.
             </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-transparent to-white/60" />
-            <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/60 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white/60 to-transparent" />
-          </div>
-        ) : (
-          <>
-            <motion.div
-              style={{ y: mainPartnersY }}
-              className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12 justify-items-center md:mb-20"
-            >
-              {mainPartners.map((partner, index) => (
-                <motion.div
-                  key={partner.name}
-                  className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-44 md:h-44"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <Image
-                    src={partner.src || "/placeholder.svg"}
-                    alt={`${partner.name} logo`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-contain transition-transform hover:scale-105"
-                  />
-                </motion.div>
-              ))}
-            </motion.div>
+          </motion.div>
 
-            <motion.div style={{ y: additionalPartnersY }} className="pt-16 border-t border-gray-200">
-              <h3 className="text-2xl sm:text-3xl font-bold text-center mb-12 text-[#101310]">
-                Supporting the Military&apos;s Medical Mission
-              </h3>
-              <div className="grid grid-cols-3 md:grid-cols-4 gap-8 md:gap-12 justify-items-center">
-                {additionalPartners.map((partner, index) => (
+          <h3 className="sr-only">Our Partners</h3>
+          {isMobile ? (
+            <div className="relative w-full h-[500px] overflow-hidden bg-white mb-8">
+              <motion.div
+                className="absolute top-4 left-1/2 -translate-x-1/2 z-10"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Image
+                  src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-2025.svg"
+                  alt="AIM Health R&D Summit Logo"
+                  width={200}
+                  height={144}
+                  className="w-40 h-auto"
+                />
+              </motion.div>
+              <div className="absolute inset-0 flex flex-col justify-start pt-20" aria-hidden="true">
+                <div className="grid grid-cols-2 gap-4 mt-4">
+                  {visiblePartners.map((partner) => (
+                    <PartnerImage key={partner.name} {...partner} />
+                  ))}
+                </div>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-transparent to-white/60" />
+              <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-white/60 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white/60 to-transparent" />
+            </div>
+          ) : (
+            <>
+              <motion.div
+                style={{ y: mainPartnersY }}
+                className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12 justify-items-center mb-20"
+              >
+                {mainPartners.map((partner, index) => (
                   <motion.div
                     key={partner.name}
-                    className="relative w-24 h-24 sm:w-32 sm:h-32"
+                    className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-44 md:h-44"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -250,15 +227,40 @@ export function AnimatedLogo() {
                     />
                   </motion.div>
                 ))}
-              </div>
-            </motion.div>
-          </>
-        )}
-      </div>
-      <div className="absolute inset-0 pointer-events-none">
-        <GameOfLife />
-      </div>
-    </section>
+              </motion.div>
+
+              <motion.div style={{ y: additionalPartnersY }} className="pt-16 border-t border-gray-200">
+                <h3 className="text-2xl sm:text-3xl font-bold text-center mb-12 text-[#101310]">
+                  Supporting the Military&apos;s Medical Mission
+                </h3>
+                <div className="grid grid-cols-3 md:grid-cols-4 gap-8 md:gap-12 justify-items-center">
+                  {additionalPartners.map((partner, index) => (
+                    <motion.div
+                      key={partner.name}
+                      className="relative w-24 h-24 sm:w-32 sm:h-32"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                    >
+                      <Image
+                        src={partner.src || "/placeholder.svg"}
+                        alt={`${partner.name} logo`}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-contain transition-transform hover:scale-105"
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </>
+          )}
+        </div>
+        <div className="absolute inset-0 pointer-events-none">
+          <LazyGameOfLife />
+        </div>
+      </section>
+    </ErrorBoundary>
   )
 }
 
