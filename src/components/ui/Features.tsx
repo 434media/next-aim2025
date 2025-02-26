@@ -300,10 +300,10 @@ export default function Features() {
             Bioscience Ecosystem in San Antonio
           </h2>
           <p className="mt-4 text-base sm:text-lg text-balance leading-relaxed text-gray-700">
-            San Antonio's healthcare and bioscience industries are credited with an annual economic impact of $44B, and
+            San Antonio&apos;s healthcare and bioscience industries are credited with an annual economic impact of $44B, and
             account for nearly one-fifth of all local jobs. <strong className="text-[#548cac]">VelocityTX</strong>{" "}
             serves as a critical connector to promote bioscience innovation and accelerate the process by which emerging
-            medical technologies can be leveraged by America's Warfighters.
+            medical technologies can be leveraged by America&apos;s Warfighters.
           </p>
         </motion.div>
         <motion.div
@@ -472,8 +472,8 @@ export default function Features() {
           <p className="mt-4 text-base sm:text-lg text-balance leading-relaxed text-gray-700">
             Long known as Military City, USA, San Antonio is home to the largest joint base in the US Department of
             Defense, with a robust medical ecosystem all its own. Indeed, the city boasts 10 military treatment
-            facilities (MTF's), 12,000 clinical staff, 37 graduate medical education programs with nearly 600 residents,
-            four critical care air transport teams, a burn flight team, and the DOD's only Level 1 Trauma Center.
+            facilities (MTF&apos;s), 12,000 clinical staff, 37 graduate medical education programs with nearly 600 residents,
+            four critical care air transport teams, a burn flight team, and the DOD&apos;s only Level 1 Trauma Center.
           </p>
           <div className="mt-4">
             <Button
