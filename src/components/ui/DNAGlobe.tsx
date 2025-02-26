@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useCallback, useMemo } from "react"
 import * as THREE from "three"
 
 interface DNAGlobeProps {
@@ -9,68 +9,45 @@ interface DNAGlobeProps {
   className?: string
 }
 
-interface Particle extends THREE.Mesh {
-  originalY: number
-  speed: number
-}
-
 export default function DNAGlobe({ width = 500, height = 500, className = "" }: DNAGlobeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
-  useEffect(() => {
-    if (!canvasRef.current) return
+  const createDNAStrand = useCallback((offset = 0, color: THREE.Color) => {
+    const points: THREE.Vector3[] = []
+    const numPoints = 50
+    const radius = 8
+    const height = 20
+    const turns = 2
 
-    // Scene setup
-    const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
-    const renderer = new THREE.WebGLRenderer({
-      canvas: canvasRef.current,
-      antialias: true,
-      alpha: true,
-    })
-
-    renderer.setSize(width, height)
-    renderer.setPixelRatio(window.devicePixelRatio)
-
-    // Camera position
-    camera.position.z = 30
-
-    // Create DNA strands
-    const createDNAStrand = (offset = 0, color: THREE.Color) => {
-      const points: THREE.Vector3[] = []
-      const numPoints = 100
-      const radius = 8
-      const height = 20
-      const turns = 2
-
-      for (let i = 0; i < numPoints; i++) {
-        const t = (i / numPoints) * Math.PI * 2 * turns
-        const x = Math.cos(t + offset) * radius
-        const y = (i / numPoints) * height - height / 2
-        const z = Math.sin(t + offset) * radius
-        points.push(new THREE.Vector3(x, y, z))
-      }
-
-      const curve = new THREE.CatmullRomCurve3(points)
-      const geometry = new THREE.TubeGeometry(curve, 100, 0.3, 8, false)
-      const material = new THREE.MeshPhongMaterial({
-        color: color,
-        shininess: 100,
-        transparent: true,
-        opacity: 0.8,
-      })
-
-      return new THREE.Mesh(geometry, material)
+    for (let i = 0; i < numPoints; i++) {
+      const t = (i / numPoints) * Math.PI * 2 * turns
+      const x = Math.cos(t + offset) * radius
+      const y = (i / numPoints) * height - height / 2
+      const z = Math.sin(t + offset) * radius
+      points.push(new THREE.Vector3(x, y, z))
     }
 
-    // Create DNA strands
-    const strand1 = createDNAStrand(0, new THREE.Color("#00FFFF")) // Vibrant cyan
-    const strand2 = createDNAStrand(Math.PI, new THREE.Color("#FF00FF")) // Vibrant magenta
-    scene.add(strand1)
-    scene.add(strand2)
+    const curve = new THREE.CatmullRomCurve3(points)
+    const geometry = new THREE.BufferGeometry().setFromPoints(curve.getPoints(100))
+    const material = new THREE.LineBasicMaterial({
+      color: color,
+      transparent: true,
+      opacity: 0.8,
+    })
 
-    // Create connecting bars
-    const createBars = () => {
+    return new THREE.Line(geometry, material)
+  }, [])
+
+  const createScene = useMemo(() => {
+    return () => {
+      const scene = new THREE.Scene()
+      const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
+      camera.position.z = 30
+
+      const strand1 = createDNAStrand(0, new THREE.Color("#00FFFF"))
+      const strand2 = createDNAStrand(Math.PI, new THREE.Color("#FF00FF"))
+      scene.add(strand1, strand2)
+
       const bars: THREE.Mesh[] = []
       const numBars = 20
       const radius = 8
@@ -86,114 +63,112 @@ export default function DNAGlobe({ width = 500, height = 500, className = "" }: 
 
         const geometry = new THREE.CylinderGeometry(0.15, 0.15, radius * 2, 8)
         const material = new THREE.MeshPhongMaterial({
-          color: 0x00ff00, // Vibrant green
+          color: 0x00ff00,
           shininess: 200,
           transparent: true,
           opacity: 0.8,
         })
 
         const bar = new THREE.Mesh(geometry, material)
-        bar.position.y = y
-
-        // Calculate rotation to point from one strand to the other
-        const direction = new THREE.Vector3(x2 - x1, 0, z2 - z1)
-        const rotation = new THREE.Euler(Math.PI / 2, 0, Math.atan2(direction.z, direction.x))
-        bar.rotation.copy(rotation)
-
-        bar.position.x = (x1 + x2) / 2
-        bar.position.z = (z1 + z2) / 2
+        bar.position.set((x1 + x2) / 2, y, (z1 + z2) / 2)
+        bar.rotation.set(Math.PI / 2, 0, Math.atan2(z2 - z1, x2 - x1))
 
         bars.push(bar)
         scene.add(bar)
       }
-      return bars
-    }
 
-    const bars = createBars()
-
-    // Create particles
-    const particles = new THREE.Group()
-    const particleCount = 100
-    const particleGeometry = new THREE.SphereGeometry(0.05, 8, 8)
-    const particleMaterial = new THREE.MeshPhongMaterial({
-      color: 0xffff00, // Vibrant yellow
-      transparent: true,
-      opacity: 0.8,
-    })
-
-    for (let i = 0; i < particleCount; i++) {
-      const particle = new THREE.Mesh(particleGeometry, particleMaterial) as unknown as Particle
-      particle.position.set((Math.random() - 0.5) * 40, (Math.random() - 0.5) * 40, (Math.random() - 0.5) * 40)
-      // Store original position for animation
-      particle.originalY = particle.position.y
-      particle.speed = Math.random() * 0.02 + 0.01
-      particles.add(particle)
-    }
-    scene.add(particles)
-
-    // Add lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
-    scene.add(ambientLight)
-
-    const light1 = new THREE.PointLight(0x00ffff, 3, 50) // Brighter cyan light
-    light1.position.set(10, 10, 10)
-    scene.add(light1)
-
-    const light2 = new THREE.PointLight(0xff00ff, 3, 50) // Brighter magenta light
-    light2.position.set(-10, -10, -10)
-    scene.add(light2)
-
-    const light3 = new THREE.PointLight(0xffffff, 2, 100) // Additional white light
-    light3.position.set(0, 20, 0)
-    scene.add(light3)
-
-    // Animation
-    let phi = 0
-    const animate = () => {
-      requestAnimationFrame(animate)
-
-      // Rotate DNA
-      phi += 0.005
-      scene.rotation.y = phi
-
-      // Animate particles
-      particles.children.forEach((particle: THREE.Object3D) => {
-        const p = particle as Particle
-        p.position.y += p.speed
-        if (p.position.y > 20) {
-          p.position.y = -20
-        }
-        p.position.x += Math.sin(phi + p.position.y * 0.1) * 0.02
-        p.position.z += Math.cos(phi + p.position.y * 0.1) * 0.02
+      const particles = new THREE.Group()
+      const particleCount = 50
+      const particleGeometry = new THREE.SphereGeometry(0.05, 8, 8)
+      const particleMaterial = new THREE.MeshPhongMaterial({
+        color: 0xffff00,
+        transparent: true,
+        opacity: 0.8,
       })
 
-      // Pulse effect on bars
+      for (let i = 0; i < particleCount; i++) {
+        const particle = new THREE.Mesh(particleGeometry, particleMaterial)
+        particle.position.set((Math.random() - 0.5) * 40, (Math.random() - 0.5) * 40, (Math.random() - 0.5) * 40)
+        particles.add(particle)
+      }
+      scene.add(particles)
+
+      scene.add(new THREE.AmbientLight(0xffffff, 0.5))
+      const pointLight1 = new THREE.PointLight(0x00ffff, 3, 50)
+      pointLight1.position.set(10, 10, 10)
+      const pointLight2 = new THREE.PointLight(0xff00ff, 3, 50)
+      pointLight2.position.set(-10, -10, -10)
+      const pointLight3 = new THREE.PointLight(0xffffff, 2, 100)
+      pointLight3.position.set(0, 20, 0)
+      scene.add(pointLight1, pointLight2, pointLight3)
+
+      return { scene, camera, bars, particles }
+    }
+  }, [width, height, createDNAStrand])
+
+  useEffect(() => {
+    if (!canvasRef.current) return
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvasRef.current,
+      antialias: true,
+      alpha: true,
+    })
+
+    renderer.setSize(width, height)
+    renderer.setPixelRatio(window.devicePixelRatio)
+
+    const { scene, camera, bars, particles } = createScene()
+
+    let lastRenderTime = 0
+    const targetFPS = 30
+    const frameInterval = 1000 / targetFPS
+
+    const animate = (currentTime: number) => {
+      requestAnimationFrame(animate)
+
+      if (currentTime - lastRenderTime < frameInterval) return
+
+      const phi = (currentTime / 1000) * 0.5
+      scene.rotation.y = phi
+
+      particles.children.forEach((particle, index) => {
+        particle.position.y += 0.03
+        if (particle.position.y > 20) particle.position.y = -20
+        particle.position.x += Math.sin(phi + index * 0.1) * 0.02
+        particle.position.z += Math.cos(phi + index * 0.1) * 0.02
+      })
+
       bars.forEach((bar, i) => {
         const scale = 1 + Math.sin(phi * 3 + i * 0.2) * 0.1
-        bar.scale.x = scale
-        bar.scale.z = scale
+        bar.scale.set(scale, 1, scale)
       })
 
       renderer.render(scene, camera)
+      lastRenderTime = currentTime
     }
 
-    animate()
+    animate(0)
 
-    // Handle resize
     const handleResize = () => {
-      camera.aspect = width / height
-      camera.updateProjectionMatrix()
-      renderer.setSize(width, height)
+      if (canvasRef.current) {
+        const newWidth = canvasRef.current.clientWidth
+        const newHeight = canvasRef.current.clientHeight
+        camera.aspect = newWidth / newHeight
+        camera.updateProjectionMatrix()
+        renderer.setSize(newWidth, newHeight)
+      }
     }
 
-    window.addEventListener("resize", handleResize)
+    const debouncedHandleResize = debounce(handleResize, 250)
 
-    // Cleanup
+    window.addEventListener("resize", debouncedHandleResize)
+
     return () => {
-      window.removeEventListener("resize", handleResize)
+      window.removeEventListener("resize", debouncedHandleResize)
       renderer.dispose()
     }
-  }, [width, height])
+  }, [width, height, createScene])
 
   return (
     <canvas
@@ -205,3 +180,16 @@ export default function DNAGlobe({ width = 500, height = 500, className = "" }: 
     />
   )
 }
+
+function debounce(func: (...args: any[]) => void, wait: number) {
+  let timeout: NodeJS.Timeout
+  return function executedFunction(...args: any[]) {
+    const later = () => {
+      clearTimeout(timeout)
+      func(...args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+  }
+}
+
