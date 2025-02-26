@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "motion/react"
+import { useState, useEffect, useMemo } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
-import { RiArrowDownSLine, RiMenuLine, RiCloseLine } from "@remixicon/react"
+import { RiArrowDownSLine, RiMenuLine, RiCloseLine, RiArrowRightUpLine } from "@remixicon/react"
 import { Button } from "../Button"
 
 const menuItems = [
@@ -48,9 +48,34 @@ const eventInfo = {
   location: "San Antonio, TX",
 }
 
+const initialNewsItems = [
+  {
+    label: "AIM 2025 SYMPOSIUMS",
+    href: "https://www.eventbrite.com/e/sneak-preview-aim-2025-sme-encounter-sessions-tickets-1234940392959",
+  },
+  {
+    label: "EARLY BIRD PRICING",
+    href: "https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/",
+  },
+  {
+    label: "SME SNEAK PREVIEW",
+    href: "https://www.eventbrite.com/e/sneak-preview-aim-2025-sme-encounter-sessions-tickets-1234940392959",
+  },
+]
+
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [currentNewsIndex, setCurrentNewsIndex] = useState(0)
+  const newsItems = useMemo(() => initialNewsItems, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentNewsIndex((prevIndex) => (prevIndex + 1) % newsItems.length)
+    }, 5000) // Change news item every 5 seconds
+
+    return () => clearInterval(interval)
+  }, [newsItems.length])
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
@@ -147,37 +172,54 @@ export default function NavBar() {
                 ))}
               </div>
 
-              {/* Mobile: Register Button and Menu Button */}
-              <div className="flex items-center justify-between w-full md:w-auto">
-                <Button
-                  variant="primary"
-                  href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-                  className="text-sm py-2 md:hidden"
+              {/* News Ticker (Desktop and Mobile) */}
+              <div className="flex-1 md:flex-none md:mx-0">
+                <a
+                  aria-label={`View latest update: ${newsItems[currentNewsIndex].label}`}
+                  href={newsItems[currentNewsIndex].href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="group inline-flex w-full md:w-auto items-center justify-between rounded-full bg-white px-3 py-2 text-sm font-medium text-[#101310] shadow-lg shadow-[#548cac]/10 ring-1 ring-black/5 transition-all hover:bg-[#548cac]/5 hover:ring-[#548cac] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2"
                 >
-                  Register Now
-                </Button>
+                  <span className="flex items-center overflow-hidden">
+                    <span className="sr-only">Current news:</span>
+                    <span className="flex h-6 w-6 flex-none items-center justify-center rounded-full bg-[#548cac] text-white">
+                      <RiArrowRightUpLine className="h-3 w-3" aria-hidden="true" />
+                    </span>
+                    <span className="ml-3 flex items-center text-xs md:text-sm">
+                      <span className="font-bold text-[#548cac]">News</span>
+                      <span className="mx-2 text-gray-400" aria-hidden="true">
+                        &middot;
+                      </span>
+                      <span className="relative overflow-hidden" style={{ width: "180px", height: "1.5em" }}>
+                        <AnimatePresence mode="wait">
+                          <motion.span
+                            key={currentNewsIndex}
+                            className="absolute inset-0 flex items-center"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <span className="truncate font-medium text-[#101310]">
+                              {newsItems[currentNewsIndex].label}
+                            </span>
+                          </motion.span>
+                        </AnimatePresence>
+                      </span>
+                    </span>
+                  </span>
+                </a>
+              </div>
+              {/* Mobile: Menu Button */}
+              <div className="p-2 ml-2 flex items-center md:hidden">
                 <button
                   onClick={() => setIsOpen(true)}
-                  className="p-2 rounded-full transition-colors hover:bg-[#548cac]/20 focus:outline-none focus:ring-2 focus:ring-[#548cac] md:hidden"
+                  className="rounded-full transition-colors hover:bg-[#548cac]/20 focus:outline-none focus:ring-2 focus:ring-[#548cac]"
                   aria-label="Open menu"
                 >
                   <RiMenuLine className="size-6 text-white" />
                 </button>
-              </div>
-
-              {/* Desktop: Register Button */}
-              <div className="hidden md:block">
-                <Button
-                  variant="primary"
-                  href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-                  className="text-sm py-2"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Register Now
-                </Button>
               </div>
             </div>
           </div>
@@ -265,6 +307,7 @@ export default function NavBar() {
                     </ul>
                   </nav>
 
+                  {/* Mobile: Register Button */}
                   <div className="p-4 border-t border-[#548cac]/20 bg-[#101310]/50">
                     <Button
                       variant="primary"

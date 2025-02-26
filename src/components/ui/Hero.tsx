@@ -1,81 +1,17 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
-import { RiArrowRightUpLine } from "@remixicon/react"
 import { FadeContainer, FadeDiv, FadeSpan } from "../Fade"
-import { motion, AnimatePresence } from "motion/react"
+import GameOfLife from "./HeroBackground"
 import { Button } from "../Button"
 import ErrorBoundary from "./ErrorBoundary"
-
-const initialNewsItems = [
-  {
-    label: "AIM 2025 SYMPOSIUM SERIES",
-    href: "https://www.eventbrite.com/e/sneak-preview-aim-2025-sme-encounter-sessions-tickets-1234940392959",
-  },
-  {
-    label: "EARLY BIRD PRICING AVAILABLE",
-    href: "https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/",
-  },
-  {
-    label: "SNEAK PREVIEW: AIM 2025",
-    href: "https://www.eventbrite.com/e/sneak-preview-aim-2025-sme-encounter-sessions-tickets-1234940392959",
-  },
-]
+import { RiArrowRightUpLine } from "@remixicon/react"
 
 export function Hero() {
-  const [currentNewsIndex, setCurrentNewsIndex] = useState(0)
-  const newsItems = useMemo(() => initialNewsItems, [])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentNewsIndex((prevIndex) => (prevIndex + 1) % newsItems.length)
-    }, 5000) // Change news item every 5 seconds
-
-    return () => clearInterval(interval)
-  }, [newsItems.length])
-
   return (
     <ErrorBoundary>
-      <section aria-label="hero" className="relative py-16 sm:py-24 md:py-32 overflow-hidden">
+      <section aria-label="hero" className="relative py-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 z-0" />
         <FadeContainer className="relative z-10 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <FadeDiv className="w-full max-w-xl md:max-w-sm px-4 sm:px-0">
-            <a
-              aria-label={`View latest update: ${newsItems[currentNewsIndex].label}`}
-              href={newsItems[currentNewsIndex].href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex w-full items-center justify-between rounded-full bg-white px-3 py-2 text-sm font-medium text-[#101310] shadow-lg shadow-[#548cac]/10 ring-1 ring-black/5 transition-all hover:bg-[#548cac]/5 hover:ring-[#548cac] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2"
-            >
-              <span className="flex items-center overflow-hidden">
-                <span className="sr-only">Current news:</span>
-                <span className="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-[#548cac] text-white">
-                  <RiArrowRightUpLine className="h-4 w-4" aria-hidden="true" />
-                </span>
-                <span className="ml-3 flex items-center text-xs sm:text-sm">
-                  <span className="font-medium text-[#101310]">News</span>
-                  <span className="mx-2 text-gray-400" aria-hidden="true">
-                    &middot;
-                  </span>
-                  <AnimatePresence mode="wait">
-                    <motion.span
-                      key={currentNewsIndex}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.3 }}
-                      className="truncate font-medium text-[#548cac]"
-                    >
-                      {newsItems[currentNewsIndex].label}
-                    </motion.span>
-                  </AnimatePresence>
-                </span>
-              </span>
-              <span className="ml-3 flex-none text-[#4f4f2c] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                →
-              </span>
-            </a>
-          </FadeDiv>
           <h1 className="mt-12 text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#101310]">
             <FadeSpan className="block text-[#548cac]">Two Days</FadeSpan>
             <FadeSpan className="block">One Mission</FadeSpan>
@@ -119,6 +55,9 @@ export function Hero() {
             </FadeDiv>
           </div>
         </FadeContainer>
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <GameOfLife />
+        </div>
       </section>
     </ErrorBoundary>
   )

@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { RiArrowRightUpLine, RiPlayCircleLine, RiPauseCircleLine } from "@remixicon/react"
+import { RiArrowRightUpLine } from "@remixicon/react"
 import { Button } from "../Button"
 import { VisuallyHidden } from "@/components/ui/visually-hidden"
 
@@ -25,7 +25,6 @@ export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const [isVideoError, setIsVideoError] = useState(false)
-  const [isPlaying, setIsPlaying] = useState(false)
 
   const handleVideoLoad = () => {
     setIsVideoLoaded(true)
@@ -41,17 +40,6 @@ export function HeroVideo() {
       if (mainContent) {
         mainContent.scrollIntoView({ behavior: "smooth" })
       }
-    }
-  }
-
-  const togglePlayPause = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause()
-      } else {
-        videoRef.current.play()
-      }
-      setIsPlaying(!isPlaying)
     }
   }
 
@@ -146,7 +134,7 @@ export function HeroVideo() {
               <motion.div
                 initial={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 flex items-center justify-center bg-aim-navy"
+                className="absolute inset-0 flex items-center justify-center"
               >
                 <div className="loading-spinner" role="status">
                   <VisuallyHidden>Loading video</VisuallyHidden>
@@ -172,22 +160,12 @@ export function HeroVideo() {
             <track kind="captions" src="/captions.vtt" label="English captions" />
           </video>
           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-aim-navy/50 to-transparent"
+            className="absolute inset-0 bg-gradient-to-r from-[#548cac]/5 to-[#4f4f2c]/5 bg-opacity-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
             aria-hidden="true"
           />
-          <motion.button
-            onClick={togglePlayPause}
-            className="absolute bottom-4 right-4 bg-[#548cac]/80 text-white p-2 rounded-full hover:bg-[#548cac] transition-colors duration-200"
-            aria-label={isPlaying ? "Pause video" : "Play video"}
-            whileTap={{ scale: 0.95 }}
-          >
-            <motion.div initial={false} animate={{ rotate: isPlaying ? 0 : 360 }} transition={{ duration: 0.3 }}>
-              {isPlaying ? <RiPauseCircleLine className="size-8" /> : <RiPlayCircleLine className="size-8" />}
-            </motion.div>
-          </motion.button>
         </motion.div>
       </div>
     </section>

@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform, useSpring } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
 import ErrorBoundary from "./ErrorBoundary"
+import GameOfLife from "./HeroBackground"
 
 const mainPartners = [
   {
@@ -217,8 +218,8 @@ export function AnimatedLogo() {
                     href="https://militaryhealthinstitute.org/"
                     description="UT Health San Antonio's Military Health Institute (MHI) is dedicated to advancing military health and medicine through research, education, and community partnerships."
                   >
-                    UT Health San Antonio&apos;s MHI,
-                  </LinkPreview>
+                    UT Health San Antonio&apos;s MHI
+                  </LinkPreview>, {" "}
                   the city is a center for medical research and care.
                 </p>
                 <p>
@@ -270,6 +271,9 @@ export function AnimatedLogo() {
               </p>
             </motion.div>
           </div>
+        </div>
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <GameOfLife />
         </div>
       </section>
     </ErrorBoundary>

@@ -66,7 +66,7 @@ export function SponsorShowcase() {
             className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#101310] tracking-tight mb-6"
           >
             AIM Health R&D Summit <br className="hidden sm:inline" />
-            <span className="bg-gradient-to-r from-[#548cac] to-[#4f4f2c] bg-clip-text text-transparent">Sponsors</span>
+            <span className="bg-gradient-to-r from-[#548cac] to-[#4f4f2c] bg-clip-text text-transparent">2025 Sponsors</span>
           </h2>
           <motion.div
             className="h-1 w-24 bg-[#548cac] mx-auto mt-6"
