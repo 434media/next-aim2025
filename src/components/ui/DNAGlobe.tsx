@@ -181,7 +181,7 @@ export default function DNAGlobe({ width = 500, height = 500, className = "" }: 
   )
 }
 
-function debounce<T extends (...args: any[]) => void>(func: T, wait: number): (...args: Parameters<T>) => void {
+function debounce<T extends (...args: unknown[]) => void>(func: T, wait: number): (...args: Parameters<T>) => void {
   let timeout: NodeJS.Timeout | null = null
   return (...args: Parameters<T>) => {
     const later = () => {
