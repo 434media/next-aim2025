@@ -346,6 +346,7 @@ export default function Features() {
                     src="https://ampd-asset.s3.us-east-2.amazonaws.com/InnovationShowcase-ezgif.com-video-to-gif-converter+(1)+(1).gif"
                     alt="Innovation Showcase gif"
                     fill
+                    unoptimized
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover"
                   />
