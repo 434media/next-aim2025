@@ -25,7 +25,7 @@ const menuItems = [
       { name: "Bring Your Team", href: "/bring-your-team" },
     ],
   },
-  { name: "Sponsors & Exhibitors", href: "/sponsors-exhibitors" },
+  { name: "Sponsors & Exhibitors", href: "https://drive.google.com/file/d/1-RqS13xFyYj5ivO5bmyYfAAWfgW5apBf/view?ts=67b8b8c3" },
   {
     name: "More",
     href: "#more",

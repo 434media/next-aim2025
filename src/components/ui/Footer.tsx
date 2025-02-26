@@ -14,7 +14,7 @@ const sections = {
       { label: "Why Attend", href: "/why-attend" },
       { label: "Schedule", href: "#schedule" },
       { label: "Speakers", href: "#speakers" },
-      { label: "Sponsors & Exhibitors", href: "/sponsors-exhibitors" },
+      { label: "Sponsors & Exhibitors", href: "https://drive.google.com/file/d/1-RqS13xFyYj5ivO5bmyYfAAWfgW5apBf/view?ts=67b8b8c3" },
       { label: "Pre-Conference Symposiums", href: "/pre-conference-symposiums" },
     ],
   },
