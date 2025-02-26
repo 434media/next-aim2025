@@ -40,11 +40,6 @@ const faqs = [
     answer:
       "Yes, registered attendees will have access to presentation slides and recordings (where permitted) through our online portal after the event.",
   },
-  {
-    question: "Are there any COVID-19 precautions in place?",
-    answer:
-      "We follow all local and federal guidelines regarding health and safety. Specific measures will be communicated to attendees closer to the event date.",
-  },
 ]
 
 const fadeInUp = {
@@ -111,8 +106,8 @@ export default function FAQPage() {
         <motion.div className="mt-12 text-center" variants={fadeInUp}>
           <p className="text-gray-600">
             Don&apos;t see your question here? Contact us at{" "}
-            <a href="mailto:info@aimhealthsummit.com" className="text-orange-600 hover:underline">
-              info@aimhealthsummit.com
+            <a href="mailto:barb@434media.com" className="text-orange-600 hover:underline">
+              barb@434media.com
             </a>
           </p>
         </motion.div>

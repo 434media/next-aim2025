@@ -1,17 +1,30 @@
 "use client"
 
 import { motion } from "motion/react"
-import { RiCheckLine, RiArrowRightUpLine } from "@remixicon/react"
-import { Button } from "@/components/Button"
+import { RiCheckLine } from "@remixicon/react"
 import Image from "next/image"
 
 const reasons = [
-  "Network with industry leaders and military decision-makers",
-  "Learn about cutting-edge advancements in military medicine",
-  "Explore partnership and collaboration opportunities",
-  "Gain insights into military health challenges and priorities",
-  "Showcase your innovations to a targeted audience",
-  "Participate in hands-on workshops and demonstrations",
+  {
+    title: "Network with Industry Leaders",
+    description: "Connect with military decision-makers and healthcare innovators.",
+    icon: "RiUserVoiceLine",
+  },
+  {
+    title: "Cutting-edge Advancements",
+    description: "Explore the latest in military medicine and biotechnology.",
+    icon: "RiMicroscopeLine",
+  },
+  {
+    title: "Collaboration Opportunities",
+    description: "Discover partnerships to accelerate your research and development.",
+    icon: "RiTeamLine",
+  },
+  {
+    title: "Military Health Insights",
+    description: "Gain valuable insights into military health challenges and priorities.",
+    icon: "RiMentalHealthLine",
+  },
 ]
 
 const fadeInUp = {
@@ -27,6 +40,7 @@ export default function WhyAttend() {
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
         initial="initial"
         animate="animate"
+        layout
         variants={{
           animate: {
             transition: {
@@ -35,63 +49,59 @@ export default function WhyAttend() {
           },
         }}
       >
-        <motion.h1 className="text-4xl font-bold text-gray-900 mb-8 text-center" variants={fadeInUp}>
+        <motion.h1
+          className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#101310] mb-8 text-center"
+          variants={fadeInUp}
+        >
           Why Attend AIM Health R&D Summit
         </motion.h1>
-        <motion.p className="text-xl text-gray-600 mb-12 text-center max-w-3xl mx-auto" variants={fadeInUp}>
+        <motion.p
+          className="text-xl md:text-2xl text-[#548cac] mb-12 text-center max-w-3xl mx-auto"
+          variants={fadeInUp}
+        >
           Join us for an unparalleled opportunity to shape the future of military medicine and forge valuable
           connections.
         </motion.p>
 
-        <div className="grid gap-8 lg:grid-cols-2">
-          <motion.div variants={fadeInUp}>
+        <div className="grid gap-8 lg:grid-cols-2 items-center">
+          <motion.div variants={fadeInUp} className="order-2 lg:order-1">
             <Image
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+30.png"
+              src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+17.png"
               alt="AIM Summit attendees networking"
               width={600}
               height={400}
-              className="rounded-lg shadow-md"
+              className="rounded-lg shadow-md w-full h-auto"
+              priority
             />
           </motion.div>
-          <motion.div variants={fadeInUp}>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6">Top Reasons to Attend</h2>
-            <ul className="space-y-4">
+          <motion.div variants={fadeInUp} className="order-1 lg:order-2">
+            <ul className="space-y-4" aria-label="Reasons to attend AIM Health R&D Summit">
               {reasons.map((reason, index) => (
                 <motion.li
                   key={index}
-                  className="flex items-start"
+                  className="flex items-start bg-white p-4 rounded-lg shadow-sm transition-all duration-300 hover:shadow-md"
                   variants={fadeInUp}
                   custom={index}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
                 >
-                  <RiCheckLine className="mt-1 mr-3 text-green-500 flex-shrink-0" />
-                  <span className="text-gray-700">{reason}</span>
+                  <RiCheckLine className="mt-1 mr-3 text-[#5e8266] flex-shrink-0 text-2xl" />
+                  <div>
+                    <h3 className="font-semibold text-[#101310]">{reason.title}</h3>
+                    <p className="text-[#548cac]">{reason.description}</p>
+                  </div>
                 </motion.li>
               ))}
             </ul>
           </motion.div>
         </div>
-
-        <motion.div className="mt-16 text-center" variants={fadeInUp}>
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Ready to Join Us?</h2>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Don&apos;t miss this opportunity to be part of the premier event in military medical innovation.
-          </p>
-          <Button
-            variant="primary"
-            className="py-3 px-8 text-lg"
-            href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-          >
-            Register Now
-            <RiArrowRightUpLine className="ml-2" />
-          </Button>
-        </motion.div>
       </motion.div>
     </div>
   )
 }
 
 WhyAttend.meta = {
-  title: "Why Attend",
-  description: "Join us for an unparalleled opportunity to shape the future of military medicine and forge valuable connections.",
+  title: "Why Attend AIM Health R&D Summit",
+  description:
+    "Discover the top reasons to attend the AIM Health R&D Summit and shape the future of military medicine.",
 }
+

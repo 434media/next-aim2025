@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "motion/react"
+import { motion } from "framer-motion"
 import { RiTeamLine, RiPresentationLine, RiDiscussLine, RiLightbulbLine, RiArrowRightUpLine } from "@remixicon/react"
 import { Button } from "@/components/Button"
 
@@ -30,12 +30,12 @@ const teamBenefits = [
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 },
+  transition: { duration: 0.5, ease: "easeOut" },
 }
 
 export default function BringYourTeam() {
   return (
-    <div className="bg-gray-50 min-h-screen pt-24">
+    <div className="bg-[#F5F5F5] min-h-screen pt-24">
       <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
         initial="initial"
@@ -48,62 +48,79 @@ export default function BringYourTeam() {
           },
         }}
       >
-        <motion.h1 className="text-4xl font-bold text-gray-900 mb-8 text-center" variants={fadeInUp}>
+        <motion.h1 className="text-4xl font-bold text-[#101310] mb-8 text-center" variants={fadeInUp}>
           Bring Your Team to AIM Health R&D Summit
         </motion.h1>
-        <motion.p className="text-xl text-gray-600 mb-12 text-center max-w-3xl mx-auto" variants={fadeInUp}>
-          Maximize your organization&apos;s impact by bringing your entire team to the premier event in military medical
+        <motion.p className="text-xl text-[#548CAC] mb-12 text-center max-w-3xl mx-auto" variants={fadeInUp}>
+          Maximize your organization's impact by bringing your entire team to the premier event in military medical
           innovation.
         </motion.p>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <motion.div
+          className="grid gap-8 md:grid-cols-2 lg:grid-cols-4"
+          variants={{
+            animate: {
+              transition: {
+                staggerChildren: 0.1,
+              },
+            },
+          }}
+        >
           {teamBenefits.map((benefit, index) => (
             <motion.div
               key={benefit.title}
               className="bg-white rounded-lg shadow-md p-6"
               variants={fadeInUp}
               custom={index}
-              transition={{ delay: index * 0.1 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <benefit.icon className="text-4xl text-orange-500 mb-4" />
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">{benefit.title}</h2>
-              <p className="text-gray-600">{benefit.description}</p>
+              <benefit.icon className="text-4xl text-[#F26419] mb-4" aria-hidden="true" />
+              <h2 className="text-xl font-semibold text-[#101310] mb-2">{benefit.title}</h2>
+              <p className="text-[#548CAC]">{benefit.description}</p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <motion.div className="mt-16" variants={fadeInUp}>
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4 text-center">Group Registration Benefits</h2>
-          <div className="bg-white rounded-lg shadow-md p-6 mt-8">
-            <ul className="space-y-4">
-              <li className="flex items-center">
-                <RiArrowRightUpLine className="text-orange-500 mr-3 flex-shrink-0" />
-                <span className="text-gray-700">Discounted rates for groups of 5 or more</span>
-              </li>
-              <li className="flex items-center">
-                <RiArrowRightUpLine className="text-orange-500 mr-3 flex-shrink-0" />
-                <span className="text-gray-700">Priority seating for keynote sessions</span>
-              </li>
-              <li className="flex items-center">
-                <RiArrowRightUpLine className="text-orange-500 mr-3 flex-shrink-0" />
-                <span className="text-gray-700">Exclusive team networking opportunities</span>
-              </li>
-              <li className="flex items-center">
-                <RiArrowRightUpLine className="text-orange-500 mr-3 flex-shrink-0" />
-                <span className="text-gray-700">Customized agenda planning assistance</span>
-              </li>
+          <h2 className="text-2xl font-semibold text-[#101310] mb-4 text-center">Group Registration Benefits</h2>
+          <motion.div
+            className="bg-white rounded-lg shadow-md p-6 mt-8"
+            whileHover={{ boxShadow: "0 8px 30px rgba(0,0,0,0.12)" }}
+          >
+            <ul className="space-y-4" aria-label="Group registration benefits">
+              {[
+                "Discounted rates for groups of 5 or more",
+                "Priority seating for keynote sessions",
+                "Exclusive team networking opportunities",
+                "Customized agenda planning assistance",
+              ].map((benefit, index) => (
+                <motion.li
+                  key={index}
+                  className="flex items-center"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <RiArrowRightUpLine className="text-[#F26419] mr-3 flex-shrink-0" aria-hidden="true" />
+                  <span className="text-[#548CAC]">{benefit}</span>
+                </motion.li>
+              ))}
             </ul>
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div className="mt-16 text-center" variants={fadeInUp}>
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Ready to Register Your Team?</h2>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+          <h2 className="text-2xl font-semibold text-[#101310] mb-4">Ready to Register Your Team?</h2>
+          <p className="text-[#548CAC] mb-8 max-w-2xl mx-auto">
             Contact our team registration specialist to learn more about group discounts and benefits.
           </p>
-          <Button variant="primary" className="py-3 px-8 text-lg" href="mailto:team-registration@aimhealthsummit.com">
+          <Button
+            variant="primary"
+            href="mailto:barb@434media.com"
+          >
             Contact Team Registration
-            <RiArrowRightUpLine className="ml-2" />
+            <RiArrowRightUpLine className="inline-flex ml-2" aria-hidden="true" />
           </Button>
         </motion.div>
       </motion.div>
@@ -111,7 +128,3 @@ export default function BringYourTeam() {
   )
 }
 
-BringYourTeam.meta = {
-  title: "Bring Your Team",
-  description: "Maximize your organization's impact by bringing your entire team to the premier event in military medical innovation.",
-}

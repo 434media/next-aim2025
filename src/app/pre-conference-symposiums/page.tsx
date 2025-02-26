@@ -99,20 +99,19 @@ export default function PreConferenceSymposiums() {
             <Button
               href={featuredSymposium.registerLink}
               variant="secondary"
-              className="inline-flex items-center group transition-all duration-200"
               aria-label="Register for SME Encounter Sessions"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Register Now
-              <RiArrowRightLine className="ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+              RSVP
+              <RiArrowRightLine className="inline-flex ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
             </Button>
           </motion.div>
 
           <motion.div variants={fadeInUp} className="flex-1 bg-zinc-900 rounded-xl p-1 md:p-2 w-full max-w-xl">
             <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-zinc-800">
               <Image
-                src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-poster.png"
+                src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+17.png"
                 alt="SME Encounter Sessions preview"
                 fill
                 className="object-cover transition-opacity duration-300"
@@ -155,12 +154,11 @@ export default function PreConferenceSymposiums() {
                   <Button
                     href={symposium.registerLink}
                     variant="secondary"
-                    className="whitespace-nowrap group/button"
                     aria-label={`Register for ${symposium.title}`}
                   >
-                    Register Now
+                    RSVP
                     <RiArrowRightLine
-                      className="ml-2 group-hover/button:translate-x-1 transition-transform"
+                      className="inline-flex ml-2 group-hover/button:translate-x-1 transition-transform"
                       aria-hidden="true"
                     />
                   </Button>
