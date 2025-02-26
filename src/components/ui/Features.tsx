@@ -101,13 +101,13 @@ export default function Features() {
             <div className="absolute top-1 -left-[8px] h-5 w-[3px] rounded-r-sm bg-[#101310]" />
           </h2>
           <h3 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-balance text-[#101310]">
-            San Antonio is the Center for Medical Research and Care
+            From the Bench to the Battlefield
           </h3>
           <p className="mt-4 text-base sm:text-lg text-balance leading-relaxed text-gray-700">
             San Antonio Texas is a unique city, serving as a leader in government and civilian healthcare research
-            through organizations including the San Antonio Military Health System (SAMHS), The University of Texas
-            Health San Antonio (UTHSA), The University of Texas at San Antonio (UTSA), Texas Biomedical Research
-            Foundation and the Veterans Administration (VA).
+            through organizations including the San Antonio Military Health System <strong className="font-semibold text-[#101310]">(SAMHS)</strong>, The University of Texas
+            Health San Antonio <strong className="font-semibold text-[#101310]">(UTHSA)</strong>, The University of Texas at San Antonio <strong className="font-semibold text-[#101310]">(UTSA)</strong>, Texas Biomedical Research
+            Foundation and the Veterans Administration <strong className="font-semibold text-[#101310]">(VA)</strong>.
           </p>
         </motion.div>
         <motion.div

@@ -8,7 +8,8 @@ import ErrorBoundary from "./ErrorBoundary"
 import GameOfLife from "./HeroBackground"
 import { Button } from "../Button"
 import { RiArrowRightUpLine } from "@remixicon/react"
-import { FadeDiv } from "../Fade"
+import { FadeDiv, FadeSpan } from "../Fade"
+
 
 
 const mainPartners = [
@@ -266,12 +267,17 @@ export function AnimatedLogo() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <h3 className="md:mt-32 md:max-w-3xl md:mx-auto text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#101310] mb-8">
-                Supporting the Military&apos;s Medical Mission
+              <h3 className="md:mt-32 md:max-w-3xl md:mx-auto text-center text-5xl lg:text-7xl font-extrabold tracking-tight text-[#101310] mb-8">
+                <FadeSpan className="block text-[#548cac]">Two Days</FadeSpan>
+                <FadeSpan className="block">One Mission</FadeSpan>
               </h3>
               <p className="mt-6 max-w-2xl mx-auto text-center text-base sm:text-lg md:text-xl text-gray-600">
-                Together, we&apos;re advancing healthcare innovation and improving outcomes for our service members,
-                veterans, and their families.
+                <FadeSpan>
+                  The AIM Health R&D Summit is <strong className="font-semibold text-[#101310]">Military Health City USA&apos;S</strong>{" "}
+                  premier networking and collaboration conference in support of the{" "}
+                  <strong className="font-semibold text-[#101310]">life sciences industry</strong> and{" "}
+                  <strong className="font-semibold text-[#101310]">military medical mission</strong>
+                </FadeSpan>
               </p>
               <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
             <FadeDiv>

@@ -25,7 +25,10 @@ const menuItems = [
       { name: "Bring Your Team", href: "/bring-your-team" },
     ],
   },
-  { name: "Sponsors & Exhibitors", href: "https://drive.google.com/file/d/1-RqS13xFyYj5ivO5bmyYfAAWfgW5apBf/view?ts=67b8b8c3" },
+  {
+    name: "Sponsors & Exhibitors",
+    href: "https://drive.google.com/file/d/1-RqS13xFyYj5ivO5bmyYfAAWfgW5apBf/view?ts=67b8b8c3",
+  },
   {
     name: "More",
     href: "#more",
@@ -183,14 +186,18 @@ export default function NavBar() {
                   href={newsItems[currentNewsIndex].href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex w-full md:w-auto items-center justify-between rounded-full bg-white px-3 py-2 text-sm font-medium text-[#101310] shadow-lg shadow-[#548cac]/10 ring-1 ring-black/5 transition-all hover:bg-[#548cac]/5 hover:ring-[#548cac] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2"
+                  className="group inline-flex w-full md:w-auto items-center justify-between rounded-full bg-white px-4 py-2 text-sm font-medium text-[#101310] shadow-lg shadow-[#548cac]/10 ring-1 ring-black/5 transition-all hover:bg-[#548cac]/10 hover:ring-[#548cac] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-[#101310]"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault()
+                      window.open(newsItems[currentNewsIndex].href, "_blank", "noopener,noreferrer")
+                    }
+                  }}
                 >
                   <span className="flex items-center overflow-hidden">
                     <span className="sr-only">Current news:</span>
-                    <span className="flex h-6 w-6 flex-none items-center justify-center rounded-full bg-[#548cac] text-white">
-                      <RiArrowRightUpLine className="h-3 w-3" aria-hidden="true" />
-                    </span>
-                    <span className="ml-3 flex items-center text-xs md:text-sm">
+                    <span className="flex items-center text-xs md:text-sm">
                       <span className="font-bold text-[#548cac]">News</span>
                       <span className="mx-2 text-gray-400" aria-hidden="true">
                         &middot;
@@ -210,6 +217,9 @@ export default function NavBar() {
                             </span>
                           </motion.span>
                         </AnimatePresence>
+                      </span>
+                      <span className="flex h-6 w-6 flex-none items-center justify-center rounded-full bg-[#548cac] text-white ml-2">
+                        <RiArrowRightUpLine className="h-3 w-3" aria-hidden="true" />
                       </span>
                     </span>
                   </span>
