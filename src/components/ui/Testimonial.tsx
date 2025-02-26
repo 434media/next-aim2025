@@ -60,7 +60,7 @@ export default function Testimonial() {
             >
               <p className="text-white text-shadow-md">
                 <strong className="font-semibold">
-                  Forums like MMID give us the opportunity to collaborate with organizations outside of DoD
+                  Forums like AIM give us the opportunity to collaborate with organizations outside of DoD
                 </strong>{" "}
                 so they have a better idea how to engage with the military&apos;s medical mission and advance healthcare
                 innovation

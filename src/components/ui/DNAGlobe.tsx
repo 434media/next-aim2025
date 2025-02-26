@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useCallback, useMemo } from "react"
+import React, { useEffect, useRef, useCallback, useMemo } from "react"
 import * as THREE from "three"
 
 interface DNAGlobeProps {
@@ -9,12 +9,12 @@ interface DNAGlobeProps {
   className?: string
 }
 
-export default function DNAGlobe({ width = 500, height = 500, className = "" }: DNAGlobeProps) {
+const DNAGlobe = React.memo(({ width = 500, height = 500, className = "" }: DNAGlobeProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const createDNAStrand = useCallback((offset = 0, color: THREE.Color) => {
     const points: THREE.Vector3[] = []
-    const numPoints = 50
+    const numPoints = 30 // Reduced from 50
     const radius = 8
     const height = 20
     const turns = 2
@@ -28,7 +28,7 @@ export default function DNAGlobe({ width = 500, height = 500, className = "" }: 
     }
 
     const curve = new THREE.CatmullRomCurve3(points)
-    const geometry = new THREE.BufferGeometry().setFromPoints(curve.getPoints(100))
+    const geometry = new THREE.BufferGeometry().setFromPoints(curve.getPoints(50)) // Reduced from 100
     const material = new THREE.LineBasicMaterial({
       color: color,
       transparent: true,
@@ -49,7 +49,7 @@ export default function DNAGlobe({ width = 500, height = 500, className = "" }: 
       scene.add(strand1, strand2)
 
       const bars: THREE.Mesh[] = []
-      const numBars = 20
+      const numBars = 10 // Reduced from 20
       const radius = 8
 
       for (let i = 0; i < numBars; i++) {
@@ -78,7 +78,7 @@ export default function DNAGlobe({ width = 500, height = 500, className = "" }: 
       }
 
       const particles = new THREE.Group()
-      const particleCount = 50
+      const particleCount = 25 // Reduced from 50
       const particleGeometry = new THREE.SphereGeometry(0.05, 8, 8)
       const particleMaterial = new THREE.MeshPhongMaterial({
         color: 0xffff00,
@@ -116,20 +116,14 @@ export default function DNAGlobe({ width = 500, height = 500, className = "" }: 
     })
 
     renderer.setSize(width, height)
-    renderer.setPixelRatio(window.devicePixelRatio)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)) // Limit pixel ratio for better performance
 
     const { scene, camera, bars, particles } = createScene()
 
-    let lastRenderTime = 0
-    const targetFPS = 30
-    const frameInterval = 1000 / targetFPS
+    let animationFrameId: number
 
-    const animate = (currentTime: number) => {
-      requestAnimationFrame(animate)
-
-      if (currentTime - lastRenderTime < frameInterval) return
-
-      const phi = (currentTime / 1000) * 0.5
+    const animate = () => {
+      const phi = (Date.now() / 1000) * 0.5
       scene.rotation.y = phi
 
       particles.children.forEach((particle, index) => {
@@ -145,10 +139,10 @@ export default function DNAGlobe({ width = 500, height = 500, className = "" }: 
       })
 
       renderer.render(scene, camera)
-      lastRenderTime = currentTime
+      animationFrameId = requestAnimationFrame(animate)
     }
 
-    animate(0)
+    animate()
 
     const handleResize = () => {
       if (canvasRef.current) {
@@ -166,6 +160,7 @@ export default function DNAGlobe({ width = 500, height = 500, className = "" }: 
 
     return () => {
       window.removeEventListener("resize", debouncedHandleResize)
+      cancelAnimationFrame(animationFrameId)
       renderer.dispose()
     }
   }, [width, height, createScene])
@@ -179,7 +174,9 @@ export default function DNAGlobe({ width = 500, height = 500, className = "" }: 
       className={className}
     />
   )
-}
+})
+
+DNAGlobe.displayName = "DNAGlobe"
 
 function debounce<T extends (...args: unknown[]) => void>(func: T, wait: number): (...args: Parameters<T>) => void {
   let timeout: NodeJS.Timeout | null = null
@@ -194,4 +191,6 @@ function debounce<T extends (...args: unknown[]) => void>(func: T, wait: number)
     timeout = setTimeout(later, wait)
   }
 }
+
+export default DNAGlobe
 
