@@ -1,8 +1,9 @@
 "use client"
 
 import { useRef } from "react"
-import { motion, useScroll, useTransform } from "motion/react"
+import { motion, useScroll, useTransform, useSpring } from "motion/react"
 import Image from "next/image"
+import GameOfLife from "./HeroBackground"
 
 const platinumSponsors = [
   {
@@ -37,6 +38,55 @@ const platinumSponsors = [
   },
 ]
 
+const ScrollDrivenMarquee = ({
+  items,
+  reverse = false,
+}: {
+  items: typeof platinumSponsors
+  reverse?: boolean
+}) => {
+  const marqueeVariants = {
+    animate: {
+      x: reverse ? [0, -1035] : [-1035, 0],
+      transition: {
+        x: {
+          repeat: Number.POSITIVE_INFINITY,
+          repeatType: "loop",
+          duration: 50,
+          ease: "linear",
+        },
+      },
+    },
+  }
+
+  return (
+    <div className="overflow-hidden py-6">
+      <motion.div className="flex gap-8 whitespace-nowrap" variants={marqueeVariants} animate="animate">
+        {[...items, ...items].map((sponsor, idx) => (
+          <a
+            key={`${sponsor.name}-${idx}`}
+            href={sponsor.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative flex-shrink-0 transition-opacity duration-300"
+          >
+            <div className="relative h-16 w-32 sm:h-24 sm:w-48 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+              <Image
+                src={sponsor.src || "/placeholder.svg"}
+                alt={`${sponsor.name} logo`}
+                fill
+                sizes="(max-width: 640px) 128px, 192px"
+                className="object-contain"
+              />
+            </div>
+            <span className="sr-only">{sponsor.name}</span>
+          </a>
+        ))}
+      </motion.div>
+    </div>
+  )
+}
+
 export function SponsorShowcase() {
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
@@ -45,7 +95,8 @@ export function SponsorShowcase() {
   })
 
   const textY = useTransform(scrollYProgress, [0, 0.4], ["50%", "0%"])
-  const platinumSponsorsY = useTransform(scrollYProgress, [0.2, 0.6], ["50%", "0%"])
+  const textOpacity = useTransform(scrollYProgress, [0, 0.4], [0.5, 1])
+  const spring = useSpring(textY, { damping: 15, stiffness: 100 })
 
   return (
     <section
@@ -55,7 +106,7 @@ export function SponsorShowcase() {
     >
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          style={{ y: textY }}
+          style={{ y: spring, opacity: textOpacity }}
           className="text-center mb-12 sm:mb-16"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -66,7 +117,9 @@ export function SponsorShowcase() {
             className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#101310] tracking-tight mb-6"
           >
             AIM Health R&D Summit <br className="hidden sm:inline" />
-            <span className="bg-gradient-to-r from-[#548cac] to-[#4f4f2c] bg-clip-text text-transparent">2025 Sponsors</span>
+            <span className="bg-gradient-to-r from-[#548cac] to-[#4f4f2c] bg-clip-text text-transparent">
+              2025 Sponsors
+            </span>
           </h2>
           <motion.div
             className="h-1 w-24 bg-[#548cac] mx-auto mt-6"
@@ -76,38 +129,16 @@ export function SponsorShowcase() {
           />
         </motion.div>
 
-        <motion.div style={{ y: platinumSponsorsY }} className="space-y-12">
-          <h3 className="text-2xl font-bold text-center mb-8 text-[#101310]">
-            Shaping the Future of Battlefield Medicine
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 justify-items-center">
-            {platinumSponsors.map((sponsor, index) => (
-              <motion.div
-                key={sponsor.name}
-                className="relative w-32 h-32 sm:w-48 sm:h-48 md:w-56 md:h-56"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <a
-                  href={sponsor.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full h-full p-4 flex items-center justify-center transition-opacity duration-300 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-opacity-50"
-                  aria-label={`Visit ${sponsor.name} website`}
-                >
-                  <Image
-                    src={sponsor.src || "/placeholder.svg"}
-                    alt={`${sponsor.name} logo`}
-                    fill
-                    sizes="(max-width: 640px) 128px, (max-width: 768px) 192px, 224px"
-                    className="object-contain p-2"
-                  />
-                </a>
-              </motion.div>
-            ))}
+        <motion.div style={{ y: spring }} className="space-y-12">
+          <div className="mt-12 space-y-8">
+            <h3 className="sr-only">Our Platinum Sponsors</h3>
+            <ScrollDrivenMarquee items={platinumSponsors} />
           </div>
         </motion.div>
+      </div>
+
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <GameOfLife />
       </div>
     </section>
   )

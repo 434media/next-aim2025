@@ -1,6 +1,6 @@
 import { AnimatedLogo } from "@/components/ui/AnimatedLogo"
 import CatchupBanner from "@/components/ui/CatchupBanner"
-import Countdown from "@/components/ui/Countdown"
+//import Countdown from "@/components/ui/Countdown"
 import FeatureDivider from "@/components/ui/FeatureDivider"
 import Features from "@/components/ui/Features"
 //import { Hero } from "@/components/ui/Hero"
@@ -25,7 +25,6 @@ export default function Home() {
       </div>
       <FeatureDivider className="my-16 max-w-6xl" />
       <SponsorShowcase />
-      <Countdown />
     </main>
   )
 }
