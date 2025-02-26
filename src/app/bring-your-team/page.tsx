@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { RiTeamLine, RiPresentationLine, RiDiscussLine, RiLightbulbLine, RiArrowRightUpLine } from "@remixicon/react"
 import { Button } from "@/components/Button"
 
