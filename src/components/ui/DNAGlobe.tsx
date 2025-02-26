@@ -181,14 +181,16 @@ export default function DNAGlobe({ width = 500, height = 500, className = "" }: 
   )
 }
 
-function debounce(func: (...args: any[]) => void, wait: number) {
-  let timeout: NodeJS.Timeout
-  return function executedFunction(...args: any[]) {
+function debounce<T extends (...args: any[]) => void>(func: T, wait: number): (...args: Parameters<T>) => void {
+  let timeout: NodeJS.Timeout | null = null
+  return (...args: Parameters<T>) => {
     const later = () => {
-      clearTimeout(timeout)
+      timeout = null
       func(...args)
     }
-    clearTimeout(timeout)
+    if (timeout !== null) {
+      clearTimeout(timeout)
+    }
     timeout = setTimeout(later, wait)
   }
 }
