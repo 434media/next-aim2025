@@ -30,7 +30,7 @@ const menuItems = [
     name: "More",
     href: "#more",
     dropdown: [
-      { name: "Travel & Venue", href: "#travel-venue" },
+      { name: "Travel & Venue", href: "/travel-venue" },
       { name: "FAQ", href: "/faq" },
       { name: "Code of Conduct", href: "/code-of-conduct" },
       { name: "Contact Us", href: "/contact-us" },
