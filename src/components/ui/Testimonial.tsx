@@ -59,7 +59,7 @@ export default function Testimonial() {
                 <strong className="font-semibold">
                   Forums like MMID give us the opportunity to collaborate with organizations outside of DoD
                 </strong>{" "}
-                so they have a better idea how to engage with the military's medical mission and advance healthcare
+                so they have a better idea how to engage with the military&apos;s medical mission and advance healthcare
                 innovation
               </p>
             </blockquote>
