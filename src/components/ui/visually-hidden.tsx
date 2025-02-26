@@ -1,6 +1,5 @@
 import * as React from "react"
 
-
 const VisuallyHidden = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<HTMLSpanElement>>(
   ({ children, ...props }, forwardedRef) => {
     return (

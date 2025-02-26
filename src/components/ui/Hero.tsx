@@ -6,10 +6,6 @@ import { FadeContainer, FadeDiv, FadeSpan } from "../Fade"
 import { motion, AnimatePresence } from "motion/react"
 import { Button } from "../Button"
 import ErrorBoundary from "./ErrorBoundary"
-import dynamic from "next/dynamic"
-
-// Replace the GameOfLife import with this lazy-loaded version
-const GameOfLife = dynamic(() => import("./HeroBackground"), { ssr: false })
 
 const initialNewsItems = [
   {
@@ -123,9 +119,6 @@ export function Hero() {
             </FadeDiv>
           </div>
         </FadeContainer>
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <GameOfLife />
-        </div>
       </section>
     </ErrorBoundary>
   )

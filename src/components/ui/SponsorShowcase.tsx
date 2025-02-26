@@ -3,7 +3,6 @@
 import { useRef } from "react"
 import { motion, useScroll, useTransform } from "motion/react"
 import Image from "next/image"
-import GameOfLife from "./HeroBackground"
 
 const platinumSponsors = [
   {
@@ -94,7 +93,7 @@ export function SponsorShowcase() {
                   href={sponsor.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full h-full rounded-lg bg-white p-4 flex items-center justify-center transition-opacity duration-300 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-opacity-50"
+                  className="w-full h-full p-4 flex items-center justify-center transition-opacity duration-300 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-opacity-50"
                   aria-label={`Visit ${sponsor.name} website`}
                 >
                   <Image
@@ -109,10 +108,6 @@ export function SponsorShowcase() {
             ))}
           </div>
         </motion.div>
-      </div>
-
-      <div className="absolute inset-0 flex items-start justify-start pointer-events-none">
-        <GameOfLife />
       </div>
     </section>
   )
