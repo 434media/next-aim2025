@@ -6,6 +6,10 @@ import Image from "next/image"
 import Link from "next/link"
 import ErrorBoundary from "./ErrorBoundary"
 import GameOfLife from "./HeroBackground"
+import { Button } from "../Button"
+import { RiArrowRightUpLine } from "@remixicon/react"
+import { FadeDiv } from "../Fade"
+
 
 const mainPartners = [
   {
@@ -262,13 +266,43 @@ export function AnimatedLogo() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <h3 className="text-2xl sm:text-3xl font-bold text-[#101310] mb-8">
+              <h3 className="md:mt-32 md:max-w-3xl md:mx-auto text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#101310] mb-8">
                 Supporting the Military&apos;s Medical Mission
               </h3>
-              <p className="text-lg sm:text-xl text-[#548cac] max-w-3xl mx-auto">
+              <p className="mt-6 max-w-2xl mx-auto text-center text-base sm:text-lg md:text-xl text-gray-600">
                 Together, we&apos;re advancing healthcare innovation and improving outcomes for our service members,
                 veterans, and their families.
               </p>
+              <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+            <FadeDiv>
+              <Button
+                variant="primary"
+                href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto whitespace-nowrap"
+              >
+                <span className="flex items-center justify-center">
+                  Register to Attend
+                  <RiArrowRightUpLine className="ml-2 h-5 w-5" aria-hidden="true" />
+                </span>
+              </Button>
+            </FadeDiv>
+            <FadeDiv>
+              <Button
+                variant="secondary"
+                href="https://support.velocitytx.org/campaign/642575/donate"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto whitespace-nowrap"
+              >
+                <span className="flex items-center justify-center">
+                  Become a Sponsor
+                  <RiArrowRightUpLine className="ml-2 h-5 w-5" aria-hidden="true" />
+                </span>
+              </Button>
+            </FadeDiv>
+          </div>
             </motion.div>
           </div>
         </div>

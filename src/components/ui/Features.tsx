@@ -22,7 +22,7 @@ export default function Features() {
       ref={containerRef}
       aria-label="AIM 2025 Event Features"
       id="solutions"
-      className="relative mx-auto max-w-6xl scroll-my-24"
+      className="relative mx-auto max-w-6xl scroll-my-24 -mt-16"
     >
       {/* Vertical Lines */}
       <div className="pointer-events-none inset-0 select-none">
