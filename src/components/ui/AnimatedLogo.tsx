@@ -265,7 +265,7 @@ export function AnimatedLogo() {
                 Supporting the Military&apos;s Medical Mission
               </h3>
               <p className="text-lg sm:text-xl text-[#548cac] max-w-3xl mx-auto">
-                Together, we're advancing healthcare innovation and improving outcomes for our service members,
+                Together, we&apos;re advancing healthcare innovation and improving outcomes for our service members,
                 veterans, and their families.
               </p>
             </motion.div>
