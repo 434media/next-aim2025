@@ -52,7 +52,7 @@ export default function BringYourTeam() {
           Bring Your Team to AIM Health R&D Summit
         </motion.h1>
         <motion.p className="text-xl text-[#548CAC] mb-12 text-center max-w-3xl mx-auto" variants={fadeInUp}>
-          Maximize your organization's impact by bringing your entire team to the premier event in military medical
+          Maximize your organization&apos;s impact by bringing your entire team to the premier event in military medical
           innovation.
         </motion.p>
 

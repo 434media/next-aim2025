@@ -73,7 +73,7 @@ export default function Footer() {
             >
               <div>
                 <h2 className="text-2xl sm:text-3xl font-bold">Register Now</h2>
-                <p className="mt-2 text-[#548cac] text-lg">Don't miss this opportunity to be part of the premier event in military medical innovation.</p>
+                <p className="mt-2 text-[#548cac] text-lg">Don&apos;t miss this opportunity to be part of the premier event in military medical innovation.</p>
               </div>
               <Button
                 variant="primary"
