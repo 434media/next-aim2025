@@ -1,10 +1,13 @@
 "use client"
 
-import { useRef } from "react"
+import type React from "react"
+
+import { useRef, useState, useEffect } from "react"
 import Image from "next/image"
 import { motion, useScroll, useTransform } from "motion/react"
-import DNAGlobe from "./DNAGlobe"
 import { useMediaQuery } from "@/hooks/useMediaQuery"
+
+const particleColors = ["#548cac", "#4f4f2c", "#f97316", "#ffffff"]
 
 export default function Testimonial() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -17,6 +20,37 @@ export default function Testimonial() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1])
 
   const isMobile = useMediaQuery("(max-width: 767px)")
+  const [particles, setParticles] = useState<React.ReactNode[]>([])
+
+  useEffect(() => {
+    const generateParticles = () => {
+      return [...Array(60)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            width: Math.random() * 5 + 1,
+            height: Math.random() * 5 + 1,
+            backgroundColor: particleColors[Math.floor(Math.random() * particleColors.length)],
+            right: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            opacity: Math.random() * 0.5 + 0.3,
+          }}
+          animate={{
+            x: [0, Math.random() * 100 - 50, 0],
+            y: [0, Math.random() * 100 - 50, 0],
+          }}
+          transition={{
+            duration: Math.random() * 10 + 5,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "linear",
+          }}
+        />
+      ))
+    }
+
+    setParticles(generateParticles())
+  }, [])
 
   return (
     <motion.section
@@ -35,6 +69,10 @@ export default function Testimonial() {
         />
       </div>
       <div className="absolute inset-0 bg-gradient-to-br from-[#101310]/70 to-[#101310]/80" />
+
+      {/* Particles */}
+      <div className="absolute inset-0 overflow-hidden">{particles}</div>
+
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-between p-8 sm:p-12 lg:p-16 space-y-8 md:space-y-0 md:space-x-8">
         <div className={`${isMobile ? "w-full" : "md:w-1/2 lg:w-3/5"} mb-8 md:mb-0 md:pr-8`}>
           <motion.div
@@ -92,9 +130,7 @@ export default function Testimonial() {
         </div>
         {!isMobile && (
           <div className="md:w-1/2 lg:w-2/5 relative">
-            <div className="absolute top-1/2 right-0 transform translate-x-1/4 -translate-y-1/2 w-[150%] aspect-square">
-              <DNAGlobe width={600} height={600} className="opacity-95" />
-            </div>
+            <div className="absolute inset-0 overflow-hidden">{particles}</div>
           </div>
         )}
       </div>

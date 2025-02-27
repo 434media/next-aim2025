@@ -200,7 +200,7 @@ export function AnimatedLogo() {
               />
               <div className="text-lg sm:text-xl md:text-2xl text-[#101310] max-w-5xl mx-auto text-balance tracking-tight space-y-6">
                 <p>
-                  San Antonio, &quot;Military Health City USA,&quot; plays a pivotal role in military medicine and life
+                  San Antonio is  &quot;Military Health City USA,&quot; plays a pivotal role in military medicine and life
                   science innovation.
                 </p>
                 <p>

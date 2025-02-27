@@ -1,6 +1,7 @@
 "use client"
 
-import React, { useRef, useState } from "react"
+import type React from "react"
+import { useRef, useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import { RiArrowRightUpLine } from "@remixicon/react"
 import { Button } from "../Button"
@@ -72,52 +73,52 @@ export function HeroVideo() {
           transition={{ duration: 1, ease: "easeOut" }}
           aria-hidden="true"
         />
-        <div className="relative w-full max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-0">
+        <div className="relative w-full max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-6">
           <div className="space-y-8 sm:space-y-12">
             <motion.div className="space-y-8" variants={stagger}>
               <motion.h1
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight text-balance"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white tracking-tight text-balance mb-4 sm:mb-6"
                 variants={fadeInUp}
               >
-                <span className="block mb-2 sm:mb-4">Accelerating Innovation</span>
+                <span className="block mb-2 sm:mb-4">AIM2025:</span>
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#548cac] to-[#4f4f2c]">
-                  in Military Medicine
+                  The Future of Healthcare Begins Here
                 </span>
               </motion.h1>
 
               <motion.p
-                className="text-lg sm:text-xl text-white/90 max-w-2xl leading-relaxed text-balance"
+                className="text-xl sm:text-2xl text-white/90 max-w-3xl leading-relaxed text-balance tracking-tighter md:tracking-tight mb-8 sm:mb-10"
                 variants={fadeInUp}
               >
-                The <strong className="text-[#548cac]">AIM Health R&D Summit</strong> is a premier platform for driving
-                innovation in life sciences, bringing together academia, industry, and the military. Join us in{" "}
-                <strong className="text-[#4f4f2c]">Military Health City, USA</strong> for two groundbreaking days
-                shaping the future of battlefield medicine.
+                The AIM Health R&D Summit brings together top innovators from academia, industry, and the military to
+                accelerate the research, development, and commercialization of transformative medical technologies. This
+                unique convergence of thought leaders creates pathways to discovery and commercialization while
+                addressing critical challenges in both military and civilian healthcare.
               </motion.p>
 
-              <motion.div className="flex flex-col sm:flex-row gap-4 pt-4" variants={fadeInUp}>
+              <motion.div className="flex flex-col sm:flex-row gap-6 pt-4" variants={fadeInUp}>
                 <Button
                   variant="primary"
                   href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-                  className="text-lg py-3 px-8 w-full sm:w-auto hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                  className="text-lg sm:text-xl py-4 px-8 w-full sm:w-auto hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <span className="flex items-center justify-center">
                     Register Now
-                    <RiArrowRightUpLine className="ml-2 size-5" aria-hidden="true" />
+                    <RiArrowRightUpLine className="ml-2 size-6" aria-hidden="true" />
                   </span>
                 </Button>
                 <Button
                   variant="secondary"
                   href="https://drive.google.com/file/d/1-RqS13xFyYj5ivO5bmyYfAAWfgW5apBf/view?ts=67b8b8c3"
-                  className="text-lg py-3 px-8 w-full sm:w-auto hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                  className="text-lg sm:text-xl py-4 px-8 w-full sm:w-auto hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <span className="flex items-center justify-center">
                     Become a Sponsor
-                    <RiArrowRightUpLine className="ml-2 size-5" aria-hidden="true" />
+                    <RiArrowRightUpLine className="ml-2 size-6" aria-hidden="true" />
                   </span>
                 </Button>
               </motion.div>

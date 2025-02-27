@@ -10,16 +10,14 @@ const menuItems = [
   { name: "AIM Pre-Conference Symposiums", href: "/pre-conference-symposiums" },
   {
     name: "Agenda",
-    href: "#agenda",
     dropdown: [
-      { name: "Keynote", href: "#keynote" },
-      { name: "Schedule", href: "#schedule" },
-      { name: "Speakers", href: "#speakers" },
+      { name: "Keynote", href: "/keynote" },
+      { name: "Schedule", href: "/schedule" },
+      { name: "Speakers", href: "/speakers" },
     ],
   },
   {
     name: "Attend",
-    href: "#attend",
     dropdown: [
       { name: "Why Attend", href: "/why-attend" },
       { name: "Bring Your Team", href: "/bring-your-team" },
@@ -31,7 +29,6 @@ const menuItems = [
   },
   {
     name: "More",
-    href: "#more",
     dropdown: [
       { name: "Travel & Venue", href: "/travel-venue" },
       { name: "FAQ", href: "/faq" },
@@ -128,14 +125,15 @@ export default function NavBar() {
                 {menuItems.map((item) => (
                   <div
                     key={item.name}
-                    className="relative"
+                    className="relative group"
                     onMouseEnter={() => setActiveDropdown(item.name)}
                     onMouseLeave={() => setActiveDropdown(null)}
-                    onFocus={() => setActiveDropdown(item.name)}
                   >
-                    <Link
-                      href={item.href}
-                      className="group flex items-center text-sm font-medium text-white hover:text-[#548cac] transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-md px-2 py-1"
+                    <button
+                      className="flex items-center text-sm font-medium text-white hover:text-[#548cac] transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-md px-2 py-1"
+                      onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}
+                      aria-expanded={activeDropdown === item.name}
+                      aria-haspopup="true"
                     >
                       {item.name}
                       {item.dropdown && (
@@ -144,36 +142,26 @@ export default function NavBar() {
                           aria-hidden="true"
                         />
                       )}
-                    </Link>
-                    {item.dropdown && activeDropdown === item.name && (
-                      <AnimatePresence>
-                        <motion.div
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -10 }}
-                          transition={{ duration: 0.2, ease: "easeOut" }}
-                          className="absolute top-full left-0 w-48 py-2 mt-1 bg-[#101310] rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
-                          role="menu"
-                        >
-                          {item.dropdown.map((subItem) => (
-                            <motion.div
-                              key={subItem.name}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ duration: 0.2, delay: 0.1 }}
-                            >
-                              <Link
-                                href={subItem.href}
-                                className="block px-4 py-2 text-sm text-white hover:bg-[#548cac]/20 hover:text-[#548cac] focus:outline-none focus:bg-[#548cac]/20 focus:text-[#548cac]"
-                                role="menuitem"
-                                onClick={() => setActiveDropdown(null)}
-                              >
-                                {subItem.name}
-                              </Link>
-                            </motion.div>
-                          ))}
-                        </motion.div>
-                      </AnimatePresence>
+                    </button>
+                    {item.dropdown && (
+                      <div
+                        className={`absolute top-full left-0 w-56 py-2 mt-1 bg-[#101310] rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50 transition-all duration-200 ${
+                          activeDropdown === item.name ? "opacity-100 visible" : "opacity-0 invisible"
+                        }`}
+                        role="menu"
+                      >
+                        {item.dropdown.map((subItem) => (
+                          <Link
+                            key={subItem.name}
+                            href={subItem.href}
+                            className="block px-4 py-2 text-sm text-white hover:bg-[#548cac]/20 hover:text-[#548cac] focus:outline-none focus:bg-[#548cac]/20 focus:text-[#548cac]"
+                            role="menuitem"
+                            onClick={() => setActiveDropdown(null)}
+                          >
+                            {subItem.name}
+                          </Link>
+                        ))}
+                      </div>
                     )}
                   </div>
                 ))}
@@ -292,20 +280,35 @@ export default function NavBar() {
                         <li key={item.name}>
                           {item.dropdown ? (
                             <div className="space-y-2">
-                              <div className="text-lg font-medium text-white">{item.name}</div>
-                              <ul className="pl-4 space-y-2" role="list">
-                                {item.dropdown.map((subItem) => (
-                                  <li key={subItem.name}>
-                                    <Link
-                                      href={subItem.href}
-                                      className="block text-base text-white/80 hover:text-[#548cac] transition-colors focus:outline-none focus:text-[#548cac]"
-                                      onClick={() => setIsOpen(false)}
-                                    >
-                                      {subItem.name}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
+                              <button
+                                className="text-lg font-medium text-white w-full text-left"
+                                onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}
+                                aria-expanded={activeDropdown === item.name}
+                              >
+                                {item.name}
+                                <RiArrowDownSLine
+                                  className={`ml-1 size-4 inline-block transition-transform duration-200 ${
+                                    activeDropdown === item.name ? "rotate-180" : ""
+                                  }`}
+                                  aria-hidden="true"
+                                />
+                              </button>
+                              {activeDropdown === item.name && (
+                                <ul className="pl-4 space-y-2" role="menu">
+                                  {item.dropdown.map((subItem) => (
+                                    <li key={subItem.name}>
+                                      <Link
+                                        href={subItem.href}
+                                        className="block text-base text-white/80 hover:text-[#548cac] transition-colors focus:outline-none focus:text-[#548cac]"
+                                        onClick={() => setIsOpen(false)}
+                                        role="menuitem"
+                                      >
+                                        {subItem.name}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
                             </div>
                           ) : (
                             <Link
