@@ -339,7 +339,7 @@ export function AnimatedLogo() {
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 mt-24">
+        <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 mt-24 bg-white">
           <div className="mx-auto max-w-7xl">
             <motion.div
               className="text-center"
