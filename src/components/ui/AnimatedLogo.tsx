@@ -8,7 +8,7 @@ import Link from "next/link"
 import ErrorBoundary from "./ErrorBoundary"
 import GameOfLife from "./HeroBackground"
 import { Button } from "../Button"
-import { RiArrowRightUpLine, RiExternalLinkLine } from "@remixicon/react"
+import { RiArrowRightUpLine } from "@remixicon/react"
 import { FadeDiv, FadeSpan } from "../Fade"
 
 const mainPartners = [
@@ -178,7 +178,6 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({ children, href, description, 
         className={`${className} font-bold text-[#366A79] hover:text-[#548cac] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-sm transition-colors duration-200`}
       >
         {children}
-        <RiExternalLinkLine className="inline-flex ml-1 w-4 h-4" aria-hidden="true" />
       </Link>
       <AnimatePresence>
         {isPreviewVisible && (
