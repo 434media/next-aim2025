@@ -99,8 +99,8 @@ const ScrollDrivenMarquee = ({
   }
 
   return (
-    <div className="overflow-hidden py-8">
-      <motion.div className="flex gap-12 whitespace-nowrap" variants={marqueeVariants} animate="animate">
+    <div className="overflow-hidden md:py-8">
+      <motion.div className="flex gap-2 md:gap-12 whitespace-nowrap" variants={marqueeVariants} animate="animate">
         {[...items, ...items].map((partner, idx) => (
           <Link
             key={`${partner.name}-${idx}`}
@@ -219,7 +219,7 @@ export function AnimatedLogo() {
       <section
         ref={containerRef}
         id="main-content"
-        className="relative w-full overflow-hidden bg-gradient-to-b from-white to-gray-100 py-16 sm:py-24 lg:py-32"
+        className="relative w-full overflow-hidden bg-gradient-to-b from-white to-white/95 py-16 sm:py-24 lg:py-32"
       >
         <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 lg:space-y-16">
           <div className="mx-auto max-w-7xl">
@@ -331,7 +331,7 @@ export function AnimatedLogo() {
           </div>
         </div>
 
-        <div className="relative -mx-4 sm:-mx-6 lg:-mx-8 bg-white py-12">
+        <div className="relative -mx-4 sm:-mx-6 lg:-mx-8 bg-white md:py-12">
           <div className="space-y-12 sm:space-y-16 lg:space-y-24">
             <h3 className="sr-only">Our Partners</h3>
             <ScrollDrivenMarquee items={mainPartners} />
