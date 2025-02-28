@@ -1,16 +1,15 @@
 "use client"
 
-import React, { useRef } from "react"
-import { motion, useScroll, useTransform, useSpring } from "motion/react"
+import type React from "react"
+import { useRef, useState, useEffect } from "react"
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
 import ErrorBoundary from "./ErrorBoundary"
 import GameOfLife from "./HeroBackground"
 import { Button } from "../Button"
-import { RiArrowRightUpLine } from "@remixicon/react"
+import { RiArrowRightUpLine, RiExternalLinkLine } from "@remixicon/react"
 import { FadeDiv, FadeSpan } from "../Fade"
-
-
 
 const mainPartners = [
   {
@@ -100,27 +99,31 @@ const ScrollDrivenMarquee = ({
   }
 
   return (
-    <div className="overflow-hidden py-6">
-      <motion.div className="flex gap-8 whitespace-nowrap" variants={marqueeVariants} animate="animate">
+    <div className="overflow-hidden py-8">
+      <motion.div className="flex gap-12 whitespace-nowrap" variants={marqueeVariants} animate="animate">
         {[...items, ...items].map((partner, idx) => (
-          <a
+          <Link
             key={`${partner.name}-${idx}`}
             href={partner.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative flex-shrink-0 transition-opacity duration-300"
+            className="group relative flex-shrink-0 transition-all duration-300"
           >
-            <div className="relative h-16 w-32 sm:h-24 sm:w-48 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative h-20 w-40 sm:h-28 sm:w-56 opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+            >
               <Image
                 src={partner.src || "/placeholder.svg"}
                 alt={`${partner.name} logo`}
                 fill
-                sizes="(max-width: 640px) 128px, 192px"
+                sizes="(max-width: 640px) 160px, 224px"
                 className="object-contain"
               />
-            </div>
+            </motion.div>
             <span className="sr-only">{partner.name}</span>
-          </a>
+          </Link>
         ))}
       </motion.div>
     </div>
@@ -128,40 +131,68 @@ const ScrollDrivenMarquee = ({
 }
 
 interface LinkPreviewProps {
-  children: React.ReactNode;
-  href: string;
-  description: string;
+  children: React.ReactNode
+  href: string
+  description: string
 }
 
-const LinkPreview = ({ children, href, description }: LinkPreviewProps) => {
-  const [isHovered, setIsHovered] = React.useState(false)
+const LinkPreview: React.FC<LinkPreviewProps> = ({ children, href, description }) => {
+  const [isPreviewVisible, setIsPreviewVisible] = useState(false)
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
+
+  useEffect(() => {
+    setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0)
+  }, [])
+
+  const handleMouseEnter = () => {
+    if (!isTouchDevice) {
+      setIsPreviewVisible(true)
+    }
+  }
+
+  const handleMouseLeave = () => {
+    if (!isTouchDevice) {
+      setIsPreviewVisible(false)
+    }
+  }
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (isTouchDevice) {
+      e.preventDefault()
+      setIsPreviewVisible(!isPreviewVisible)
+    }
+  }
 
   return (
-    <motion.span
+    <span
       className="relative inline-block"
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      onFocus={() => setIsHovered(true)}
-      onBlur={() => setIsHovered(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
     >
       <Link
         href={href}
-        className="font-bold text-[#548cac] hover:underline focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-sm"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-bold text-[#548cac] hover:text-[#366A79] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-sm transition-colors duration-200"
       >
         {children}
+        <RiExternalLinkLine className="inline-block ml-1 w-4 h-4" aria-hidden="true" />
       </Link>
-      {isHovered && (
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 10 }}
-          transition={{ duration: 0.2 }}
-          className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-2 w-64 bg-white rounded-lg shadow-lg p-4 text-sm text-gray-900"
-        >
-          {description}
-        </motion.span>
-      )}
-    </motion.span>
+      <AnimatePresence>
+        {isPreviewVisible && (
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-2 w-64 bg-white rounded-lg shadow-lg p-4 text-sm text-gray-900"
+          >
+            {description}
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </span>
   )
 }
 
@@ -185,49 +216,71 @@ export function AnimatedLogo() {
       >
         Skip to main content
       </a>
-      <section ref={containerRef} id="main-content" className="relative w-full overflow-hidden bg-white/10 py-20 sm:py-28">
+      <section
+        ref={containerRef}
+        id="main-content"
+        className="relative w-full overflow-hidden bg-gradient-to-b from-white to-gray-100 py-24 sm:py-32"
+      >
         <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <motion.div style={{ y: spring, opacity: textOpacity }} className="text-center mb-20 sm:mb-24">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#101310] tracking-tight mb-6">
+            <motion.div style={{ y: spring, opacity: textOpacity }} className="text-center mb-24 sm:mb-32 space-y-12">
+              <motion.h2
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-[#101310] tracking-tight mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
                 Military Health City USA
-              </h2>
+              </motion.h2>
               <motion.div
-                className="h-1 w-24 bg-[#548cac] mx-auto mb-8"
+                className="h-1 w-24 bg-[#548cac] mx-auto mb-12"
                 initial={{ width: 0 }}
                 animate={{ width: 96 }}
-                transition={{ duration: 0.5, delay: 0.7 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
               />
-              <div className="text-lg sm:text-xl md:text-2xl text-[#101310] max-w-5xl mx-auto text-balance tracking-tight space-y-6">
-                <p>
-                  San Antonio is  &quot;Military Health City USA,&quot; plays a pivotal role in military medicine and life
-                  science innovation.
-                </p>
-                <p>
-                  Home to{" "}
+              <div className="text-xl sm:text-2xl md:text-3xl text-[#101310] max-w-5xl mx-auto text-balance tracking-tight space-y-8 leading-relaxed">
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.7 }}
+                >
+                  San Antonio is uniquely positioned as Military Health City USA, home to the largest joint base in the
+                  U.S. Department of Defense, the nation&apos;s only Level 1 Trauma Center in the DoD network{" "}
                   <LinkPreview
                     href="https://bamc.tricare.mil/"
                     description="Brooke Army Medical Center (BAMC) is the largest DoD hospital and only Level 1 Trauma Center in the DoD."
                   >
-                    BAMC
-                  </LinkPreview>{" "}
-                  (the largest DoD hospital), a robust{" "}
+                    (BAMC)
+                  </LinkPreview>
+                  , and a robust{" "}
                   <LinkPreview
                     href="https://dha.mil/"
                     description="The Defense Health Agency (DHA) is a joint, integrated Combat Support Agency that enables the Army, Navy, and Air Force medical services to provide a medically ready force and ready medical force to Combatant Commands in both peacetime and wartime."
                   >
                     DHA
                   </LinkPreview>{" "}
-                  presence, and{" "}
+                  presence.
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.9 }}
+                >
+                  As a leading hub for medical research and healthcare innovation, San Antonio unites government and
+                  civilian healthcare leaders, making{" "}
                   <LinkPreview
-                    href="https://militaryhealthinstitute.org/"
-                    description="UT Health San Antonio's Military Health Institute (MHI) is dedicated to advancing military health and medicine through research, education, and community partnerships."
+                    href="https://www.434media.com/"
+                    description="The AIM Health R&D Summit brings together top innovators from academia, industry, and the military to accelerate the research, development, and commercialization of transformative medical technologies."
                   >
-                    UT Health San Antonio&apos;s MHI
-                  </LinkPreview>, {" "}
-                  the city is a center for medical research and care.
-                </p>
-                <p>
+                    AIM
+                  </LinkPreview>{" "}
+                  the premier platform for cross-sector collaboration.
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 1.1 }}
+                >
                   With key partners like{" "}
                   <LinkPreview
                     href="https://velocitytx.org/"
@@ -235,84 +288,105 @@ export function AnimatedLogo() {
                   >
                     VelocityTX
                   </LinkPreview>{" "}
-                  driving transformative initiatives like the Innovation District, San Antonio provides the perfect
-                  backdrop for the{" "}
+                  driving transformative initiatives like the Innovation District, San Antonio is at the forefront of
+                  bioscience innovation.
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 1.3 }}
+                >
+                  The city is home to leading institutions including{" "}
                   <LinkPreview
-                    href="#"
-                    description="The AIM Health R&D Summit is a premier event that brings together professionals from academia, industry, and the military to advance medical research and its commercialization."
+                    href="https://militaryhealthinstitute.org/"
+                    description="UT Health San Antonio's Military Health Institute (MHI) is dedicated to advancing military health and medicine through research, education, and community partnerships."
                   >
-                    AIM Health R&D Summit
+                    UT Health San Antonio&apos;s MHI
                   </LinkPreview>
-                  , uniting professionals from academia, industry, and the military to advance medical research and its
-                  commercialization.
-                </p>
+                  , the San Antonio Military Health System (SAMHS),{" "}
+                  <LinkPreview
+                    href="https://www.utsa.edu/"
+                    description="The University of Texas at San Antonio and The University of Texas Health Science Center at San Antonio are on a path to merge into one premier global university, combining our collective academic, research and clinical strengths to deliver immense value to our community."
+                  >
+                    UTSA
+                  </LinkPreview>
+                  , and the{" "}
+                  <LinkPreview
+                    href="https://www.txbiomed.org/"
+                    description="Texas Biomedical Research Institute is a global leader in infectious disease research, with a mission to promote global health through innovative research."
+                  >
+                    Texas Biomedical Research Foundation
+                  </LinkPreview>
+                  , establishing itself as an epicenter for life sciences research, development, and commercialization.
+                </motion.p>
               </div>
             </motion.div>
           </div>
         </div>
 
-        <div className="relative -mx-4 sm:-mx-6 lg:-mx-8">
-          <div className="mt-12 space-y-8">
+        <div className="relative -mx-4 sm:-mx-6 lg:-mx-8 bg-white py-12">
+          <div className="mt-12 space-y-12">
             <h3 className="sr-only">Our Partners</h3>
             <ScrollDrivenMarquee items={mainPartners} />
             <ScrollDrivenMarquee items={additionalPartners} reverse />
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 mt-24">
           <div className="mx-auto max-w-7xl">
             <motion.div
-              className="mt-16 text-center"
+              className="text-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <h3 className="md:mt-32 md:max-w-3xl md:mx-auto text-center text-5xl lg:text-7xl font-extrabold tracking-tight text-[#101310] mb-8">
+              <h3 className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-[#101310] mb-8">
                 <FadeSpan className="block text-[#548cac]">Two Days</FadeSpan>
                 <FadeSpan className="block">One Mission</FadeSpan>
               </h3>
-              <p className="mt-6 max-w-2xl mx-auto text-center text-base sm:text-lg md:text-xl text-gray-600">
+              <p className="mt-8 max-w-2xl mx-auto text-center text-xl sm:text-2xl text-gray-600 leading-relaxed">
                 <FadeSpan>
-                  The AIM Health R&D Summit is <strong className="font-semibold text-[#101310]">Military Health City USA&apos;S</strong>{" "}
-                  premier networking and collaboration conference in support of the{" "}
+                  The AIM Health R&D Summit is{" "}
+                  <strong className="font-semibold text-[#101310]">Military Health City USA&apos;s</strong> premier
+                  networking and collaboration conference in support of the{" "}
                   <strong className="font-semibold text-[#101310]">life sciences industry</strong> and{" "}
                   <strong className="font-semibold text-[#101310]">military medical mission</strong>
                 </FadeSpan>
               </p>
-              <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
-            <FadeDiv>
-              <Button
-                variant="primary"
-                href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto whitespace-nowrap"
-              >
-                <span className="flex items-center justify-center">
-                  Register to Attend
-                  <RiArrowRightUpLine className="ml-2 h-5 w-5" aria-hidden="true" />
-                </span>
-              </Button>
-            </FadeDiv>
-            <FadeDiv>
-              <Button
-                variant="secondary"
-                href="https://support.velocitytx.org/campaign/642575/donate"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto whitespace-nowrap"
-              >
-                <span className="flex items-center justify-center">
-                  Become a Sponsor
-                  <RiArrowRightUpLine className="ml-2 h-5 w-5" aria-hidden="true" />
-                </span>
-              </Button>
-            </FadeDiv>
-          </div>
+              <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6 w-full sm:w-auto">
+                <FadeDiv>
+                  <Button
+                    variant="primary"
+                    href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto text-lg py-3 px-8 whitespace-nowrap focus:ring-2 focus:ring-offset-2 focus:ring-[#548cac] focus:outline-none transition-all duration-200 hover:scale-105"
+                  >
+                    <span className="flex items-center justify-center">
+                      Register to Attend
+                      <RiArrowRightUpLine className="ml-2 h-5 w-5" aria-hidden="true" />
+                    </span>
+                  </Button>
+                </FadeDiv>
+                <FadeDiv>
+                  <Button
+                    variant="secondary"
+                    href="https://support.velocitytx.org/campaign/642575/donate"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto text-lg py-3 px-8 whitespace-nowrap focus:ring-2 focus:ring-offset-2 focus:ring-[#548cac] focus:outline-none transition-all duration-200 hover:scale-105"
+                  >
+                    <span className="flex items-center justify-center">
+                      Become a Sponsor
+                      <RiArrowRightUpLine className="ml-2 h-5 w-5" aria-hidden="true" />
+                    </span>
+                  </Button>
+                </FadeDiv>
+              </div>
             </motion.div>
           </div>
         </div>
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-30">
           <GameOfLife />
         </div>
       </section>

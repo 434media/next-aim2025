@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "motion/react"
 import { RiArrowRightUpLine } from "@remixicon/react"
 import { Button } from "../Button"
 import { VisuallyHidden } from "@/components/ui/visually-hidden"
+import { useMediaQuery } from "@/hooks/useMediaQuery"
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -21,11 +22,44 @@ const stagger = {
   },
 }
 
+const MobileParticles = () => {
+  return (
+    <motion.div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {[...Array(30)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            width: Math.random() * 4 + 1,
+            height: Math.random() * 4 + 1,
+            backgroundColor: ["#548cac", "#4f4f2c", "#f97316", "#ffffff"][Math.floor(Math.random() * 4)],
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            opacity: Math.random() * 0.5 + 0.3,
+          }}
+          animate={{
+            x: [0, Math.random() * 50 - 25],
+            y: [0, Math.random() * 50 - 25],
+          }}
+          transition={{
+            duration: Math.random() * 5 + 3,
+            repeat: Number.POSITIVE_INFINITY,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </motion.div>
+  )
+}
+
 export function HeroVideo() {
   const containerRef = useRef<HTMLElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const [isVideoError, setIsVideoError] = useState(false)
+
+  const isMobile = useMediaQuery("(max-width: 767px)")
 
   const handleVideoLoad = () => {
     setIsVideoLoaded(true)
@@ -61,11 +95,24 @@ export function HeroVideo() {
 
       {/* Left Content Section */}
       <motion.div
-        className="relative w-full lg:w-1/2 flex items-center z-10 order-1"
+        className={`relative w-full ${
+          isMobile ? "min-h-screen flex flex-col justify-center" : "lg:w-1/2 flex items-center"
+        } z-10 order-1`}
         initial="initial"
         animate="animate"
         variants={stagger}
       >
+        {isMobile && (
+          <>
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-b from-[#101310] via-[#101310]/80 to-[#101310]/60"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+            />
+            <MobileParticles />
+          </>
+        )}
         <motion.div
           className="w-full h-full absolute inset-0 bg-aim-navy/95 border-b md:border-r border-bexar-blue/20"
           initial={{ filter: "blur(4px)" }}
@@ -77,7 +124,9 @@ export function HeroVideo() {
           <div className="space-y-8 sm:space-y-12">
             <motion.div className="space-y-8" variants={stagger}>
               <motion.h1
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white tracking-tight text-balance mb-4 sm:mb-6"
+                className={`text-3xl ${
+                  isMobile ? "sm:text-4xl md:text-5xl" : "sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
+                } font-bold text-white tracking-tight text-balance mb-4 sm:mb-6`}
                 variants={fadeInUp}
               >
                 <span className="block mb-2 sm:mb-4">AIM2025:</span>
@@ -87,7 +136,9 @@ export function HeroVideo() {
               </motion.h1>
 
               <motion.p
-                className="text-xl sm:text-2xl text-white/90 max-w-3xl leading-relaxed text-balance tracking-tighter md:tracking-tight mb-8 sm:mb-10"
+                className={`${
+                  isMobile ? "text-lg sm:text-xl" : "text-xl sm:text-2xl"
+                } text-white/90 max-w-3xl leading-relaxed text-balance tracking-tighter md:tracking-tight mb-8 sm:mb-10`}
                 variants={fadeInUp}
               >
                 The AIM Health R&D Summit brings together top innovators from academia, industry, and the military to
@@ -96,11 +147,14 @@ export function HeroVideo() {
                 addressing critical challenges in both military and civilian healthcare.
               </motion.p>
 
-              <motion.div className="flex flex-col sm:flex-row gap-6 pt-4" variants={fadeInUp}>
+              <motion.div
+                className={`flex flex-col sm:flex-row gap-6 ${isMobile ? "w-full" : "pt-4"}`}
+                variants={fadeInUp}
+              >
                 <Button
                   variant="primary"
                   href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-                  className="text-lg sm:text-xl py-4 px-8 w-full sm:w-auto hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                  className={`text-base sm:text-lg ${isMobile ? "py-3 px-6" : "text-lg sm:text-xl py-4 px-8"} w-full sm:w-auto hover:scale-[1.02] active:scale-[0.98] transition-all duration-200`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -112,7 +166,7 @@ export function HeroVideo() {
                 <Button
                   variant="secondary"
                   href="https://drive.google.com/file/d/1-RqS13xFyYj5ivO5bmyYfAAWfgW5apBf/view?ts=67b8b8c3"
-                  className="text-lg sm:text-xl py-4 px-8 w-full sm:w-auto hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                  className={`text-base sm:text-lg ${isMobile ? "py-3 px-6" : "text-lg sm:text-xl py-4 px-8"} w-full sm:w-auto hover:scale-[1.02] active:scale-[0.98] transition-all duration-200`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -128,7 +182,9 @@ export function HeroVideo() {
       </motion.div>
 
       {/* Right Video Section */}
-      <div className="relative w-full lg:w-1/2 order-2 min-h-[50vh]">
+      <div
+        className={`relative w-full ${isMobile ? "h-screen" : "lg:w-1/2"} order-2 ${isMobile ? "" : "min-h-[50vh]"}`}
+      >
         <motion.div className="absolute inset-0" aria-hidden="true">
           <AnimatePresence>
             {!isVideoLoaded && !isVideoError && (

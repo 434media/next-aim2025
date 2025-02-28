@@ -6,39 +6,19 @@ import { RiArrowDownSLine } from "@remixicon/react"
 
 const faqs = [
   {
-    question: "When and where is the AIM Health R&D Summit taking place?",
-    answer:
-      "The AIM Health R&D Summit is scheduled for June 16-17, 2025, at the Henry B. González Convention Center in San Antonio, Texas.",
-  },
-  {
-    question: "Who should attend the AIM Health R&D Summit?",
-    answer:
-      "The summit is ideal for military medical professionals, researchers, industry leaders, academics, and anyone interested in advancing military health and medical technology.",
-  },
-  {
-    question: "How can I register for the event?",
-    answer:
-      "You can register for the event through our online registration portal. Early bird discounts are available until February 28, 2025.",
-  },
-  {
     question: "Are there opportunities for sponsorship or exhibiting?",
     answer:
-      "Yes, we offer various sponsorship and exhibitor packages. Please contact our sponsorship team at sponsors@aimhealthsummit.com for more information.",
+      "Yes, we offer various sponsorship and exhibitor packages. Please contact our sponsorship team at barb@434media.com for more information.",
   },
   {
     question: "What is the refund policy?",
     answer:
-      "Refunds are available up to 30 days before the event, minus a processing fee. Within 30 days of the event, we offer transfers to another attendee or credit for next year's summit.",
+      "Refunds are available up to 30 days before the event, minus a processing fee. Please contact the event organizer through the conference app or contact your event POC directly.",
   },
   {
     question: "Is there a dress code for the summit?",
     answer:
-      "The dress code is business casual for most summit events. Some evening networking events may require more formal attire.",
-  },
-  {
-    question: "Will the presentations be available after the summit?",
-    answer:
-      "Yes, registered attendees will have access to presentation slides and recordings (where permitted) through our online portal after the event.",
+      "The dress code is business casual or uniform of the day based on your unit policy.",
   },
 ]
 
