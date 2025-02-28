@@ -25,14 +25,13 @@ const menuItems = [
   },
   {
     name: "Sponsors & Exhibitors",
-    href: "https://drive.google.com/file/d/1-RqS13xFyYj5ivO5bmyYfAAWfgW5apBf/view?ts=67b8b8c3",
+    href: "/sponsors-exhibitors",
   },
   {
     name: "More",
     dropdown: [
       { name: "Travel & Venue", href: "/travel-venue" },
       { name: "FAQ", href: "/faq" },
-      { name: "Code of Conduct", href: "/code-of-conduct" },
       { name: "Contact Us", href: "/contact-us" },
       { name: "Privacy Policy", href: "/privacy-policy" },
     ],
