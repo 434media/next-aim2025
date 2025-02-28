@@ -55,7 +55,7 @@ export default function Testimonial() {
   return (
     <motion.section
       ref={containerRef}
-      className="relative mx-auto w-full max-w-6xl overflow-hidden rounded-2xl shadow-2xl shadow-[#366A79]/70 my-24"
+      className="-mt-16 md:mt-0 relative mx-auto w-full max-w-6xl overflow-hidden rounded-2xl shadow-2xl shadow-[#366A79]/70 my-24"
       style={{ opacity, scale }}
     >
       <div className="absolute inset-0 bg-gray-300">

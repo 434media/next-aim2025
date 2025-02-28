@@ -1,12 +1,10 @@
 "use client"
 
-import type React from "react"
 import { useState, useEffect, useMemo } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import Link from "next/link"
 import { RiArrowDownSLine, RiMenuLine, RiCloseLine, RiArrowRightUpLine } from "@remixicon/react"
 import { Button } from "../Button"
-import { useMediaQuery } from "@/hooks/useMediaQuery"
 
 const menuItems = [
   { name: "AIM Pre-Conference Symposiums", href: "/pre-conference-symposiums" },
@@ -74,22 +72,6 @@ export default function NavBar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [currentNewsIndex, setCurrentNewsIndex] = useState(0)
   const newsItems = useMemo(() => initialNewsItems, [])
-  const [isSticky, setIsSticky] = useState(false)
-  const isMobile = useMediaQuery("(max-width: 767px)")
-  const [particles, setParticles] = useState<React.ReactNode[]>([])
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY
-      setIsSticky(offset > 100) // Adjust this value as needed
-    }
-
-    window.addEventListener("scroll", handleScroll)
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -98,37 +80,6 @@ export default function NavBar() {
 
     return () => clearInterval(interval)
   }, [newsItems.length])
-
-  const generateParticles = () => {
-    return [...Array(30)].map((_, i) => (
-      <motion.div
-        key={i}
-        className="absolute rounded-full"
-        style={{
-          width: Math.random() * 4 + 1,
-          height: Math.random() * 4 + 1,
-          backgroundColor: ["#548cac", "#4f4f2c", "#f97316", "#ffffff"][Math.floor(Math.random() * 4)],
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-          opacity: Math.random() * 0.5 + 0.3,
-        }}
-        animate={{
-          x: [0, Math.random() * 50 - 25],
-          y: [0, Math.random() * 50 - 25],
-        }}
-        transition={{
-          duration: Math.random() * 5 + 3,
-          repeat: Number.POSITIVE_INFINITY,
-          repeatType: "reverse",
-          ease: "easeInOut",
-        }}
-      />
-    ))
-  }
-
-  useEffect(() => {
-    setParticles(generateParticles())
-  }, [setParticles])
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
@@ -166,16 +117,11 @@ export default function NavBar() {
         </div>
 
         {/* Main Navigation */}
-        <nav
-          className={`bg-[#101310]/80 backdrop-blur-sm transition-all duration-300 ${
-            isSticky ? "lg:sticky lg:top-0 lg:z-50" : ""
-          }`}
-          aria-label="Main navigation"
-        >
+        <nav className="bg-[#101310]/80 backdrop-blur-sm transition-all duration-300" aria-label="Main navigation">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
               {/* Desktop Menu */}
-              <div className="hidden md:flex items-center space-x-8 lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto">
+              <div className="hidden md:flex items-center space-x-8">
                 {menuItems.map((item) => (
                   <div
                     key={item.name}
@@ -222,24 +168,13 @@ export default function NavBar() {
               </div>
 
               {/* News Ticker (Desktop and Mobile) */}
-              <motion.div
-                className={`relative overflow-hidden rounded-full ${
-                  isMobile ? "w-full" : "w-auto"
-                } ${isSticky ? "lg:sticky lg:top-16 lg:z-50" : ""}`}
-              >
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-white via-gray-200 to-white"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                />
-                <motion.div className="absolute inset-0 overflow-hidden pointer-events-none">{particles}</motion.div>
-                <motion.a
+              <div className="flex-1 md:flex-none md:mx-0">
+                <a
                   aria-label={`View latest update: ${newsItems[currentNewsIndex].label}`}
                   href={newsItems[currentNewsIndex].href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative inline-flex w-full items-center justify-between px-4 py-2 text-sm font-medium text-white shadow-lg shadow-[#548cac]/10 transition-all hover:bg-[#548cac]/10 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-[#101310]"
+                  className="group inline-flex w-full md:w-auto items-center justify-between rounded-full bg-white px-4 py-2 text-sm font-medium text-[#101310] shadow-lg shadow-[#548cac]/10 ring-1 ring-black/5 transition-all hover:bg-[#548cac]/10 hover:ring-[#548cac] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-[#101310]"
                   tabIndex={0}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
@@ -247,8 +182,6 @@ export default function NavBar() {
                       window.open(newsItems[currentNewsIndex].href, "_blank", "noopener,noreferrer")
                     }
                   }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
                 >
                   <span className="flex items-center overflow-hidden">
                     <span className="sr-only">Current news:</span>
@@ -267,7 +200,7 @@ export default function NavBar() {
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.3 }}
                           >
-                            <span className="truncate font-medium text-gray-800">
+                            <span className="truncate font-medium text-[#101310]">
                               {newsItems[currentNewsIndex].label}
                             </span>
                           </motion.span>
@@ -278,8 +211,8 @@ export default function NavBar() {
                       </span>
                     </span>
                   </span>
-                </motion.a>
-              </motion.div>
+                </a>
+              </div>
               {/* Mobile: Menu Button */}
               <div className="p-2 ml-2 flex items-center md:hidden">
                 <button
@@ -293,9 +226,6 @@ export default function NavBar() {
             </div>
           </div>
         </nav>
-        <div className={`hidden lg:block lg:w-1/2 ${isSticky ? "lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)]" : ""}`}>
-          {/* Video content goes here */}
-        </div>
 
         {/* Mobile Menu */}
         <AnimatePresence>
@@ -415,4 +345,3 @@ export default function NavBar() {
     </header>
   )
 }
-

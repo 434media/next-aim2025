@@ -107,7 +107,7 @@ const ScrollDrivenMarquee = ({
             href={partner.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative flex-shrink-0 transition-all duration-300"
+            className="group relative flex-shrink-0 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-md"
           >
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -134,9 +134,10 @@ interface LinkPreviewProps {
   children: React.ReactNode
   href: string
   description: string
+  className?: string
 }
 
-const LinkPreview: React.FC<LinkPreviewProps> = ({ children, href, description }) => {
+const LinkPreview: React.FC<LinkPreviewProps> = ({ children, href, description, className }) => {
   const [isPreviewVisible, setIsPreviewVisible] = useState(false)
   const [isTouchDevice, setIsTouchDevice] = useState(false)
 
@@ -174,7 +175,7 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({ children, href, description }
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="font-bold text-[#548cac] hover:text-[#366A79] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-sm transition-colors duration-200"
+        className={`${className} font-bold text-[#366A79] hover:text-[#548cac] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-sm transition-colors duration-200`}
       >
         {children}
         <RiExternalLinkLine className="inline-block ml-1 w-4 h-4" aria-hidden="true" />
@@ -182,11 +183,11 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({ children, href, description }
       <AnimatePresence>
         {isPreviewVisible && (
           <motion.span
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
+            exit={{ opacity: 0, y: 5 }}
             transition={{ duration: 0.2 }}
-            className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-2 w-64 bg-white rounded-lg shadow-lg p-4 text-sm text-gray-900"
+            className="absolute z-50 left-1/2 transform -translate-x-1/2 mt-2 w-64 bg-white rounded-lg shadow-lg p-4 text-sm text-gray-900"
           >
             {description}
           </motion.span>
@@ -219,13 +220,13 @@ export function AnimatedLogo() {
       <section
         ref={containerRef}
         id="main-content"
-        className="relative w-full overflow-hidden bg-gradient-to-b from-white to-gray-100 py-24 sm:py-32"
+        className="relative w-full overflow-hidden bg-gradient-to-b from-white to-gray-100 py-16 sm:py-24 lg:py-32"
       >
-        <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 lg:space-y-16">
           <div className="mx-auto max-w-7xl">
             <motion.div style={{ y: spring, opacity: textOpacity }} className="text-center mb-24 sm:mb-32 space-y-12">
               <motion.h2
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-[#101310] tracking-tight mb-8"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-[#101310] tracking-tight mb-6 sm:mb-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
@@ -238,17 +239,18 @@ export function AnimatedLogo() {
                 animate={{ width: 96 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
               />
-              <div className="text-xl sm:text-2xl md:text-3xl text-[#101310] max-w-5xl mx-auto text-balance tracking-tight space-y-8 leading-relaxed">
+              <div className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#101310] w-full max-w-5xl mx-auto text-balance tracking-tighter md:tracking-tight space-y-4 sm:space-y-6 leading-relaxed px-4 sm:px-6 lg:px-8">
                 <motion.p
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.7 }}
+                  transition={{ duration: 0.6, delay: 0 * 0.2 }}
                 >
                   San Antonio is uniquely positioned as Military Health City USA, home to the largest joint base in the
-                  U.S. Department of Defense, the nation&apos;s only Level 1 Trauma Center in the DoD network{" "}
+                  U.S. Department of Defense, the nation's only Level 1 Trauma Center in the DoD network{" "}
                   <LinkPreview
                     href="https://bamc.tricare.mil/"
                     description="Brooke Army Medical Center (BAMC) is the largest DoD hospital and only Level 1 Trauma Center in the DoD."
+                    className="font-semibold text-[#366A79] hover:text-[#548cac] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-sm transition-colors duration-200 underline underline-offset-2"
                   >
                     (BAMC)
                   </LinkPreview>
@@ -256,35 +258,38 @@ export function AnimatedLogo() {
                   <LinkPreview
                     href="https://dha.mil/"
                     description="The Defense Health Agency (DHA) is a joint, integrated Combat Support Agency that enables the Army, Navy, and Air Force medical services to provide a medically ready force and ready medical force to Combatant Commands in both peacetime and wartime."
+                    className="font-semibold text-[#366A79] hover:text-[#548cac] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-sm transition-colors duration-200 underline underline-offset-2"
                   >
                     DHA
                   </LinkPreview>{" "}
                   presence.
                 </motion.p>
                 <motion.p
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.9 }}
+                  transition={{ duration: 0.6, delay: 1 * 0.2 }}
                 >
                   As a leading hub for medical research and healthcare innovation, San Antonio unites government and
                   civilian healthcare leaders, making{" "}
                   <LinkPreview
                     href="https://www.434media.com/"
                     description="The AIM Health R&D Summit brings together top innovators from academia, industry, and the military to accelerate the research, development, and commercialization of transformative medical technologies."
+                    className="font-semibold text-[#366A79] hover:text-[#548cac] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-sm transition-colors duration-200 underline underline-offset-2"
                   >
                     AIM
                   </LinkPreview>{" "}
                   the premier platform for cross-sector collaboration.
                 </motion.p>
                 <motion.p
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 1.1 }}
+                  transition={{ duration: 0.6, delay: 2 * 0.2 }}
                 >
                   With key partners like{" "}
                   <LinkPreview
                     href="https://velocitytx.org/"
                     description="VelocityTX is an innovation hub that accelerates the growth of bioscience and technology companies in San Antonio."
+                    className="font-semibold text-[#366A79] hover:text-[#548cac] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-sm transition-colors duration-200 underline underline-offset-2"
                   >
                     VelocityTX
                   </LinkPreview>{" "}
@@ -292,21 +297,23 @@ export function AnimatedLogo() {
                   bioscience innovation.
                 </motion.p>
                 <motion.p
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 1.3 }}
+                  transition={{ duration: 0.6, delay: 3 * 0.2 }}
                 >
                   The city is home to leading institutions including{" "}
                   <LinkPreview
                     href="https://militaryhealthinstitute.org/"
                     description="UT Health San Antonio's Military Health Institute (MHI) is dedicated to advancing military health and medicine through research, education, and community partnerships."
+                    className="font-semibold text-[#366A79] hover:text-[#548cac] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-sm transition-colors duration-200 underline underline-offset-2"
                   >
                     UT Health San Antonio&apos;s MHI
                   </LinkPreview>
-                  , the San Antonio Military Health System (SAMHS),{" "}
+                  the San Antonio Military Health System (SAMHS),{" "}
                   <LinkPreview
                     href="https://www.utsa.edu/"
                     description="The University of Texas at San Antonio and The University of Texas Health Science Center at San Antonio are on a path to merge into one premier global university, combining our collective academic, research and clinical strengths to deliver immense value to our community."
+                    className="font-semibold text-[#366A79] hover:text-[#548cac] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-sm transition-colors duration-200 underline underline-offset-2"
                   >
                     UTSA
                   </LinkPreview>
@@ -314,6 +321,7 @@ export function AnimatedLogo() {
                   <LinkPreview
                     href="https://www.txbiomed.org/"
                     description="Texas Biomedical Research Institute is a global leader in infectious disease research, with a mission to promote global health through innovative research."
+                    className="font-semibold text-[#366A79] hover:text-[#548cac] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-sm transition-colors duration-200 underline underline-offset-2"
                   >
                     Texas Biomedical Research Foundation
                   </LinkPreview>
@@ -325,7 +333,7 @@ export function AnimatedLogo() {
         </div>
 
         <div className="relative -mx-4 sm:-mx-6 lg:-mx-8 bg-white py-12">
-          <div className="mt-12 space-y-12">
+          <div className="space-y-12 sm:space-y-16 lg:space-y-24">
             <h3 className="sr-only">Our Partners</h3>
             <ScrollDrivenMarquee items={mainPartners} />
             <ScrollDrivenMarquee items={additionalPartners} reverse />
@@ -340,11 +348,11 @@ export function AnimatedLogo() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <h3 className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-[#101310] mb-8">
-                <FadeSpan className="block text-[#548cac]">Two Days</FadeSpan>
+              <h3 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#101310] mb-8">
+                <FadeSpan className="block text-[#366A79]">Two Days</FadeSpan>
                 <FadeSpan className="block">One Mission</FadeSpan>
               </h3>
-              <p className="mt-8 max-w-2xl mx-auto text-center text-xl sm:text-2xl text-gray-600 leading-relaxed">
+              <p className="mt-8 max-w-2xl mx-auto text-center text-xl sm:text-2xl text-gray-700 leading-relaxed">
                 <FadeSpan>
                   The AIM Health R&D Summit is{" "}
                   <strong className="font-semibold text-[#101310]">Military Health City USA&apos;s</strong> premier
@@ -360,7 +368,7 @@ export function AnimatedLogo() {
                     href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto text-lg py-3 px-8 whitespace-nowrap focus:ring-2 focus:ring-offset-2 focus:ring-[#548cac] focus:outline-none transition-all duration-200 hover:scale-105"
+                    className="w-full sm:w-auto text-base sm:text-lg py-3 px-6 sm:py-4 sm:px-8 whitespace-nowrap focus:ring-2 focus:ring-offset-2 focus:ring-[#548cac] focus:outline-none transition-all duration-200 hover:scale-105"
                   >
                     <span className="flex items-center justify-center">
                       Register to Attend
@@ -374,7 +382,7 @@ export function AnimatedLogo() {
                     href="https://support.velocitytx.org/campaign/642575/donate"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto text-lg py-3 px-8 whitespace-nowrap focus:ring-2 focus:ring-offset-2 focus:ring-[#548cac] focus:outline-none transition-all duration-200 hover:scale-105"
+                    className="w-full sm:w-auto text-base sm:text-lg py-3 px-6 sm:py-4 sm:px-8 whitespace-nowrap focus:ring-2 focus:ring-offset-2 focus:ring-[#548cac] focus:outline-none transition-all duration-200 hover:scale-105"
                   >
                     <span className="flex items-center justify-center">
                       Become a Sponsor
