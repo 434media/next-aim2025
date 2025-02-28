@@ -126,23 +126,30 @@ export default function NavBar() {
                   <div
                     key={item.name}
                     className="relative group"
-                    onMouseEnter={() => setActiveDropdown(item.name)}
-                    onMouseLeave={() => setActiveDropdown(null)}
+                    onMouseEnter={() => item.dropdown && setActiveDropdown(item.name)}
+                    onMouseLeave={() => item.dropdown && setActiveDropdown(null)}
                   >
-                    <button
-                      className="flex items-center text-sm font-medium text-white hover:text-[#548cac] transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-md px-2 py-1"
-                      onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}
-                      aria-expanded={activeDropdown === item.name}
-                      aria-haspopup="true"
-                    >
-                      {item.name}
-                      {item.dropdown && (
+                    {item.dropdown ? (
+                      <button
+                        className="flex items-center text-sm font-medium text-white hover:text-[#548cac] transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-md px-2 py-1"
+                        onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}
+                        aria-expanded={activeDropdown === item.name}
+                        aria-haspopup="true"
+                      >
+                        {item.name}
                         <RiArrowDownSLine
                           className="ml-1 size-4 transition-transform duration-200 group-hover:rotate-180"
                           aria-hidden="true"
                         />
-                      )}
-                    </button>
+                      </button>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        className="flex items-center text-sm font-medium text-white hover:text-[#548cac] transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-md px-2 py-1"
+                      >
+                        {item.name}
+                      </Link>
+                    )}
                     {item.dropdown && (
                       <div
                         className={`absolute top-full left-0 w-56 py-2 mt-1 bg-[#101310] rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50 transition-all duration-200 ${
@@ -345,3 +352,4 @@ export default function NavBar() {
     </header>
   )
 }
+

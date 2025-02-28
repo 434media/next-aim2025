@@ -120,7 +120,7 @@ export function HeroVideo() {
           transition={{ duration: 1, ease: "easeOut" }}
           aria-hidden="true"
         />
-        <div className="relative w-full max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-6">
+        <div className="relative w-full max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-6 -mt-8 md:mt-0">
           <div className="space-y-8 sm:space-y-12">
             <motion.div className="space-y-8" variants={stagger}>
               <motion.h1
