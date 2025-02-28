@@ -1,15 +1,20 @@
 "use client"
 
 import type React from "react"
+import dynamic from "next/dynamic"
 import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
 import ErrorBoundary from "./ErrorBoundary"
-import GameOfLife from "./HeroBackground"
 import { Button } from "../Button"
 import { RiArrowRightUpLine } from "@remixicon/react"
 import { FadeDiv, FadeSpan } from "../Fade"
+
+const GameOfLife = dynamic(() => import("./HeroBackground"), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-gray-200" />,
+})
 
 const mainPartners = [
   {
@@ -120,6 +125,7 @@ const ScrollDrivenMarquee = ({
                 fill
                 sizes="(max-width: 640px) 160px, 224px"
                 className="object-contain"
+                loading="lazy"
               />
             </motion.div>
             <span className="sr-only">{partner.name}</span>
@@ -129,6 +135,8 @@ const ScrollDrivenMarquee = ({
     </div>
   )
 }
+
+const MemoizedScrollDrivenMarquee = ScrollDrivenMarquee
 
 interface LinkPreviewProps {
   children: React.ReactNode
@@ -334,8 +342,8 @@ export function AnimatedLogo() {
         <div className="relative -mx-4 sm:-mx-6 lg:-mx-8 bg-white md:py-12">
           <div className="space-y-12 sm:space-y-16 lg:space-y-24">
             <h3 className="sr-only">Our Partners</h3>
-            <ScrollDrivenMarquee items={mainPartners} />
-            <ScrollDrivenMarquee items={additionalPartners} reverse />
+            <MemoizedScrollDrivenMarquee items={mainPartners} />
+            <MemoizedScrollDrivenMarquee items={additionalPartners} reverse />
           </div>
         </div>
 
