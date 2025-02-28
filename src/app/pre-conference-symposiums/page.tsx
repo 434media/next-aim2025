@@ -111,7 +111,7 @@ export default function PreConferenceSymposiums() {
           <motion.div variants={fadeInUp} className="flex-1 bg-zinc-900 rounded-xl p-1 md:p-2 w-full max-w-xl">
             <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-zinc-800">
               <Image
-                src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+17.png"
+                src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+28.png"
                 alt="SME Encounter Sessions preview"
                 fill
                 className="object-cover transition-opacity duration-300"

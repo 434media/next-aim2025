@@ -108,8 +108,6 @@ export default function PrivacyPolicy() {
             AIM Health R&D Summit
             <br />
             Email: barb@434media.com.com
-            <br />
-            Phone: +1 (210) 852-6148
           </p>
         </motion.section>
       </motion.div>

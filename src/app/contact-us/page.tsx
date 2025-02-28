@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { motion } from "motion/react"
-import { RiMailLine, RiPhoneLine, RiMapPin2Line, RiSendPlane2Line } from "@remixicon/react"
+import { RiMailLine, RiMapPin2Line, RiSendPlane2Line } from "@remixicon/react"
 import { Button } from "@/components/Button"
 
 const fadeInUp = {
@@ -131,13 +131,6 @@ export default function ContactUs() {
                 <div>
                   <h3 className="font-medium text-gray-900">Email</h3>
                   <p className="text-gray-600">barb@434media.com</p>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <RiPhoneLine className="mt-1 mr-3 text-orange-500 flex-shrink-0" />
-                <div>
-                  <h3 className="font-medium text-gray-900">Phone</h3>
-                  <p className="text-gray-600">+1 (210) 852-6148</p>
                 </div>
               </div>
               <div className="flex items-start">
