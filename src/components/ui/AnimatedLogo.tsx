@@ -246,7 +246,7 @@ export function AnimatedLogo() {
                   transition={{ duration: 0.6, delay: 0 * 0.2 }}
                 >
                   San Antonio is uniquely positioned as Military Health City USA, home to the largest joint base in the
-                  U.S. Department of Defense, the nation's only Level 1 Trauma Center in the DoD network{" "}
+                  U.S. Department of Defense, the nation&apos;s only Level 1 Trauma Center in the DoD network{" "}
                   <LinkPreview
                     href="https://bamc.tricare.mil/"
                     description="Brooke Army Medical Center (BAMC) is the largest DoD hospital and only Level 1 Trauma Center in the DoD."
