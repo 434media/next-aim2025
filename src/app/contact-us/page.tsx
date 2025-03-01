@@ -6,7 +6,6 @@ import type { SVGProps } from "react"
 /// <reference types="../types/global.d.ts" />
 
 import { useState, useRef, useEffect } from "react"
-import Script from "next/script"
 import { motion, AnimatePresence } from "motion/react"
 import { RiMailLine, RiMapPin2Line } from "@remixicon/react"
 import { Button } from "@/components/Button"
@@ -45,34 +44,51 @@ export default function ContactUs() {
     setFormData((prevData) => ({ ...prevData, [name]: value }))
   }
 
-  const [turnstileToken, setTurnstileToken] = useState("")
   const turnstileRef = useRef<HTMLDivElement>(null)
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
   useEffect(() => {
-    if (typeof window !== "undefined" && "turnstile" in window) {
-      window.turnstile.render(turnstileRef.current, {
-        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
-        callback: (token: string) => {
-          setTurnstileToken(token)
-        },
-      })
+    const loadTurnstile = async () => {
+      if (typeof window !== "undefined" && !window.turnstile) {
+        await new Promise<void>((resolve) => {
+          const script = document.createElement("script")
+          script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
+          script.async = true
+          script.defer = true
+          script.onload = () => resolve()
+          document.body.appendChild(script)
+        })
+      }
+
+      if (window.turnstile && turnstileRef.current) {
+        window.turnstile.render(turnstileRef.current, {
+          sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+          callback: (token: string) => {
+            console.log("Turnstile token:", token)
+          },
+        })
+      }
     }
+
+    loadTurnstile()
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      if (!turnstileToken) {
-        alert("Please complete the Turnstile challenge.")
-        return
+      if (!window.turnstile) {
+        throw new Error("Turnstile is not initialized")
+      }
+      const turnstileResponse = await window.turnstile.getResponse()
+      if (!turnstileResponse) {
+        throw new Error("Failed to get Turnstile response")
       }
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...formData, turnstileToken }),
+        body: JSON.stringify({ ...formData, turnstileToken: turnstileResponse }),
       })
 
       if (response.ok) {
@@ -98,7 +114,7 @@ export default function ContactUs() {
             exit={{ opacity: 0, y: -50 }}
             className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-md shadow-lg z-50"
           >
-            Thank you for your message! We&apos;ll get back to you soon.
+            Thank you for your message! We'll get back to you soon.
           </motion.div>
         )}
       </AnimatePresence>
@@ -273,7 +289,7 @@ export default function ContactUs() {
           <div ref={turnstileRef} />
         </motion.form>
       </div>
-      <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
+      {/* <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer /> */}
     </div>
   )
 }
