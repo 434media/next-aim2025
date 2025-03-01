@@ -117,7 +117,7 @@ export default function ContactUs() {
               Get in touch
             </motion.h2>
             <motion.p className="mt-8 text-base sm:text-lg/8 text-[#6a6a3d]" variants={fadeInUp}>
-              Have questions about the AIM Health R&D Summit? We're here to help. Reach out to us using the form or
+              Have questions about the AIM Health R&D Summit? We&apos;re here to help. Reach out to us using the form or
               contact information below.
             </motion.p>
             <motion.dl
