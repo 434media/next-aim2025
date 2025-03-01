@@ -7,7 +7,7 @@ import type { SVGProps } from "react"
 
 import { useState, useRef, useEffect } from "react"
 import Script from "next/script"
-import { motion } from "motion/react"
+import { motion, AnimatePresence } from "framer-motion"
 import { RiMailLine, RiMapPin2Line } from "@remixicon/react"
 import { Button } from "@/components/Button"
 import { Input } from "@/components/ui/Input"
@@ -47,6 +47,7 @@ export default function ContactUs() {
 
   const [turnstileToken, setTurnstileToken] = useState("")
   const turnstileRef = useRef<HTMLDivElement>(null)
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
   useEffect(() => {
     if (typeof window !== "undefined" && "turnstile" in window) {
@@ -76,7 +77,8 @@ export default function ContactUs() {
 
       if (response.ok) {
         setFormData({ firstName: "", lastName: "", email: "", phoneNumber: "", message: "" })
-        alert("Form submitted successfully!")
+        setShowSuccessMessage(true)
+        setTimeout(() => setShowSuccessMessage(false), 5000) // Hide message after 5 seconds
       } else {
         throw new Error("Form submission failed")
       }
@@ -88,6 +90,18 @@ export default function ContactUs() {
 
   return (
     <div className="relative isolate bg-[#101310]">
+      <AnimatePresence>
+        {showSuccessMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-md shadow-lg z-50"
+          >
+            Thank you for your message! We'll get back to you soon.
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
         <motion.div
           className="relative px-6 pt-24 pb-20 sm:pt-32 lg:static lg:px-8 lg:py-48"
@@ -95,7 +109,7 @@ export default function ContactUs() {
           animate="animate"
           variants={staggerChildren}
         >
-          <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
+          <div className="mx-auto max-w-xl mt-6 lg:mt-0 lg:mx-0 lg:max-w-lg">
             <div className="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden ring-1 ring-white/5 lg:w-1/2">
               <div
                 aria-hidden="true"
@@ -144,7 +158,7 @@ export default function ContactUs() {
                   <CustomIcon icon={RiMailLine} aria-hidden="true" className="h-7 w-6 text-[#548cac]" />
                 </dt>
                 <dd>
-                  <a href="mailto:info@aimhealthsummit.com" className="hover:text-[#548cac]">
+                  <a href="mailto:barb@434media.com" className="hover:text-[#548cac]">
                     barb@434media.com
                   </a>
                 </dd>
