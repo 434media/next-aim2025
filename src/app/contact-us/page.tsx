@@ -7,7 +7,7 @@ import type { SVGProps } from "react"
 
 import { useState, useRef, useEffect } from "react"
 import Script from "next/script"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "motion/react"
 import { RiMailLine, RiMapPin2Line } from "@remixicon/react"
 import { Button } from "@/components/Button"
 import { Input } from "@/components/ui/Input"
@@ -98,7 +98,7 @@ export default function ContactUs() {
             exit={{ opacity: 0, y: -50 }}
             className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-md shadow-lg z-50"
           >
-            Thank you for your message! We'll get back to you soon.
+            Thank you for your message! We&apos;ll get back to you soon.
           </motion.div>
         )}
       </AnimatePresence>
