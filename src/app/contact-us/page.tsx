@@ -1,6 +1,9 @@
 "use client"
 
 import type React from "react"
+import type { SVGProps } from "react"
+
+/// <reference types="../types/global.d.ts" />
 
 import { useState, useRef, useEffect } from "react"
 import Script from "next/script"
@@ -10,14 +13,7 @@ import { Button } from "@/components/Button"
 import { Input } from "@/components/ui/Input"
 import { Label } from "@/components/ui/Label"
 
-// Declare the turnstile property on the Window interface
-declare global {
-  interface Window {
-    turnstile: any
-  }
-}
-
-const CustomIcon = ({ icon: Icon, ...props }: { icon: React.ElementType } & React.SVGProps<SVGSVGElement>) => (
+const CustomIcon = ({ icon: Icon, ...props }: { icon: React.ElementType } & SVGProps<SVGSVGElement>) => (
   <Icon {...props} />
 )
 
@@ -53,9 +49,9 @@ export default function ContactUs() {
   const turnstileRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.turnstile) {
+    if (typeof window !== "undefined" && "turnstile" in window) {
       window.turnstile.render(turnstileRef.current, {
-        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
         callback: (token: string) => {
           setTurnstileToken(token)
         },

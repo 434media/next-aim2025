@@ -4,7 +4,7 @@ import * as React from "react"
 import clsx from "clsx"
 import { useMotionTemplate, useMotionValue, motion } from "motion/react"
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+type InputProps = React.InputHTMLAttributes<HTMLInputElement>
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type, ...props }, ref) => {
   const radius = 100 // change this to increase the radius of the hover effect
@@ -13,7 +13,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type,
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
-  function handleMouseMove({ currentTarget, clientX, clientY }: any) {
+  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent<HTMLDivElement>) {
     const { left, top } = currentTarget.getBoundingClientRect()
 
     mouseX.set(clientX - left)
