@@ -1,18 +1,16 @@
 "use client"
 
 import type React from "react"
-import type { SVGProps } from "react"
-
-/// <reference types="../types/global.d.ts" />
-
 import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "motion/react"
-import { RiMailLine, RiMapPin2Line } from "@remixicon/react"
+import { motion, AnimatePresence } from "framer-motion"
+import { RiMailLine, RiMapPin2Line, RiCheckLine } from "@remixicon/react"
 import { Button } from "@/components/Button"
 import { Input } from "@/components/ui/Input"
 import { Label } from "@/components/ui/Label"
 
-const CustomIcon = ({ icon: Icon, ...props }: { icon: React.ElementType } & SVGProps<SVGSVGElement>) => (
+const isDevelopment = process.env.NODE_ENV === "development"
+
+const CustomIcon = ({ icon: Icon, ...props }: { icon: React.ElementType } & React.SVGProps<SVGSVGElement>) => (
   <Icon {...props} />
 )
 
@@ -39,101 +37,92 @@ export default function ContactUs() {
     message: "",
   })
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const turnstileRef = useRef<HTMLDivElement>(null)
+  const [turnstileWidget, setTurnstileWidget] = useState<string | null>(null)
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prevData) => ({ ...prevData, [name]: value }))
   }
 
-  const turnstileRef = useRef<HTMLDivElement>(null)
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
-  const [turnstileWidget, setTurnstileWidget] = useState<string | null>(null)
-
   useEffect(() => {
-    const loadTurnstile = () => {
+    if (!isDevelopment && !window.turnstile) {
       const script = document.createElement("script")
       script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
+      script.async = true
+      script.defer = true
+      document.body.appendChild(script)
+
       script.onload = () => {
-        if (window.turnstile && turnstileRef.current) {
+        if (window.turnstile && turnstileRef.current && !turnstileWidget) {
           const widgetId = window.turnstile.render(turnstileRef.current, {
             sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
             callback: (token: string) => {
               console.log("Turnstile token:", token)
             },
-            "error-callback": () => {
-              console.error("Turnstile encountered an error")
-            },
-            "expired-callback": () => {
-              console.log("Turnstile response expired")
-            },
-            execution: "execute",
           })
           setTurnstileWidget(widgetId)
         }
       }
-      document.body.appendChild(script)
-    }
 
-    loadTurnstile()
-
-    return () => {
-      if (turnstileWidget) {
-        window.turnstile.remove(turnstileWidget)
+      return () => {
+        document.body.removeChild(script)
       }
     }
   }, [turnstileWidget])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setIsSubmitting(true)
     try {
-      if (!window.turnstile || !turnstileWidget) {
-        throw new Error("Turnstile is not initialized")
-      }
+      let turnstileResponse = undefined
 
-      await window.turnstile.execute(turnstileWidget)
+      if (!isDevelopment) {
+        if (!window.turnstile || !turnstileWidget) {
+          throw new Error("Turnstile is not initialized")
+        }
 
-      const turnstileResponse = window.turnstile.getResponse(turnstileWidget)
-      if (!turnstileResponse) {
-        throw new Error("Failed to get Turnstile response")
+        turnstileResponse = window.turnstile.getResponse(turnstileWidget)
+        if (!turnstileResponse) {
+          throw new Error("Failed to get Turnstile response")
+        }
       }
 
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "cf-turnstile-response": turnstileResponse,
+          ...(turnstileResponse && { "cf-turnstile-response": turnstileResponse }),
         },
         body: JSON.stringify(formData),
       })
 
+      const responseData = await response.json()
+
       if (response.ok) {
         setFormData({ firstName: "", lastName: "", email: "", phoneNumber: "", message: "" })
-        setShowSuccessMessage(true)
-        setTimeout(() => setShowSuccessMessage(false), 5000) // Hide message after 5 seconds
-        window.turnstile.reset(turnstileWidget)
+        setIsSuccess(true)
+        setTimeout(() => setIsSuccess(false), 5000) // Reset success state after 5 seconds
+        if (!isDevelopment && turnstileWidget) {
+          window.turnstile.reset(turnstileWidget)
+        }
       } else {
-        const errorData = await response.json()
-        throw new Error(errorData.error || "Form submission failed")
+        throw new Error(responseData.error || "Form submission failed")
       }
     } catch (error) {
       console.error("Error submitting form:", error)
-      alert("An error occurred while submitting the form. Please try again.")
+      alert(
+        `An error occurred while submitting the form: ${error instanceof Error ? error.message : String(error)}. Please try again.`,
+      )
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
   return (
     <div className="relative isolate bg-[#101310]">
-      <AnimatePresence>
-        {showSuccessMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
-            className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-md shadow-lg z-50"
-          >
-            Thank you for your message! We&apos;ll get back to you soon.
-          </motion.div>
-        )}
-      </AnimatePresence>
       <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
         <motion.div
           className="relative px-6 pt-24 pb-20 sm:pt-32 lg:static lg:px-8 lg:py-48"
@@ -293,16 +282,39 @@ export default function ContactUs() {
               </motion.div>
             </div>
             <motion.div className="mt-8 flex justify-end" variants={fadeInUp}>
-              <Button
-                type="submit"
-                variant="primary"
-                className="w-full sm:w-auto rounded-md px-3.5 py-2.5 text-center text-sm font-semibold shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#548cac]"
-              >
-                Send message
-              </Button>
+              <AnimatePresence mode="wait">
+                {isSuccess ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    className="flex items-center space-x-2 text-green-500"
+                  >
+                    <RiCheckLine className="h-5 w-5" />
+                    <span>Message sent successfully!</span>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="button"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                  >
+                    <Button
+                      type="submit"
+                      variant="primary"
+                      className="w-full sm:w-auto rounded-md px-3.5 py-2.5 text-center text-sm font-semibold shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#548cac]"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Sending..." : "Send message"}
+                    </Button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           </div>
-          <div ref={turnstileRef} />
+          {!isDevelopment && <div ref={turnstileRef} />}
         </motion.form>
       </div>
     </div>
