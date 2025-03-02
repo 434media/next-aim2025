@@ -281,12 +281,12 @@ export default function ContactUs() {
                 </div>
               </motion.div>
               {!isDevelopment && (
-                <motion.div className="mt-6" variants={fadeInUp}>
-                  <div ref={turnstileRef} className="flex justify-center" />
+                <motion.div className="sm:col-span-2" variants={fadeInUp}>
+                  <div ref={turnstileRef} className="w-full" />
                 </motion.div>
               )}
             </div>
-            <motion.div className="mt-6 flex justify-end" variants={fadeInUp}>
+            <motion.div className="sm:col-span-2" variants={fadeInUp}>
               <AnimatePresence mode="wait">
                 {isSuccess ? (
                   <motion.div
@@ -294,7 +294,7 @@ export default function ContactUs() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
-                    className="flex items-center space-x-2 text-green-500"
+                    className="flex items-center justify-center w-full space-x-2 text-green-500"
                   >
                     <RiCheckLine className="h-5 w-5" />
                     <span>Message sent successfully!</span>
@@ -305,11 +305,12 @@ export default function ContactUs() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
+                    className="w-full"
                   >
                     <Button
                       type="submit"
                       variant="primary"
-                      className="w-full sm:w-auto rounded-md px-3.5 py-2.5 text-center text-sm font-semibold shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#548cac]"
+                      className="w-full rounded-md px-3.5 py-2.5 text-center text-sm font-semibold shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#548cac]"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? "Sending..." : "Send message"}
