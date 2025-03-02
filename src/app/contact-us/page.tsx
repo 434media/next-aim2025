@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "motion/react"
 import { RiMailLine, RiMapPin2Line, RiCheckLine } from "@remixicon/react"
 import { Button } from "@/components/Button"
 import { Input } from "@/components/ui/Input"
