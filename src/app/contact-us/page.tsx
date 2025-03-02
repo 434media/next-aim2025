@@ -125,7 +125,7 @@ export default function ContactUs() {
     <div className="relative isolate bg-[#101310]">
       <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
         <motion.div
-          className="relative px-6 pt-24 sm:pb-20 sm:pt-32 lg:static lg:px-8 lg:py-48"
+          className="relative px-6 pt-24 pb-6 sm:pt-32 lg:static lg:px-8 lg:py-48"
           initial="initial"
           animate="animate"
           variants={staggerChildren}
