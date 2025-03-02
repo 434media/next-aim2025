@@ -14,7 +14,9 @@ const base = new Airtable({ apiKey: airtableApiKey }).base(airtableBaseId)
 
 export async function POST(request: Request) {
   try {
-    const { firstName, lastName, email, phoneNumber, message, turnstileToken } = await request.json()
+    const { firstName, lastName, email, phoneNumber, message } = await request.json()
+    const turnstileToken = request.headers.get("cf-turnstile-response")
+    const remoteIp = request.headers.get("CF-Connecting-IP")
 
     if (!airtableBaseId || !airtableApiKey) {
       console.error("Airtable configuration is missing")
@@ -27,19 +29,28 @@ export async function POST(request: Request) {
     }
 
     // Verify Turnstile token
-    const turnstileVerification = await axios.post(
-      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-      new URLSearchParams({
-        secret: turnstileSecretKey,
-        response: turnstileToken,
-      }),
-      {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      },
-    )
+    if (turnstileToken) {
+      const idempotencyKey = crypto.randomUUID()
+      const turnstileVerification = await axios.post(
+        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+        new URLSearchParams({
+          secret: turnstileSecretKey,
+          response: turnstileToken,
+          remoteip: remoteIp || "",
+          idempotency_key: idempotencyKey,
+        }),
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        },
+      )
 
-    if (!turnstileVerification.data.success) {
-      return NextResponse.json({ error: "Turnstile verification failed" }, { status: 400 })
+      if (!turnstileVerification.data.success) {
+        const errorCodes = turnstileVerification.data["error-codes"] || []
+        console.error("Turnstile verification failed:", errorCodes)
+        return NextResponse.json({ error: "Turnstile verification failed", errorCodes }, { status: 400 })
+      }
+    } else {
+      return NextResponse.json({ error: "Turnstile token is missing" }, { status: 400 })
     }
 
     // Create record in Airtable

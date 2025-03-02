@@ -46,57 +46,73 @@ export default function ContactUs() {
 
   const turnstileRef = useRef<HTMLDivElement>(null)
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+  const [turnstileWidget, setTurnstileWidget] = useState<string | null>(null)
 
   useEffect(() => {
-    const loadTurnstile = async () => {
-      if (typeof window !== "undefined" && !window.turnstile) {
-        await new Promise<void>((resolve) => {
-          const script = document.createElement("script")
-          script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
-          script.async = true
-          script.defer = true
-          script.onload = () => resolve()
-          document.body.appendChild(script)
-        })
+    const loadTurnstile = () => {
+      const script = document.createElement("script")
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
+      script.onload = () => {
+        if (window.turnstile && turnstileRef.current) {
+          const widgetId = window.turnstile.render(turnstileRef.current, {
+            sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+            callback: (token: string) => {
+              console.log("Turnstile token:", token)
+            },
+            "error-callback": () => {
+              console.error("Turnstile encountered an error")
+            },
+            "expired-callback": () => {
+              console.log("Turnstile response expired")
+            },
+            execution: "execute",
+          })
+          setTurnstileWidget(widgetId)
+        }
       }
-
-      if (window.turnstile && turnstileRef.current) {
-        window.turnstile.render(turnstileRef.current, {
-          sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
-          callback: (token: string) => {
-            console.log("Turnstile token:", token)
-          },
-        })
-      }
+      document.body.appendChild(script)
     }
 
     loadTurnstile()
-  }, [])
+
+    return () => {
+      if (turnstileWidget) {
+        window.turnstile.remove(turnstileWidget)
+      }
+    }
+  }, [turnstileWidget])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      if (!window.turnstile) {
+      if (!window.turnstile || !turnstileWidget) {
         throw new Error("Turnstile is not initialized")
       }
-      const turnstileResponse = await window.turnstile.getResponse()
+
+      await window.turnstile.execute(turnstileWidget)
+
+      const turnstileResponse = window.turnstile.getResponse(turnstileWidget)
       if (!turnstileResponse) {
         throw new Error("Failed to get Turnstile response")
       }
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "cf-turnstile-response": turnstileResponse,
         },
-        body: JSON.stringify({ ...formData, turnstileToken: turnstileResponse }),
+        body: JSON.stringify(formData),
       })
 
       if (response.ok) {
         setFormData({ firstName: "", lastName: "", email: "", phoneNumber: "", message: "" })
         setShowSuccessMessage(true)
         setTimeout(() => setShowSuccessMessage(false), 5000) // Hide message after 5 seconds
+        window.turnstile.reset(turnstileWidget)
       } else {
-        throw new Error("Form submission failed")
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Form submission failed")
       }
     } catch (error) {
       console.error("Error submitting form:", error)
@@ -289,7 +305,6 @@ export default function ContactUs() {
           <div ref={turnstileRef} />
         </motion.form>
       </div>
-      {/* <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer /> */}
     </div>
   )
 }
