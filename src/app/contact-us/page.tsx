@@ -280,8 +280,13 @@ export default function ContactUs() {
                   />
                 </div>
               </motion.div>
+              {!isDevelopment && (
+                <motion.div className="mt-6" variants={fadeInUp}>
+                  <div ref={turnstileRef} className="flex justify-center" />
+                </motion.div>
+              )}
             </div>
-            <motion.div className="mt-8 flex justify-end" variants={fadeInUp}>
+            <motion.div className="mt-6 flex justify-end" variants={fadeInUp}>
               <AnimatePresence mode="wait">
                 {isSuccess ? (
                   <motion.div
@@ -314,7 +319,6 @@ export default function ContactUs() {
               </AnimatePresence>
             </motion.div>
           </div>
-          {!isDevelopment && <div ref={turnstileRef} />}
         </motion.form>
       </div>
     </div>
