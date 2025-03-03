@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     images: [
       {
-        url: `${siteConfig.url}${siteConfig.ogImage}`,
+        url: siteConfig.ogImage,
         width: 1200,
         height: 630,
         alt: "AIM Health R&D Summit OG Image",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [`${siteConfig.url}${siteConfig.ogImage}`],
+    images: [siteConfig.ogImage],
     creator: "@AIMHealthSummit",
   },
   robots: {

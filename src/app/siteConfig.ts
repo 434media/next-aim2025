@@ -12,7 +12,6 @@ export const siteConfig = {
     sponsorsExhibitors: "/sponsors-exhibitors",
     travelVenue: "/travel-venue",
     faq: "/faq",
-    codeOfConduct: "/code-of-conduct",
     privacyPolicy: "/privacy-policy",
     contactUs: "/contact-us",
   },
