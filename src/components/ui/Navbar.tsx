@@ -49,10 +49,6 @@ const eventInfo = {
 
 const initialNewsItems = [
   {
-    label: "EARLY BIRD PRICING",
-    href: "https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/",
-  },
-  {
     label: "AIM 2025 SYMPOSIUMS",
     href: "https://www.eventbrite.com/e/sneak-preview-aim-2025-sme-encounter-sessions-tickets-1234940392959",
   },
