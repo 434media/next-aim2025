@@ -206,7 +206,7 @@ export default function NavBar() {
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.3 }}
                           >
-                            <span className="truncate font-medium text-[#101310] hover:text-[#548cac] transition-colors">
+                            <span className="truncate font-medium text-[#101310] group-hover:text-[#548cac] transition-colors">
                               {newsItems[currentNewsIndex].label}
                             </span>
                           </motion.span>
