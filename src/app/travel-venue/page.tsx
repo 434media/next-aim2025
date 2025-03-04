@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import Link from "next/link"
 import Image from "next/image"
@@ -22,7 +22,8 @@ const staggerChildren = {
 }
 
 export default function TravelVenue() {
-  const [isPlaying, setIsPlaying] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [isPlaying, setIsPlaying] = useState(true)
   const [showBackToTop, setShowBackToTop] = useState(false)
 
   useEffect(() => {
@@ -33,6 +34,26 @@ export default function TravelVenue() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch((error) => {
+        console.error("Auto-play was prevented:", error)
+        setIsPlaying(false)
+      })
+    }
+  }, [])
+
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause()
+      } else {
+        videoRef.current.play()
+      }
+      setIsPlaying(!isPlaying)
+    }
+  }
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
@@ -57,18 +78,13 @@ export default function TravelVenue() {
             <motion.div className="relative lg:row-span-2 rounded-2xl overflow-hidden shadow-lg" variants={fadeInUp}>
               <div className="relative aspect-[4/5] lg:aspect-[3/4] w-full">
                 <video
+                  ref={videoRef}
                   src="https://ampd-asset.s3.us-east-2.amazonaws.com/1080p.mp4"
                   loop
                   muted
                   playsInline
                   className="object-cover w-full h-full"
-                  poster="https://ampd-asset.s3.us-east-2.amazonaws.com/Cantilever-Room2.jpg"
-                  ref={(el) => {
-                    if (el) {
-                      el.play()
-                      setIsPlaying(true)
-                    }
-                  }}
+                  poster="https://ampd-asset.s3.us-east-2.amazonaws.com/convention-poster.png"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
@@ -90,17 +106,7 @@ export default function TravelVenue() {
                 </div>
                 <button
                   className="absolute top-4 right-4 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
-                  onClick={() => {
-                    const video = document.querySelector("video")
-                    if (video) {
-                      if (isPlaying) {
-                        video.pause()
-                      } else {
-                        video.play()
-                      }
-                      setIsPlaying(!isPlaying)
-                    }
-                  }}
+                  onClick={togglePlayPause}
                   aria-label={isPlaying ? "Pause video" : "Play video"}
                 >
                   {isPlaying ? <RiPauseFill size={24} /> : <RiPlayFill size={24} />}
