@@ -583,8 +583,88 @@ export default function Features() {
             </defs>
             <rect width="100%" height="100%" fill="url(#diagonal-feature-pattern)" />
           </motion.svg>
-          <div className="pointer-events-none relative flex size-full h-[28rem] items-center justify-center p-10 select-none">
+          <div className="pointer-events-none relative flex size-full h-[26rem] items-center justify-center p-10 select-none">
             <div className="relative">
+              <div className="absolute top-[6rem] left-[6rem] z-20">
+                <div className="relative mx-auto w-fit rounded-full bg-gray-50 p-1 ring-1 shadow-md shadow-black/10 ring-black/10">
+                  <div className="w-fit rounded-full bg-linear-to-b from-white to-gray-100 p-3 ring-1 shadow-[inset_0px_-2px_6px_rgba(0,0,0,0.09),0_3px_5px_0_rgba(0,0,0,0.19)] ring-white/50 ring-inset">
+                    <div className="relative h-10 w-10">
+                      <Image
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/mmid.png"
+                        alt="MMID Logo"
+                        fill
+                        sizes="40px"
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute top-[6rem] right-[6rem] z-20">
+                <div className="relative mx-auto w-fit rounded-full bg-gray-50 p-1 ring-1 shadow-md shadow-black/10 ring-black/10">
+                  <div className="w-fit rounded-full bg-linear-to-b from-white to-gray-100 p-3 ring-1 shadow-[inset_0px_-2px_6px_rgba(0,0,0,0.05),0_7px_10px_0_rgba(0,0,0,0.10)] ring-white/50 ring-inset">
+                    <div className="relative h-10 w-10">
+                      <Image
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/USAISR_LOGO_HI_RES+blank+background+black+and+white.jpg"
+                        alt="USAISR Logo"
+                        fill
+                        sizes="40px"
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute right-[6rem] bottom-[6rem] z-20">
+                <div className="relative mx-auto w-fit rounded-full bg-gray-50 p-1 ring-1 shadow-md shadow-black/10 ring-black/10">
+                  <div className="w-fit rounded-full bg-linear-to-b from-white to-gray-100 p-3 ring-1 shadow-[inset_0px_-2px_6px_rgba(0,0,0,0.05),0_7px_10px_0_rgba(0,0,0,0.10)] ring-white/50 ring-inset">
+                    <div className="relative h-10 w-10">
+                      <Image
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/59th_Medical_Wing.png"
+                        alt="59th Medical Wing Logo"
+                        fill
+                        sizes="40px"
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute bottom-[6rem] left-[6rem] z-20">
+                <div className="relative mx-auto w-fit rounded-full bg-gray-50 p-1 ring-1 shadow-md shadow-black/10 ring-black/10">
+                  <div className="w-fit rounded-full bg-linear-to-b from-white to-gray-100 p-3 ring-1 shadow-[inset_0px_-2px_6px_rgba(0,0,0,0.05),0_7px_10px_0_rgba(0,0,0,0.10)] ring-white/50 ring-inset">
+                    <div className="relative h-10 w-10">
+                      <Image
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/bamc.png"
+                        alt="BAMC Logo"
+                        fill
+                        sizes="40px"
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="relative">
+              {[0, 45, 135, 180, 225, 315, 360].map((rotation, index) => (
+                <div
+                  key={rotation}
+                  className="absolute origin-left overflow-hidden"
+                  style={{ transform: `rotate(${rotation}deg)` }}
+                >
+                  <div className="relative">
+                    <div className="h-0.5 w-60 bg-linear-to-r from-gray-300 to-transparent" />
+                    <div
+                      className="absolute top-0 left-0 h-0.5 w-28 bg-linear-to-r from-transparent via-orange-300 to-transparent"
+                      style={{
+                        animation: `gridMovingLine 5s linear infinite ${index * 1.2}s`,
+                        animationFillMode: "backwards",
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
               <motion.div
                 className="absolute -translate-x-1/2 -translate-y-1/2"
                 initial={{ opacity: 0 }}
