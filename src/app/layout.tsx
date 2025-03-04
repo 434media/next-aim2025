@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: "@AIMHealthSummit",
+    creator: "@devsatx",
   },
   robots: {
     index: true,

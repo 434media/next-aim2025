@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "AIM Health R&D Summit",
-  url: "https://aimsatx.com",
+  url: "https://next-aim2025.vercel.app/",
   description:
     "Academia, Industry, and Military Researchers Promoting Cross-Sector Collaboration in the Development of Life-Saving Innovations",
   ogImage: "/opengraph-image.png", 
