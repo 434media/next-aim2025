@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import "./globals.css"
-
+import { Analytics } from '@vercel/analytics/next';
 import Footer from "@/components/ui/Footer"
 import NavBar from "@/components/ui/Navbar"
 import { siteConfig } from "@/app/siteConfig"
@@ -105,7 +105,8 @@ export default function RootLayout({
         className={`${GeistSans.className} min-h-screen overflow-x-hidden scroll-auto bg-gray-50 antialiased selection:bg-orange-100 selection:text-orange-600`}
       >
         <NavBar />
-        {children}
+          {children}
+          <Analytics />
         <Footer />
       </body>
     </html>
