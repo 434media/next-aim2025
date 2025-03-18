@@ -122,7 +122,7 @@ export function HeroVideo() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[calc(100vh-4rem)] mt-16 md:mt-24 lg:pt-0 flex flex-col lg:flex-row items-stretch overflow-hidden bg-[#101310]"
+      className="relative min-h-[calc(100vh-4rem)] mt-10 md:mt-24 lg:pt-0 flex flex-col lg:flex-row items-stretch overflow-hidden bg-[#101310]"
       aria-label="Hero section with background video"
     >
       {/* Skip Link for Accessibility */}
