@@ -123,7 +123,7 @@ export default function CatchupBanner() {
             <iframe
               width="100%"
               height="100%"
-              src={isOpen ? "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM2025_V3.mp4" : ""}
+              src={isOpen ? "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+2024+Cut+Down.mp4" : ""}
               title="AIM Summit 2024 Highlights"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen

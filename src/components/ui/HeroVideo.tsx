@@ -175,7 +175,7 @@ export function HeroVideo() {
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#548cac] to-[#4f4f2c]">
                     The Future of Military Medicine Starts{" "}
                   </span>
-                  <span className="relative inline-block text-[1.15em] font-extrabold">
+                  <span className="relative inline-block text-[1.06em] font-extrabold">
                     <AnimatePresence mode="sync" initial={false}>
                       {/* Animated background highlight */}
                       {!prefersReducedMotion && (
@@ -255,7 +255,7 @@ export function HeroVideo() {
                                 }
                           }
                         >
-                          here
+                          Here
                         </motion.span>
                       )}
                     </AnimatePresence>
@@ -366,7 +366,7 @@ export function HeroVideo() {
             aria-hidden="true"
           >
             <source
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+2024+Recap+Video+Clean_No+Text+Overlay.mp4"
+              src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+2024+Cut+Down.mp4"
               type="video/mp4"
             />
             <track kind="captions" src="/captions.vtt" label="English captions" />
