@@ -171,11 +171,11 @@ export function HeroVideo() {
                 variants={fadeInUp}
               >
                 <span className="block mb-2 sm:mb-4">AIM2025:</span>
-                <span className="block">
+                <span className="">
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#548cac] to-[#4f4f2c]">
                     The Future of Military Medicine Starts{" "}
                   </span>
-                  <span className="relative inline-block text-[1.06em] font-extrabold">
+                  <span className="relative inline-block text-[1.06em] font-bold">
                     <AnimatePresence mode="sync" initial={false}>
                       {/* Animated background highlight */}
                       {!prefersReducedMotion && (
