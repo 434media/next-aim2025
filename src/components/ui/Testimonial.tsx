@@ -2,23 +2,14 @@
 
 import type React from "react"
 
-import { useRef, useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
-import { motion, useScroll, useTransform } from "motion/react"
+import { motion } from "motion/react"
 import { useMediaQuery } from "@/hooks/useMediaQuery"
 
 const particleColors = ["#548cac", "#4f4f2c", "#f97316", "#ffffff"]
 
 export default function Testimonial() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  })
-
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1])
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1])
-
   const isMobile = useMediaQuery("(max-width: 767px)")
   const [particles, setParticles] = useState<React.ReactNode[]>([])
 
@@ -54,9 +45,10 @@ export default function Testimonial() {
 
   return (
     <motion.section
-      ref={containerRef}
-      className="-mt-16 md:mt-0 relative mx-auto w-full max-w-6xl overflow-hidden rounded-2xl shadow-2xl shadow-[#366A79]/70 my-24"
-      style={{ opacity, scale }}
+      className="my-12 md:my-16 relative mx-auto w-full max-w-6xl overflow-hidden rounded-2xl shadow-2xl shadow-[#366A79]/70"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
     >
       <div className="absolute inset-0 bg-gray-300">
         <Image

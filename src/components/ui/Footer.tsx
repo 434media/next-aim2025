@@ -4,7 +4,7 @@ import Link from "next/link"
 import type React from "react"
 import { motion } from "motion/react"
 import { Button } from "../Button"
-import { RiInstagramFill, RiLinkedinFill, RiTwitterXFill, RiYoutubeFill, RiArrowRightUpLine } from "@remixicon/react"
+import { RiArrowRightUpLine } from "@remixicon/react"
 import { AIMLogo } from "../../../public/AIMLogo"
 
 const sections = {
@@ -116,7 +116,7 @@ export default function Footer() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="space-y-6"
           >
-            <h3 className="text-xl font-semibold text-[#4f4f2c] uppercase tracking-wider">{sections.discover.title}</h3>
+            <h3 className="text-xl font-semibold text-white uppercase tracking-wider">{sections.discover.title}</h3>
             <ul className="space-y-4">
               {sections.discover.items.map((item) => (
                 <li key={item.label}>
@@ -138,7 +138,7 @@ export default function Footer() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="space-y-6"
           >
-            <h3 className="text-xl font-semibold text-[#4f4f2c] uppercase tracking-wider">{sections.more.title}</h3>
+            <h3 className="text-xl font-semibold text-white uppercase tracking-wider">{sections.more.title}</h3>
             <ul className="space-y-4">
               {sections.more.items.map((item) => (
                 <li key={item.label}>
@@ -159,36 +159,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 border-t border-white/10">
         <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
           <p className="text-[#548cac] text-sm">&copy; 434 MEDIA. All rights reserved.</p>
-
-          <div className="flex gap-6" aria-label="Social media links">
-            <SocialLink href="#" icon={RiYoutubeFill} label="YouTube" />
-            <SocialLink href="#" icon={RiLinkedinFill} label="LinkedIn" />
-            <SocialLink href="#" icon={RiInstagramFill} label="Instagram" />
-            <SocialLink href="#" icon={RiTwitterXFill} label="Twitter" />
-          </div>
         </div>
       </div>
     </footer>
   )
 }
-
-interface SocialLinkProps {
-  href: string
-  icon: React.ComponentType<{ className?: string }>
-  label: string
-}
-
-function SocialLink({ href, icon: Icon, label }: SocialLinkProps) {
-  return (
-    <Link
-      href={href}
-      className="text-[#548cac] hover:text-white transition-colors duration-200"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <span className="sr-only">{label}</span>
-      <Icon className="w-6 h-6 transition-transform hover:scale-110" />
-    </Link>
-  )
-}
-

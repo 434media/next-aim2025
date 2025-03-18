@@ -151,12 +151,12 @@ export default function ContactUs() {
             >
               Get in touch
             </motion.h2>
-            <motion.p className="mt-8 text-base sm:text-lg/8 text-[#6a6a3d]" variants={fadeInUp}>
+            <motion.p className="mt-8 text-base sm:text-lg/8 text-white" variants={fadeInUp}>
               Have questions about the AIM Health R&D Summit? We&apos;re here to help. Reach out to us using the form or
               contact information below.
             </motion.p>
             <motion.dl
-              className="mt-12 space-y-4 text-base/7 text-[#6a6a3d]"
+              className="mt-12 space-y-4 text-base/7 text-white"
               variants={fadeInUp}
               aria-label="Contact information"
             >

@@ -1,101 +1,141 @@
 "use client"
 
-import { motion } from "motion/react"
-import { RiCheckLine } from "@remixicon/react"
-import Image from "next/image"
+import { motion, useReducedMotion } from "motion/react"
+import { useInView } from "react-intersection-observer"
+import Features from "@/components/ui/Features"
+import type { ReactNode } from "react"
+import { cn } from "@/lib/utils"
 
-const reasons = [
-  {
-    title: "Network with Industry Leaders",
-    description: "Connect with military decision-makers and healthcare innovators.",
-    icon: "RiUserVoiceLine",
-  },
-  {
-    title: "Cutting-edge Advancements",
-    description: "Explore the latest in military medicine and biotechnology.",
-    icon: "RiMicroscopeLine",
-  },
-  {
-    title: "Collaboration Opportunities",
-    description: "Discover partnerships to accelerate your research and development.",
-    icon: "RiTeamLine",
-  },
-  {
-    title: "Military Health Insights",
-    description: "Gain valuable insights into military health challenges and priorities.",
-    icon: "RiMentalHealthLine",
-  },
-]
+// Highlight component to spotlight key terms
+const Highlight = ({ children, className = "" }: { children: ReactNode; className?: string }) => {
+  const prefersReducedMotion = useReducedMotion()
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 },
+  return (
+    <motion.span
+      className={cn(
+        "inline-block font-semibold text-[#366A79] px-1 rounded-sm",
+        "relative after:absolute after:inset-0 after:bg-[#366A79]/10 after:rounded-sm after:-z-10",
+        className,
+      )}
+      initial={prefersReducedMotion ? {} : { opacity: 0.7, scale: 0.97 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, delay: Math.random() * 0.5 }}
+    >
+      {children}
+    </motion.span>
+  )
 }
 
 export default function WhyAttend() {
-  return (
-    <div className="bg-gray-50 min-h-screen pt-24">
-      <motion.div
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
-        initial="initial"
-        animate="animate"
-        layout
-        variants={{
-          animate: {
-            transition: {
-              staggerChildren: 0.1,
-            },
-          },
-        }}
-      >
-        <motion.h1
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#101310] mb-8 text-center"
-          variants={fadeInUp}
-        >
-          Why Attend AIM Health R&D Summit
-        </motion.h1>
-        <motion.p
-          className="text-xl md:text-2xl text-[#548cac] mb-12 text-center max-w-3xl mx-auto"
-          variants={fadeInUp}
-        >
-          Join us for an unparalleled opportunity to shape the future of military medicine and forge valuable
-          connections.
-        </motion.p>
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    rootMargin: "100px 0px",
+    threshold: 0.1,
+  })
 
-        <div className="grid gap-8 lg:grid-cols-2 items-center">
-          <motion.div variants={fadeInUp} className="order-2 lg:order-1">
-            <Image
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+17.png"
-              alt="AIM Summit attendees networking"
-              width={600}
-              height={400}
-              className="rounded-lg shadow-md w-full h-auto"
-              priority
-            />
-          </motion.div>
-          <motion.div variants={fadeInUp} className="order-1 lg:order-2">
-            <ul className="space-y-4" aria-label="Reasons to attend AIM Health R&D Summit">
-              {reasons.map((reason, index) => (
-                <motion.li
-                  key={index}
-                  className="flex items-start bg-white p-4 rounded-lg shadow-sm transition-all duration-300 hover:shadow-md"
-                  variants={fadeInUp}
-                  custom={index}
-                  transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
+  return (
+    <>
+    <div ref={ref} className="relative">
+      {inView && (
+        <div className="bg-gradient-to-b from-gray-50 to-white min-h-screen pt-24">
+          {/* Decorative elements - aria-hidden ensures they're ignored by screen readers */}
+          <div
+            className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-white to-transparent"
+            aria-hidden="true"
+          ></div>
+          <div
+            className="absolute top-20 left-10 w-40 h-40 rounded-full bg-gradient-to-br from-[#366A79]/5 to-[#548cac]/10 blur-xl"
+            aria-hidden="true"
+          ></div>
+          <div
+            className="absolute bottom-20 right-10 w-48 h-48 rounded-full bg-gradient-to-tl from-[#366A79]/5 to-[#548cac]/10 blur-xl"
+            aria-hidden="true"
+          ></div>
+
+          <section id="why-attend" aria-labelledby="why-attend-heading" className="relative w-full overflow-hidden">
+            <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-12">
+              <div className="mx-auto max-w-4xl">
+                <motion.div
+                  className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-6 md:p-8"
+                  initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: prefersReducedMotion ? 0.1 : 0.8 }}
                 >
-                  <RiCheckLine className="mt-1 mr-3 text-[#5e8266] flex-shrink-0 text-2xl" />
-                  <div>
-                    <h3 className="font-semibold text-[#101310]">{reason.title}</h3>
-                    <p className="text-[#548cac]">{reason.description}</p>
+                  <div className="text-center">
+                    <h1
+                      id="why-attend-heading"
+                      className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#101310] mb-10"
+                    >
+                      <motion.div
+                        initial={prefersReducedMotion ? {} : { opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                      >
+                        <span className="block text-[#366A79] drop-shadow-sm">Why Attend</span>
+                      </motion.div>
+
+                      <motion.div
+                        initial={prefersReducedMotion ? {} : { opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                      >
+                        <span className="relative inline-block">
+                          AIM Health R&D Summit
+                          <motion.span
+                            className="absolute -bottom-3 left-0 h-1.5 bg-gradient-to-r from-[#366A79] to-[#548cac] w-full rounded-full"
+                            initial={prefersReducedMotion ? { width: "100%" } : { width: 0 }}
+                            animate={{ width: "100%" }}
+                            transition={{ duration: prefersReducedMotion ? 0.1 : 1.2, delay: 0.8 }}
+                            aria-hidden="true"
+                          />
+                        </span>
+                      </motion.div>
+                    </h1>
+
+                    <div className="mt-12 space-y-6 text-left">
+                      <motion.div
+                        className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed"
+                        initial={prefersReducedMotion ? {} : { opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.5 }}
+                      >
+                        <p className="mb-6">
+                          The AIM Health R&D Summit is a <Highlight>premier</Highlight>,{" "}
+                          <Highlight>community-led</Highlight>, and <Highlight>partner-driven</Highlight> event, hosted
+                          by VelocityTX, UTSA, and UT Health San Antonio, aimed at <Highlight>accelerating</Highlight>{" "}
+                          the research, development, and commercialization of{" "}
+                          <Highlight>transformative medical technologies</Highlight>.
+                        </p>
+
+                        <p className="mb-6">
+                          Building on over <Highlight>15 years</Highlight> of foundational efforts, this{" "}
+                          <Highlight>unique two-day summit</Highlight> unites leaders from{" "}
+                          <Highlight>academia, industry, and the military</Highlight> to foster{" "}
+                          <Highlight>innovation</Highlight>, <Highlight>cross-sector collaboration</Highlight>, and the
+                          advancement of <Highlight>dual-use technologies</Highlight>.
+                        </p>
+
+                        <p>
+                          Supported by nonprofit and public entities committed to growing the bioscience and technology
+                          sectors, AIM serves as a <Highlight>catalyst for partnerships</Highlight> that not only
+                          enhance <Highlight>military medical readiness</Highlight> but also create{" "}
+                          <Highlight>pathways to commercialization</Highlight>, driving healthcare advancements with{" "}
+                          <Highlight>global impact</Highlight>.
+                        </p>
+                      </motion.div>
+                    </div>
                   </div>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
+                </motion.div>
+              </div>
+            </div>
+          </section>
         </div>
-      </motion.div>
+      )}
     </div>
+
+    <Features />
+    </>
   )
 }
 

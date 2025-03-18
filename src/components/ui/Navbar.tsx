@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react"
 import Link from "next/link"
 import { RiArrowDownSLine, RiMenuLine, RiCloseLine, RiArrowRightUpLine } from "@remixicon/react"
 import { Button } from "../Button"
+import { AIMLogo } from "../../../public/AIMLogo"
 
 const menuItems = [
   { name: "AIM Pre-Conference Symposiums", href: "/pre-conference-symposiums" },
@@ -34,13 +35,14 @@ const menuItems = [
       { name: "FAQ", href: "/faq" },
       { name: "Contact Us", href: "/contact-us" },
       { name: "Privacy Policy", href: "/privacy-policy" },
+      { name: "Code of Conduct", href: "/code-of-conduct" },
     ],
   },
 ]
 
 const eventInfo = {
   aim: {
-    name: "AIM Health R&D Summit",
+    name: <AIMLogo variant="white" className="h-8 w-auto hover:opacity-80 transition-all duration-300" />,
     date: "June 16 - 17, 2025",
   },
   venue: "Henry B. González Convention Center",
@@ -66,6 +68,7 @@ export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [currentNewsIndex, setCurrentNewsIndex] = useState(0)
+  const [isScrolled, setIsScrolled] = useState(false)
   const newsItems = useMemo(() => initialNewsItems, [])
 
   useEffect(() => {
@@ -76,8 +79,21 @@ export default function NavBar() {
     return () => clearInterval(interval)
   }, [newsItems.length])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "shadow-lg shadow-black/10" : ""
+      }`}
+    >
       <div className="relative flex flex-col">
         {/* Top Banner */}
         <div className="bg-[#101310] transition-all duration-300">
@@ -85,17 +101,31 @@ export default function NavBar() {
             <div className="flex items-center justify-between h-12 text-sm text-white">
               <div className="hidden md:flex items-center space-x-6">
                 <span className="flex items-center">
-                  <Link href="/">
-                    <span className="font-bold text-[#548cac] hover:text-[#548cac]/80">{eventInfo.aim.name}</span>
+                  <Link href="/" className="group flex items-center" aria-label="AIM Health R&D Summit Home">
+                    <span className="relative flex items-center justify-center p-1 rounded-md group-hover:bg-white/5 transition-all duration-300">
+                      {eventInfo.aim.name}
+                      <span
+                        className="absolute inset-0 rounded-md bg-[#548cac]/10 opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-300"
+                        aria-hidden="true"
+                      ></span>
+                    </span>
+                    <span className="mx-2 text-white">|</span>
+                    <span className="text-white">{eventInfo.aim.date}</span>
                   </Link>
-                  <span className="mx-2">|</span>
-                  <span>{eventInfo.aim.date}</span>
                 </span>
               </div>
               {/* Mobile: Show AIM event info */}
-              <div className="md:hidden flex flex-col items-start">
-                <span className="font-bold text-[#548cac]">{eventInfo.aim.name}</span>
-                <span className="text-xs">{eventInfo.aim.date}</span>
+              <div className="md:hidden flex items-center justify-start">
+                <Link href="/" className="flex items-center space-x-2" aria-label="AIM Health R&D Summit Home">
+                  <span className="relative flex items-center justify-center">
+                    <AIMLogo variant="white" className="h-9 w-auto" />
+                    <span
+                      className="absolute inset-0 rounded-md bg-[#548cac]/10 opacity-0 hover:opacity-100 blur-sm transition-opacity duration-300"
+                      aria-hidden="true"
+                    ></span>
+                  </span>
+                  <span className="text-xs font-medium text-white/90">{eventInfo.aim.date}</span>
+                </Link>
               </div>
               {/* Desktop: Show venue and location */}
               <div className="hidden md:flex items-center space-x-2">
@@ -105,14 +135,19 @@ export default function NavBar() {
               </div>
               {/* Mobile: Show only location */}
               <div className="md:hidden">
-                <span className="text-xs">{eventInfo.location}</span>
+                <span className="text-xs font-medium text-white/90">{eventInfo.location}</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Main Navigation */}
-        <nav className="bg-[#101310]/80 backdrop-blur-sm transition-all duration-300" aria-label="Main navigation">
+        <nav
+          className={`bg-[#101310]/80 backdrop-blur-sm transition-all duration-300 ${
+            isScrolled ? "bg-[#101310]/95" : ""
+          }`}
+          aria-label="Main navigation"
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
               {/* Desktop Menu */}
@@ -219,7 +254,7 @@ export default function NavBar() {
               <div className="p-2 ml-2 flex items-center md:hidden">
                 <button
                   onClick={() => setIsOpen(true)}
-                  className="rounded-full transition-colors hover:bg-[#548cac]/20 focus:outline-none focus:ring-2 focus:ring-[#548cac]"
+                  className="p-2 rounded-full transition-colors hover:bg-[#548cac]/20 focus:outline-none focus:ring-2 focus:ring-[#548cac]"
                   aria-label="Open menu"
                 >
                   <RiMenuLine className="size-6 text-white" />
@@ -240,6 +275,7 @@ export default function NavBar() {
                 transition={{ duration: 0.2 }}
                 className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
                 onClick={() => setIsOpen(false)}
+                aria-hidden="true"
               />
               <motion.div
                 initial={{ opacity: 0, scale: 0.95, x: 20 }}
@@ -264,58 +300,74 @@ export default function NavBar() {
                   </div>
 
                   <div className="p-4 border-b border-[#548cac]/20 bg-[#101310]/50">
-                    <div className="space-y-3">
-                      <div>
-                        <p className="text-sm font-semibold text-[#548cac]">{eventInfo.aim.name}</p>
-                        <p className="text-sm text-white/80">{eventInfo.aim.date}</p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <AIMLogo variant="white" className="h-10 w-auto" />
+                        <div>
+                          <p className="text-sm font-medium text-white">{eventInfo.aim.date}</p>
+                          <p className="text-xs text-white/80">{eventInfo.venue}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-sm text-white/80">{eventInfo.venue}</p>
-                        <p className="text-sm text-white/80">{eventInfo.location}</p>
+                      <div className="bg-[#548cac]/20 px-3 py-1 rounded-full">
+                        <p className="text-xs text-center font-medium text-[#548cac]">{eventInfo.location}</p>
                       </div>
                     </div>
                   </div>
 
-                  <nav className="flex-1 p-4">
+                  <nav className="flex-1 p-4 overflow-y-auto">
                     <ul className="space-y-4" role="list">
                       {menuItems.map((item) => (
                         <li key={item.name}>
                           {item.dropdown ? (
                             <div className="space-y-2">
                               <button
-                                className="text-lg font-medium text-white w-full text-left"
+                                className="text-lg font-medium text-white w-full text-left flex items-center justify-between p-2 rounded-lg hover:bg-[#548cac]/10 transition-colors"
                                 onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}
                                 aria-expanded={activeDropdown === item.name}
                               >
-                                {item.name}
+                                <span>{item.name}</span>
                                 <RiArrowDownSLine
-                                  className={`ml-1 size-4 inline-block transition-transform duration-200 ${
-                                    activeDropdown === item.name ? "rotate-180" : ""
+                                  className={`size-5 transition-transform duration-300 ${
+                                    activeDropdown === item.name ? "rotate-180 text-[#548cac]" : ""
                                   }`}
                                   aria-hidden="true"
                                 />
                               </button>
-                              {activeDropdown === item.name && (
-                                <ul className="pl-4 space-y-2" role="menu">
-                                  {item.dropdown.map((subItem) => (
-                                    <li key={subItem.name}>
-                                      <Link
-                                        href={subItem.href}
-                                        className="block text-base text-white/80 hover:text-[#548cac] transition-colors focus:outline-none focus:text-[#548cac]"
-                                        onClick={() => setIsOpen(false)}
-                                        role="menuitem"
+                              <AnimatePresence>
+                                {activeDropdown === item.name && (
+                                  <motion.ul
+                                    className="pl-4 space-y-1 overflow-hidden"
+                                    role="menu"
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: "auto", opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                  >
+                                    {item.dropdown.map((subItem) => (
+                                      <motion.li
+                                        key={subItem.name}
+                                        initial={{ x: -10, opacity: 0 }}
+                                        animate={{ x: 0, opacity: 1 }}
+                                        transition={{ duration: 0.2 }}
                                       >
-                                        {subItem.name}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
+                                        <Link
+                                          href={subItem.href}
+                                          className="block text-base text-white/80 hover:text-[#548cac] p-2 rounded-lg hover:bg-[#548cac]/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset"
+                                          onClick={() => setIsOpen(false)}
+                                          role="menuitem"
+                                        >
+                                          {subItem.name}
+                                        </Link>
+                                      </motion.li>
+                                    ))}
+                                  </motion.ul>
+                                )}
+                              </AnimatePresence>
                             </div>
                           ) : (
                             <Link
                               href={item.href}
-                              className="block text-lg font-medium text-white hover:text-[#548cac] transition-colors focus:outline-none focus:text-[#548cac]"
+                              className="block text-lg font-medium text-white hover:text-[#548cac] p-2 rounded-lg hover:bg-[#548cac]/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac]"
                               onClick={() => setIsOpen(false)}
                             >
                               {item.name}
@@ -331,7 +383,7 @@ export default function NavBar() {
                     <Button
                       variant="primary"
                       href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-                      className="w-full"
+                      className="w-full py-3 text-base"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
