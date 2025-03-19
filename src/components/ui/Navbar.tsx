@@ -35,7 +35,6 @@ const menuItems = [
       { name: "FAQ", href: "/faq" },
       { name: "Contact Us", href: "/contact-us" },
       { name: "Privacy Policy", href: "/privacy-policy" },
-      { name: "Code of Conduct", href: "/code-of-conduct" },
     ],
   },
 ]
