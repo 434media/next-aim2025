@@ -24,7 +24,6 @@ const sections = {
     items: [
       { label: "FAQ", href: "/faq" },
       { label: "Travel & Venue", href: "/travel-venue" },
-      { label: "Privacy Policy", href: "/privacy-policy" },
       { label: "Contact Us", href: "/contact-us" },
     ],
   },

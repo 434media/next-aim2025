@@ -81,13 +81,13 @@ export default function Features() {
       ref={containerRef}
       aria-label="AIM 2025 Event Features"
       id="solutions"
-      className="relative mx-auto max-w-6xl scroll-my-24 bg-white py-16 px-4 sm:px-6 lg:px-8"
+      className="relative mx-auto max-w-6xl scroll-my-24 bg-white/10 py-16 px-4 sm:px-6 lg:px-8"
     >
       <div className="mb-12 text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-[#101310] sm:text-4xl">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#101310]">
           Connecting Research, Industry, and Military
         </h2>
-        <p className="mx-auto mt-4 max-w-3xl text-lg text-gray-600">
+        <p className="mx-auto mt-4 max-w-3xl text-base sm:text-lg text-gray-600">
           Explore the unique ecosystem that makes San Antonio a leader in bioscience innovation
         </p>
       </div>
@@ -143,13 +143,15 @@ export default function Features() {
             </div>
           </div>
           <div className="flex flex-1 flex-col p-6">
-            <h3 className="mb-3 text-xl font-semibold text-[#101310] md:text-2xl">From the Bench to the Battlefield</h3>
-            <p className="flex-1 text-gray-700">
+            <h3 className="mb-3 text-lg sm:text-xl font-semibold text-[#101310] md:text-2xl">
+              From the Bench to the Battlefield
+            </h3>
+            <p className="flex-1 text-sm sm:text-base text-gray-700">
               Engage with cutting-edge bioscience innovations, collaborate with industry leaders, and explore research
               commercialization opportunities that drive real-world impact.
             </p>
             <div className="mt-6">
-              <p className="mb-2 text-sm font-medium text-gray-700">Research Partners</p>
+              <p className="mb-2 text-xs sm:text-sm font-medium text-gray-700">Research Partners</p>
               <div className="grid grid-cols-3 gap-2">
                 {academiaPartners.map((partner) => (
                   <div key={partner.id} className="flex flex-col items-center">
@@ -162,7 +164,7 @@ export default function Features() {
                         sizes="(max-width: 768px) 33vw, 100px"
                       />
                     </div>
-                    <span className="mt-1 text-center text-xs text-gray-500">{partner.name}</span>
+                    <span className="mt-1 text-center text-[10px] sm:text-xs text-gray-500">{partner.name}</span>
                   </div>
                 ))}
               </div>
@@ -250,15 +252,15 @@ export default function Features() {
             </div>
           </div>
           <div className="flex flex-1 flex-col p-6">
-            <h3 className="mb-3 text-xl font-semibold text-[#101310] md:text-2xl">
+            <h3 className="mb-3 text-lg sm:text-xl font-semibold text-[#101310] md:text-2xl">
               Bioscience Ecosystem in San Antonio
             </h3>
-            <p className="flex-1 text-gray-700">
+            <p className="flex-1 text-sm sm:text-base text-gray-700">
               Connect with top researchers, military decision-makers, and fellow innovators to forge partnerships,
               discover emerging technologies, and accelerate commercialization in the bioscience sector.
             </p>
             <div className="mt-6">
-              <p className="mb-2 text-sm font-medium text-gray-700">Industry Partners</p>
+              <p className="mb-2 text-xs sm:text-sm font-medium text-gray-700">Industry Partners</p>
               <div className="grid grid-cols-3 gap-2">
                 {industryPartners.map((partner) => (
                   <div key={partner.id} className="flex flex-col items-center">
@@ -271,7 +273,7 @@ export default function Features() {
                         sizes="(max-width: 768px) 33vw, 100px"
                       />
                     </div>
-                    <span className="mt-1 text-center text-xs text-gray-500">{partner.name}</span>
+                    <span className="mt-1 text-center text-[10px] sm:text-xs text-gray-500">{partner.name}</span>
                   </div>
                 ))}
               </div>
@@ -301,15 +303,15 @@ export default function Features() {
             </div>
           </div>
           <div className="flex flex-1 flex-col p-6">
-            <h3 className="mb-3 text-xl font-semibold text-[#101310] md:text-2xl">
+            <h3 className="mb-3 text-lg sm:text-xl font-semibold text-[#101310] md:text-2xl">
               Military Medical Research Partners
             </h3>
-            <p className="flex-1 text-gray-700">
+            <p className="flex-1 text-sm sm:text-base text-gray-700">
               Gain insights into the latest medical and biotech advancements, strengthen public-private partnerships,
               and explore mission-ready innovations that enhance warfighter health and readiness.
             </p>
             <div className="mt-6">
-              <p className="mb-2 text-sm font-medium text-gray-700">Military Partners</p>
+              <p className="mb-2 text-xs sm:text-sm font-medium text-gray-700">Military Partners</p>
               <div className="grid grid-cols-3 gap-2">
                 {militaryPartners.map((partner) => (
                   <div key={partner.id} className="flex flex-col items-center">
@@ -322,7 +324,7 @@ export default function Features() {
                         sizes="(max-width: 768px) 33vw, 100px"
                       />
                     </div>
-                    <span className="mt-1 text-center text-xs text-gray-500">{partner.name}</span>
+                    <span className="mt-1 text-center text-[10px] sm:text-xs text-gray-500">{partner.name}</span>
                   </div>
                 ))}
               </div>

@@ -155,7 +155,7 @@ export function HeroVideo() {
           </>
         )}
         <motion.div
-          className="w-full h-full absolute inset-0 bg-aim-navy/95 border-b md:border-r border-bexar-blue/20"
+          className="w-full h-full absolute inset-0"
           initial={{ filter: prefersReducedMotion ? "blur(0px)" : "blur(4px)" }}
           animate={{ filter: "blur(0px)" }}
           transition={{ duration: prefersReducedMotion ? 0.1 : 1, ease: "easeOut" }}

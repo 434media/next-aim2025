@@ -2,9 +2,9 @@
 
 import { motion, useReducedMotion } from "motion/react"
 import { useInView } from "react-intersection-observer"
-import Features from "@/components/ui/Features"
 import type { ReactNode } from "react"
 import { cn } from "@/lib/utils"
+import { MilitaryHealthCity } from "@/components/ui/MilitaryHealthCity"
 
 // Highlight component to spotlight key terms
 const Highlight = ({ children, className = "" }: { children: ReactNode; className?: string }) => {
@@ -143,7 +143,7 @@ export default function WhyAttend() {
         )}
       </div>
 
-      <Features />
+      <MilitaryHealthCity />
     </>
   )
 }

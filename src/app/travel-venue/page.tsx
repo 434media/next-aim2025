@@ -69,7 +69,7 @@ export default function TravelVenue() {
           >
             Explore San Antonio
           </motion.h1>
-          <motion.p className="text-lg sm:text-xl text-[#548cac] mb-12 max-w-2xl" variants={fadeInUp}>
+          <motion.p className="text-lg sm:text-xl text-white mb-12 max-w-2xl" variants={fadeInUp}>
             Discover the perfect blend of history, culture, and modern amenities in the heart of Texas.
           </motion.p>
 

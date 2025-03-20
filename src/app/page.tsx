@@ -1,11 +1,11 @@
 import { PartnerMarquee } from "@/components/ui/PartnerMarquee"
-import { MilitaryHealthCity } from "@/components/ui/MilitaryHealthCity"
 import { mainPartners, additionalPartners } from "@/data/partners"
 import CatchupBanner from "@/components/ui/CatchupBanner"
 import { HeroVideo } from "@/components/ui/HeroVideo"
 import { SponsorShowcase } from "@/components/ui/SponsorShowcase"
 import Testimonial from "@/components/ui/Testimonial"
 import { SummitMission } from "@/components/ui/SummitMission"
+import Features from "@/components/ui/Features"
 
 export default function Home() {
   return (
@@ -53,12 +53,12 @@ export default function Home() {
       </section>
 
 
-      {/* Military Health City Section */}
-      <section aria-labelledby="military-health-heading" className="w-full mt-16 sm:mt-20">
-        <h2 id="military-health-heading" className="sr-only">
-          Military Health City
+      {/* Features Section */}
+      <section aria-labelledby="features-heading" className="w-full mt-16 sm:mt-20">
+        <h2 id="features-heading" className="sr-only">
+          Features
         </h2>
-        <MilitaryHealthCity />
+        <Features />
       </section>
 
       {/* Catchup Banner Section */}

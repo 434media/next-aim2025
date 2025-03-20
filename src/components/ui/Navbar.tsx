@@ -34,7 +34,6 @@ const menuItems = [
       { name: "Travel & Venue", href: "/travel-venue" },
       { name: "FAQ", href: "/faq" },
       { name: "Contact Us", href: "/contact-us" },
-      { name: "Privacy Policy", href: "/privacy-policy" },
     ],
   },
 ]
