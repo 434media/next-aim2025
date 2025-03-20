@@ -5,7 +5,6 @@ import { HeroVideo } from "@/components/ui/HeroVideo"
 import { SponsorShowcase } from "@/components/ui/SponsorShowcase"
 import Testimonial from "@/components/ui/Testimonial"
 import { SummitMission } from "@/components/ui/SummitMission"
-import Features from "@/components/ui/Features"
 
 export default function Home() {
   return (
@@ -54,12 +53,12 @@ export default function Home() {
 
 
       {/* Features Section */}
-      <section aria-labelledby="features-heading" className="w-full mt-16 sm:mt-20">
+      {/* <section aria-labelledby="features-heading" className="w-full mt-16 sm:mt-20">
         <h2 id="features-heading" className="sr-only">
           Features
         </h2>
         <Features />
-      </section>
+      </section> */}
 
       {/* Catchup Banner Section */}
       <section aria-labelledby="catchup-heading" className="w-full mt-16 sm:mt-20 px-4 xl:px-0">
