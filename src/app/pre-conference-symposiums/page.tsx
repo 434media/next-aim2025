@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { RiCalendarLine, RiMapPinLine, RiArrowRightLine, RiTimeLine } from "@remixicon/react"
 import { Button } from "@/components/Button"
 import Image from "next/image"
