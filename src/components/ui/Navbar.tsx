@@ -10,12 +10,7 @@ import { AIMLogo } from "../../../public/AIMLogo"
 const menuItems = [
   { name: "AIM Pre-Conference Symposiums", href: "/pre-conference-symposiums" },
   {
-    name: "Agenda",
-    dropdown: [
-      { name: "Keynote", href: "/keynote" },
-      { name: "Schedule", href: "/schedule" },
-      { name: "Speakers", href: "/speakers" },
-    ],
+    name: "Agenda", href: "/agenda", 
   },
   {
     name: "Attend",
