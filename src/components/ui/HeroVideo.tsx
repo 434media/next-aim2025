@@ -365,10 +365,7 @@ export function HeroVideo() {
             onError={handleVideoError}
             aria-hidden="true"
           >
-            <source
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+2024+Cut+Down.mp4"
-              type="video/mp4"
-            />
+            <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+2024+Cut+Down.mp4" type="video/mp4" />
             <track kind="captions" src="/captions.vtt" label="English captions" />
           </video>
 
