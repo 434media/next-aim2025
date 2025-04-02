@@ -4,6 +4,8 @@ import { motion, useReducedMotion } from "motion/react"
 import { useInView } from "react-intersection-observer"
 import type { ReactNode } from "react"
 import { cn } from "@/lib/utils"
+import { FadeContainer } from "@/components/Fade"
+import ParticleBackground from "@/components/ParticleBackground"
 import { MilitaryHealthCity } from "@/components/ui/MilitaryHealthCity"
 
 // Highlight component to spotlight key terms
@@ -11,7 +13,7 @@ const Highlight = ({ children, className = "" }: { children: ReactNode; classNam
   const prefersReducedMotion = useReducedMotion()
 
   return (
-    <span className={cn("relative inline text-[#366A79] font-semibold", className)}>
+    <span className={cn("relative inline text-[#548cac] font-semibold", className)}>
       <motion.span
         className="relative z-10"
         initial={prefersReducedMotion ? {} : { opacity: 0.7 }}
@@ -21,7 +23,7 @@ const Highlight = ({ children, className = "" }: { children: ReactNode; classNam
         {children}
       </motion.span>
       <motion.span
-        className="absolute inset-x-0 bottom-0 h-[0.2em] bg-gradient-to-r from-[#366A79]/30 to-[#548cac]/30 rounded-sm"
+        className="absolute inset-x-0 bottom-0 h-[0.2em] bg-gradient-to-r from-[#366A79]/70 to-[#548cac]/70 rounded-sm"
         initial={prefersReducedMotion ? { width: "100%" } : { width: 0 }}
         animate={{ width: "100%" }}
         transition={{
@@ -36,7 +38,6 @@ const Highlight = ({ children, className = "" }: { children: ReactNode; classNam
 }
 
 export default function WhyAttend() {
-  const prefersReducedMotion = useReducedMotion()
   const [ref, inView] = useInView({
     triggerOnce: true,
     rootMargin: "100px 0px",
@@ -47,103 +48,61 @@ export default function WhyAttend() {
     <>
       <div ref={ref} className="relative">
         {inView && (
-          <div className="bg-gradient-to-b from-gray-50 to-white min-h-screen pt-24">
-            {/* Decorative elements - aria-hidden ensures they're ignored by screen readers */}
-            <div
-              className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-white to-transparent"
-              aria-hidden="true"
-            ></div>
-            <div
-              className="absolute top-20 left-10 w-40 h-40 rounded-full bg-gradient-to-br from-[#366A79]/5 to-[#548cac]/10 blur-xl"
-              aria-hidden="true"
-            ></div>
-            <div
-              className="absolute bottom-20 right-10 w-48 h-48 rounded-full bg-gradient-to-tl from-[#366A79]/5 to-[#548cac]/10 blur-xl"
-              aria-hidden="true"
-            ></div>
+          <ParticleBackground
+            className="w-full min-h-screen flex items-center justify-center relative"
+            gradientFrom="[#101310]"
+            gradientVia="[#101310]"
+            gradientTo="[#101310]/80"
+          >
+            <FadeContainer className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 mt-24">
+              <div className="mx-auto max-w-4xl text-center">
+                <h1 className="mb-6 sm:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+                  Why Attend AIM Health R&D Summit
+                </h1>
 
-            <section id="why-attend" aria-labelledby="why-attend-heading" className="relative w-full overflow-hidden">
-              <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="mx-auto max-w-4xl">
-                  <motion.div
-                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-6 md:p-8"
-                    initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: prefersReducedMotion ? 0.1 : 0.8 }}
-                  >
-                    <div className="text-center">
-                      <h1
-                        id="why-attend-heading"
-                        className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#101310] mb-10"
-                      >
-                        <motion.div
-                          initial={prefersReducedMotion ? {} : { opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.6, delay: 0.1 }}
-                        >
-                          <span className="block text-[#366A79] drop-shadow-sm">Why Attend</span>
-                        </motion.div>
+                <div className="mx-auto mb-8 sm:mb-10 max-w-3xl">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-sm border border-white/10 p-6 sm:p-8 md:p-10">
+                    <div className="text-left text-base sm:text-lg md:text-xl text-white/90 leading-relaxed space-y-6">
+                      <p>
+                        The AIM Health R&D Summit is a <Highlight>premier</Highlight>,{" "}
+                        <Highlight>community-led</Highlight>, and <Highlight>partner-driven</Highlight> event, hosted by
+                        VelocityTX, UTSA, and UT Health San Antonio, aimed at <Highlight>accelerating</Highlight> the
+                        research, development, and commercialization of{" "}
+                        <Highlight>transformative medical technologies</Highlight>.
+                      </p>
 
-                        <motion.div
-                          initial={prefersReducedMotion ? {} : { opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.6, delay: 0.3 }}
-                        >
-                          <span className="relative inline-block">
-                            AIM Health R&D Summit
-                            <motion.span
-                              className="absolute -bottom-3 left-0 h-1.5 bg-gradient-to-r from-[#366A79] to-[#548cac] w-full rounded-full"
-                              initial={prefersReducedMotion ? { width: "100%" } : { width: 0 }}
-                              animate={{ width: "100%" }}
-                              transition={{ duration: prefersReducedMotion ? 0.1 : 1.2, delay: 0.8 }}
-                              aria-hidden="true"
-                            />
-                          </span>
-                        </motion.div>
-                      </h1>
+                      <p>
+                        Building on over <Highlight>15 years</Highlight> of foundational efforts, this{" "}
+                        <Highlight>unique two-day summit</Highlight> unites leaders from{" "}
+                        <Highlight>academia, industry, and the military</Highlight> to foster{" "}
+                        <Highlight>innovation</Highlight>, <Highlight>cross-sector collaboration</Highlight>, and the
+                        advancement of <Highlight>dual-use technologies</Highlight>.
+                      </p>
 
-                      <div className="mt-12 space-y-6 text-left">
-                        <motion.div
-                          className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed"
-                          initial={prefersReducedMotion ? {} : { opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.6, delay: 0.5 }}
-                        >
-                          <p className="mb-6">
-                            The AIM Health R&D Summit is a <Highlight>premier</Highlight>,{" "}
-                            <Highlight>community-led</Highlight>, and <Highlight>partner-driven</Highlight> event,
-                            hosted by VelocityTX, UTSA, and UT Health San Antonio, aimed at{" "}
-                            <Highlight>accelerating</Highlight> the research, development, and commercialization of{" "}
-                            <Highlight>transformative medical technologies</Highlight>.
-                          </p>
-
-                          <p className="mb-6">
-                            Building on over <Highlight>15 years</Highlight> of foundational efforts, this{" "}
-                            <Highlight>unique two-day summit</Highlight> unites leaders from{" "}
-                            <Highlight>academia, industry, and the military</Highlight> to foster{" "}
-                            <Highlight>innovation</Highlight>, <Highlight>cross-sector collaboration</Highlight>, and
-                            the advancement of <Highlight>dual-use technologies</Highlight>.
-                          </p>
-
-                          <p>
-                            Supported by nonprofit and public entities committed to growing the bioscience and
-                            technology sectors, AIM serves as a <Highlight>catalyst for partnerships</Highlight> that
-                            not only enhance <Highlight>military medical readiness</Highlight> but also create{" "}
-                            <Highlight>pathways to commercialization</Highlight>, driving healthcare advancements with{" "}
-                            <Highlight>global impact</Highlight>.
-                          </p>
-                        </motion.div>
-                      </div>
+                      <p>
+                        Supported by nonprofit and public entities committed to growing the bioscience and technology
+                        sectors, AIM serves as a <Highlight>catalyst for partnerships</Highlight> that not only enhance{" "}
+                        <Highlight>military medical readiness</Highlight> but also create{" "}
+                        <Highlight>pathways to commercialization</Highlight>, driving healthcare advancements with{" "}
+                        <Highlight>global impact</Highlight>.
+                      </p>
                     </div>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
-            </section>
-          </div>
+            </FadeContainer>
+          </ParticleBackground>
         )}
       </div>
 
-      <MilitaryHealthCity />
+      {/* Military Health City Section */}
+      <section className="w-full bg-gray-50 py-16 sm:py-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <MilitaryHealthCity />
+          </div>
+        </div>
+      </section>
     </>
   )
 }
