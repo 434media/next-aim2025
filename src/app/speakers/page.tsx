@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
-import { RiTeamLine, RiMicLine } from "@remixicon/react"
+import { RiArrowDownLine } from "@remixicon/react"
 import { FadeContainer, FadeDiv } from "@/components/Fade"
 import WhovaSpeakersEmbed from "@/components/WhovaSpeakersEmbed"
 import { Suspense } from "react"
+import ParticleBackground from "@/components/ParticleBackground"
 
 export const metadata: Metadata = {
   title: "Speakers | AIM Health R&D Summit",
@@ -20,47 +21,40 @@ export const metadata: Metadata = {
 export default function SpeakersPage() {
   return (
     <main className="flex min-h-screen flex-col items-center">
-      {/* Hero Section */}
-      <section className="relative w-full overflow-hidden py-16 md:py-24 mt-24 md:mt-32 lg:mt-40">
-        <div className="absolute inset-0 z-0 opacity-5">
-          <div className="absolute -left-40 -top-40 h-80 w-80 rounded-full bg-[#548cac]/30" />
-          <div className="absolute -right-20 top-20 h-60 w-60 rounded-full bg-[#10131d]/20" />
-        </div>
-
-        <FadeContainer className="container relative z-10 mx-auto px-4">
+      {/* Hero Section with Particle Background - Full Viewport Height */}
+      <ParticleBackground className="w-full min-h-screen flex items-center justify-center relative">
+        <FadeContainer className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="mx-auto max-w-4xl text-center">
-            <FadeDiv className="mb-2 flex items-center justify-center gap-2 text-sm font-medium text-[#548cac]">
-              <RiTeamLine className="h-5 w-5" aria-hidden="true" />
-              <span>INNOVATION LEADERS</span>
-            </FadeDiv>
-
-            <h1 className="mb-6 bg-gradient-to-r from-[#10131d] via-[#548cac] to-[#10131d] bg-clip-text text-4xl font-bold text-transparent sm:text-5xl md:text-6xl">
+            <h1 className="mb-6 sm:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
               The Future of Military Medicine Starts Here
             </h1>
 
-            <FadeDiv className="mx-auto mb-8 max-w-2xl text-lg text-gray-600">
+            <FadeDiv className="mx-auto mb-8 sm:mb-10 max-w-2xl text-base sm:text-lg md:text-xl text-white/80 leading-relaxed">
               <p>
                 Uniting innovators from academia, industry, and military to accelerate transformative medical
                 technologies. Our speakers lead the charge in addressing critical challenges across both military and
                 civilian healthcare.
               </p>
             </FadeDiv>
+          </div>
 
-            <FadeDiv className="flex items-center justify-center gap-2 text-sm font-medium text-gray-500">
-              <RiMicLine className="h-5 w-5 text-[#548cac]" aria-hidden="true" />
-              <span>VISIONARY SPEAKERS 2025</span>
-            </FadeDiv>
+          {/* Scroll indicator */}
+          <div
+            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
+            aria-label="Scroll down to view speakers"
+          >
+            <RiArrowDownLine className="h-6 w-6 sm:h-8 sm:w-8 text-white/70 animate-bounce" aria-hidden="true" />
           </div>
         </FadeContainer>
-      </section>
+      </ParticleBackground>
 
       {/* Speakers Section */}
-      <section className="w-full py-12 md:py-16">
-        <div className="container mx-auto px-4">
-          <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm md:p-8">
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">Speaker Lineup</h2>
-              <p className="mt-2 text-gray-600">
+      <section className="w-full py-16 sm:py-20 md:py-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="rounded-xl border border-gray-100 bg-white p-5 sm:p-6 md:p-8 lg:p-10 shadow-sm">
+            <div className="mb-8 sm:mb-10 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Speaker Lineup</h2>
+              <p className="text-base sm:text-lg text-gray-600 max-w-3xl">
                 Explore our diverse lineup of speakers who will share their expertise and insights.
               </p>
             </div>
@@ -70,8 +64,8 @@ export default function SpeakersPage() {
                 fallback={
                   <div className="flex h-96 items-center justify-center">
                     <div className="text-center">
-                      <div className="mb-4 inline-block h-8 w-8 animate-spin rounded-full border-4 border-[#548cac] border-t-transparent"></div>
-                      <p className="text-lg text-gray-500">Loading speakers...</p>
+                      <div className="mb-4 inline-block h-8 w-8 sm:h-10 sm:w-10 animate-spin rounded-full border-4 border-[#548cac] border-t-transparent"></div>
+                      <p className="text-lg sm:text-xl text-gray-500">Loading speakers...</p>
                     </div>
                   </div>
                 }
@@ -84,17 +78,17 @@ export default function SpeakersPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="w-full py-16">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-3xl rounded-xl bg-gradient-to-r from-[#10131d] to-[#548cac] p-8 text-center text-white shadow-lg md:p-12">
-            <h2 className="mb-4 text-2xl font-bold md:text-3xl">Interested in Speaking?</h2>
-            <p className="mb-6 text-white/90">
+      <section className="w-full py-16 sm:py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl rounded-xl bg-gradient-to-r from-[#101310] to-[#548cac] p-8 sm:p-10 md:p-12 text-center text-white shadow-lg">
+            <h2 className="mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl font-bold">Interested in Speaking?</h2>
+            <p className="mb-6 sm:mb-8 text-base sm:text-lg text-white/90 max-w-xl mx-auto">
               We&apos;re always looking for innovative voices to join our speaker lineup. Share your expertise with our
               community of healthcare professionals and technologists.
             </p>
             <a
               href="/contact-us"
-              className="inline-block rounded-lg bg-white px-6 py-3 font-medium text-[#10131d] transition-all hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#548cac]"
+              className="inline-flex items-center rounded-lg bg-white px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg font-medium text-[#101310] transition-all hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#548cac]"
             >
               Contact Us
             </a>
