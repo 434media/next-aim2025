@@ -42,12 +42,6 @@ const platinumSponsors = [
     website: "https://www.sbiradvisors.com/",
     description: "Helping companies navigate SBIR/STTR funding opportunities",
   },
-  {
-    name: "TRC4",
-    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/TRC4+UT+System+Logo.png",
-    website: "https://trc4.org/",
-    description: "Translational research consortium for traumatic brain injury",
-  },
 ]
 
 type Sponsor = (typeof platinumSponsors)[0]
