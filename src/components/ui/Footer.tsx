@@ -12,7 +12,7 @@ const sections = {
     title: "Discover",
     items: [
       { label: "Why Attend", href: "/why-attend" },
-      { label: "Keynote", href: "/keynote" },
+      { label: "Keynotes", href: "/keynote" },
       { label: "Schedule", href: "/schedule" },
       { label: "Speakers", href: "/speakers" },
       { label: "Sponsors & Exhibitors", href: "/sponsors-exhibitors" },
@@ -56,6 +56,8 @@ export default function Footer() {
                 variant="secondary"
                 href="https://support.velocitytx.org/campaign/642575/donate"
                 className="w-full sm:w-auto text-lg py-3 px-6"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <span className="flex items-center justify-center">
                   Learn More
@@ -78,6 +80,8 @@ export default function Footer() {
                 variant="primary"
                 href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
                 className="w-full sm:w-auto text-lg py-3 px-6"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <span className="flex items-center justify-center">
                   Register Now

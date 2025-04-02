@@ -180,7 +180,7 @@ export default function ContactUs() {
                 </dt>
                 <dd>
                   <a href="mailto:barb@434media.com" className="hover:text-[#548cac]">
-                    barb@434media.com
+                    build@434media.com
                   </a>
                 </dd>
               </div>
