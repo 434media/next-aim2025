@@ -107,7 +107,7 @@ export default function FAQPage() {
           <p className="text-gray-600">
             Don&apos;t see your question here? Contact us at{" "}
             <a href="mailto:barb@434media.com" className="text-orange-600 hover:underline">
-              barb@434media.com
+              build@434media.com
             </a>
           </p>
         </motion.div>
