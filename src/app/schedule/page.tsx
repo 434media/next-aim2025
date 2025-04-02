@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function AgendaPage() {
+export default function SchedulePage() {
   return (
     <main className="flex min-h-screen flex-col items-center">
       {/* Hero Section with Particle Background - Full Viewport Height */}
@@ -26,7 +26,7 @@ export default function AgendaPage() {
         className="w-full min-h-screen flex items-center justify-center relative"
         gradientFrom="[#101310]"
         gradientVia="[#101310]"
-        gradientTo="[#101310]/90"
+        gradientTo="[#101310]/80"
       >
         <FadeContainer className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="mx-auto max-w-4xl text-center">
