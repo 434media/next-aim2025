@@ -12,7 +12,7 @@ const sections = {
     title: "Discover",
     items: [
       { label: "Why Attend", href: "/why-attend" },
-      { label: "Keynotes", href: "/keynote" },
+      { label: "Keynotes", href: "/keynotes" },
       { label: "Schedule", href: "/schedule" },
       { label: "Speakers", href: "/speakers" },
       { label: "Sponsors & Exhibitors", href: "/sponsors-exhibitors" },
