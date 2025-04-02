@@ -31,23 +31,24 @@ export default function SpeakersPage() {
           <div className="mx-auto max-w-4xl text-center">
             <FadeDiv className="mb-2 flex items-center justify-center gap-2 text-sm font-medium text-[#548cac]">
               <RiTeamLine className="h-5 w-5" aria-hidden="true" />
-              <span>THOUGHT LEADERS</span>
+              <span>INNOVATION LEADERS</span>
             </FadeDiv>
 
             <h1 className="mb-6 bg-gradient-to-r from-[#10131d] via-[#548cac] to-[#10131d] bg-clip-text text-4xl font-bold text-transparent sm:text-5xl md:text-6xl">
-              Our Distinguished Speakers
+              The Future of Military Medicine Starts Here
             </h1>
 
             <FadeDiv className="mx-auto mb-8 max-w-2xl text-lg text-gray-600">
               <p>
-                Connect with leading experts from academia, industry, and military healthcare who are shaping the future
-                of AI and ML in healthcare.
+                Uniting innovators from academia, industry, and military to accelerate transformative medical
+                technologies. Our speakers lead the charge in addressing critical challenges across both military and
+                civilian healthcare.
               </p>
             </FadeDiv>
 
             <FadeDiv className="flex items-center justify-center gap-2 text-sm font-medium text-gray-500">
               <RiMicLine className="h-5 w-5 text-[#548cac]" aria-hidden="true" />
-              <span>SPEAKERS LINEUP 2025</span>
+              <span>VISIONARY SPEAKERS 2025</span>
             </FadeDiv>
           </div>
         </FadeContainer>
@@ -88,7 +89,7 @@ export default function SpeakersPage() {
           <div className="mx-auto max-w-3xl rounded-xl bg-gradient-to-r from-[#10131d] to-[#548cac] p-8 text-center text-white shadow-lg md:p-12">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl">Interested in Speaking?</h2>
             <p className="mb-6 text-white/90">
-              We&apos;re always looking for innovative voices to join our speaker lineup. Share your expertise with our
+              We're always looking for innovative voices to join our speaker lineup. Share your expertise with our
               community of healthcare professionals and technologists.
             </p>
             <a
