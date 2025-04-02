@@ -89,7 +89,7 @@ export default function SpeakersPage() {
           <div className="mx-auto max-w-3xl rounded-xl bg-gradient-to-r from-[#10131d] to-[#548cac] p-8 text-center text-white shadow-lg md:p-12">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl">Interested in Speaking?</h2>
             <p className="mb-6 text-white/90">
-              We're always looking for innovative voices to join our speaker lineup. Share your expertise with our
+              We&apos;re always looking for innovative voices to join our speaker lineup. Share your expertise with our
               community of healthcare professionals and technologists.
             </p>
             <a
