@@ -14,14 +14,11 @@ const keynoteSpeakers = [
     organization: "BAMC",
     topic: "Relational Leadership Elevated",
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/aim-poster.png",
-    bio: "Brigadier General (Ret.) Shan Kevin Bagby is a senior healthcare executive and decorated C-suite military leader. He brings a wide range of experience and domain expertise in executive leadership, strategic planning, stakeholder engagement, budget oversight, and healthcare administration. His blended clinical and business acumen allows him to touch matrixed organizations at all levels - from developing and training clinical teams to leading large divisions.\n\n After Shan obtained a dental degree at the University of Pittsburgh, he entered his residency and subsequent fellowship for oral and maxillofacial surgery. Following residency, in 1997, he came on active duty in the US Army until officially retiring in 2023.\n\n Shan’s 25-year active-duty career in the US Army included a number of progressive roles across program management, military education, medical logistics, and personnel management, while also serving as a subject matter expert and principal advisor to military C-suite on organizational safety, quality, and efficiency. He managed large teams (up to 22,000 employees), directed multibillion-dollar operational budgets, and supervised large-bed military hospitals, public health clinics, dental, and veterinary facilities across multi-state markets which served up to 500,000+ beneficiaries. ",
+    bio: "Brigadier General (Ret.) Shan Kevin Bagby is a senior healthcare executive and decorated C-suite military leader. He brings a wide range of experience and domain expertise in executive leadership, strategic planning, stakeholder engagement, budget oversight, and healthcare administration. His blended clinical and business acumen allows him to touch matrixed organizations at all levels - from developing and training clinical teams to leading large divisions.\n\n After Shan obtained a dental degree at the University of Pittsburgh, he entered his residency and subsequent fellowship for oral and maxillofacial surgery. Following residency, in 1997, he came on active duty in the US Army until officially retiring in 2023.\n\n Shan's 25-year active-duty career in the US Army included a number of progressive roles across program management, military education, medical logistics, and personnel management, while also serving as a subject matter expert and principal advisor to military C-suite on organizational safety, quality, and efficiency. He managed large teams (up to 22,000 employees), directed multibillion-dollar operational budgets, and supervised large-bed military hospitals, public health clinics, dental, and veterinary facilities across multi-state markets which served up to 500,000+ beneficiaries. ",
     sessionDate: "June 17, 2025",
     sessionTime: "3:45 PM - 4:15 PM",
     sessionLocation: "Plenary Room (302A-C)",
-    keyPoints: [
-      "Develop or enhance your leadership philosophy",
-      "Legacy, and lifelong learning",
-    ],
+    keyPoints: ["Develop or enhance your leadership philosophy", "Legacy, and lifelong learning"],
     featured: true,
   },
   {
@@ -31,7 +28,7 @@ const keynoteSpeakers = [
     organization: "UT Health San Antonio",
     topic: "Dual-Use Medical Tech for DOD & Disaster/Combat Casualty Care",
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/aim-poster.png",
-    bio: "Dr. Donald Jenkins earned a BS in Biochemistry from the University of Scranton in Scranton, PA and his MD at the Uniformed Services University in Bethesda MD.  He performed his surgical residency at Wilford Hall USAF Hospital in San Antonio TX, trauma fellowship at the University of Pennsylvania in Philadelphia PA, and retired after nearly 25 years of active duty from the USAF in 2008.\n\n As former Trauma Medical Director at the American College of Surgeons Level I Trauma Center at Saint Mary’s Hospital at Mayo Clinic in Rochester, Dr. Jenkins had oversight for the entire spectrum of care.\n\n Dr. Jenkins has been the Trauma Director for the ACS Level I for the United States Air Force (2000-2008), and the Trauma Director for the 44th Medical Command for all medical care in Iraq (2004-2005).  He helped develop the Joint Theater Trauma System for the United States Central Command and was the Trauma Director.  He’s helped develop the Joint Trauma System and was the Trauma Medical Director at Fort Sam Houston, TX from 2007-2008.\n\n  His experience in Performance Improvement, as the ACSCOT PIPS Committee Chair, and liaison to the Society of Trauma Nurses for the Trauma Outcome PI Course.  He’s built rural trauma regional organizations and teaches PI in both urban Level I and rural Level III and IV centers.\n\n Dr. Jenkins is currently Professor of Surgery, Vice Chair for Quality and Associate Deputy Director of the Military Health Institute at the University of Texas Health Science Center in San Antonio.",
+    bio: "Dr. Donald Jenkins earned a BS in Biochemistry from the University of Scranton in Scranton, PA and his MD at the Uniformed Services University in Bethesda MD.  He performed his surgical residency at Wilford Hall USAF Hospital in San Antonio TX, trauma fellowship at the University of Pennsylvania in Philadelphia PA, and retired after nearly 25 years of active duty from the USAF in 2008.\n\n As former Trauma Medical Director at the American College of Surgeons Level I Trauma Center at Saint Mary's Hospital at Mayo Clinic in Rochester, Dr. Jenkins had oversight for the entire spectrum of care.\n\n Dr. Jenkins has been the Trauma Director for the ACS Level I for the United States Air Force (2000-2008), and the Trauma Director for the 44th Medical Command for all medical care in Iraq (2004-2005).  He helped develop the Joint Theater Trauma System for the United States Central Command and was the Trauma Director.  He's helped develop the Joint Trauma System and was the Trauma Medical Director at Fort Sam Houston, TX from 2007-2008.\n\n  His experience in Performance Improvement, as the ACSCOT PIPS Committee Chair, and liaison to the Society of Trauma Nurses for the Trauma Outcome PI Course.  He's built rural trauma regional organizations and teaches PI in both urban Level I and rural Level III and IV centers.\n\n Dr. Jenkins is currently Professor of Surgery, Vice Chair for Quality and Associate Deputy Director of the Military Health Institute at the University of Texas Health Science Center in San Antonio.",
     sessionDate: "June 16, 2025",
     sessionTime: "10:30 AM - 11:15 AM",
     sessionLocation: "Plenary Room (302A-C)",
@@ -62,9 +59,11 @@ const keynoteSpeakers = [
   },
 ]
 
-// Generate metadata for each speaker page
-export async function generateMetadata({ params }: { params: { speakerId: string } }): Promise<Metadata> {
-  const speaker = keynoteSpeakers.find((s) => s.id === params.speakerId)
+// Update the generateMetadata function to properly await params
+export async function generateMetadata({ params }: { params: Promise<{ speakerId: string }> }): Promise<Metadata> {
+  // Await the params before accessing speakerId
+  const { speakerId } = await params
+  const speaker = keynoteSpeakers.find((s) => s.id === speakerId)
 
   if (!speaker) {
     return {
@@ -90,8 +89,11 @@ export async function generateMetadata({ params }: { params: { speakerId: string
   }
 }
 
-export default function KeynoteSpeakerPage({ params }: { params: { speakerId: string } }) {
-  const speaker = keynoteSpeakers.find((s) => s.id === params.speakerId)
+// Update the main component to also await params
+export default async function KeynoteSpeakerPage({ params }: { params: Promise<{ speakerId: string }> }) {
+  // Await the params before accessing speakerId
+  const { speakerId } = await params
+  const speaker = keynoteSpeakers.find((s) => s.id === speakerId)
 
   if (!speaker) {
     notFound()
