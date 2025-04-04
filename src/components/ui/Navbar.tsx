@@ -12,8 +12,8 @@ const menuItems = [
   {
     name: "Agenda",
     dropdown: [
-      { name: "Schedule", href: "/schedule" },
       { name: "Keynotes", href: "/keynotes" },
+      { name: "Schedule", href: "/schedule" },
       { name: "Speakers", href: "/speakers" },
     ] 
   },
