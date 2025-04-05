@@ -201,6 +201,8 @@ export default async function KeynoteSpeakerPage({ params }: { params: Promise<{
                   variant="primary"
                   href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
                   className="w-full justify-center"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Register to Attend
                 </Button>
@@ -210,6 +212,8 @@ export default async function KeynoteSpeakerPage({ params }: { params: Promise<{
                     variant="outline"
                     href={`https://twitter.com/intent/tweet?text=I'm excited to hear ${encodeURIComponent(speaker.name)} speak about "${encodeURIComponent(speaker.topic)}" at the AIM Health R&D Summit!&url=${encodeURIComponent(`https://aimsatx.com/keynotes/${speaker.id}`)}`}
                     className="w-full justify-center"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Share This Speaker
                   </Button>
