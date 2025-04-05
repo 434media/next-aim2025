@@ -1,123 +1,527 @@
-import type { Metadata } from "next"
-import { Suspense } from "react"
-import { RiCalendarLine, RiMapPinLine, RiArrowDownLine } from "@remixicon/react"
-import { FadeContainer, FadeDiv } from "@/components/Fade"
-import WhovaSponsorEmbed from "@/components/WhovaSponsorEmbed"
-import ParticleBackground from "@/components/ParticleBackground"
+"use client"
 
-export const metadata: Metadata = {
-  title: "Sponsors & Exhibitors | AIM Health R&D Summit",
-  description:
-    "Meet the innovative companies and organizations supporting the AIM Health R&D Summit. Discover partnership opportunities and connect with industry leaders.",
-  openGraph: {
-    title: "Sponsors & Exhibitors | AIM Health R&D Summit",
-    description:
-      "Meet the innovative companies and organizations supporting the AIM Health R&D Summit. Discover partnership opportunities and connect with industry leaders.",
-    url: `/sponsors-exhibitors`,
-    type: "website",
-  },
+import { useState, useEffect, useRef } from "react"
+import { RiCalendarLine, RiMapPinLine, RiCloseLine, RiExternalLinkLine, RiInformationLine } from "@remixicon/react"
+import { motion, AnimatePresence, useReducedMotion } from "motion/react"
+import Image from "next/image"
+
+// Sponsor data structure
+interface Sponsor {
+  id: string
+  name: string
+  tier: "innovator" | "catalyst" | "partner" | "collaborator"
+  logo: string
+  description: string
+  website: string
+  industry?: string
 }
 
-export default function SponsorsExhibitorsPage() {
+// Sponsor data
+const sponsors: Sponsor[] = [
+  // Innovator Sponsors
+  {
+    id: "swri",
+    name: "Southwest Research Institute",
+    tier: "innovator",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/Southwest_Research_Institute_SwRi.png",
+    description:
+      "Southwest Research Institute (SwRI) is an independent, nonprofit applied research and development organization. The staff of nearly 3,000 specializes in the creation and transfer of technology in engineering and the physical sciences.",
+    website: "https://www.swri.org/",
+    industry: "Research & Development",
+  },
+  {
+    id: "metis",
+    name: "The Metis Foundation",
+    tier: "innovator",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/High+resolution%2C+no+background+logo.png",
+    description:
+      "The Metis Foundation is dedicated to advancing military medicine through research, education, and innovation. They support critical research initiatives that improve care for service members and veterans.",
+    website: "https://metisfoundation.org/",
+    industry: "Healthcare & Research",
+  },
+  {
+    id: "trc4",
+    name: "TRC4",
+    tier: "innovator",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/TRC4+UT+System+Logo.png",
+    description:
+      "TRC4 (Translational Research Consortium for TBI) is dedicated to advancing research and treatments for traumatic brain injuries through collaborative efforts across institutions.",
+    website: "https://trc4.org/",
+    industry: "Medical Research",
+  },
+  {
+    id: "texasbiomed",
+    name: "Texas Biomedical Research Institute",
+    tier: "innovator",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/Texas+Texas+Biomedical+without+slogan+541+blue+%2B+124+yellow+logo-2025.jpg",
+    description:
+      "Texas Biomedical Research Institute is a nonprofit research institution dedicated to advancing human health through innovative biomedical research. They focus on infectious diseases, genetics, and other critical health challenges.",
+    website: "https://www.txbiomed.org/",
+    industry: "Biomedical Research",
+  },
+
+  // Catalyst Sponsors
+  {
+    id: "designplex",
+    name: "DesignPlex",
+    tier: "catalyst",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/designplex.webp",
+    description:
+      "DesignPlex Architects specializes in healthcare facility design, creating innovative spaces that enhance patient care and medical research capabilities.",
+    website: "https://www.designplexarchitects.com/",
+    industry: "Architecture & Design",
+  },
+  {
+    id: "satop",
+    name: "SATOP",
+    tier: "catalyst",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/satop+(1).png",
+    description:
+      "SATOP (Space Alliance Technology Outreach Program) provides technical assistance to small businesses by leveraging the expertise and capabilities of the aerospace industry.",
+    website: "https://spacetechsolutions.com/",
+    industry: "Aerospace Technology",
+  },
+
+  // Partner Sponsors
+  {
+    id: "cosa",
+    name: "City of San Antonio",
+    tier: "partner",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/cosa_quatrefoil_texas_k.png",
+    description:
+      "The City of San Antonio is committed to fostering innovation and economic development in the region. They support initiatives that enhance the quality of life for residents and promote business growth.",
+    website: "https://www.sanantonio.gov/",
+    industry: "Government & Economic Development",
+  },
+  {
+    id: "velocitytx",
+    name: "VelocityTX",
+    tier: "partner",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/VelocityTX+Logo+BUTTON+RGB.png",
+    description:
+      "VelocityTX is an innovation center that accelerates the growth of bioscience and healthcare companies through mentorship, funding connections, and collaborative workspace.",
+    website: "https://velocitytx.org/",
+    industry: "Innovation & Incubation",
+  },
+
+  // Collaborator Sponsor
+  {
+    id: "434media",
+    name: "434 Media",
+    tier: "collaborator",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/434media.svg",
+    description:
+      "434 Media partners with venture capital firms, accelerators, startups, and industry leaders to create bold, strategic content that delivers results.",
+    website: "https://434media.com/",
+    industry: "Digital Marketing",
+  },
+]
+
+export default function SponsorsExhibitorsClientPage() {
+  // State to track if component is mounted (client-side only)
+  const [isMounted, setIsMounted] = useState(false)
+  const [selectedSponsor, setSelectedSponsor] = useState<Sponsor | null>(null)
+  const prefersReducedMotion = useReducedMotion()
+
+  // Only run on client side
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  // Filter sponsors by tier
+  const innovatorSponsors = sponsors.filter((s) => s.tier === "innovator")
+  const catalystSponsors = sponsors.filter((s) => s.tier === "catalyst")
+  const partnerSponsors = sponsors.filter((s) => s.tier === "partner")
+  const collaboratorSponsors = sponsors.filter((s) => s.tier === "collaborator")
+
   return (
-    <main className="flex min-h-screen flex-col items-center">
-      {/* Hero Section with Particle Background - Full Viewport Height */}
-      <ParticleBackground
-        className="w-full min-h-screen flex items-center justify-center relative"
-        gradientFrom="[#101310]"
-        gradientVia="[#4f4f2c]"
-        gradientTo="[#4f4f2c]"
-      >
-        <FadeContainer className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-          <div className="mx-auto max-w-4xl text-center">
+    <main className="flex min-h-screen flex-col items-center bg-gray-50">
+      {/* Hero Section with proper top padding to avoid navbar overlap */}
+      <div className="w-full min-h-screen flex items-center justify-center relative">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1a1c1a] via-[#1e2320] to-[#232725] z-0"></div>
+
+        {/* Particle effect - client-side only */}
+        {isMounted && !prefersReducedMotion && (
+          <div className="absolute inset-0 z-0" aria-hidden="true">
+            {[...Array(30)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute rounded-full"
+                style={{
+                  width: Math.random() * 4 + 1,
+                  height: Math.random() * 4 + 1,
+                  backgroundColor: ["#548cac", "#4f4f2c", "#f97316", "#ffffff"][Math.floor(Math.random() * 4)],
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  opacity: Math.random() * 0.5 + 0.3,
+                }}
+                animate={{
+                  x: [0, Math.random() * 50 - 25],
+                  y: [0, Math.random() * 50 - 25],
+                }}
+                transition={{
+                  duration: Math.random() * 5 + 3,
+                  repeat: Number.POSITIVE_INFINITY,
+                  repeatType: "reverse",
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
+          </div>
+        )}
+
+        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 mt-24">
+          <div className="mx-auto max-w-4xl text-center mb-12 md:mb-16">
             <h1 className="mb-6 sm:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
               Sponsors & Exhibitors
             </h1>
 
             {/* Event info section with improved spacing and responsive layout */}
-            <div className="mx-auto mb-6 sm:mb-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-base sm:text-lg md:text-xl text-white/80">
+            <div className="mx-auto mb-8 sm:mb-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-base sm:text-lg md:text-xl text-white/90">
               {/* Date */}
               <div className="flex items-center justify-center">
                 <RiCalendarLine
-                  className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-[#548cac] flex-shrink-0"
+                  className="h-5 w-5 sm:h-6 sm:w-6 mr-3 text-[#548cac] flex-shrink-0"
                   aria-hidden="true"
                 />
                 <span>June 16-17, 2025</span>
               </div>
 
               {/* Separator - Hidden on mobile, visible on desktop */}
-              <span className="hidden sm:inline-block h-1.5 w-1.5 rounded-full bg-white/40" aria-hidden="true"></span>
+              <span className="hidden sm:inline-block h-1.5 w-1.5 rounded-full bg-white/60" aria-hidden="true"></span>
 
               {/* Location */}
               <div className="flex items-center justify-center">
-                <RiMapPinLine className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-[#548cac] flex-shrink-0" aria-hidden="true" />
+                <RiMapPinLine className="h-5 w-5 sm:h-6 sm:w-6 mr-3 text-[#548cac] flex-shrink-0" aria-hidden="true" />
                 <span>Henry B. González Convention Center</span>
               </div>
             </div>
 
-            <FadeDiv className="mx-auto mb-8 sm:mb-10 max-w-2xl text-base sm:text-lg md:text-xl text-white/80 leading-relaxed">
+            <div className="mx-auto mb-12 max-w-2xl text-base sm:text-lg md:text-xl text-white/90 leading-relaxed">
               <p>
                 Meet the innovative companies and organizations supporting the AIM Health R&D Summit. Our sponsors and
                 exhibitors are essential partners in our mission to accelerate military medical innovation through
                 cross-sector collaboration.
               </p>
-            </FadeDiv>
-
-            {/* Scroll indicator */}
-            <div
-              className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
-              aria-label="Scroll down to view sponsors"
-            >
-              <RiArrowDownLine className="h-6 w-6 sm:h-8 sm:w-8 text-white/70 animate-bounce" aria-hidden="true" />
             </div>
           </div>
-        </FadeContainer>
-      </ParticleBackground>
 
-      {/* Sponsors Section */}
-      <section className="w-full bg-white py-16 sm:py-20 md:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-5xl">
-            <FadeContainer className="mb-10 sm:mb-12 text-center">
-              <h2
-              id="sponsors-title"
-              className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#101310] tracking-tight mb-6"
-              >
-                AIM Health R&D Summit <br className="hidden sm:inline" />
-                <span className="bg-gradient-to-r from-[#548cac] to-[#4f4f2c] bg-clip-text text-transparent">
-                  2025 Sponsors
-                </span>
-              </h2>
-              <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto">
-                These organizations make the AIM Health R&D Summit possible. Their support enables us to bring together
-                the brightest minds in military medicine and healthcare innovation.
-              </p>
-            </FadeContainer>
+          {/* Custom Sponsors Showcase */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            className="bg-white/90 backdrop-blur-sm rounded-xl p-8 md:p-10 lg:p-12 shadow-xl"
+          >
+            <div className="space-y-16">
+              {/* Innovator Sponsors */}
+              <div>
+                <div className="flex items-center justify-center mb-8">
+                  <div className="h-px bg-gradient-to-r from-transparent via-[#548cac] to-transparent w-full max-w-xs"></div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#101310] px-6 whitespace-nowrap">
+                    Innovator Sponsors
+                  </h2>
+                  <div className="h-px bg-gradient-to-r from-[#548cac] via-transparent to-transparent w-full max-w-xs"></div>
+                </div>
 
-            <div className="mt-8 rounded-lg border border-gray-200 bg-white p-5 sm:p-6 md:p-8 shadow-sm">
-              <Suspense
-                fallback={
-                  <div className="flex h-96 items-center justify-center">
-                    <div className="text-center">
-                      <div className="mb-4 inline-block h-8 w-8 sm:h-10 sm:w-10 animate-spin rounded-full border-4 border-[#548cac] border-t-transparent"></div>
-                      <p className="text-lg sm:text-xl text-gray-500">Loading sponsors...</p>
-                    </div>
-                  </div>
-                }
-              >
-                <WhovaSponsorEmbed />
-              </Suspense>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+                  {innovatorSponsors.map((sponsor) => (
+                    <SponsorCard
+                      key={sponsor.id}
+                      sponsor={sponsor}
+                      onClick={() => setSelectedSponsor(sponsor)}
+                      tier="innovator"
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Catalyst Sponsors */}
+              <div>
+                <div className="flex items-center justify-center mb-8">
+                  <div className="h-px bg-gradient-to-r from-transparent via-[#4f4f2c] to-transparent w-full max-w-xs"></div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#101310] px-6 whitespace-nowrap">
+                    Catalyst Sponsors
+                  </h2>
+                  <div className="h-px bg-gradient-to-r from-[#4f4f2c] via-transparent to-transparent w-full max-w-xs"></div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-2xl mx-auto">
+                  {catalystSponsors.map((sponsor) => (
+                    <SponsorCard
+                      key={sponsor.id}
+                      sponsor={sponsor}
+                      onClick={() => setSelectedSponsor(sponsor)}
+                      tier="catalyst"
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Partner Sponsors */}
+              <div>
+                <div className="flex items-center justify-center mb-8">
+                  <div className="h-px bg-gradient-to-r from-transparent via-[#f97316] to-transparent w-full max-w-xs"></div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#101310] px-6 whitespace-nowrap">
+                    Partners
+                  </h2>
+                  <div className="h-px bg-gradient-to-r from-[#f97316] via-transparent to-transparent w-full max-w-xs"></div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-2xl mx-auto">
+                  {partnerSponsors.map((sponsor) => (
+                    <SponsorCard
+                      key={sponsor.id}
+                      sponsor={sponsor}
+                      onClick={() => setSelectedSponsor(sponsor)}
+                      tier="partner"
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Collaborator Sponsors */}
+              <div>
+                <div className="flex items-center justify-center mb-8">
+                  <div className="h-px bg-gradient-to-r from-transparent via-[#366A79] to-transparent w-full max-w-xs"></div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#101310] px-6 whitespace-nowrap">
+                    Collaborator
+                  </h2>
+                  <div className="h-px bg-gradient-to-r from-[#366A79] via-transparent to-transparent w-full max-w-xs"></div>
+                </div>
+
+                <div className="max-w-xs mx-auto w-full grid grid-cols-1 gap-6 md:gap-8">
+                  {collaboratorSponsors.map((sponsor) => (
+                    <SponsorCard
+                      key={sponsor.id}
+                      sponsor={sponsor}
+                      onClick={() => setSelectedSponsor(sponsor)}
+                      tier="collaborator"
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Sponsor Info Modal */}
+      <AnimatePresence>
+        {selectedSponsor && <SponsorInfoModal sponsor={selectedSponsor} onClose={() => setSelectedSponsor(null)} />}
+      </AnimatePresence>
+    </main>
+  )
+}
+
+// Sponsor Card Component
+interface SponsorCardProps {
+  sponsor: Sponsor
+  onClick: () => void
+  tier: "innovator" | "catalyst" | "partner" | "collaborator"
+}
+
+function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
+  // Different styling based on tier
+  const getBorderColor = () => {
+    switch (tier) {
+      case "innovator":
+        return "border-[#548cac]/30 hover:border-[#548cac]/80"
+      case "catalyst":
+        return "border-[#4f4f2c]/30 hover:border-[#4f4f2c]/80"
+      case "partner":
+        return "border-[#f97316]/30 hover:border-[#f97316]/80"
+      case "collaborator":
+        return "border-[#366A79]/30 hover:border-[#366A79]/80"
+      default:
+        return "border-gray-200 hover:border-gray-400"
+    }
+  }
+
+  return (
+    <motion.button
+      className={`bg-white rounded-lg p-4 flex flex-col items-center justify-center h-48 shadow-md ${getBorderColor()} border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 relative group`}
+      onClick={onClick}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.98 }}
+      aria-label={`View details about ${sponsor.name}`}
+    >
+      <div className="relative w-full h-full flex items-center justify-center">
+        <Image
+          src={sponsor.logo || "/placeholder.svg"}
+          alt={`${sponsor.name} logo`}
+          fill
+          className="object-contain p-4"
+          sizes="(max-width: 768px) 150px, 200px"
+        />
+      </div>
+
+      {/* Info indicator */}
+      <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="bg-gray-100 rounded-full p-1">
+          <RiInformationLine className="h-5 w-5 text-[#548cac]" aria-hidden="true" />
+        </div>
+      </div>
+
+      <span className="sr-only">Click to view details about {sponsor.name}</span>
+    </motion.button>
+  )
+}
+
+// Sponsor Info Modal Component
+interface SponsorInfoModalProps {
+  sponsor: Sponsor
+  onClose: () => void
+}
+
+function SponsorInfoModal({ sponsor, onClose }: SponsorInfoModalProps) {
+  const modalRef = useRef<HTMLDivElement>(null)
+
+  // Close on escape key and handle click outside
+  useEffect(() => {
+    const handleEscKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose()
+      }
+    }
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        onClose()
+      }
+    }
+
+    document.addEventListener("keydown", handleEscKey)
+    document.addEventListener("mousedown", handleClickOutside)
+
+    // Lock body scroll
+    document.body.style.overflow = "hidden"
+
+    // Focus trap
+    if (modalRef.current) {
+      modalRef.current.focus()
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleEscKey)
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.body.style.overflow = ""
+    }
+  }, [onClose])
+
+  // Get tier-specific styling
+  const getTierStyles = () => {
+    switch (sponsor.tier) {
+      case "innovator":
+        return {
+          gradient: "from-[#548cac]/20 via-[#548cac]/10 to-transparent",
+          badge: "bg-[#548cac]/10 text-[#548cac]",
+          text: "text-[#548cac]",
+        }
+      case "catalyst":
+        return {
+          gradient: "from-[#4f4f2c]/20 via-[#4f4f2c]/10 to-transparent",
+          badge: "bg-[#4f4f2c]/10 text-[#4f4f2c]",
+          text: "text-[#4f4f2c]",
+        }
+      case "partner":
+        return {
+          gradient: "from-[#f97316]/20 via-[#f97316]/10 to-transparent",
+          badge: "bg-[#f97316]/10 text-[#f97316]",
+          text: "text-[#f97316]",
+        }
+      case "collaborator":
+        return {
+          gradient: "from-[#366A79]/20 via-[#366A79]/10 to-transparent",
+          badge: "bg-[#366A79]/10 text-[#366A79]",
+          text: "text-[#366A79]",
+        }
+      default:
+        return {
+          gradient: "from-gray-100 via-gray-50 to-transparent",
+          badge: "bg-gray-100 text-gray-700",
+          text: "text-gray-700",
+        }
+    }
+  }
+
+  const tierStyles = getTierStyles()
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        ref={modalRef}
+        className="bg-white rounded-xl max-w-md w-full shadow-2xl overflow-hidden"
+        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.9, opacity: 0, y: 20 }}
+        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`sponsor-modal-title-${sponsor.id}`}
+        tabIndex={-1}
+      >
+        {/* Modal Header */}
+        <div className={`relative h-40 bg-gradient-to-r ${tierStyles.gradient}`}>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="bg-white rounded-lg p-4 w-32 h-32 flex items-center justify-center shadow-md">
+              <div className="relative w-full h-full">
+                <Image
+                  src={sponsor.logo || "/placeholder.svg"}
+                  alt={`${sponsor.name} logo`}
+                  fill
+                  className="object-contain p-2"
+                  sizes="128px"
+                />
+              </div>
+            </div>
+          </div>
+          <button
+            className="absolute top-3 right-3 p-2 rounded-full bg-white/80 text-gray-700 hover:bg-white hover:text-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] shadow-sm"
+            onClick={onClose}
+            aria-label="Close modal"
+          >
+            <RiCloseLine className="h-5 w-5" />
+          </button>
+        </div>
+
+        {/* Modal Content */}
+        <div className="p-6 md:p-8">
+          <h3 id={`sponsor-modal-title-${sponsor.id}`} className="text-2xl font-bold text-gray-900 mb-2">
+            {sponsor.name}
+          </h3>
+
+          {sponsor.industry && <p className={`${tierStyles.text} text-base mb-6`}>{sponsor.industry}</p>}
+
+          <p className="text-gray-700 text-base leading-relaxed mb-8">{sponsor.description}</p>
+
+          <div className="flex justify-between items-center">
+            <div className={`text-sm font-medium px-3 py-1 rounded-full ${tierStyles.badge}`}>
+              {sponsor.tier === "innovator" && "Innovator Sponsor"}
+              {sponsor.tier === "catalyst" && "Catalyst Sponsor"}
+              {sponsor.tier === "partner" && "Partner Sponsor"}
+              {sponsor.tier === "collaborator" && "Collaborator Sponsor"}
             </div>
 
-            <div className="mt-8 sm:mt-10 text-center">
-              <p className="text-sm sm:text-base text-gray-500">
-                Sponsor list is updated regularly as new organizations join.
-              </p>
-            </div>
+            <a
+              href={sponsor.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center text-base font-medium text-[#548cac] hover:text-[#366A79] transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] rounded-md px-2 py-1"
+            >
+              Visit Website
+              <RiExternalLinkLine className="ml-2 h-5 w-5" />
+            </a>
           </div>
         </div>
-      </section>
-    </main>
+      </motion.div>
+    </motion.div>
   )
 }
 
