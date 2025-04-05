@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useReducedMotion } from "motion/react"
+import { motion, useReducedMotion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import type { ReactNode } from "react"
 import { cn } from "@/lib/utils"
@@ -13,7 +13,7 @@ const Highlight = ({ children, className = "" }: { children: ReactNode; classNam
   const prefersReducedMotion = useReducedMotion()
 
   return (
-    <span className={cn("relative inline text-[#548cac] font-semibold", className)}>
+    <span className={cn("relative inline text-[#366A79] font-semibold", className)}>
       <motion.span
         className="relative z-10"
         initial={prefersReducedMotion ? {} : { opacity: 0.7 }}
@@ -23,7 +23,7 @@ const Highlight = ({ children, className = "" }: { children: ReactNode; classNam
         {children}
       </motion.span>
       <motion.span
-        className="absolute inset-x-0 bottom-0 h-[0.2em] bg-gradient-to-r from-[#366A79]/70 to-[#548cac]/70 rounded-sm"
+        className="absolute inset-x-0 bottom-0 h-[0.2em] bg-gradient-to-r from-[#366A79]/30 to-[#548cac]/30 rounded-sm"
         initial={prefersReducedMotion ? { width: "100%" } : { width: 0 }}
         animate={{ width: "100%" }}
         transition={{
@@ -49,20 +49,20 @@ export default function WhyAttend() {
       <div ref={ref} className="relative">
         {inView && (
           <ParticleBackground
-            className="w-full min-h-screen flex items-center justify-center relative"
-            gradientFrom="[#101310]"
-            gradientVia="[#101310]"
-            gradientTo="[#101310]/80"
+            className="w-full min-h-screen flex items-center justify-center relative pt-24 md:pt-32" // Added top padding
+            gradientFrom="[#101310]" // Darker background to make particles visible
+            gradientVia="[#1a1f1a]"
+            gradientTo="#[232725]"
           >
-            <FadeContainer className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 mt-24">
+            <FadeContainer className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
               <div className="mx-auto max-w-4xl text-center">
-                <h1 className="mb-6 sm:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+                <h1 className="mb-8 sm:mb-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
                   Why Attend AIM Health R&D Summit
                 </h1>
 
-                <div className="mx-auto mb-8 sm:mb-10 max-w-3xl">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-sm border border-white/10 p-6 sm:p-8 md:p-10">
-                    <div className="text-left text-base sm:text-lg md:text-xl text-white/90 leading-relaxed space-y-6">
+                <div className="mx-auto mb-10 sm:mb-12 max-w-3xl">
+                  <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-md border border-white/10 p-6 sm:p-8 md:p-10">
+                    <div className="text-left text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed space-y-6">
                       <p>
                         The AIM Health R&D Summit is a <Highlight>premier</Highlight>,{" "}
                         <Highlight>community-led</Highlight>, and <Highlight>partner-driven</Highlight> event, hosted by
@@ -98,9 +98,7 @@ export default function WhyAttend() {
       {/* Military Health City Section */}
       <section className="w-full bg-gray-50 py-16 sm:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <MilitaryHealthCity />
-          </div>
+          <MilitaryHealthCity />
         </div>
       </section>
     </>
