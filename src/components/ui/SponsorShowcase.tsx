@@ -47,7 +47,13 @@ const platinumSponsors = [
     src: "https://ampd-asset.s3.us-east-2.amazonaws.com/TRC4+UT+System+Logo.png",
     website: "https://www.trc4.org/",
     description: "Transforming research into commercial success",
-  }
+  },
+  {
+    name: "StemBioSys",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/stembiosys.png",
+    website: "https://www.stembiosys.com/",
+    description: "Innovative cell culture solutions for regenerative medicine",
+  },
 ]
 
 type Sponsor = (typeof platinumSponsors)[0]
