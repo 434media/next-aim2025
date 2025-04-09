@@ -88,6 +88,28 @@ const sponsors: Sponsor[] = [
     industry: "Aerospace Technology",
     isExhibitor: true,
   },
+  {
+    id: "articulatelabs",
+    name: "Articulate Labs",
+    tier: "catalyst",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/al-logo.png",
+    description:
+      "Articulate Labs is a leading provider of advanced simulation and training solutions for military and healthcare applications. They focus on enhancing skills and performance through innovative technology.",
+    website: "https://articulatelabs.com/",
+    industry: "Simulation & Training",
+    isExhibitor: true,
+  },
+  {
+    id: "stembiosys",
+    name: "StemBioSys",
+    tier: "catalyst",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/stembiosys.png",
+    description:
+      "StemBioSys is a biotechnology company focused on developing advanced stem cell technologies for regenerative medicine and drug discovery.",
+    website: "https://www.stembiosys.com/",
+    industry: "Biotechnology",
+    isExhibitor: true,
+  },
 
   // Partner Sponsors
   {
@@ -366,7 +388,7 @@ function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
       onClick={onClick}
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.98 }}
-      aria-label={`View details about ${sponsor.name}${sponsor.isExhibitor ? ", Exhibitor" : ""}`}
+      aria-label={`View details about ${sponsor.name}${sponsor.isExhibitor ? ", Exhibiting" : ""}`}
     >
       <div className="relative w-full h-full flex items-center justify-center">
         {/* Adjust logo size and position based on sponsor needs */}
@@ -389,13 +411,13 @@ function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
       {sponsor.isExhibitor && (
         <div className="absolute bottom-0 left-0 right-0 bg-[#101310] py-1.5 text-center">
           <span className="text-xs font-medium text-white tracking-wide uppercase" aria-label="Exhibitor">
-            Exhibitor
+            Exhibiting
           </span>
         </div>
       )}
 
       {/* Info indicator - adjusted position to account for exhibitor strip */}
-      <div className="absolute bottom-8 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="absolute bottom-10 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
         <div className="bg-gray-100 rounded-full p-1">
           <RiInformationLine className="h-5 w-5 text-[#548cac]" aria-hidden="true" />
         </div>
@@ -403,7 +425,7 @@ function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
 
       <span className="sr-only">
         Click to view details about {sponsor.name}
-        {sponsor.isExhibitor ? ", Exhibitor" : ""}
+        {sponsor.isExhibitor ? ", Exhibiting" : ""}
       </span>
     </motion.button>
   )
@@ -551,7 +573,7 @@ function SponsorInfoModal({ sponsor, onClose }: SponsorInfoModalProps) {
               </div>
               {sponsor.isExhibitor && (
                 <div className="text-sm font-medium px-3 py-1 rounded-full bg-[#548cac]/10 text-[#548cac]">
-                  Exhibitor
+                  Exhibiting
                 </div>
               )}
             </div>
