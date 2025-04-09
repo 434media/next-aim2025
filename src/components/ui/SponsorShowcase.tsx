@@ -54,6 +54,12 @@ const platinumSponsors = [
     website: "https://www.stembiosys.com/",
     description: "Innovative cell culture solutions for regenerative medicine",
   },
+  {
+    name: "San Antonio Medical Foundation",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/sa-med-foundation-logo.svg",
+    website: "https://www.samedfoundation.org/",
+    description: "Supporting medical research and education in San Antonio",
+  },
 ]
 
 type Sponsor = (typeof platinumSponsors)[0]
