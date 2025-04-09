@@ -14,6 +14,7 @@ interface Sponsor {
   description: string
   website: string
   industry?: string
+  isExhibitor?: boolean
 }
 
 // Sponsor data
@@ -28,6 +29,7 @@ const sponsors: Sponsor[] = [
       "Southwest Research Institute (SwRI) is an independent, nonprofit applied research and development organization. The staff of nearly 3,000 specializes in the creation and transfer of technology in engineering and the physical sciences.",
     website: "https://www.swri.org/",
     industry: "Research & Development",
+    isExhibitor: true,
   },
   {
     id: "metis",
@@ -38,6 +40,7 @@ const sponsors: Sponsor[] = [
       "The Metis Foundation is dedicated to advancing military medicine through research, education, and innovation. They support critical research initiatives that improve care for service members and veterans.",
     website: "https://metisfoundation.org/",
     industry: "Healthcare & Research",
+    isExhibitor: true,
   },
   {
     id: "trc4",
@@ -48,6 +51,7 @@ const sponsors: Sponsor[] = [
       "TRC4 (Translational Research Consortium for TBI) is dedicated to advancing research and treatments for traumatic brain injuries through collaborative efforts across institutions.",
     website: "https://trc4.org/",
     industry: "Medical Research",
+    isExhibitor: true,
   },
   {
     id: "texasbiomed",
@@ -58,6 +62,7 @@ const sponsors: Sponsor[] = [
       "Texas Biomedical Research Institute is a nonprofit research institution dedicated to advancing human health through innovative biomedical research. They focus on infectious diseases, genetics, and other critical health challenges.",
     website: "https://www.txbiomed.org/",
     industry: "Biomedical Research",
+    isExhibitor: true,
   },
 
   // Catalyst Sponsors
@@ -70,6 +75,7 @@ const sponsors: Sponsor[] = [
       "DesignPlex Architects specializes in healthcare facility design, creating innovative spaces that enhance patient care and medical research capabilities.",
     website: "https://www.designplexarchitects.com/",
     industry: "Architecture & Design",
+    isExhibitor: true,
   },
   {
     id: "satop",
@@ -80,6 +86,7 @@ const sponsors: Sponsor[] = [
       "SATOP (Space Alliance Technology Outreach Program) provides technical assistance to small businesses by leveraging the expertise and capabilities of the aerospace industry.",
     website: "https://spacetechsolutions.com/",
     industry: "Aerospace Technology",
+    isExhibitor: true,
   },
 
   // Partner Sponsors
@@ -92,6 +99,7 @@ const sponsors: Sponsor[] = [
       "The City of San Antonio is committed to fostering innovation and economic development in the region. They support initiatives that enhance the quality of life for residents and promote business growth.",
     website: "https://www.sanantonio.gov/",
     industry: "Government & Economic Development",
+    isExhibitor: true,
   },
   {
     id: "velocitytx",
@@ -102,6 +110,7 @@ const sponsors: Sponsor[] = [
       "VelocityTX is an innovation center that accelerates the growth of bioscience and healthcare companies through mentorship, funding connections, and collaborative workspace.",
     website: "https://velocitytx.org/",
     industry: "Innovation & Incubation",
+    isExhibitor: true,
   },
 
   // Collaborator Sponsor
@@ -114,6 +123,7 @@ const sponsors: Sponsor[] = [
       "434 Media partners with venture capital firms, accelerators, startups, and industry leaders to create bold, strategic content that delivers results.",
     website: "https://434media.com/",
     industry: "Digital Marketing",
+    isExhibitor: true,
   },
 ]
 
@@ -225,7 +235,8 @@ export default function SponsorsExhibitorsClientPage() {
                   <div className="h-px bg-gradient-to-r from-[#548cac] via-transparent to-transparent w-full max-w-xs"></div>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+                {/* Adjusted grid for innovator sponsors - fewer columns on mobile for larger logos */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
                   {innovatorSponsors.map((sponsor) => (
                     <SponsorCard
                       key={sponsor.id}
@@ -263,9 +274,7 @@ export default function SponsorsExhibitorsClientPage() {
               <div>
                 <div className="flex items-center justify-center mb-8">
                   <div className="h-px bg-gradient-to-r from-transparent via-[#f97316] to-transparent w-full max-w-xs"></div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-[#101310] px-6 whitespace-nowrap">
-                    Partners
-                  </h2>
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#101310] px-6 whitespace-nowrap">Partners</h2>
                   <div className="h-px bg-gradient-to-r from-[#f97316] via-transparent to-transparent w-full max-w-xs"></div>
                 </div>
 
@@ -281,13 +290,11 @@ export default function SponsorsExhibitorsClientPage() {
                 </div>
               </div>
 
-              {/* Collaborator Sponsors */}
+              {/* Collaborator */}
               <div>
                 <div className="flex items-center justify-center mb-8">
                   <div className="h-px bg-gradient-to-r from-transparent via-[#366A79] to-transparent w-full max-w-xs"></div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-[#101310] px-6 whitespace-nowrap">
-                    Collaborator
-                  </h2>
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#101310] px-6 whitespace-nowrap">Collaborator</h2>
                   <div className="h-px bg-gradient-to-r from-[#366A79] via-transparent to-transparent w-full max-w-xs"></div>
                 </div>
 
@@ -322,6 +329,8 @@ interface SponsorCardProps {
   tier: "innovator" | "catalyst" | "partner" | "collaborator"
 }
 
+// Update the SponsorCard component to place the exhibitor badge at the bottom center with a dark background strip
+
 function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
   // Different styling based on tier
   const getBorderColor = () => {
@@ -339,32 +348,63 @@ function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
     }
   }
 
+  // Adjust height for innovator sponsors on mobile
+  const getCardHeight = () => {
+    if (tier === "innovator") {
+      return "h-48 sm:h-48 md:h-48" // Taller on mobile, standard on larger screens
+    }
+    return "h-48"
+  }
+
+  // Determine if this sponsor needs extra bottom padding
+  const needsExtraPadding =
+    sponsor.id === "cosa" || sponsor.id === "velocitytx" || sponsor.id === "434media" || sponsor.id === "swri"
+
   return (
     <motion.button
-      className={`bg-white rounded-lg p-4 flex flex-col items-center justify-center h-48 shadow-md ${getBorderColor()} border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 relative group`}
+      className={`bg-white rounded-lg p-4 flex flex-col items-center justify-center ${getCardHeight()} shadow-md ${getBorderColor()} border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 relative group overflow-hidden`}
       onClick={onClick}
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.98 }}
-      aria-label={`View details about ${sponsor.name}`}
+      aria-label={`View details about ${sponsor.name}${sponsor.isExhibitor ? ", Exhibitor" : ""}`}
     >
       <div className="relative w-full h-full flex items-center justify-center">
-        <Image
-          src={sponsor.logo || "/placeholder.svg"}
-          alt={`${sponsor.name} logo`}
-          fill
-          className="object-contain p-4"
-          sizes="(max-width: 768px) 150px, 200px"
-        />
+        {/* Adjust logo size and position based on sponsor needs */}
+        <div
+          className={`relative ${tier === "innovator" ? "w-[85%] sm:w-[80%]" : "w-[80%]"} 
+            ${needsExtraPadding ? "h-[70%] mb-6" : "h-[80%]"} 
+            flex items-center justify-center`}
+        >
+          <Image
+            src={sponsor.logo || "/placeholder.svg"}
+            alt={`${sponsor.name} logo`}
+            fill
+            className="object-contain"
+            sizes={tier === "innovator" ? "(max-width: 768px) 180px, 200px" : "(max-width: 768px) 150px, 200px"}
+          />
+        </div>
       </div>
 
-      {/* Info indicator */}
-      <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+      {/* Exhibitor badge as a strip at the bottom of the card */}
+      {sponsor.isExhibitor && (
+        <div className="absolute bottom-0 left-0 right-0 bg-[#101310] py-1.5 text-center">
+          <span className="text-xs font-medium text-white tracking-wide uppercase" aria-label="Exhibitor">
+            Exhibitor
+          </span>
+        </div>
+      )}
+
+      {/* Info indicator - adjusted position to account for exhibitor strip */}
+      <div className="absolute bottom-8 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
         <div className="bg-gray-100 rounded-full p-1">
           <RiInformationLine className="h-5 w-5 text-[#548cac]" aria-hidden="true" />
         </div>
       </div>
 
-      <span className="sr-only">Click to view details about {sponsor.name}</span>
+      <span className="sr-only">
+        Click to view details about {sponsor.name}
+        {sponsor.isExhibitor ? ", Exhibitor" : ""}
+      </span>
     </motion.button>
   )
 }
@@ -502,11 +542,18 @@ function SponsorInfoModal({ sponsor, onClose }: SponsorInfoModalProps) {
           <p className="text-gray-700 text-base leading-relaxed mb-8">{sponsor.description}</p>
 
           <div className="flex justify-between items-center">
-            <div className={`text-sm font-medium px-3 py-1 rounded-full ${tierStyles.badge}`}>
-              {sponsor.tier === "innovator" && "Innovator Sponsor"}
-              {sponsor.tier === "catalyst" && "Catalyst Sponsor"}
-              {sponsor.tier === "partner" && "Partner Sponsor"}
-              {sponsor.tier === "collaborator" && "Collaborator Sponsor"}
+            <div className="flex items-center gap-2">
+              <div className={`text-sm font-medium px-3 py-1 rounded-full ${tierStyles.badge}`}>
+                {sponsor.tier === "innovator" && "Innovator"}
+                {sponsor.tier === "catalyst" && "Catalyst"}
+                {sponsor.tier === "partner" && "Partner"}
+                {sponsor.tier === "collaborator" && "Collaborator"}
+              </div>
+              {sponsor.isExhibitor && (
+                <div className="text-sm font-medium px-3 py-1 rounded-full bg-[#548cac]/10 text-[#548cac]">
+                  Exhibitor
+                </div>
+              )}
             </div>
 
             <a
@@ -524,4 +571,3 @@ function SponsorInfoModal({ sponsor, onClose }: SponsorInfoModalProps) {
     </motion.div>
   )
 }
-
