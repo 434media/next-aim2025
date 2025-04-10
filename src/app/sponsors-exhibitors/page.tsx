@@ -43,6 +43,17 @@ const sponsors: Sponsor[] = [
     isExhibitor: true,
   },
   {
+    id: "samedfoundation",
+    name: "San Antonio Medical Foundation",
+    tier: "innovator",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/sa-med-foundation-logo.svg",
+    description:
+      "The San Antonio Medical Foundation is a nonprofit organization that supports medical research and education in the San Antonio area. They promote collaboration between academia, industry, and government to advance healthcare innovation.",
+    website: "https://www.samedfoundation.org/",
+    industry: "Medical Research & Education",
+    isExhibitor: false,
+  },
+  {
     id: "trc4",
     name: "TRC4",
     tier: "innovator",
@@ -121,7 +132,7 @@ const sponsors: Sponsor[] = [
       "The City of San Antonio is committed to fostering innovation and economic development in the region. They support initiatives that enhance the quality of life for residents and promote business growth.",
     website: "https://www.sanantonio.gov/",
     industry: "Government & Economic Development",
-    isExhibitor: true,
+    isExhibitor: false,
   },
   {
     id: "velocitytx",
@@ -145,7 +156,7 @@ const sponsors: Sponsor[] = [
       "434 Media partners with venture capital firms, accelerators, startups, and industry leaders to create bold, strategic content that delivers results.",
     website: "https://434media.com/",
     industry: "Digital Marketing",
-    isExhibitor: true,
+    isExhibitor: false,
   },
 ]
 
@@ -258,7 +269,7 @@ export default function SponsorsExhibitorsClientPage() {
                 </div>
 
                 {/* Adjusted grid for innovator sponsors - fewer columns on mobile for larger logos */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8">
                   {innovatorSponsors.map((sponsor) => (
                     <SponsorCard
                       key={sponsor.id}
@@ -379,8 +390,7 @@ function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
   }
 
   // Determine if this sponsor needs extra bottom padding
-  const needsExtraPadding =
-    sponsor.id === "cosa" || sponsor.id === "velocitytx" || sponsor.id === "434media" || sponsor.id === "swri"
+  const needsExtraPadding = sponsor.id === "velocitytx" || sponsor.id === "swri"
 
   return (
     <motion.button
@@ -417,7 +427,7 @@ function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
       )}
 
       {/* Info indicator - adjusted position to account for exhibitor strip */}
-      <div className="absolute bottom-10 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="absolute bottom-8 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
         <div className="bg-gray-100 rounded-full p-1">
           <RiInformationLine className="h-5 w-5 text-[#548cac]" aria-hidden="true" />
         </div>
