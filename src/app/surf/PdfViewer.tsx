@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+// Import the Document type from react-pdf
 import { Document, Page, pdfjs } from "react-pdf"
 import { RiDownloadLine, RiExternalLinkLine, RiArrowLeftLine, RiArrowRightLine } from "@remixicon/react"
 import "react-pdf/dist/esm/Page/AnnotationLayer.css"
@@ -21,6 +22,9 @@ export default function PdfViewer({ pdfUrl }: PdfViewerProps) {
   const [error, setError] = useState<boolean>(false)
   const [scale, setScale] = useState<number>(1.0)
   const [workerInitialized, setWorkerInitialized] = useState<boolean>(false)
+  // Use a more specific type for the document reference
+  // Use a more specific type for the document reference
+  // Use a more generic type since we're not accessing specific properties
   const documentRef = useRef<any>(null)
 
   // Then update the useEffect hook for worker initialization:
@@ -51,9 +55,6 @@ export default function PdfViewer({ pdfUrl }: PdfViewerProps) {
     // Cleanup function
     return () => {
       // Any cleanup needed for the PDF viewer
-      if (documentRef.current) {
-        documentRef.current = null
-      }
     }
   }, [])
 

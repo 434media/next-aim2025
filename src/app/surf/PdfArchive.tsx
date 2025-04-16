@@ -200,7 +200,7 @@ export default function PdfArchive() {
           ))
         ) : (
           <div className="col-span-full text-center py-12">
-            <p className="text-gray-500 text-lg">No results found for "{searchQuery}"</p>
+            <p className="text-gray-500 text-lg">No results found for &quot;{searchQuery}&quot;</p>
             <button
               onClick={() => setSearchQuery("")}
               className="mt-4 text-[#548cac] hover:text-[#366A79] transition-colors"
