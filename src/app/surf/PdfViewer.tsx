@@ -22,9 +22,6 @@ export default function PdfViewer({ pdfUrl }: PdfViewerProps) {
   const [error, setError] = useState<boolean>(false)
   const [scale, setScale] = useState<number>(1.0)
   const [workerInitialized, setWorkerInitialized] = useState<boolean>(false)
-  // Use a more specific type for the document reference
-  // Use a more specific type for the document reference
-  // Use a more generic type since we're not accessing specific properties
 
   // Then update the useEffect hook for worker initialization:
   // Initialize PDF.js worker
