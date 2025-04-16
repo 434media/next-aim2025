@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import "./globals.css"
-import { Analytics } from '@vercel/analytics/next';
+
 import Footer from "@/components/ui/Footer"
 import NavBar from "@/components/ui/Navbar"
 import { siteConfig } from "@/app/siteConfig"
@@ -29,21 +29,12 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     siteName: siteConfig.name,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: "AIM Health R&D Summit OG Image",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [siteConfig.ogImage],
-    creator: "@devsatx",
+    creator: "@AIMHealthSummit",
   },
   robots: {
     index: true,
@@ -61,7 +52,7 @@ export const metadata: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-  manifest: `${siteConfig.url}/site.webmanifest`,
+  manifest: "/site.webmanifest",
 }
 
 export default function RootLayout({
@@ -102,14 +93,12 @@ export default function RootLayout({
         </script>
       </head>
       <body
-        className={`${GeistSans.className} min-h-screen overflow-x-hidden scroll-auto bg-gray-50 antialiased selection:bg-orange-100 selection:text-orange-600`}
+        className={`${GeistSans.className} min-h-screen overflow-x-hidden scroll-auto bg-[#101310] text-white antialiased selection:bg-[#548cac] selection:text-white`}
       >
         <NavBar />
-          {children}
-          <Analytics />
+        {children}
         <Footer />
       </body>
     </html>
   )
 }
-

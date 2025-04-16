@@ -116,11 +116,11 @@ export default function WhyAttend() {
                   />
 
                   <FeatureCard
-                    title="Unique Two-Day Summit"
+                    title="Cross-Sector Collaboration"
                     description={
                       <p>
                         Building on over <strong>15 years</strong> of foundational efforts, this{" "}
-                        <strong>unique two-day summit</strong> unites leaders from{" "}
+                        unique summit unites leaders from{" "}
                         <strong>academia, industry, and the military</strong> to foster <strong>innovation</strong>,{" "}
                         <strong>cross-sector collaboration</strong>, and the advancement of{" "}
                         <strong>dual-use technologies</strong>.

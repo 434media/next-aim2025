@@ -8,7 +8,7 @@ const faqs = [
   {
     question: "When and where is the AIM Health R&D Summit taking place?",
     answer:
-      "The AIM Health R&D Summit is scheduled for June 16-17, 2025, at the Henry B. González Convention Center in San Antonio, Texas.",
+      "The AIM Health R&D Summit is scheduled for June 16, 2025, at the Henry B. González Convention Center in San Antonio, Texas.",
   },
   {
     question: "Who should attend the AIM Health R&D Summit?",
@@ -23,7 +23,7 @@ const faqs = [
   {
     question: "Are there opportunities for sponsorship or exhibiting?",
     answer:
-      "Yes, we offer various sponsorship and exhibitor packages. Please contact our sponsorship team at barb@434media.com for more information.",
+      "Yes, we offer various sponsorship and exhibitor packages. Please contact our sponsorship team at build@434media.com for more information.",
   },
   {
     question: "What is the refund policy?",

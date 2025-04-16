@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "AIM Health R&D Summit",
-  url: "https://next-aim2025.vercel.app/",
+  url: "https://aimsatx.com",
   description:
     "Academia, Industry, and Military Researchers Promoting Cross-Sector Collaboration in the Development of Life-Saving Innovations",
   ogImage: "/opengraph-image.png", 
@@ -8,11 +8,9 @@ export const siteConfig = {
     home: "/",
     preConferenceSymposiums: "/pre-conference-symposiums",
     whyAttend: "/why-attend",
-    bringYourTeam: "/bring-your-team",
     sponsorsExhibitors: "/sponsors-exhibitors",
     travelVenue: "/travel-venue",
     faq: "/faq",
-    privacyPolicy: "/privacy-policy",
     contactUs: "/contact-us",
   },
   navItems: [
@@ -32,7 +30,6 @@ export const siteConfig = {
       title: "Attend",
       items: [
         { title: "Why Attend", href: "/why-attend" },
-        { title: "Bring Your Team", href: "/bring-your-team" },
       ],
     },
     {
@@ -44,9 +41,7 @@ export const siteConfig = {
       items: [
         { title: "Travel & Venue", href: "/travel-venue" },
         { title: "FAQ", href: "/faq" },
-        { title: "Code of Conduct", href: "/code-of-conduct" },
         { title: "Contact Us", href: "/contact-us" },
-        { title: "Privacy Policy", href: "/privacy-policy" },
       ],
     },
   ],

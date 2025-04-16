@@ -228,7 +228,7 @@ export default function SponsorsExhibitorsClientPage() {
                   className="h-5 w-5 sm:h-6 sm:w-6 mr-3 text-[#548cac] flex-shrink-0"
                   aria-hidden="true"
                 />
-                <span>June 16-17, 2025</span>
+                <span>June 16, 2025</span>
               </div>
 
               {/* Separator - Hidden on mobile, visible on desktop */}

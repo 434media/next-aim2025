@@ -40,7 +40,7 @@ const menuItems = [
 const eventInfo = {
   aim: {
     name: <AIMLogo variant="white" className="h-8 w-auto hover:opacity-80 transition-all duration-300" />,
-    date: "June 16 - 17, 2025",
+    date: "June 16, 2025",
   },
   venue: "Henry B. González Convention Center",
   location: "San Antonio, TX",
