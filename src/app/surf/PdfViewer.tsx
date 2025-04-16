@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 // Import the Document type from react-pdf
 import { Document, Page, pdfjs } from "react-pdf"
 import { RiDownloadLine, RiExternalLinkLine, RiArrowLeftLine, RiArrowRightLine } from "@remixicon/react"
@@ -25,7 +25,6 @@ export default function PdfViewer({ pdfUrl }: PdfViewerProps) {
   // Use a more specific type for the document reference
   // Use a more specific type for the document reference
   // Use a more generic type since we're not accessing specific properties
-  const documentRef = useRef<any>(null)
 
   // Then update the useEffect hook for worker initialization:
   // Initialize PDF.js worker
@@ -168,7 +167,6 @@ export default function PdfViewer({ pdfUrl }: PdfViewerProps) {
             loading={<LoadingIndicator />}
             error={<ErrorMessage />}
             className="border border-gray-200 shadow-md"
-            ref={documentRef}
           >
             <Page
               pageNumber={pageNumber}
