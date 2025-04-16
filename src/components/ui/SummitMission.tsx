@@ -56,7 +56,7 @@ export function SummitMission() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
                   >
-                    <span className="block text-[#366A79] drop-shadow-sm">Two Days</span>
+                    <span className="block text-[#366A79] drop-shadow-sm">From The Bench</span>
                   </motion.div>
 
                   <motion.div
@@ -65,7 +65,7 @@ export function SummitMission() {
                     transition={{ duration: 0.6, delay: 0.3 }}
                   >
                     <span className="relative inline-block">
-                      One Mission
+                      To The Battlefield
                       <motion.span
                         className="absolute -bottom-3 left-0 h-1.5 bg-gradient-to-r from-[#366A79] to-[#548cac] w-full rounded-full"
                         initial={prefersReducedMotion ? { width: "100%" } : { width: 0 }}

@@ -30,16 +30,6 @@ const keynoteSpeakers = [
     featured: true,
   },
   {
-    id: "don-jenkins",
-    name: "Dr. Don Jenkins",
-    title: "Professor of Surgery",
-    organization: "UT Health Science Center San Antonio",
-    topic: "Dual-Use Medical Tech for DOD & Disaster/Combat Casualty Care",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/Donald+Jenkins+headshot.png",
-    bio: "Dr. Donald Jenkins earned a BS in Biochemistry from the University of Scranton in Scranton, PA and his MD at the Uniformed Services University in Bethesda MD.",
-    featured: true,
-  },
-  {
     id: "general-miller",
     name: "Lt. Gen. Robert Miller",
     title: "Associate Vice President & Director",
@@ -91,7 +81,7 @@ export default function KeynotesPage() {
             <div className="mx-auto mb-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-base sm:text-lg md:text-xl text-white/80">
               <div className="flex items-center justify-center">
                 <RiCalendarLine className="h-5 w-5 mr-2 text-white/90" aria-hidden="true" />
-                <span>June 16-17, 2025</span>
+                <span>June 16, 2025</span>
               </div>
 
               <span className="hidden sm:block mx-2 h-1 w-1 rounded-full bg-white/50"></span>

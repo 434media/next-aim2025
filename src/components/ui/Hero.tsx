@@ -13,8 +13,8 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 z-0" />
         <FadeContainer className="relative z-10 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <h1 className="mt-12 text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#101310]">
-            <FadeSpan className="block text-[#548cac]">Two Days</FadeSpan>
-            <FadeSpan className="block">One Mission</FadeSpan>
+            <FadeSpan className="block text-[#548cac]">From Bench</FadeSpan>
+            <FadeSpan className="block">To Battlefield</FadeSpan>
           </h1>
           <p className="mt-6 max-w-2xl text-center text-base sm:text-lg md:text-xl text-gray-600">
             <FadeSpan>
