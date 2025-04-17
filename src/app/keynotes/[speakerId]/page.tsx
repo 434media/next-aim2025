@@ -8,20 +8,6 @@ import { Button } from "@/components/Button"
 // Featured keynote speakers data
 const keynoteSpeakers = [
   {
-    id: "shan-bagby",
-    name: "Dr. Shan Bagby",
-    title: "DMD, MHA, FACHE",
-    organization: "BAMC",
-    topic: "Relational Leadership Elevated",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/flyers-40-keynote+(1).png",
-    bio: "Brigadier General (Ret.) Shan Kevin Bagby is a senior healthcare executive and decorated C-suite military leader. He brings a wide range of experience and domain expertise in executive leadership, strategic planning, stakeholder engagement, budget oversight, and healthcare administration. His blended clinical and business acumen allows him to touch matrixed organizations at all levels - from developing and training clinical teams to leading large divisions.\n\n After Shan obtained a dental degree at the University of Pittsburgh, he entered his residency and subsequent fellowship for oral and maxillofacial surgery. Following residency, in 1997, he came on active duty in the US Army until officially retiring in 2023.\n\n Shan's 25-year active-duty career in the US Army included a number of progressive roles across program management, military education, medical logistics, and personnel management, while also serving as a subject matter expert and principal advisor to military C-suite on organizational safety, quality, and efficiency. He managed large teams (up to 22,000 employees), directed multibillion-dollar operational budgets, and supervised large-bed military hospitals, public health clinics, dental, and veterinary facilities across multi-state markets which served up to 500,000+ beneficiaries. ",
-    sessionDate: "June 16, 2025",
-    sessionTime: "3:45 PM - 4:15 PM",
-    sessionLocation: "Plenary Room (302A-C)",
-    keyPoints: ["Develop or enhance your leadership philosophy", "Legacy, and lifelong learning"],
-    featured: true,
-  },
-  {
     id: "larry-schlesinger",
     name: "Dr. Larry S. Schlesinger",
     title: "President and CEO",

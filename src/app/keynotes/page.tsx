@@ -20,16 +20,6 @@ export const metadata: Metadata = {
 // Featured keynote speakers data
 const keynoteSpeakers = [
   {
-    id: "shan-bagby",
-    name: "Dr. Shan Bagby",
-    title: "DMD, MHA, FACHE",
-    organization: "BAMC",
-    topic: "Relational Leadership Elevated",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/Shan_K._Bagby_headshot.jpg",
-    bio: "Brigadier General (Ret.) Shan Kevin Bagby is a senior healthcare executive and decorated C-suite military leader.",
-    featured: true,
-  },
-  {
     id: "general-miller",
     name: "Lt. Gen. Robert Miller",
     title: "Associate Vice President & Director",
@@ -100,7 +90,7 @@ export default function KeynotesPage() {
           </FadeContainer>
 
           {/* Keynote Speaker Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 pb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 pb-16">
             {keynoteSpeakers.map((speaker) => (
               <FadeDiv
                 key={speaker.id}
