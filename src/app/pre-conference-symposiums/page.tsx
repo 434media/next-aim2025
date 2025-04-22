@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "motion/react"
+import { motion } from "framer-motion"
 import {
   RiCalendarLine,
   RiMapPinLine,
@@ -14,12 +14,13 @@ import { Button } from "@/components/Button"
 import Image from "next/image"
 import { VisuallyHidden } from "@/components/ui/visually-hidden"
 
-// Update the Symposium interface to include slideDeckUrl and recordingUrl
+// Define the Speaker interface
 interface Speaker {
   name: string
   title: string
 }
 
+// Update the Symposium interface to include transcriptUrl
 interface Symposium {
   title: string
   date: string
@@ -31,6 +32,8 @@ interface Symposium {
   completed?: boolean
   slideDeckUrl?: string
   recordingUrl?: string
+  transcriptUrl?: string // Add this new property
+  videoDuration?: string // Add this to display video duration
 }
 
 // Update the fadeInUp animation to be smoother
@@ -40,7 +43,7 @@ const fadeInUp = {
   transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
 }
 
-// Update the symposiums array to include slideDeckUrl and recordingUrl for archived events
+// Update the symposiums array to ensure the transcript URL is properly formatted
 const symposiums: Symposium[] = [
   {
     title: "Pathways to Innovation: Navigating Medical IP with the Federal Government",
@@ -53,8 +56,11 @@ const symposiums: Symposium[] = [
       "https://www.eventbrite.com/e/pathways-to-innovation-navigating-medical-ip-with-the-federal-government-tickets-1237932362019",
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+28.png",
     completed: true,
-    slideDeckUrl: "#",
-    recordingUrl: "#",
+    slideDeckUrl: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM_PreWebinar+%232+Slide+Deck.pdf",
+    recordingUrl: "https://ampd-asset.s3.us-east-2.amazonaws.com/Pre-AIM+webinar+Link-20250421_115509-Meeting+Recording.mp4",
+    // Point to the sample transcript file we created
+    transcriptUrl: "/transcript/pre-aim-transcript.vtt",
+    videoDuration: "64 minutes",
   },
   {
     title: "Pathways to Commercialization: Leveraging Federal & Private Sector Funding",
@@ -92,7 +98,7 @@ const symposiums: Symposium[] = [
     ],
     registerLink: "https://www.eventbrite.com/e/sneak-preview-aim-2025-sme-encounter-sessions-tickets-1234940392959",
     completed: true,
-    slideDeckUrl: "#",
+    slideDeckUrl: "https://ampd-asset.s3.us-east-2.amazonaws.com/Intro+to+AIM+Encounter+Sessions+(Mar+2025)+ver3.pdf",
   },
 ]
 
@@ -283,8 +289,8 @@ export default function PreConferenceSymposiums() {
                       </div>
                     )}
 
-                    {/* Add CTA buttons for slide deck and recording if available */}
-                    {(symposium.slideDeckUrl || symposium.recordingUrl) && (
+                    {/* Add CTA buttons for slide deck, recording, and transcript if available */}
+                    {(symposium.slideDeckUrl || symposium.recordingUrl || symposium.transcriptUrl) && (
                       <div className="mt-8 flex flex-wrap gap-4">
                         {symposium.slideDeckUrl && (
                           <a
@@ -301,14 +307,28 @@ export default function PreConferenceSymposiums() {
                         )}
                         {symposium.recordingUrl && (
                           <a
-                            href={symposium.recordingUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            href={`/video-player?url=${encodeURIComponent(symposium.recordingUrl)}&title=${encodeURIComponent(symposium.title)}${symposium.transcriptUrl ? `&transcript=${encodeURIComponent(symposium.transcriptUrl)}` : ""}`}
                             className="inline-flex items-center px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black"
                             aria-label={`Watch recording of ${symposium.title}`}
                           >
                             <RiVideoLine className="h-5 w-5 mr-2.5" aria-hidden="true" />
                             <span>Watch Recording</span>
+                            {symposium.videoDuration && (
+                              <span className="ml-2 text-xs bg-black/30 px-2 py-0.5 rounded-full">
+                                {symposium.videoDuration}
+                              </span>
+                            )}
+                          </a>
+                        )}
+                        {symposium.transcriptUrl && (
+                          <a
+                            href={symposium.transcriptUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black"
+                            aria-label={`View transcript for ${symposium.title}`}
+                          >
+                            <span>View Transcript</span>
                             <RiExternalLinkLine className="h-4 w-4 ml-2 opacity-70" aria-hidden="true" />
                           </a>
                         )}
