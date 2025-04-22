@@ -1,9 +1,26 @@
 "use client"
 
-import { motion } from "motion/react"
+import { motion } from "framer-motion"
 import { RiCalendarLine, RiMapPinLine, RiArrowRightLine, RiTimeLine } from "@remixicon/react"
 import { Button } from "@/components/Button"
 import Image from "next/image"
+
+// Add a type definition for the symposium object at the top of the file, after the imports
+interface Speaker {
+  name: string
+  title: string
+}
+
+interface Symposium {
+  title: string
+  date: string
+  location: string
+  description: string
+  speakers: Speaker[]
+  registerLink: string
+  image?: string
+  completed?: boolean
+}
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -11,7 +28,8 @@ const fadeInUp = {
   transition: { duration: 0.5 },
 }
 
-const symposiums = [
+// Update the symposiums array to use the new type
+const symposiums: Symposium[] = [
   {
     title: "Pathways to Innovation: Navigating Medical IP with the Federal Government",
     date: "April 21, 2025",
@@ -22,6 +40,7 @@ const symposiums = [
     registerLink:
       "https://www.eventbrite.com/e/pathways-to-innovation-navigating-medical-ip-with-the-federal-government-tickets-1237932362019",
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+28.png",
+    completed: true,
   },
   {
     title: "Pathways to Commercialization: Leveraging Federal & Private Sector Funding",
@@ -63,8 +82,10 @@ const symposiums = [
 ]
 
 export default function PreConferenceSymposiums() {
-  const featuredSymposium = symposiums[0]
-  const upcomingSymposiums = [symposiums[1]]
+  const featuredSymposium = symposiums[1] // Now featuring the May event
+  // Update the upcomingSymposiums declaration to explicitly set its type
+  const upcomingSymposiums: Symposium[] = []
+
   const archivedSymposiums = symposiums.filter((s) => s.completed)
 
   return (
@@ -163,13 +184,14 @@ export default function PreConferenceSymposiums() {
                     <Button
                       href={symposium.registerLink}
                       variant="secondary"
+                      className="whitespace-nowrap group/button"
                       aria-label={`Register for ${symposium.title}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       RSVP
                       <RiArrowRightLine
-                        className="inline-flex ml-2 group-hover/button:translate-x-1 transition-transform"
+                        className="ml-2 group-hover/button:translate-x-1 transition-transform"
                         aria-hidden="true"
                       />
                     </Button>
@@ -226,17 +248,12 @@ export default function PreConferenceSymposiums() {
                       </div>
                     )}
                   </div>
+                  {/* Fix the disabled button issue by changing how we render the button for archived events */}
                   <div className="flex-shrink-0">
-                    <Button
-                      href="#"
-                      variant="outline"
-                      className="whitespace-nowrap group/button opacity-70 cursor-not-allowed"
-                      aria-label={`This event has already taken place`}
-                      //disabled
-                    >
+                    <span className="inline-flex items-center px-4 py-2 rounded-md bg-zinc-800 text-zinc-400 cursor-not-allowed">
                       Event Completed
                       <RiTimeLine className="ml-2" aria-hidden="true" />
-                    </Button>
+                    </span>
                   </div>
                 </div>
               </motion.article>
@@ -252,4 +269,3 @@ PreConferenceSymposiums.meta = {
   title: "Pre-Conference Symposiums",
   description: "Learn about the pre-conference symposiums leading up to the AIM: Health R&D Summit.",
 }
-

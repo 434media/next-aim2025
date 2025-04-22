@@ -8,24 +8,6 @@ import { Button } from "@/components/Button"
 // Featured keynote speakers data
 const keynoteSpeakers = [
   {
-    id: "larry-schlesinger",
-    name: "Dr. Larry S. Schlesinger",
-    title: "President and CEO",
-    organization: "Texas Biomedical Research Institute",
-    topic: "Defending the Nation: Emerging Tech & Biothreat Protection",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/flyers-40-keynote+(1).png",
-    bio: "Larry S. Schlesinger, MD, is a physician-scientist and professor, president, and CEO of Texas Biomedical Research Institute, a nonprofit research organization in San Antonio, Texas.\n\n Dr. Larry S. Schlesinger is an internationally recognized authority in infectious diseases with a particular interest in tuberculosis and lung biology. As a physician scientist, his studies focus on the pathogenesis of tuberculosis and other airborne infectious agents that subvert lung immune mechanisms. TB is the deadliest infectious disease in the world",
-    sessionDate: "June 16, 2025",
-    sessionTime: "11:15 AM - 12:00 PM",
-    sessionLocation: "Plenary Room (302A-C)",
-    keyPoints: [
-      "Emerging Technologies in Biodefense",
-      "Science and Technology Collaboration for Public Health and National Security",
-      "The Future of Biodefense",
-    ],
-    featured: true,
-  },
-  {
     id: "general-miller",
     name: "Lt. Gen. Robert Miller",
     title: "Associate Vice President & Director",
@@ -34,7 +16,7 @@ const keynoteSpeakers = [
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/flyers-40-keynote+(1).png",
     bio: "Lt. Gen. Robert I. Miller is the Surgeon General, Headquarters U.S. Air Force, and also serves as the Surgeon General of the U.S. Space Force. In this role, he advises the Secretary of the Air Force, the Air Force Chief of Staff, the Space Force Chief of Space Operations and the Assistant Secretary of Defense for Health Affairs on matters pertaining to the medical aspects of the air expeditionary force and the health of Airmen and Guardians. Lt. Gen. Miller has authority to commit resources worldwide for the Air Force Medical Service, to make decisions affecting the delivery of medical services, and to develop plans, programs and procedures to support worldwide medical service missions. He exercises significant influence over a $6.1 billion, 44,000-person integrated health care delivery and readiness system serving 2.6 million beneficiaries at 76 military treatment facilities worldwide.\n\n Lt. Gen. Miller entered active duty in 1985 as a Uniformed Services University of the Health Sciences medical student. He completed his pediatric residency at Wright-Patterson Air Force Base, Ohio, and his fellowship in developmental-behavioral pediatrics at Madigan Army Medical Center, Fort Lewis, Washington. He is board certified in both general pediatrics and developmental-behavioral pediatrics and is qualified in aerospace medicine. Lt. Gen. Miller has served as the chief of the medical staff at the military treatment facility and major command level, a squadron commander, group commander, a MAJCOM command surgeon, and as a combatant commander command surgeon.\n\n Prior to his current position, he was Director, Medical Operations, Office of the Surgeon General, Headquarters U.S. Air Force, Falls Church, Virginia.",
     sessionDate: "June 16, 2025",
-    sessionTime: "3:45 PM - 4:15 PM",
+    sessionTime: "9:00 AM - 9:30 AM",
     sessionLocation: "Plenary Room (302A-C)",
     keyPoints: [
       "The Future of Military Medicine",
