@@ -1,11 +1,20 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { RiCalendarLine, RiMapPinLine, RiArrowRightLine, RiTimeLine } from "@remixicon/react"
+import { motion } from "motion/react"
+import {
+  RiCalendarLine,
+  RiMapPinLine,
+  RiArrowRightLine,
+  RiTimeLine,
+  RiFileTextLine,
+  RiVideoLine,
+  RiExternalLinkLine,
+} from "@remixicon/react"
 import { Button } from "@/components/Button"
 import Image from "next/image"
+import { VisuallyHidden } from "@/components/ui/visually-hidden"
 
-// Add a type definition for the symposium object at the top of the file, after the imports
+// Update the Symposium interface to include slideDeckUrl and recordingUrl
 interface Speaker {
   name: string
   title: string
@@ -20,15 +29,18 @@ interface Symposium {
   registerLink: string
   image?: string
   completed?: boolean
+  slideDeckUrl?: string
+  recordingUrl?: string
 }
 
+// Update the fadeInUp animation to be smoother
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 },
+  transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
 }
 
-// Update the symposiums array to use the new type
+// Update the symposiums array to include slideDeckUrl and recordingUrl for archived events
 const symposiums: Symposium[] = [
   {
     title: "Pathways to Innovation: Navigating Medical IP with the Federal Government",
@@ -41,6 +53,8 @@ const symposiums: Symposium[] = [
       "https://www.eventbrite.com/e/pathways-to-innovation-navigating-medical-ip-with-the-federal-government-tickets-1237932362019",
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+28.png",
     completed: true,
+    slideDeckUrl: "#",
+    recordingUrl: "#",
   },
   {
     title: "Pathways to Commercialization: Leveraging Federal & Private Sector Funding",
@@ -78,22 +92,29 @@ const symposiums: Symposium[] = [
     ],
     registerLink: "https://www.eventbrite.com/e/sneak-preview-aim-2025-sme-encounter-sessions-tickets-1234940392959",
     completed: true,
+    slideDeckUrl: "#",
   },
 ]
 
 export default function PreConferenceSymposiums() {
   const featuredSymposium = symposiums[1] // Now featuring the May event
-  // Update the upcomingSymposiums declaration to explicitly set its type
   const upcomingSymposiums: Symposium[] = []
-
   const archivedSymposiums = symposiums.filter((s) => s.completed)
 
   return (
-    <main className="min-h-screen bg-black text-white pt-16 sm:pt-20 mt-16 md:mt-10" id="main-content">
+    <main
+      className="min-h-screen bg-black text-white pt-16 sm:pt-20 mt-16 md:mt-10"
+      id="main-content"
+      aria-labelledby="page-heading"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <VisuallyHidden>
+          <h1 id="page-heading">Pre-Conference Symposiums</h1>
+        </VisuallyHidden>
+
         {/* Featured Symposium Section */}
         <motion.div
-          className="min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 py-8 lg:py-16"
+          className="min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 py-12 lg:py-20"
           initial="initial"
           animate="animate"
           variants={{
@@ -105,22 +126,22 @@ export default function PreConferenceSymposiums() {
           }}
         >
           <motion.div className="flex-1 space-y-8" variants={fadeInUp}>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight mb-4 lg:mb-8">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight mb-6 lg:mb-10 text-white">
               {featuredSymposium.title}
-            </h1>
+            </h2>
 
-            <div className="space-y-4 text-gray-400">
+            <div className="space-y-4 text-gray-300">
               <div className="flex items-center">
-                <RiCalendarLine className="mr-2" aria-hidden="true" />
+                <RiCalendarLine className="mr-3 h-5 w-5 text-[#548cac]" aria-hidden="true" />
                 <span>{featuredSymposium.date}</span>
               </div>
               <div className="flex items-center">
-                <RiMapPinLine className="mr-2" aria-hidden="true" />
+                <RiMapPinLine className="mr-3 h-5 w-5 text-[#548cac]" aria-hidden="true" />
                 <span>{featuredSymposium.location}</span>
               </div>
             </div>
 
-            <p className="text-gray-400 text-base lg:text-lg mb-8">{featuredSymposium.description}</p>
+            <p className="text-gray-300 text-base lg:text-lg leading-relaxed mb-8">{featuredSymposium.description}</p>
 
             <Button
               href={featuredSymposium.registerLink}
@@ -128,6 +149,7 @@ export default function PreConferenceSymposiums() {
               aria-label={`Register for ${featuredSymposium.title}`}
               target="_blank"
               rel="noopener noreferrer"
+              className="text-base py-3 px-6 focus:ring-offset-black"
             >
               RSVP
               <RiArrowRightLine
@@ -137,7 +159,10 @@ export default function PreConferenceSymposiums() {
             </Button>
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="flex-1 bg-zinc-900 rounded-xl p-1 md:p-2 w-full max-w-xl">
+          <motion.div
+            variants={fadeInUp}
+            className="flex-1 bg-zinc-900 rounded-xl p-1 md:p-2 w-full max-w-xl shadow-lg"
+          >
             <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-zinc-800">
               <Image
                 src={featuredSymposium.image || "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+28.png"}
@@ -153,38 +178,40 @@ export default function PreConferenceSymposiums() {
 
         {/* Upcoming Symposiums Section */}
         {upcomingSymposiums.length > 0 && (
-          <motion.div className="mt-16 lg:mt-20 space-y-12" variants={fadeInUp}>
-            <h2 className="text-2xl lg:text-3xl font-light mb-8">Upcoming Symposiums</h2>
+          <motion.section className="mt-20 lg:mt-24 space-y-12" variants={fadeInUp} aria-labelledby="upcoming-heading">
+            <h2 id="upcoming-heading" className="text-2xl lg:text-3xl font-light mb-10 text-white">
+              Upcoming Symposiums
+            </h2>
             {upcomingSymposiums.map((symposium, index) => (
               <motion.article
                 key={index}
-                className="border-t border-zinc-800 pt-8 group"
+                className="border-t border-zinc-800 pt-10 group"
                 variants={fadeInUp}
                 custom={index}
                 transition={{ delay: index * 0.1 }}
               >
-                <div className="flex flex-col md:flex-row justify-between gap-6">
-                  <div className="space-y-4">
-                    <h3 className="text-xl lg:text-2xl font-light group-hover:text-gray-300 transition-colors">
+                <div className="flex flex-col md:flex-row justify-between gap-8">
+                  <div className="space-y-5">
+                    <h3 className="text-xl lg:text-2xl font-light group-hover:text-gray-200 transition-colors text-white">
                       {symposium.title}
                     </h3>
-                    <div className="space-y-2 text-gray-400">
+                    <div className="space-y-3 text-gray-300">
                       <div className="flex items-center">
-                        <RiCalendarLine className="mr-2" aria-hidden="true" />
+                        <RiCalendarLine className="mr-3 h-5 w-5 text-[#548cac]" aria-hidden="true" />
                         <span>{symposium.date}</span>
                       </div>
                       <div className="flex items-center">
-                        <RiMapPinLine className="mr-2" aria-hidden="true" />
+                        <RiMapPinLine className="mr-3 h-5 w-5 text-[#548cac]" aria-hidden="true" />
                         <span>{symposium.location}</span>
                       </div>
                     </div>
-                    <p className="text-gray-400 max-w-prose">{symposium.description}</p>
+                    <p className="text-gray-300 max-w-prose leading-relaxed">{symposium.description}</p>
                   </div>
-                  <div className="flex-shrink-0">
+                  <div className="flex-shrink-0 self-start">
                     <Button
                       href={symposium.registerLink}
                       variant="secondary"
-                      className="whitespace-nowrap group/button"
+                      className="whitespace-nowrap group/button text-base py-3 px-6 focus:ring-offset-black"
                       aria-label={`Register for ${symposium.title}`}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -199,66 +226,105 @@ export default function PreConferenceSymposiums() {
                 </div>
               </motion.article>
             ))}
-          </motion.div>
+          </motion.section>
         )}
 
         {/* Archived Symposiums Section */}
         {archivedSymposiums.length > 0 && (
-          <motion.div className="mt-16 lg:mt-20 space-y-12 pb-16" variants={fadeInUp}>
-            <h2 className="text-2xl lg:text-3xl font-light mb-8">Archived Symposiums</h2>
+          <motion.section
+            className="mt-20 lg:mt-24 space-y-12 pb-20"
+            variants={fadeInUp}
+            aria-labelledby="archived-heading"
+          >
+            <h2 id="archived-heading" className="text-2xl lg:text-3xl font-light mb-10 text-white">
+              Archived Symposiums
+            </h2>
             {archivedSymposiums.map((symposium, index) => (
               <motion.article
                 key={index}
-                className="border-t border-zinc-800 pt-8 group opacity-80 hover:opacity-100 transition-opacity"
+                className="border-t border-zinc-800 pt-10 group hover:opacity-100 transition-opacity"
                 variants={fadeInUp}
                 custom={index}
                 transition={{ delay: index * 0.1 }}
               >
-                <div className="flex flex-col md:flex-row justify-between gap-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center">
-                      <h3 className="text-xl lg:text-2xl font-light group-hover:text-gray-300 transition-colors">
+                <div className="flex flex-col md:flex-row justify-between gap-8">
+                  <div className="space-y-5">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <h3 className="text-xl lg:text-2xl font-light group-hover:text-gray-200 transition-colors text-white">
                         {symposium.title}
                       </h3>
-                      <span className="ml-3 px-2 py-1 text-xs bg-zinc-800 text-zinc-400 rounded-full">Completed</span>
+                      <span className="px-3 py-1 text-xs font-medium bg-zinc-800 text-zinc-300 rounded-full">
+                        Completed
+                      </span>
                     </div>
-                    <div className="space-y-2 text-gray-400">
+                    <div className="space-y-3 text-gray-300">
                       <div className="flex items-center">
-                        <RiCalendarLine className="mr-2" aria-hidden="true" />
+                        <RiCalendarLine className="mr-3 h-5 w-5 text-[#548cac]" aria-hidden="true" />
                         <span>{symposium.date}</span>
                       </div>
                       <div className="flex items-center">
-                        <RiMapPinLine className="mr-2" aria-hidden="true" />
+                        <RiMapPinLine className="mr-3 h-5 w-5 text-[#548cac]" aria-hidden="true" />
                         <span>{symposium.location}</span>
                       </div>
                     </div>
-                    <p className="text-gray-400 max-w-prose">{symposium.description}</p>
+                    <p className="text-gray-300 max-w-prose leading-relaxed">{symposium.description}</p>
 
                     {symposium.speakers && symposium.speakers.length > 0 && (
-                      <div className="mt-6">
-                        <h4 className="text-sm font-medium text-gray-300 mb-3">Featured Speakers</h4>
-                        <ul className="space-y-2">
+                      <div className="mt-8">
+                        <h4 className="text-sm font-medium text-white mb-4">Featured Speakers</h4>
+                        <ul className="space-y-3">
                           {symposium.speakers.map((speaker, idx) => (
-                            <li key={idx} className="text-gray-400">
-                              <span className="font-medium text-gray-300">{speaker.name}</span>
-                              <span className="block text-sm">{speaker.title}</span>
+                            <li key={idx} className="text-gray-300">
+                              <span className="font-medium text-white">{speaker.name}</span>
+                              <span className="block text-sm mt-1">{speaker.title}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
                     )}
+
+                    {/* Add CTA buttons for slide deck and recording if available */}
+                    {(symposium.slideDeckUrl || symposium.recordingUrl) && (
+                      <div className="mt-8 flex flex-wrap gap-4">
+                        {symposium.slideDeckUrl && (
+                          <a
+                            href={symposium.slideDeckUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black"
+                            aria-label={`View slide deck for ${symposium.title}`}
+                          >
+                            <RiFileTextLine className="h-5 w-5 mr-2.5" aria-hidden="true" />
+                            <span>View Slide Deck</span>
+                            <RiExternalLinkLine className="h-4 w-4 ml-2 opacity-70" aria-hidden="true" />
+                          </a>
+                        )}
+                        {symposium.recordingUrl && (
+                          <a
+                            href={symposium.recordingUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black"
+                            aria-label={`Watch recording of ${symposium.title}`}
+                          >
+                            <RiVideoLine className="h-5 w-5 mr-2.5" aria-hidden="true" />
+                            <span>Watch Recording</span>
+                            <RiExternalLinkLine className="h-4 w-4 ml-2 opacity-70" aria-hidden="true" />
+                          </a>
+                        )}
+                      </div>
+                    )}
                   </div>
-                  {/* Fix the disabled button issue by changing how we render the button for archived events */}
-                  <div className="flex-shrink-0">
-                    <span className="inline-flex items-center px-4 py-2 rounded-md bg-zinc-800 text-zinc-400 cursor-not-allowed">
+                  <div className="flex-shrink-0 self-start">
+                    <span className="inline-flex items-center px-5 py-2.5 rounded-md bg-zinc-800 text-zinc-300 cursor-not-allowed">
                       Event Completed
-                      <RiTimeLine className="ml-2" aria-hidden="true" />
+                      <RiTimeLine className="ml-2.5 h-5 w-5" aria-hidden="true" />
                     </span>
                   </div>
                 </div>
               </motion.article>
             ))}
-          </motion.div>
+          </motion.section>
         )}
       </div>
     </main>
