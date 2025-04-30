@@ -75,7 +75,7 @@ export default function Testimonial() {
           >
             <div className="relative w-full max-w-md">
               <Image
-                src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/The+METIS+Foundation.png"
+                src="https://ampd-asset.s3.us-east-2.amazonaws.com/inverted+logo.png"
                 alt="The Metis Foundation - AIM Health R&D Summit Sponsor"
                 width={600}
                 height={400}
