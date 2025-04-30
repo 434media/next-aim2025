@@ -121,6 +121,16 @@ const sponsors: Sponsor[] = [
     industry: "Biotechnology",
     isExhibitor: true,
   },
+  {
+    id: "sbiradvisors",
+    name: "SBIR Advisors",
+    tier: "catalyst",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/sbiradvisors.png",
+    description: "Helping companies navigate SBIR/STTR funding opportunities",
+    website: "https://www.sbiradvisors.com/",
+    industry: "Funding & Grants",
+    isExhibitor: true,
+  },
 
   // Partner Sponsors
   {
