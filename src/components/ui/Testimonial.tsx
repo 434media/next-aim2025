@@ -7,7 +7,7 @@ import Image from "next/image"
 import { motion, AnimatePresence } from "motion/react"
 import { Button } from "@/components/Button"
 import { useMediaQuery } from "@/hooks/useMediaQuery"
-import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react"
+import { RiArrowLeftSLine, RiArrowRightSLine, RiExternalLinkLine } from "@remixicon/react"
 
 const particleColors = ["#548cac", "#0891b2", "#0e7490", "#ffffff"]
 
@@ -19,6 +19,10 @@ type Testimonial = {
   title: string
   image: string
   organization?: string
+  logo: string
+  logoAlt: string
+  websiteUrl: string
+  sponsorName: string
 }
 
 // Define our testimonials
@@ -30,6 +34,10 @@ const testimonials: Testimonial[] = [
     author: "Anders Carlsson, PhD",
     title: "COO, The Metis Foundation",
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/metis-profile.jpeg",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/inverted+logo.png",
+    logoAlt: "The Metis Foundation Logo",
+    websiteUrl: "https://metisfoundationusa.org/",
+    sponsorName: "The Metis Foundation",
   },
   {
     quote:
@@ -38,10 +46,14 @@ const testimonials: Testimonial[] = [
     author: "Dr. Sean Biggerstaff",
     title: "Acting Deputy Assistant Director, Research and Engineering, Defense Health Agency",
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/biggerstaff.jpeg",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/dha_logo_white.png",
+    logoAlt: "Defense Health Agency Logo",
+    websiteUrl: "https://dha.mil/",
+    sponsorName: "The Defense Health Agency",
   },
 ]
 
-export default function Testimonial() {
+export default function SponsorSpotlight() {
   const isMobile = useMediaQuery("(max-width: 767px)")
   const [particles, setParticles] = useState<React.ReactNode[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -58,6 +70,15 @@ export default function Testimonial() {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length)
     setKey((prev) => prev + 1) // Change particle pattern on quote change
   }, [])
+
+  // Auto-rotate testimonials (always enabled)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextTestimonial()
+    }, 10000) // Change every 10 seconds
+
+    return () => clearInterval(interval)
+  }, [nextTestimonial])
 
   // Generate particles
   useEffect(() => {
@@ -119,35 +140,45 @@ export default function Testimonial() {
         </motion.div>
 
         <div className="flex flex-col md:flex-row items-center justify-between w-full gap-6 md:gap-12">
-          {/* Logo Section */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="w-full md:w-1/2 flex flex-col items-center"
-          >
-            <div className="relative w-full max-w-md">
-              <Image
-                src="https://ampd-asset.s3.us-east-2.amazonaws.com/inverted+logo.png"
-                alt="The Metis Foundation - AIM Health R&D Summit Sponsor"
-                width={600}
-                height={400}
-                className="rounded-lg shadow-lg"
-                priority
-              />
-            </div>
-
-            {/* Learn More Button - Now under the logo on all screen sizes */}
-            <div className="mt-6 w-full flex justify-center">
-              <Button
-                href="https://metisfoundationusa.org/"
-                variant="primary"
-                className="bg-[#0891b2] hover:bg-[#0e7490] text-white w-full md:w-auto"
+          {/* Logo Section with AnimatePresence for smooth transitions */}
+          <div className="w-full md:w-1/2 flex flex-col items-center relative min-h-[200px] sm:min-h-[250px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`logo-${currentIndex}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className="absolute inset-0 flex flex-col items-center"
               >
-                Learn More About Our Sponsors
-              </Button>
-            </div>
-          </motion.div>
+                <div className="relative w-full max-w-md flex items-center justify-center">
+                  <Image
+                    src={currentTestimonial.logo || "/placeholder.svg"}
+                    alt={currentTestimonial.logoAlt}
+                    width={400}
+                    height={200}
+                    className="object-contain max-h-[150px]"
+                    priority
+                  />
+                </div>
+
+                {/* Updated Learn More Button with icon */}
+                <div className="mt-6 w-full flex justify-center">
+                  <Button
+                    href={currentTestimonial.websiteUrl}
+                    variant="primary"
+                    className="bg-[#0891b2] hover:bg-[#0e7490] text-white group transition-all duration-300 flex items-center gap-2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={`Visit ${currentTestimonial.sponsorName} website`}
+                  >
+                    <span>Visit {currentTestimonial.sponsorName}</span>{' '}
+                    <RiExternalLinkLine className="inline-flex w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Button>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
           {/* Quote Section */}
           <div className="w-full md:w-1/2 relative mt-8 md:mt-0">
