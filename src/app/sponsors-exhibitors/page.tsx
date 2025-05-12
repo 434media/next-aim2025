@@ -131,6 +131,17 @@ const sponsors: Sponsor[] = [
     industry: "Funding & Grants",
     isExhibitor: true,
   },
+  {
+    id: "audicin",
+    name: "Audicin",
+    tier: "catalyst",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Icon_Audicin-04.png",
+    description:
+      "Audicin is a technology company specializing in advanced audio solutions for military and healthcare applications. They focus on enhancing communication and situational awareness through innovative audio technologies.",
+    website: "https://www.audicin.com/",
+    industry: "Audio Technology",
+    isExhibitor: true,
+  },
 
   // Partner Sponsors
   {

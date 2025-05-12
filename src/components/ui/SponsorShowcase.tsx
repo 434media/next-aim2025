@@ -60,6 +60,12 @@ const platinumSponsors = [
     website: "https://www.samedfoundation.org/",
     description: "Supporting medical research and education in San Antonio",
   },
+  {
+    name: "Audicin",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Icon_Audicin-04.png",
+    website: "https://audicin.com/",
+    description: "Audicin, the brainwave-activating app for nervous system regulation",
+  },
 ]
 
 type Sponsor = (typeof platinumSponsors)[0]
