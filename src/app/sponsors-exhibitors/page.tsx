@@ -177,6 +177,28 @@ const sponsors: Sponsor[] = [
     industry: "Innovation & Incubation",
     isExhibitor: true,
   },
+  {
+    id: "utsa",
+    name: "The University of Texas at San Antonio",
+    tier: "partner",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/utsa-wordmark.svg",
+    description:
+      "The University of Texas at San Antonio (UTSA) is a leading research university dedicated to advancing knowledge and innovation in various fields, including health and engineering.",
+    website: "https://www.utsa.edu/",
+    industry: "Higher Education & Research",
+    isExhibitor: true,
+  },
+  {
+    id: "uthscsa",
+    name: "UT Health San Antonio",
+    tier: "partner",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/UTHSA_logo.svg",
+    description:
+      "UT Health San Antonio is a premier academic health center dedicated to improving health through education, research, and patient care. They focus on advancing medical knowledge and healthcare delivery.",
+    website: "https://www.uthscsa.edu/",
+    industry: "Healthcare & Research",
+    isExhibitor: false,
+  },
 
   // Collaborator Sponsor
   {
