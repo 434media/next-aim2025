@@ -66,6 +66,12 @@ const platinumSponsors = [
     website: "https://audicin.com/",
     description: "Audicin, the brainwave-activating app for nervous system regulation",
   },
+  {
+    name: "Documation",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/DOCUmation+logo.png",
+    website: "https://www.mation.com/",
+    description: "Simplify How Your Team Connects and Collaborates",
+  }
 ]
 
 type Sponsor = (typeof platinumSponsors)[0]

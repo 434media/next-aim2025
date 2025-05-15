@@ -142,6 +142,17 @@ const sponsors: Sponsor[] = [
     industry: "Audio Technology",
     isExhibitor: true,
   },
+  {
+    id: "documation",
+    name: "Documation",
+    tier: "catalyst",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/DOCUmation+logo.png",
+    description:
+      "From HQ to home office, stay connected with our trusted Unified Communications (UCaaS) solutions, backed by VoIP technology. Bring your phone systems, team chat, video meetings, and transcribed voicemails together in one seamless platform. Whether you're scaling up or supporting remote work, you deserve communication tools you can count on.",
+    website: "https://www.mation.com/",
+    industry: "Document Management",
+    isExhibitor: true,
+  },
 
   // Partner Sponsors
   {
