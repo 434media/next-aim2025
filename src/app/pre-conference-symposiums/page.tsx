@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "motion/react"
+import { motion } from "framer-motion"
 import {
   RiCalendarLine,
   RiMapPinLine,
@@ -20,7 +20,7 @@ interface Speaker {
   title: string
 }
 
-// Update the Symposium interface to include transcriptUrl
+// Update the Symposium interface to remove transcriptUrl
 interface Symposium {
   title: string
   date: string
@@ -32,8 +32,7 @@ interface Symposium {
   completed?: boolean
   slideDeckUrl?: string
   recordingUrl?: string
-  transcriptUrl?: string // Add this new property
-  videoDuration?: string // Add this to display video duration
+  videoDuration?: string // Keep this property
 }
 
 // Update the fadeInUp animation to be smoother
@@ -43,7 +42,7 @@ const fadeInUp = {
   transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
 }
 
-// Update the symposiums array to ensure the transcript URL is properly formatted
+// Update the symposiums array to remove transcriptUrl
 const symposiums: Symposium[] = [
   {
     title: "Pathways to Innovation: Navigating Medical IP with the Federal Government",
@@ -57,9 +56,8 @@ const symposiums: Symposium[] = [
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+28.png",
     completed: true,
     slideDeckUrl: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM_PreWebinar+%232+Slide+Deck.pdf",
-    recordingUrl: "https://ampd-asset.s3.us-east-2.amazonaws.com/Pre-AIM+webinar+Link-20250421_115509-Meeting+Recording.mp4",
-    // Point to the sample transcript file we created
-    transcriptUrl: "/transcript/pre-aim-transcript.vtt",
+    recordingUrl:
+      "https://ampd-asset.s3.us-east-2.amazonaws.com/Pre-AIM+webinar+Link-20250421_115509-Meeting+Recording.mp4",
     videoDuration: "64 minutes",
   },
   {
@@ -290,7 +288,7 @@ export default function PreConferenceSymposiums() {
                     )}
 
                     {/* Add CTA buttons for slide deck, recording, and transcript if available */}
-                    {(symposium.slideDeckUrl || symposium.recordingUrl || symposium.transcriptUrl) && (
+                    {(symposium.slideDeckUrl || symposium.recordingUrl) && (
                       <div className="mt-8 flex flex-wrap gap-4">
                         {symposium.slideDeckUrl && (
                           <a
@@ -307,7 +305,7 @@ export default function PreConferenceSymposiums() {
                         )}
                         {symposium.recordingUrl && (
                           <a
-                            href={`/video-player?url=${encodeURIComponent(symposium.recordingUrl)}&title=${encodeURIComponent(symposium.title)}${symposium.transcriptUrl ? `&transcript=${encodeURIComponent(symposium.transcriptUrl)}` : ""}`}
+                            href={`/video-player?url=${encodeURIComponent(symposium.recordingUrl)}&title=${encodeURIComponent(symposium.title)}`}
                             className="inline-flex items-center px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black"
                             aria-label={`Watch recording of ${symposium.title}`}
                           >
@@ -318,18 +316,6 @@ export default function PreConferenceSymposiums() {
                                 {symposium.videoDuration}
                               </span>
                             )}
-                          </a>
-                        )}
-                        {symposium.transcriptUrl && (
-                          <a
-                            href={symposium.transcriptUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black"
-                            aria-label={`View transcript for ${symposium.title}`}
-                          >
-                            <span>View Transcript</span>
-                            <RiExternalLinkLine className="h-4 w-4 ml-2 opacity-70" aria-hidden="true" />
                           </a>
                         )}
                       </div>

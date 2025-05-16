@@ -16,13 +16,13 @@ const keynoteSpeakers = [
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/flyers-40-keynote+(1).png",
     bio: "Lt. Gen. Robert I. Miller is the Surgeon General, Headquarters U.S. Air Force, and also serves as the Surgeon General of the U.S. Space Force. In this role, he advises the Secretary of the Air Force, the Air Force Chief of Staff, the Space Force Chief of Space Operations and the Assistant Secretary of Defense for Health Affairs on matters pertaining to the medical aspects of the air expeditionary force and the health of Airmen and Guardians. Lt. Gen. Miller has authority to commit resources worldwide for the Air Force Medical Service, to make decisions affecting the delivery of medical services, and to develop plans, programs and procedures to support worldwide medical service missions. He exercises significant influence over a $6.1 billion, 44,000-person integrated health care delivery and readiness system serving 2.6 million beneficiaries at 76 military treatment facilities worldwide.\n\n Lt. Gen. Miller entered active duty in 1985 as a Uniformed Services University of the Health Sciences medical student. He completed his pediatric residency at Wright-Patterson Air Force Base, Ohio, and his fellowship in developmental-behavioral pediatrics at Madigan Army Medical Center, Fort Lewis, Washington. He is board certified in both general pediatrics and developmental-behavioral pediatrics and is qualified in aerospace medicine. Lt. Gen. Miller has served as the chief of the medical staff at the military treatment facility and major command level, a squadron commander, group commander, a MAJCOM command surgeon, and as a combatant commander command surgeon.\n\n Prior to his current position, he was Director, Medical Operations, Office of the Surgeon General, Headquarters U.S. Air Force, Falls Church, Virginia.",
     sessionDate: "June 16, 2025",
-    sessionTime: "9:00 AM - 9:30 AM",
-    sessionLocation: "Plenary Room (302A-C)",
-    keyPoints: [
+    sessionTime: "8:30 AM - 9:00 AM",
+    sessionLocation: "Plenary Room (303)",
+/*     keyPoints: [
       "The Future of Military Medicine",
       "Innovations in Military Healthcare",
       "Advancements in Medical Research and Technology",
-    ],
+    ], */
     featured: true,
   },
 ]
@@ -115,7 +115,7 @@ export default async function KeynoteSpeakerPage({ params }: { params: Promise<{
               ))}
             </div>
 
-            <div className="mt-12">
+{/*             <div className="mt-12">
               <h2 className="text-2xl md:text-3xl font-bold text-[#101310] mb-6">Keynote Presentation</h2>
               <h3 className="text-xl md:text-2xl font-bold text-[#548cac] mb-4">{speaker.topic}</h3>
 
@@ -130,7 +130,7 @@ export default async function KeynoteSpeakerPage({ params }: { params: Promise<{
                   </li>
                 ))}
               </ul>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Column - Session Details */}

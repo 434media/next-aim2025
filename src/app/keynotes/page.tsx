@@ -104,7 +104,7 @@ export default function KeynotesPage() {
                   {/* Content - now takes more space horizontally on larger screens */}
                   <div className="relative md:w-3/5 lg:w-2/3 p-6 md:p-8 flex flex-col justify-center">
                     <div className="mb-4 flex items-center">
-                      <span className="inline-flex items-center rounded-full bg-[#548cac]/20 px-3 py-1 text-xs font-medium text-[#548cac] backdrop-blur-sm">
+                      <span className="inline-flex items-center rounded-full bg-[#548cac]/90 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
                         Keynote Speaker
                       </span>
                     </div>
