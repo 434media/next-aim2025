@@ -298,7 +298,7 @@ export function HeroVideo() {
                 </Button>
                 <Button
                   variant="secondary"
-                  href="https://drive.google.com/file/d/1-RqS13xFyYj5ivO5bmyYfAAWfgW5apBf/view?ts=67b8b8c3"
+                  href="https://support.velocitytx.org/campaign/642575/donate"
                   className={`text-base sm:text-lg ${isMobile ? "py-3 px-6" : "py-3 px-6 md:py-4 md:px-8"} w-full sm:w-auto hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-military-green`}
                   target="_blank"
                   rel="noopener noreferrer"
