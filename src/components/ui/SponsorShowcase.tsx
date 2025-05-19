@@ -64,7 +64,7 @@ const platinumSponsors = [
     name: "Audicin",
     src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Icon_Audicin-04.png",
     website: "https://audicin.com/",
-    description: "Audicin, the brainwave-activating app for nervous system regulation",
+    description: "Audicin is a neurowellness technology company delivering audio solutions to enhance focus, recovery, and sleep for active duty service members and veterans.",
   },
   {
     name: "Documation",

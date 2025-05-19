@@ -137,7 +137,7 @@ const sponsors: Sponsor[] = [
     tier: "catalyst",
     logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Icon_Audicin-04.png",
     description:
-      "Audicin is a technology company specializing in advanced audio solutions for military and healthcare applications. They focus on enhancing communication and situational awareness through innovative audio technologies.",
+      "Audicin is a neurowellness technology company delivering audio solutions to enhance focus, recovery, and sleep for active duty service members and veterans. Engineered for operational demands and post-service care for PTSD, Audicin supports cognitive readiness, stress regulation, and long-term resilience through mission-tested sound therapy.",
     website: "https://www.audicin.com/",
     industry: "Audio Technology",
     isExhibitor: true,
