@@ -71,7 +71,13 @@ const platinumSponsors = [
     src: "https://ampd-asset.s3.us-east-2.amazonaws.com/DOCUmation+logo.png",
     website: "https://www.mation.com/",
     description: "Simplify How Your Team Connects and Collaborates",
-  }
+  },
+  { 
+    name: "University Health",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/logo.png",
+    website: "https://www.universityhealth.com/",
+    description: "University Health is a nationally recognized academic medical center and the primary teaching hospital for UT Health San Antonio.",
+  },
 ]
 
 type Sponsor = (typeof platinumSponsors)[0]
