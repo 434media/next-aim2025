@@ -75,6 +75,17 @@ const sponsors: Sponsor[] = [
     industry: "Biomedical Research",
     isExhibitor: true,
   },
+  {
+    id: "universityhealth",
+    name: "University Health",
+    tier: "innovator",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/logo.png",
+    description:
+      "University Health is a leading academic medical center in San Antonio, Texas, providing comprehensive healthcare services and advancing medical education and research.",
+    website: "https://www.universityhealth.com/",
+    industry: "Healthcare & Research",
+    isExhibitor: true,  
+  },
 
   // Catalyst Sponsors
   {
