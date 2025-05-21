@@ -5,11 +5,12 @@ import {
   RiCalendarLine,
   RiMapPinLine,
   RiArrowRightLine,
-  RiTimeLine,
   RiFileTextLine,
   RiVideoLine,
   RiExternalLinkLine,
   RiArrowRightUpLine,
+  RiYoutubeLine,
+  RiArrowRightSLine,
 } from "@remixicon/react"
 import { Button } from "@/components/Button"
 import { FadeContainer } from "@/components/Fade"
@@ -254,14 +255,13 @@ export default function PreConferenceSymposiums() {
 
         {/* Archived Symposiums Section */}
         {archivedSymposiums.length > 0 && (
-          <motion.section
-            className="mt-20 lg:mt-24 space-y-12 pb-20"
-            variants={fadeInUp}
-            aria-labelledby="archived-heading"
-          >
-            <h2 id="archived-heading" className="text-2xl lg:text-3xl font-light mb-10 text-white">
-              Archived Symposiums
-            </h2>
+          <motion.section className="mt-20 space-y-12 pb-20" variants={fadeInUp} aria-labelledby="archived-heading">
+            <div className="flex items-center gap-3 mb-10">
+              <div className="h-8 w-1 bg-[#366A79] rounded-full"></div>
+              <h2 id="archived-heading" className="text-2xl lg:text-3xl font-light text-white">
+                Archived Symposiums
+              </h2>
+            </div>
             {archivedSymposiums.map((symposium, index) => (
               <motion.article
                 key={index}
@@ -359,17 +359,58 @@ export default function PreConferenceSymposiums() {
                       )}
                     </div>
                   </div>
-                  <div className="flex-shrink-0 self-start">
-                    <span className="inline-flex items-center px-5 py-2.5 rounded-md bg-zinc-800 text-zinc-300 cursor-not-allowed">
-                      Event Completed
-                      <RiTimeLine className="ml-2.5 h-5 w-5" aria-hidden="true" />
-                    </span>
-                  </div>
                 </div>
               </motion.article>
             ))}
           </motion.section>
         )}
+
+        {/* NEW SECTION: AIM/MMID Preparatory Webinar Sessions */}
+        <ParticleBackground
+          className="w-full py-16 md:py-24"
+          gradientFrom="#1F0A1A"
+          gradientVia="#7A1212"
+          gradientTo="#3A0303"
+          particleCount={35}
+        >
+          <motion.section
+            className="relative"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            aria-labelledby="webinar-heading"
+          >
+            {/* Section header with YouTube branding */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 relative z-10">
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-8 w-1 bg-[#FF0000] rounded-full"></div>
+                  <h2 id="webinar-heading" className="text-2xl lg:text-3xl font-light text-white">
+                    MMID Preparatory Webinar Sessions
+                  </h2>
+                </div>
+                <p className="text-gray-300 max-w-2xl">
+                  Access our complete library of preparatory webinar sessions designed to help you maximize your
+                  experience at the AIM Summit. These sessions cover essential topics in military medical innovation and
+                  research.
+                </p>
+              </div>
+
+              {/* YouTube playlist button */}
+              <a
+                href="https://youtube.com/playlist?list=PLu4stFKpxLBXb7TY7luPCEAHBg1CZQru8&si=UnnuZ2Q2E08QSBVP"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 md:mt-0 group inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-[#FF0000] hover:bg-[#CC0000] rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF0000] focus:ring-offset-black"
+                aria-label="View full YouTube playlist"
+              >
+                <RiYoutubeLine className="mr-2 h-5 w-5" aria-hidden="true" />
+                <span>View Full Playlist</span>
+                <RiArrowRightSLine className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+            </div>
+          </motion.section>
+        </ParticleBackground>
       </div>
     </main>
   )
