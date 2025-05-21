@@ -9,10 +9,13 @@ import {
   RiFileTextLine,
   RiVideoLine,
   RiExternalLinkLine,
+  RiArrowRightUpLine,
 } from "@remixicon/react"
 import { Button } from "@/components/Button"
+import { FadeContainer } from "@/components/Fade"
+import ParticleBackground from "@/components/ParticleBackground"
 import Image from "next/image"
-import { VisuallyHidden } from "@/components/ui/visually-hidden"
+import { ComingSoonVideo } from "../../components/ui/ComingSoonVideo"
 
 // Define the Speaker interface
 interface Speaker {
@@ -20,7 +23,7 @@ interface Speaker {
   title: string
 }
 
-// Update the Symposium interface to remove transcriptUrl
+// Update the Symposium interface
 interface Symposium {
   title: string
   date: string
@@ -32,7 +35,9 @@ interface Symposium {
   completed?: boolean
   slideDeckUrl?: string
   recordingUrl?: string
-  videoDuration?: string // Keep this property
+  videoDuration?: string
+  videoComingSoon?: boolean
+  videoUrl?: string
 }
 
 // Update the fadeInUp animation to be smoother
@@ -42,8 +47,23 @@ const fadeInUp = {
   transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
 }
 
-// Update the symposiums array to remove transcriptUrl
+// Update the symposiums array - move Pathways to Commercialization to archived
 const symposiums: Symposium[] = [
+  {
+    title: "Pathways to Commercialization: Leveraging Federal & Private Sector Funding",
+    date: "May 19, 2025",
+    location: "Hosted at VelocityTX with streaming via Teams",
+    description:
+      "Bringing a medical product to market is a long, costly, and high-risk journey. Many startups and small businesses rely on non-dilutive funding—such as grants and SBA SBIR/STTR awards—to advance their technology without sacrificing equity.",
+    speakers: [],
+    registerLink:
+      "https://www.eventbrite.com/e/pathways-to-commercialization-leveraging-federal-private-sector-funding-tickets-1238030736259",
+    completed: true,
+    slideDeckUrl: "https://ampd-asset.s3.us-east-2.amazonaws.com/19MAY2025_PCS3_distro.pdf",
+    videoComingSoon: true,
+    videoUrl: "/video-player?title=Pathways%20to%20Commercialization&comingSoon=true",
+    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+Commercialization.png",
+  },
   {
     title: "Pathways to Innovation: Navigating Medical IP with the Federal Government",
     date: "April 21, 2025",
@@ -59,16 +79,6 @@ const symposiums: Symposium[] = [
     recordingUrl:
       "https://ampd-asset.s3.us-east-2.amazonaws.com/Pre-AIM+webinar+Link-20250421_115509-Meeting+Recording.mp4",
     videoDuration: "64 minutes",
-  },
-  {
-    title: "Pathways to Commercialization: Leveraging Federal & Private Sector Funding",
-    date: "May 19, 2025",
-    location: "Hosted at VelocityTX with streaming via Teams",
-    description:
-      "Bringing a medical product to market is a long, costly, and high-risk journey. Many startups and small businesses rely on non-dilutive funding—such as grants and SBA SBIR/STTR awards—to advance their technology without sacrificing equity.",
-    speakers: [],
-    registerLink:
-      "https://www.eventbrite.com/e/pathways-to-commercialization-leveraging-federal-private-sector-funding-tickets-1238030736259",
   },
   {
     title: "Sneak Preview: AIM 2025 SME Encounter Sessions",
@@ -101,85 +111,94 @@ const symposiums: Symposium[] = [
 ]
 
 export default function PreConferenceSymposiums() {
-  const featuredSymposium = symposiums[1] // Now featuring the May event
   const upcomingSymposiums: Symposium[] = []
   const archivedSymposiums = symposiums.filter((s) => s.completed)
 
   return (
-    <main
-      className="min-h-screen bg-black text-white pt-16 sm:pt-20 mt-16 md:mt-10"
-      id="main-content"
-      aria-labelledby="page-heading"
-    >
+    <main className="min-h-screen bg-black text-white pt-24 sm:pt-28" id="main-content" aria-labelledby="page-heading">
+      {/* Hero Section with Featured Image as the Star */}
+      <div className="relative w-full h-[90vh] min-h-[600px] overflow-hidden">
+        {/* Full-screen background image */}
+        <div className="absolute inset-0">
+          <Image
+            src="https://ampd-asset.s3.us-east-2.amazonaws.com/CWVApril3rd-12.jpg"
+            alt="AIM Health R&D Summit Pre-Conference Events"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
+        </div>
+
+        {/* ParticleBackground implementation matching keynotes/page.tsx */}
+        <div className="absolute inset-0 z-10">
+          <ParticleBackground
+            className="w-full h-full"
+            gradientFrom="#101310"
+            gradientVia="#366A79"
+            gradientTo="#4f4f2c"
+            particleCount={30}
+          />
+        </div>
+
+        {/* Content overlay */}
+        <div className="relative z-20 h-full flex flex-col justify-start mt-16">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-20 sm:pb-32">
+            <FadeContainer className="max-w-4xl">
+              <motion.h1
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              >
+                Pre-Conference Symposiums
+              </motion.h1>
+              <motion.p
+                className="mt-6 text-lg text-white/80 max-w-xl"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.8 }}
+              >
+                Our pre-conference symposiums offer a unique opportunity to engage with experts, explore collaboration
+                opportunities, and gain insights into the military healthcare ecosystem.
+              </motion.p>
+
+              <motion.div
+                className="mt-10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.5 }}
+              >
+                <a
+                  href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    window.open(
+                      "https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/",
+                      "_blank",
+                      "noopener,noreferrer",
+                    )
+                  }}
+                  className="group inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-[#548cac] rounded-md hover:bg-[#447a99] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#548cac] focus:ring-offset-black relative overflow-hidden"
+                >
+                  <span className="relative z-10">Register for AIM Summit</span>
+                  <RiArrowRightUpLine className="ml-2 relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#548cac] to-[#4f4f2c] opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-sm"></div>
+                </a>
+              </motion.div>
+            </FadeContainer>
+          </div>
+        </div>
+
+        {/* Decorative elements */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent z-10"></div>
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black to-transparent z-10"></div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <VisuallyHidden>
-          <h1 id="page-heading">Pre-Conference Symposiums</h1>
-        </VisuallyHidden>
-
-        {/* Featured Symposium Section */}
-        <motion.div
-          className="min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 py-12 lg:py-20"
-          initial="initial"
-          animate="animate"
-          variants={{
-            animate: {
-              transition: {
-                staggerChildren: 0.1,
-              },
-            },
-          }}
-        >
-          <motion.div className="flex-1 space-y-8" variants={fadeInUp}>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight mb-6 lg:mb-10 text-white">
-              {featuredSymposium.title}
-            </h2>
-
-            <div className="space-y-4 text-gray-300">
-              <div className="flex items-center">
-                <RiCalendarLine className="mr-3 h-5 w-5 text-[#548cac]" aria-hidden="true" />
-                <span>{featuredSymposium.date}</span>
-              </div>
-              <div className="flex items-center">
-                <RiMapPinLine className="mr-3 h-5 w-5 text-[#548cac]" aria-hidden="true" />
-                <span>{featuredSymposium.location}</span>
-              </div>
-            </div>
-
-            <p className="text-gray-300 text-base lg:text-lg leading-relaxed mb-8">{featuredSymposium.description}</p>
-
-            <Button
-              href={featuredSymposium.registerLink}
-              variant="secondary"
-              aria-label={`Register for ${featuredSymposium.title}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-base py-3 px-6 focus:ring-offset-black"
-            >
-              RSVP
-              <RiArrowRightLine
-                className="inline-flex ml-2 group-hover:translate-x-1 transition-transform"
-                aria-hidden="true"
-              />
-            </Button>
-          </motion.div>
-
-          <motion.div
-            variants={fadeInUp}
-            className="flex-1 bg-zinc-900 rounded-xl p-1 md:p-2 w-full max-w-xl shadow-lg"
-          >
-            <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-zinc-800">
-              <Image
-                src={featuredSymposium.image || "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+28.png"}
-                alt={`${featuredSymposium.title} preview`}
-                fill
-                className="object-cover transition-opacity duration-300"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                priority
-              />
-            </div>
-          </motion.div>
-        </motion.div>
-
         {/* Upcoming Symposiums Section */}
         {upcomingSymposiums.length > 0 && (
           <motion.section className="mt-20 lg:mt-24 space-y-12" variants={fadeInUp} aria-labelledby="upcoming-heading">
@@ -287,9 +306,10 @@ export default function PreConferenceSymposiums() {
                       </div>
                     )}
 
-                    {/* Add CTA buttons for slide deck, recording, and transcript if available */}
-                    {(symposium.slideDeckUrl || symposium.recordingUrl) && (
-                      <div className="mt-8 flex flex-wrap gap-4">
+                    {/* Media section - slide deck, recording, coming soon */}
+                    <div className="mt-8">
+                      {/* Slide deck and video buttons */}
+                      <div className="flex flex-wrap gap-4 mb-6">
                         {symposium.slideDeckUrl && (
                           <a
                             href={symposium.slideDeckUrl}
@@ -318,8 +338,26 @@ export default function PreConferenceSymposiums() {
                             )}
                           </a>
                         )}
+                        {symposium.videoComingSoon && symposium.videoUrl && (
+                          <a
+                            href={symposium.videoUrl}
+                            className="inline-flex items-center px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black"
+                            aria-label={`Watch coming soon video for ${symposium.title}`}
+                          >
+                            <RiVideoLine className="h-5 w-5 mr-2.5" aria-hidden="true" />
+                            <span>Watch Recording</span>
+                            <span className="ml-2 text-xs bg-black/30 px-2 py-0.5 rounded-full">Coming Soon</span>
+                          </a>
+                        )}
                       </div>
-                    )}
+
+                      {/* Coming Soon Video Preview - Only show inline if no videoUrl */}
+                      {symposium.videoComingSoon && !symposium.videoUrl && (
+                        <div className="mt-6 max-w-2xl">
+                          <ComingSoonVideo title={symposium.title} />
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <div className="flex-shrink-0 self-start">
                     <span className="inline-flex items-center px-5 py-2.5 rounded-md bg-zinc-800 text-zinc-300 cursor-not-allowed">

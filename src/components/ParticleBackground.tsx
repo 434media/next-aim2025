@@ -4,7 +4,7 @@ import { motion } from "motion/react"
 import { type ReactNode, useId, useMemo } from "react"
 
 interface ParticleBackgroundProps {
-  children: ReactNode
+  children?: ReactNode
   className?: string
   particleCount?: number
   gradientFrom?: string
