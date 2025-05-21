@@ -144,7 +144,7 @@ export default function PreConferenceSymposiums() {
         </div>
 
         {/* Content overlay */}
-        <div className="relative z-20 h-full flex flex-col justify-start mt-16">
+        <div className="relative z-20 h-full flex flex-col justify-end md:justify-start mt-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-20 sm:pb-32">
             <FadeContainer className="max-w-4xl">
               <motion.h1
