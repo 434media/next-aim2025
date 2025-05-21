@@ -210,6 +210,84 @@ const sponsors: Sponsor[] = [
     industry: "Healthcare & Research",
     isExhibitor: true,
   },
+  {
+    id: "dha",
+    name: "Defense Health Agency",
+    tier: "partner",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/dha_logo.png",
+    description:
+      "The Defense Health Agency (DHA) is responsible for providing high-quality healthcare to military personnel and their families. They focus on improving health outcomes through innovative research and collaboration.",
+    website: "https://health.mil/",
+    industry: "Military Healthcare",
+    isExhibitor: true,
+  },
+  {
+    id: "usaisr",
+    name: "U.S. Army Institute of Surgical Research",
+    tier: "partner",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/USAISR_LOGO_HI_RES+blank+background+black+and+white.jpg",
+    description:
+      "The U.S. Army Institute of Surgical Research (USAISR) is dedicated to advancing surgical care and trauma research for military personnel. They focus on improving outcomes through innovative research and technology.",
+    website: "https://usaisr.amedd.army.mil/",
+    industry: "Military Surgical Research",
+    isExhibitor: false,
+  },
+  {
+    id: "namru",
+    name: "Naval Medical Research Unit San Antonio",
+    tier: "partner",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/namru.png",
+    description:
+      "The Naval Medical Research Unit San Antonio (NAMRU-SA) conducts research to enhance the health and readiness of naval forces. They focus on infectious diseases, trauma, and operational medicine.",
+    website: "https://www.med.navy.mil/Naval-Medical-Research-Center/",
+    industry: "Military Medical Research",
+    isExhibitor: false,
+  },
+  {
+    id: "59th",
+    name: "59th Medical Wing",
+    tier: "partner",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/59th_Medical_Wing.png",
+    description:
+      "The 59th Medical Wing is the largest medical wing in the Air Force, providing comprehensive healthcare services and advancing medical education and research.",
+    website: "https://www.59mdw.af.mil/",
+    industry: "Military Healthcare",
+    isExhibitor: false,
+  },
+  {
+    id: "va",
+    name: "U.S. Department of Veterans Affairs",
+    tier: "partner",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Logotype-on-Light.svg",
+    description:
+      "The U.S. Department of Veterans Affairs (VA) is committed to providing high-quality healthcare and support services to veterans. They focus on improving health outcomes and enhancing the quality of life for veterans.",
+    website: "https://www.va.gov/",
+    industry: "Veterans Healthcare",
+    isExhibitor: false,
+  },
+  {
+    id: "bamc",
+    name: "Brooke Army Medical Center",
+    tier: "partner",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/bamc.png",
+    description:
+      "Brooke Army Medical Center (BAMC) is the largest military medical center in the U.S., providing comprehensive healthcare services and advancing medical research and education.",
+    website: "https://bamc.tricare.mil/",
+    industry: "Military Healthcare",
+    isExhibitor: false,
+  },
+  {
+    id: "711th-human-performance-wing",
+    name: "711th Human Performance Wing",
+    tier: "partner",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/711+(1).png",
+    description:
+      "The 711th Human Performance Wing is dedicated to enhancing the performance and readiness of military personnel through research and innovation in human factors, training, and technology.",
+    website: "https://www.afrl.af.mil/711HPW/",
+    industry: "Military Research & Development",
+    isExhibitor: false,
+  },
+  
 
   // Collaborator Sponsor
   {
