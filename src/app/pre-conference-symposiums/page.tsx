@@ -404,8 +404,8 @@ export default function PreConferenceSymposiums() {
                   <p className="text-gray-300 leading-relaxed">
                     Access our complete video library of the preparatory webinar sessions held over the last several
                     years that address various key topics such as
-                    <span className="text-white font-medium mx-1">"Keys to Collaborating with the Military"</span> to
-                    <span className="text-white font-medium mx-1">"Licensing Technologies from The Military"</span>
+                    <span className="text-white font-medium mx-1">&quot;Keys to Collaborating with the Military&quot;</span> to
+                    <span className="text-white font-medium mx-1">&quot;Licensing Technologies from The Military&quot;</span>
                     along with various others.
                   </p>
 
