@@ -1,7 +1,14 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { RiCalendarLine, RiMapPinLine, RiCloseLine, RiExternalLinkLine, RiInformationLine } from "@remixicon/react"
+import {
+  RiCalendarLine,
+  RiMapPinLine,
+  RiCloseLine,
+  RiExternalLinkLine,
+  RiInformationLine,
+  RiStarLine,
+} from "@remixicon/react"
 import { motion, AnimatePresence, useReducedMotion } from "motion/react"
 import Image from "next/image"
 
@@ -9,7 +16,7 @@ import Image from "next/image"
 interface Sponsor {
   id: string
   name: string
-  tier: "innovator" | "catalyst" | "partner" | "collaborator"
+  tier: "ecosystem" | "innovator" | "catalyst" | "partner" | "collaborator"
   logo: string
   description: string
   website: string
@@ -17,8 +24,21 @@ interface Sponsor {
   isExhibitor?: boolean
 }
 
-// Sponsor data
+// Sponsor data - DO NOT CHANGE CONTENT
 const sponsors: Sponsor[] = [
+  // Ecosystem Sponsor
+  {
+    id: "mtec",
+    name: "Medical Technology Enterprise Consortium (MTEC)",
+    tier: "ecosystem",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/mtec.svg",
+    description:
+      "The Medical Technology Enterprise Consortium (MTEC) is a 501(c)(3) biomedical technology consortium that accelerates the development of medical solutions that prevent and treat injuries and restore America's military and civilians to full health. MTEC serves as a collaborative partner with the Department of Defense to address military medical needs and enhance medical capabilities.",
+    website: "https://mtec-sc.org/",
+    industry: "Medical Technology & Research",
+    isExhibitor: true,
+  },
+
   // Innovator Sponsors
   {
     id: "swri",
@@ -41,17 +61,6 @@ const sponsors: Sponsor[] = [
     website: "https://metisfoundation.org/",
     industry: "Healthcare & Research",
     isExhibitor: true,
-  },
-  {
-    id: "samedfoundation",
-    name: "San Antonio Medical Foundation",
-    tier: "innovator",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/sa-med-foundation-logo.svg",
-    description:
-      "The San Antonio Medical Foundation is a nonprofit organization that supports medical research and education in the San Antonio area. They promote collaboration between academia, industry, and government to advance healthcare innovation.",
-    website: "https://www.samedfoundation.org/",
-    industry: "Medical Research & Education",
-    isExhibitor: false,
   },
   {
     id: "trc4",
@@ -84,7 +93,18 @@ const sponsors: Sponsor[] = [
       "University Health is a leading academic medical center in San Antonio, Texas, providing comprehensive healthcare services and advancing medical education and research.",
     website: "https://www.universityhealth.com/",
     industry: "Healthcare & Research",
-    isExhibitor: true,  
+    isExhibitor: true,
+  },
+  {
+    id: "samedfoundation",
+    name: "San Antonio Medical Foundation",
+    tier: "innovator",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/sa-med-foundation-logo.svg",
+    description:
+      "The San Antonio Medical Foundation is a nonprofit organization that supports medical research and education in the San Antonio area. They promote collaboration between academia, industry, and government to advance healthcare innovation.",
+    website: "https://www.samedfoundation.org/",
+    industry: "Medical Research & Education",
+    isExhibitor: false,
   },
 
   // Catalyst Sponsors
@@ -287,7 +307,6 @@ const sponsors: Sponsor[] = [
     industry: "Military Research & Development",
     isExhibitor: false,
   },
-  
 
   // Collaborator Sponsor
   {
@@ -307,7 +326,9 @@ export default function SponsorsExhibitorsClientPage() {
   // State to track if component is mounted (client-side only)
   const [isMounted, setIsMounted] = useState(false)
   const [selectedSponsor, setSelectedSponsor] = useState<Sponsor | null>(null)
+  const [activeCategory, setActiveCategory] = useState<string>("all")
   const prefersReducedMotion = useReducedMotion()
+  const containerRef = useRef<HTMLDivElement>(null)
 
   // Only run on client side
   useEffect(() => {
@@ -315,10 +336,25 @@ export default function SponsorsExhibitorsClientPage() {
   }, [])
 
   // Filter sponsors by tier
+  const ecosystemSponsors = sponsors.filter((s) => s.tier === "ecosystem")
   const innovatorSponsors = sponsors.filter((s) => s.tier === "innovator")
   const catalystSponsors = sponsors.filter((s) => s.tier === "catalyst")
   const partnerSponsors = sponsors.filter((s) => s.tier === "partner")
   const collaboratorSponsors = sponsors.filter((s) => s.tier === "collaborator")
+
+  // Count exhibitors
+  const exhibitorCount = sponsors.filter((s) => s.isExhibitor).length
+
+  // Scroll to section
+  const scrollToSection = (category: string) => {
+    setActiveCategory(category)
+    const element = document.getElementById(category)
+    if (element) {
+      const yOffset = -100 // Adjust for navbar
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
+      window.scrollTo({ top: y, behavior: "smooth" })
+    }
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center bg-gray-50">
@@ -359,19 +395,29 @@ export default function SponsorsExhibitorsClientPage() {
 
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 mt-24">
           <div className="mx-auto max-w-4xl text-center mb-12 md:mb-16">
-            <h1 className="mb-6 sm:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+            <motion.h1
+              className="mb-6 sm:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
               Sponsors & Exhibitors
-            </h1>
+            </motion.h1>
 
             {/* Event info section with improved spacing and responsive layout */}
-            <div className="mx-auto mb-8 sm:mb-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-base sm:text-lg md:text-xl text-white/90">
+            <motion.div
+              className="mx-auto mb-8 sm:mb-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-base sm:text-lg md:text-xl text-white/90"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+            >
               {/* Date */}
               <div className="flex items-center justify-center">
                 <RiCalendarLine
                   className="h-5 w-5 sm:h-6 sm:w-6 mr-3 text-[#548cac] flex-shrink-0"
                   aria-hidden="true"
                 />
-                <span>June 16, 2025</span>
+                <span>June 16-17, 2025</span>
               </div>
 
               {/* Separator - Hidden on mobile, visible on desktop */}
@@ -382,27 +428,182 @@ export default function SponsorsExhibitorsClientPage() {
                 <RiMapPinLine className="h-5 w-5 sm:h-6 sm:w-6 mr-3 text-[#548cac] flex-shrink-0" aria-hidden="true" />
                 <span>Henry B. González Convention Center</span>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="mx-auto mb-12 max-w-2xl text-base sm:text-lg md:text-xl text-white/90 leading-relaxed">
+            <motion.div
+              className="mx-auto mb-12 max-w-2xl text-base sm:text-lg md:text-xl text-white/90 leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            >
               <p>
                 Meet the innovative companies and organizations supporting the AIM Health R&D Summit. Our sponsors and
                 exhibitors are essential partners in our mission to accelerate military medical innovation through
                 cross-sector collaboration.
               </p>
-            </div>
+            </motion.div>
+
+            {/* Stats and quick navigation */}
+            <motion.div
+              className="flex flex-wrap justify-center gap-4 mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+            >
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-4 text-white">
+                <div className="text-3xl font-bold">{sponsors.length}</div>
+                <div className="text-sm uppercase tracking-wider">Total Sponsors</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-4 text-white">
+                <div className="text-3xl font-bold">{exhibitorCount}</div>
+                <div className="text-sm uppercase tracking-wider">Exhibitors</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-4 text-white">
+                <div className="text-3xl font-bold">5</div>
+                <div className="text-sm uppercase tracking-wider">Categories</div>
+              </div>
+            </motion.div>
+
+            {/* Category navigation */}
+            <motion.div
+              className="flex flex-wrap justify-center gap-3 mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+            >
+              <button
+                onClick={() => scrollToSection("ecosystem")}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeCategory === "ecosystem"
+                    ? "bg-[#2A3990] text-white shadow-lg shadow-[#2A3990]/20"
+                    : "bg-white/20 text-white hover:bg-white/30"
+                }`}
+              >
+                Ecosystem
+              </button>
+              <button
+                onClick={() => scrollToSection("innovator")}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeCategory === "innovator"
+                    ? "bg-[#548cac] text-white shadow-lg shadow-[#548cac]/20"
+                    : "bg-white/20 text-white hover:bg-white/30"
+                }`}
+              >
+                Innovators
+              </button>
+              <button
+                onClick={() => scrollToSection("catalyst")}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeCategory === "catalyst"
+                    ? "bg-[#4f4f2c] text-white shadow-lg shadow-[#4f4f2c]/20"
+                    : "bg-white/20 text-white hover:bg-white/30"
+                }`}
+              >
+                Catalysts
+              </button>
+              <button
+                onClick={() => scrollToSection("partner")}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeCategory === "partner"
+                    ? "bg-[#f97316] text-white shadow-lg shadow-[#f97316]/20"
+                    : "bg-white/20 text-white hover:bg-white/30"
+                }`}
+              >
+                Partners
+              </button>
+              <button
+                onClick={() => scrollToSection("collaborator")}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  activeCategory === "collaborator"
+                    ? "bg-[#366A79] text-white shadow-lg shadow-[#366A79]/20"
+                    : "bg-white/20 text-white hover:bg-white/30"
+                }`}
+              >
+                Collaborators
+              </button>
+            </motion.div>
           </div>
 
-          {/* Custom Sponsors Showcase */}
+          {/* Custom Sponsors Showcase - Fixed width issues */}
           <motion.div
+            ref={containerRef}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="bg-white/90 backdrop-blur-sm rounded-xl p-8 md:p-10 lg:p-12 shadow-xl"
+            className="bg-white/90 backdrop-blur-sm rounded-xl p-6 md:p-8 lg:p-10 shadow-xl w-full max-w-7xl mx-auto"
           >
             <div className="space-y-16">
+              {/* Ecosystem Sponsor - New Top Tier */}
+              <div id="ecosystem" className="scroll-mt-32">
+                <div className="flex items-center justify-center mb-8">
+                  <div className="h-px bg-gradient-to-r from-transparent via-[#2A3990] to-transparent w-full max-w-xs"></div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#101310] px-6 whitespace-nowrap flex items-center">
+                    <RiStarLine className="mr-2 text-[#2A3990]" />
+                    Ecosystem Partner
+                  </h2>
+                  <div className="h-px bg-gradient-to-r from-[#2A3990] via-transparent to-transparent w-full max-w-xs"></div>
+                </div>
+
+                <div className="max-w-4xl mx-auto">
+                  {ecosystemSponsors.map((sponsor) => (
+                    <motion.div
+                      key={sponsor.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      className="relative bg-gradient-to-br from-[#f8f9fa] to-[#e9ecef] p-6 rounded-xl shadow-lg border border-[#2A3990]/10 hover:shadow-xl transition-all duration-300 group"
+                    >
+                      {/* Animated background effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#2A3990]/0 via-[#2A3990]/5 to-[#2A3990]/0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 overflow-hidden">
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(42,57,144,0.1),transparent_70%)] animate-pulse"></div>
+                      </div>
+
+                      <div className="relative flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                        <div className="w-full md:w-1/3 aspect-[3/2] relative rounded-lg overflow-hidden bg-white p-4 shadow-inner group-hover:shadow-md transition-all duration-300">
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#2A3990]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          <Image
+                            src={sponsor.logo || "/placeholder.svg"}
+                            alt={`${sponsor.name} logo`}
+                            fill
+                            className="object-contain p-2"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                          />
+                        </div>
+                        <div className="w-full md:w-2/3 space-y-4">
+                          <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                            <h3 className="text-xl md:text-2xl font-bold text-[#2A3990] group-hover:text-[#1A237E] transition-colors">
+                              {sponsor.name}
+                            </h3>
+                            {sponsor.isExhibitor && (
+                              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#2A3990] text-white shadow-sm">
+                                Exhibiting
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-sm text-gray-600">{sponsor.industry}</p>
+                          <p className="text-sm md:text-base text-gray-700">{sponsor.description}</p>
+                          <div className="flex justify-end">
+                            <motion.a
+                              href={sponsor.website}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 text-[#2A3990] hover:text-[#1A237E] font-medium px-4 py-2 rounded-lg hover:bg-[#2A3990]/5 transition-colors"
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              Visit Website
+                              <RiExternalLinkLine className="h-5 w-5" />
+                            </motion.a>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
               {/* Innovator Sponsors */}
-              <div>
+              <div id="innovator" className="scroll-mt-32">
                 <div className="flex items-center justify-center mb-8">
                   <div className="h-px bg-gradient-to-r from-transparent via-[#548cac] to-transparent w-full max-w-xs"></div>
                   <h2 className="text-2xl md:text-3xl font-bold text-[#101310] px-6 whitespace-nowrap">
@@ -412,20 +613,22 @@ export default function SponsorsExhibitorsClientPage() {
                 </div>
 
                 {/* Adjusted grid for innovator sponsors - fewer columns on mobile for larger logos */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8">
-                  {innovatorSponsors.map((sponsor) => (
-                    <SponsorCard
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                  {innovatorSponsors.map((sponsor, index) => (
+                    <motion.div
                       key={sponsor.id}
-                      sponsor={sponsor}
-                      onClick={() => setSelectedSponsor(sponsor)}
-                      tier="innovator"
-                    />
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.05 * index }}
+                    >
+                      <SponsorCard sponsor={sponsor} onClick={() => setSelectedSponsor(sponsor)} tier="innovator" />
+                    </motion.div>
                   ))}
                 </div>
               </div>
 
               {/* Catalyst Sponsors */}
-              <div>
+              <div id="catalyst" className="scroll-mt-32">
                 <div className="flex items-center justify-center mb-8">
                   <div className="h-px bg-gradient-to-r from-transparent via-[#4f4f2c] to-transparent w-full max-w-xs"></div>
                   <h2 className="text-2xl md:text-3xl font-bold text-[#101310] px-6 whitespace-nowrap">
@@ -434,40 +637,44 @@ export default function SponsorsExhibitorsClientPage() {
                   <div className="h-px bg-gradient-to-r from-[#4f4f2c] via-transparent to-transparent w-full max-w-xs"></div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-2xl mx-auto">
-                  {catalystSponsors.map((sponsor) => (
-                    <SponsorCard
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                  {catalystSponsors.map((sponsor, index) => (
+                    <motion.div
                       key={sponsor.id}
-                      sponsor={sponsor}
-                      onClick={() => setSelectedSponsor(sponsor)}
-                      tier="catalyst"
-                    />
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.05 * index }}
+                    >
+                      <SponsorCard sponsor={sponsor} onClick={() => setSelectedSponsor(sponsor)} tier="catalyst" />
+                    </motion.div>
                   ))}
                 </div>
               </div>
 
               {/* Partner Sponsors */}
-              <div>
+              <div id="partner" className="scroll-mt-32">
                 <div className="flex items-center justify-center mb-8">
                   <div className="h-px bg-gradient-to-r from-transparent via-[#f97316] to-transparent w-full max-w-xs"></div>
                   <h2 className="text-2xl md:text-3xl font-bold text-[#101310] px-6 whitespace-nowrap">Partners</h2>
                   <div className="h-px bg-gradient-to-r from-[#f97316] via-transparent to-transparent w-full max-w-xs"></div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-2xl mx-auto">
-                  {partnerSponsors.map((sponsor) => (
-                    <SponsorCard
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                  {partnerSponsors.map((sponsor, index) => (
+                    <motion.div
                       key={sponsor.id}
-                      sponsor={sponsor}
-                      onClick={() => setSelectedSponsor(sponsor)}
-                      tier="partner"
-                    />
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.05 * index }}
+                    >
+                      <SponsorCard sponsor={sponsor} onClick={() => setSelectedSponsor(sponsor)} tier="partner" />
+                    </motion.div>
                   ))}
                 </div>
               </div>
 
               {/* Collaborator */}
-              <div>
+              <div id="collaborator" className="scroll-mt-32">
                 <div className="flex items-center justify-center mb-8">
                   <div className="h-px bg-gradient-to-r from-transparent via-[#366A79] to-transparent w-full max-w-xs"></div>
                   <h2 className="text-2xl md:text-3xl font-bold text-[#101310] px-6 whitespace-nowrap">Collaborator</h2>
@@ -475,13 +682,15 @@ export default function SponsorsExhibitorsClientPage() {
                 </div>
 
                 <div className="max-w-xs mx-auto w-full grid grid-cols-1 gap-6 md:gap-8">
-                  {collaboratorSponsors.map((sponsor) => (
-                    <SponsorCard
+                  {collaboratorSponsors.map((sponsor, index) => (
+                    <motion.div
                       key={sponsor.id}
-                      sponsor={sponsor}
-                      onClick={() => setSelectedSponsor(sponsor)}
-                      tier="collaborator"
-                    />
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.05 * index }}
+                    >
+                      <SponsorCard sponsor={sponsor} onClick={() => setSelectedSponsor(sponsor)} tier="collaborator" />
+                    </motion.div>
                   ))}
                 </div>
               </div>
@@ -502,15 +711,15 @@ export default function SponsorsExhibitorsClientPage() {
 interface SponsorCardProps {
   sponsor: Sponsor
   onClick: () => void
-  tier: "innovator" | "catalyst" | "partner" | "collaborator"
+  tier: "ecosystem" | "innovator" | "catalyst" | "partner" | "collaborator"
 }
-
-// Update the SponsorCard component to place the exhibitor badge at the bottom center with a dark background strip
 
 function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
   // Different styling based on tier
   const getBorderColor = () => {
     switch (tier) {
+      case "ecosystem":
+        return "border-[#2A3990]/30 hover:border-[#2A3990]/80"
       case "innovator":
         return "border-[#548cac]/30 hover:border-[#548cac]/80"
       case "catalyst":
@@ -524,29 +733,55 @@ function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
     }
   }
 
+  // Get glow color for hover effect
+  const getGlowColor = () => {
+    switch (tier) {
+      case "ecosystem":
+        return "group-hover:shadow-[#2A3990]/20"
+      case "innovator":
+        return "group-hover:shadow-[#548cac]/20"
+      case "catalyst":
+        return "group-hover:shadow-[#4f4f2c]/20"
+      case "partner":
+        return "group-hover:shadow-[#f97316]/20"
+      case "collaborator":
+        return "group-hover:shadow-[#366A79]/20"
+      default:
+        return "group-hover:shadow-gray-200/20"
+    }
+  }
+
   // Adjust height for innovator sponsors on mobile
   const getCardHeight = () => {
-    if (tier === "innovator") {
+    if (tier === "innovator" || tier === "ecosystem") {
       return "h-48 sm:h-48 md:h-48" // Taller on mobile, standard on larger screens
     }
     return "h-48"
   }
 
   // Determine if this sponsor needs extra bottom padding
-  const needsExtraPadding = sponsor.id === "velocitytx" || sponsor.id === "swri"
+  const needsExtraPadding = sponsor.id === "velocitytx" || sponsor.id === "swri" || sponsor.id === "mtec"
 
   return (
     <motion.button
-      className={`bg-white rounded-lg p-4 flex flex-col items-center justify-center ${getCardHeight()} shadow-md ${getBorderColor()} border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 relative group overflow-hidden`}
+      className={`bg-white rounded-lg p-4 flex flex-col items-center justify-center ${getCardHeight()} shadow-md ${getBorderColor()} border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 relative group overflow-hidden w-full`}
       onClick={onClick}
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.98 }}
       aria-label={`View details about ${sponsor.name}${sponsor.isExhibitor ? ", Exhibiting" : ""}`}
     >
+      {/* Subtle background gradient on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+      {/* Enhanced shadow on hover */}
+      <div
+        className={`absolute inset-0 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 ${getGlowColor()}`}
+      ></div>
+
       <div className="relative w-full h-full flex items-center justify-center">
         {/* Adjust logo size and position based on sponsor needs */}
         <div
-          className={`relative ${tier === "innovator" ? "w-[85%] sm:w-[80%]" : "w-[80%]"} 
+          className={`relative ${tier === "innovator" || tier === "ecosystem" ? "w-[85%] sm:w-[80%]" : "w-[80%]"} 
             ${needsExtraPadding ? "h-[70%] mb-6" : "h-[80%]"} 
             flex items-center justify-center`}
         >
@@ -554,8 +789,12 @@ function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
             src={sponsor.logo || "/placeholder.svg"}
             alt={`${sponsor.name} logo`}
             fill
-            className="object-contain"
-            sizes={tier === "innovator" ? "(max-width: 768px) 180px, 200px" : "(max-width: 768px) 150px, 200px"}
+            className="object-contain transition-transform duration-300 group-hover:scale-105"
+            sizes={
+              tier === "innovator" || tier === "ecosystem"
+                ? "(max-width: 768px) 180px, 200px"
+                : "(max-width: 768px) 150px, 200px"
+            }
           />
         </div>
       </div>
@@ -571,9 +810,14 @@ function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
 
       {/* Info indicator - adjusted position to account for exhibitor strip */}
       <div className="absolute bottom-8 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-        <div className="bg-gray-100 rounded-full p-1">
+        <div className="bg-gray-100 rounded-full p-1 shadow-sm">
           <RiInformationLine className="h-5 w-5 text-[#548cac]" aria-hidden="true" />
         </div>
+      </div>
+
+      {/* Tooltip with sponsor name on hover */}
+      <div className="absolute -bottom-10 left-0 right-0 bg-black/80 text-white text-xs py-1.5 px-2 rounded opacity-0 group-hover:opacity-100 group-hover:-bottom-0 transition-all duration-300 pointer-events-none">
+        {sponsor.name}
       </div>
 
       <span className="sr-only">
@@ -628,35 +872,53 @@ function SponsorInfoModal({ sponsor, onClose }: SponsorInfoModalProps) {
   // Get tier-specific styling
   const getTierStyles = () => {
     switch (sponsor.tier) {
+      case "ecosystem":
+        return {
+          gradient: "from-[#2A3990]/20 via-[#2A3990]/10 to-transparent",
+          badge: "bg-[#2A3990]/10 text-[#2A3990]",
+          text: "text-[#2A3990]",
+          button: "bg-[#2A3990] hover:bg-[#1A237E]",
+          ring: "focus:ring-[#2A3990]",
+        }
       case "innovator":
         return {
           gradient: "from-[#548cac]/20 via-[#548cac]/10 to-transparent",
           badge: "bg-[#548cac]/10 text-[#548cac]",
           text: "text-[#548cac]",
+          button: "bg-[#548cac] hover:bg-[#3a6075]",
+          ring: "focus:ring-[#548cac]",
         }
       case "catalyst":
         return {
           gradient: "from-[#4f4f2c]/20 via-[#4f4f2c]/10 to-transparent",
           badge: "bg-[#4f4f2c]/10 text-[#4f4f2c]",
           text: "text-[#4f4f2c]",
+          button: "bg-[#4f4f2c] hover:bg-[#383820]",
+          ring: "focus:ring-[#4f4f2c]",
         }
       case "partner":
         return {
           gradient: "from-[#f97316]/20 via-[#f97316]/10 to-transparent",
           badge: "bg-[#f97316]/10 text-[#f97316]",
           text: "text-[#f97316]",
+          button: "bg-[#f97316] hover:bg-[#ea580c]",
+          ring: "focus:ring-[#f97316]",
         }
       case "collaborator":
         return {
           gradient: "from-[#366A79]/20 via-[#366A79]/10 to-transparent",
           badge: "bg-[#366A79]/10 text-[#366A79]",
           text: "text-[#366A79]",
+          button: "bg-[#366A79] hover:bg-[#264a54]",
+          ring: "focus:ring-[#366A79]",
         }
       default:
         return {
           gradient: "from-gray-100 via-gray-50 to-transparent",
           badge: "bg-gray-100 text-gray-700",
           text: "text-gray-700",
+          button: "bg-gray-700 hover:bg-gray-800",
+          ring: "focus:ring-gray-400",
         }
     }
   }
@@ -682,8 +944,13 @@ function SponsorInfoModal({ sponsor, onClose }: SponsorInfoModalProps) {
         aria-labelledby={`sponsor-modal-title-${sponsor.id}`}
         tabIndex={-1}
       >
-        {/* Modal Header */}
+        {/* Modal Header with enhanced gradient */}
         <div className={`relative h-40 bg-gradient-to-r ${tierStyles.gradient}`}>
+          {/* Animated background pattern */}
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)] animate-pulse"></div>
+          </div>
+
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="bg-white rounded-lg p-4 w-32 h-32 flex items-center justify-center shadow-md">
               <div className="relative w-full h-full">
@@ -698,7 +965,7 @@ function SponsorInfoModal({ sponsor, onClose }: SponsorInfoModalProps) {
             </div>
           </div>
           <button
-            className="absolute top-3 right-3 p-2 rounded-full bg-white/80 text-gray-700 hover:bg-white hover:text-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] shadow-sm"
+            className={`absolute top-3 right-3 p-2 rounded-full bg-white/80 text-gray-700 hover:bg-white hover:text-gray-900 transition-colors focus:outline-none ${tierStyles.ring} focus:ring-2 shadow-sm`}
             onClick={onClose}
             aria-label="Close modal"
           >
@@ -716,9 +983,10 @@ function SponsorInfoModal({ sponsor, onClose }: SponsorInfoModalProps) {
 
           <p className="text-gray-700 text-base leading-relaxed mb-8">{sponsor.description}</p>
 
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+            <div className="flex flex-wrap items-center gap-2">
               <div className={`text-sm font-medium px-3 py-1 rounded-full ${tierStyles.badge}`}>
+                {sponsor.tier === "ecosystem" && "Ecosystem"}
                 {sponsor.tier === "innovator" && "Innovator"}
                 {sponsor.tier === "catalyst" && "Catalyst"}
                 {sponsor.tier === "partner" && "Partner"}
@@ -731,15 +999,17 @@ function SponsorInfoModal({ sponsor, onClose }: SponsorInfoModalProps) {
               )}
             </div>
 
-            <a
+            <motion.a
               href={sponsor.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center text-base font-medium text-[#548cac] hover:text-[#366A79] transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] rounded-md px-2 py-1"
+              className={`inline-flex items-center justify-center text-base font-medium text-white ${tierStyles.button} transition-colors focus:outline-none ${tierStyles.ring} focus:ring-2 rounded-md px-4 py-2 shadow-md hover:shadow-lg`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
             >
               Visit Website
               <RiExternalLinkLine className="ml-2 h-5 w-5" />
-            </a>
+            </motion.a>
           </div>
         </div>
       </motion.div>

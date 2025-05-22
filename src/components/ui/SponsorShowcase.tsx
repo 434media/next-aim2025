@@ -78,6 +78,12 @@ const platinumSponsors = [
     website: "https://www.universityhealth.com/",
     description: "University Health is a nationally recognized academic medical center and the primary teaching hospital for UT Health San Antonio.",
   },
+  {
+    name: "MTEC",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/mtec.svg",
+    website: "https://mtec-sc.org/",
+    description: "We advance the rapid deployment of innovative medical technologies that improve the health of the military and civilians.",
+  },
 ]
 
 type Sponsor = (typeof platinumSponsors)[0]
