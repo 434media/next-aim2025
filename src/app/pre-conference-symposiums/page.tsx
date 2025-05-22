@@ -9,8 +9,10 @@ import {
   RiVideoLine,
   RiExternalLinkLine,
   RiArrowRightUpLine,
-  RiYoutubeLine,
   RiArrowRightSLine,
+  RiPlayCircleLine,
+  RiHistoryLine,
+  RiPlayListLine,
 } from "@remixicon/react"
 import { Button } from "@/components/Button"
 import { FadeContainer } from "@/components/Fade"
@@ -144,7 +146,7 @@ export default function PreConferenceSymposiums() {
         </div>
 
         {/* Content overlay */}
-        <div className="relative z-20 h-full flex flex-col justify-end md:justify-start md:mt-16">
+        <div className="relative z-20 h-full flex flex-col justify-start mt-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-20 sm:pb-32">
             <FadeContainer className="max-w-4xl">
               <motion.h1
@@ -381,33 +383,67 @@ export default function PreConferenceSymposiums() {
             aria-labelledby="webinar-heading"
           >
             {/* Section header with YouTube branding */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 relative z-10">
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="h-8 w-1 bg-[#FF0000] rounded-full"></div>
-                  <h2 id="webinar-heading" className="text-2xl lg:text-3xl font-light text-white">
-                    MMID Preparatory Webinar Sessions
-                  </h2>
-                </div>
-                <p className="text-gray-300 max-w-2xl">
-                  Access our complete library of preparatory webinar sessions designed to help you maximize your
-                  experience at the AIM Summit. These sessions cover essential topics in military medical innovation and
-                  research.
-                </p>
+            <div className="relative z-10">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="h-8 w-1 bg-[#FF0000] rounded-full"></div>
+                <h2 id="webinar-heading" className="text-2xl lg:text-3xl font-light text-white">
+                  MMID Preparatory Webinar Sessions
+                </h2>
               </div>
 
-              {/* YouTube playlist button */}
-              <a
-                href="https://youtube.com/playlist?list=PLu4stFKpxLBXb7TY7luPCEAHBg1CZQru8&si=UnnuZ2Q2E08QSBVP"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-6 md:mt-0 group inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-[#FF0000] hover:bg-[#CC0000] rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF0000] focus:ring-offset-black"
-                aria-label="View full YouTube playlist"
-              >
-                <RiYoutubeLine className="mr-2 h-5 w-5" aria-hidden="true" />
-                <span>View Full Playlist</span>
-                <RiArrowRightSLine className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
+              <div className="space-y-8 max-w-3xl">
+                <div className="flex items-start gap-3">
+                  <RiPlayCircleLine className="h-6 w-6 text-[#FF0000] flex-shrink-0 mt-1" aria-hidden="true" />
+                  <p className="text-white text-lg font-medium leading-relaxed">
+                    Watch instructional/informational videos of previous AIM Health R&D Summit and Military Medical
+                    Industry Days (MMID) webinar sessions
+                  </p>
+                </div>
+
+                <div className="pl-9">
+                  <p className="text-gray-300 leading-relaxed">
+                    Access our complete video library of the preparatory webinar sessions held over the last several
+                    years that address various key topics such as
+                    <span className="text-white font-medium mx-1">"Keys to Collaborating with the Military"</span> to
+                    <span className="text-white font-medium mx-1">"Licensing Technologies from The Military"</span>
+                    along with various others.
+                  </p>
+
+                  <div className="mt-4 flex items-center">
+                    <RiHistoryLine className="h-5 w-5 text-[#FF0000] mr-2" aria-hidden="true" />
+                    <p className="text-gray-300 italic">
+                      All were designed to help you optimize your experience at the AIM Health R&D Summit and provide
+                      essential information about military medical innovation and research.
+                    </p>
+                  </div>
+
+                  <div className="mt-6 inline-flex items-center px-4 py-2 bg-black/30 rounded-lg border border-white/10">
+                    <span className="text-white/80 text-sm">
+                      Topics include collaboration strategies, licensing, funding opportunities, and more
+                    </span>
+                  </div>
+                </div>
+
+                {/* YouTube playlist button - now positioned below the text */}
+                <div className="mt-8 pl-9">
+                  <a
+                    href="https://youtube.com/playlist?list=PLu4stFKpxLBXb7TY7luPCEAHBg1CZQru8&si=UnnuZ2Q2E08QSBVP"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-[#FF0000] hover:bg-[#CC0000] rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF0000] focus:ring-offset-black shadow-lg shadow-red-900/20 relative overflow-hidden"
+                    aria-label="View full YouTube playlist"
+                  >
+                    <span className="relative z-10 flex items-center">
+                      <RiPlayListLine className="mr-2 h-5 w-5" aria-hidden="true" />
+                      <span>View Full Playlist</span>
+                    </span>
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center h-6 w-6 rounded-full bg-white/10 transition-transform duration-300 group-hover:translate-x-1 z-10">
+                      <RiArrowRightSLine className="h-4 w-4" />
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#FF0000] to-[#CC0000] opacity-0 group-hover:opacity-50 transition-opacity duration-300 blur-sm"></div>
+                  </a>
+                </div>
+              </div>
             </div>
           </motion.section>
         </ParticleBackground>
