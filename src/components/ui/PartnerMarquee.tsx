@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState, useEffect, useCallback } from "react"
 import { motion, useAnimation, useReducedMotion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
@@ -22,8 +22,8 @@ interface PartnerMarqueeProps {
 }
 
 /**
- * A component that displays a continuous scrolling marquee of partner logos
- * with improved infinite loop, UX, and accessibility
+ * An optimized marquee component that displays a continuous scrolling of partner logos
+ * with improved performance and accessibility
  */
 export function PartnerMarquee({
   partners,
@@ -38,6 +38,7 @@ export function PartnerMarquee({
   const prefersReducedMotion = useReducedMotion()
   const controls = useAnimation()
   const [isMounted, setIsMounted] = useState(false)
+  const [focusedIndex, setFocusedIndex] = useState<number | null>(null)
 
   // Calculate dimensions for the animation
   useEffect(() => {
@@ -45,17 +46,14 @@ export function PartnerMarquee({
 
     const calculateWidths = () => {
       if (containerRef.current && innerRef.current) {
-        // Get the width of a single set of items
         setContentWidth(innerRef.current.scrollWidth / 2)
       }
     }
 
     calculateWidths()
 
-    // Recalculate on resize
     const handleResize = () => {
       calculateWidths()
-      // Reset animation when dimensions change
       if (isMounted && !prefersReducedMotion) {
         startAnimation()
       }
@@ -66,7 +64,7 @@ export function PartnerMarquee({
   }, [isMounted, prefersReducedMotion])
 
   // Start or restart the animation
-  const startAnimation = () => {
+  const startAnimation = useCallback(() => {
     if (!contentWidth) return
 
     const duration = contentWidth / (speed * 0.4)
@@ -82,18 +80,18 @@ export function PartnerMarquee({
         },
       },
     })
-  }
+  }, [contentWidth, controls, reverse, speed])
 
   // Handle animation based on user preferences
   useEffect(() => {
-    if (!isMounted) return
+    if (!isMounted || !contentWidth) return
 
     if (prefersReducedMotion) {
       controls.stop()
     } else {
       startAnimation()
     }
-  }, [isMounted, prefersReducedMotion, contentWidth, controls])
+  }, [isMounted, prefersReducedMotion, contentWidth, controls, startAnimation])
 
   // Handle keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
@@ -155,24 +153,30 @@ export function PartnerMarquee({
               className="group relative flex-shrink-0 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#548cac] focus-visible:ring-offset-2 rounded-md"
               aria-label={`${partner.name} (opens in new tab)`}
               onKeyDown={(e) => handleKeyDown(e, idx)}
+              onFocus={() => setFocusedIndex(idx)}
+              onBlur={() => setFocusedIndex(null)}
               tabIndex={0}
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="relative h-28 w-56 lg:h-32 lg:72 opacity-80 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300"
-              >
-                <div className="absolute inset-2 flex items-center justify-center">
-                  <Image
-                    src={partner.src || "/placeholder.svg"}
-                    alt="Partner logo"
-                    fill
-                    sizes="(max-width: 640px) 160px, (max-width: 768px) 192px, 224px"
-                    className="object-contain p-2"
-                    loading="lazy"
-                  />
+              <div className="relative h-28 w-56 lg:h-32 lg:w-72">
+                <div className="absolute inset-0 rounded-lg overflow-hidden">
+                  {/* Partner logo */}
+                  <div className="absolute inset-2 flex items-center justify-center">
+                    <Image
+                      src={partner.src || "/placeholder.svg"}
+                      alt={`${partner.name} logo`}
+                      fill
+                      sizes="(max-width: 640px) 160px, (max-width: 768px) 192px, 224px"
+                      className="object-contain p-2"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
-              </motion.div>
+
+                {/* Focus indicator - only visible when focused with keyboard */}
+                {focusedIndex === idx && (
+                  <div className="absolute -inset-1 rounded-lg border-2 border-[#548cac]/40 sr-only" />
+                )}
+              </div>
             </Link>
           ))}
         </motion.div>
@@ -183,4 +187,3 @@ export function PartnerMarquee({
     </div>
   )
 }
-
