@@ -124,7 +124,7 @@ export default function PreConferenceSymposiums() {
         {/* Full-screen background image */}
         <div className="absolute inset-0">
           <Image
-            src="https://ampd-asset.s3.us-east-2.amazonaws.com/CWVApril3rd-12.jpg"
+            src="https://ampd-asset.s3.us-east-2.amazonaws.com/IMG_6123.JPG"
             alt="AIM Health R&D Summit Pre-Conference Events"
             fill
             className="object-cover"
@@ -257,7 +257,7 @@ export default function PreConferenceSymposiums() {
 
         {/* Archived Symposiums Section */}
         {archivedSymposiums.length > 0 && (
-          <motion.section className="mt-20 space-y-12 pb-20" variants={fadeInUp} aria-labelledby="archived-heading">
+          <motion.section className="mt-10 space-y-12 pb-20" variants={fadeInUp} aria-labelledby="archived-heading">
             <div className="flex items-center gap-3 mb-10">
               <div className="h-8 w-1 bg-[#366A79] rounded-full"></div>
               <h2 id="archived-heading" className="text-2xl lg:text-3xl font-light text-white">

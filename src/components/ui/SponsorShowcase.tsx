@@ -80,7 +80,7 @@ const platinumSponsors = [
   },
   {
     name: "MTEC",
-    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/mtec.svg",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/mtec.png",
     website: "https://mtec-sc.org/",
     description: "We advance the rapid deployment of innovative medical technologies that improve the health of the military and civilians.",
   },
