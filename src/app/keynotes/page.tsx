@@ -69,7 +69,7 @@ export default function KeynotesPage() {
 
               <div className="flex items-center justify-center">
                 <RiMapPinLine className="h-5 w-5 mr-2 text-white/90" aria-hidden="true" />
-                <span>Plenary Room (302A-C)</span>
+                <span>Plenary Room (303)</span>
               </div>
             </div>
 
