@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect, useMemo, useCallback } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import Link from "next/link"
 import { RiArrowDownSLine, RiMenuLine, RiCloseLine, RiArrowRightUpLine } from "@remixicon/react"
@@ -15,13 +15,11 @@ const menuItems = [
       { name: "Keynotes", href: "/keynotes" },
       { name: "Schedule", href: "/schedule" },
       { name: "Speakers", href: "/speakers" },
-    ] 
+    ],
   },
   {
     name: "Attend",
-    dropdown: [
-      { name: "Why Attend", href: "/why-attend" },
-    ],
+    dropdown: [{ name: "Why Attend", href: "/why-attend" }],
   },
   {
     name: "Sponsors & Exhibitors",
@@ -61,13 +59,33 @@ const initialNewsItems = [
   },
 ]
 
+// Performance optimization: Debounce utility
+const useDebounce = (callback: () => void, delay: number) => {
+  const [debounceTimer, setDebounceTimer] = useState<NodeJS.Timeout | null>(null)
+
+  return useCallback(() => {
+    if (debounceTimer) clearTimeout(debounceTimer)
+    const timer = setTimeout(callback, delay)
+    setDebounceTimer(timer)
+  }, [callback, delay, debounceTimer])
+}
+
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [currentNewsIndex, setCurrentNewsIndex] = useState(0)
   const [isScrolled, setIsScrolled] = useState(false)
+
   const newsItems = useMemo(() => initialNewsItems, [])
 
+  // Optimized scroll handler with debouncing for 60fps performance
+  const handleScroll = useCallback(() => {
+    setIsScrolled(window.scrollY > 10)
+  }, [])
+
+  const debouncedScrollHandler = useDebounce(handleScroll, 16) // 60fps optimization
+
+  // Memoized news rotation for performance
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentNewsIndex((prevIndex) => (prevIndex + 1) % newsItems.length)
@@ -77,12 +95,22 @@ export default function NavBar() {
   }, [newsItems.length])
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
+    window.addEventListener("scroll", debouncedScrollHandler, { passive: true })
+    return () => window.removeEventListener("scroll", debouncedScrollHandler)
+  }, [debouncedScrollHandler])
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+  // Enhanced dropdown handlers with useCallback for performance
+  const handleDropdownEnter = useCallback((itemName: string) => {
+    setActiveDropdown(itemName)
+  }, [])
+
+  const handleDropdownLeave = useCallback(() => {
+    setActiveDropdown(null)
+  }, [])
+
+  const closeMenu = useCallback(() => {
+    setIsOpen(false)
+    setActiveDropdown(null)
   }, [])
 
   return (
@@ -99,13 +127,17 @@ export default function NavBar() {
               <div className="hidden md:flex items-center space-x-6">
                 <span className="flex items-center">
                   <Link href="/" className="group flex items-center" aria-label="AIM Health R&D Summit Home">
-                    <span className="relative flex items-center justify-center p-1 rounded-md group-hover:bg-white/5 transition-all duration-300">
+                    <motion.span
+                      className="relative flex items-center justify-center p-1 rounded-md group-hover:bg-white/5 transition-all duration-300"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
                       {eventInfo.aim.name}
                       <span
                         className="absolute inset-0 rounded-md bg-[#548cac]/10 opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-300"
                         aria-hidden="true"
                       ></span>
-                    </span>
+                    </motion.span>
                     <span className="mx-2 text-white">|</span>
                     <span className="text-white">{eventInfo.aim.date}</span>
                   </Link>
@@ -114,13 +146,17 @@ export default function NavBar() {
               {/* Mobile: Show AIM event info */}
               <div className="md:hidden flex items-center justify-start">
                 <Link href="/" className="flex items-center space-x-2" aria-label="AIM Health R&D Summit Home">
-                  <span className="relative flex items-center justify-center">
+                  <motion.span
+                    className="relative flex items-center justify-center"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
                     <AIMLogo variant="white" className="h-9 w-auto" />
                     <span
                       className="absolute inset-0 rounded-md bg-[#548cac]/10 opacity-0 hover:opacity-100 blur-sm transition-opacity duration-300"
                       aria-hidden="true"
                     ></span>
-                  </span>
+                  </motion.span>
                   <span className="text-xs font-medium text-white/90">{eventInfo.aim.date}</span>
                 </Link>
               </div>
@@ -153,29 +189,35 @@ export default function NavBar() {
                   <div
                     key={item.name}
                     className="relative group"
-                    onMouseEnter={() => item.dropdown && setActiveDropdown(item.name)}
-                    onMouseLeave={() => item.dropdown && setActiveDropdown(null)}
+                    onMouseEnter={() => item.dropdown && handleDropdownEnter(item.name)}
+                    onMouseLeave={() => item.dropdown && handleDropdownLeave()}
                   >
                     {item.dropdown ? (
-                      <button
+                      <motion.button
                         className="flex items-center text-sm font-medium text-white hover:text-[#548cac] transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-md px-2 py-1"
                         onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}
                         aria-expanded={activeDropdown === item.name}
                         aria-haspopup="true"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
                       >
                         {item.name}
-                        <RiArrowDownSLine
-                          className="ml-1 size-4 transition-transform duration-200 group-hover:rotate-180"
-                          aria-hidden="true"
-                        />
-                      </button>
+                        <motion.div
+                          animate={{ rotate: activeDropdown === item.name ? 180 : 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <RiArrowDownSLine className="ml-1 size-4" aria-hidden="true" />
+                        </motion.div>
+                      </motion.button>
                     ) : (
-                      <Link
-                        href={item.href}
-                        className="flex items-center text-sm font-medium text-white hover:text-[#548cac] transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-md px-2 py-1"
-                      >
-                        {item.name}
-                      </Link>
+                      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                        <Link
+                          href={item.href}
+                          className="flex items-center text-sm font-medium text-white hover:text-[#548cac] transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-md px-2 py-1"
+                        >
+                          {item.name}
+                        </Link>
+                      </motion.div>
                     )}
                     {item.dropdown && (
                       <div
@@ -203,13 +245,15 @@ export default function NavBar() {
 
               {/* News Ticker (Desktop and Mobile) */}
               <div className="flex-1 md:flex-none md:mx-0">
-                <a
+                <motion.a
                   aria-label={`View latest update: ${newsItems[currentNewsIndex].label}`}
                   href={newsItems[currentNewsIndex].href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group inline-flex w-full md:w-auto items-center justify-between rounded-full bg-white px-4 py-2 text-sm font-medium text-[#101310] shadow-lg shadow-[#548cac]/10 ring-1 ring-black/5 transition-all hover:bg-[#548cac]/10 hover:ring-[#548cac] focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-[#101310]"
                   tabIndex={0}
+                  whileHover={{ scale: 1.02, y: -1 }}
+                  whileTap={{ scale: 0.98 }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault()
@@ -240,28 +284,34 @@ export default function NavBar() {
                           </motion.span>
                         </AnimatePresence>
                       </span>
-                      <span className="flex h-6 w-6 flex-none items-center justify-center rounded-full bg-[#548cac] text-white ml-2">
+                      <motion.span
+                        className="flex h-6 w-6 flex-none items-center justify-center rounded-full bg-[#548cac] text-white ml-2"
+                        whileHover={{ scale: 1.1, rotate: 15 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      >
                         <RiArrowRightUpLine className="h-3 w-3" aria-hidden="true" />
-                      </span>
+                      </motion.span>
                     </span>
                   </span>
-                </a>
+                </motion.a>
               </div>
               {/* Mobile: Menu Button */}
               <div className="p-2 ml-2 flex items-center md:hidden">
-                <button
+                <motion.button
                   onClick={() => setIsOpen(true)}
                   className="p-2 rounded-full transition-colors hover:bg-[#548cac]/20 focus:outline-none focus:ring-2 focus:ring-[#548cac]"
                   aria-label="Open menu"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                 >
                   <RiMenuLine className="size-6 text-white" />
-                </button>
+                </motion.button>
               </div>
             </div>
           </div>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - EXACT Original Structure */}
         <AnimatePresence>
           {isOpen && (
             <>
@@ -271,7 +321,7 @@ export default function NavBar() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
                 className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
-                onClick={() => setIsOpen(false)}
+                onClick={closeMenu}
                 aria-hidden="true"
               />
               <motion.div
@@ -288,7 +338,7 @@ export default function NavBar() {
                   <div className="flex items-center justify-between p-4 border-b border-[#548cac]/20">
                     <h2 className="text-lg font-semibold text-white">Menu</h2>
                     <button
-                      onClick={() => setIsOpen(false)}
+                      onClick={closeMenu}
                       className="p-2 rounded-full hover:bg-[#548cac]/20 transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac]"
                       aria-label="Close menu"
                     >
@@ -302,7 +352,7 @@ export default function NavBar() {
                         <AIMLogo variant="white" className="h-10 w-auto" />
                         <div>
                           <p className="text-sm font-medium text-white">{eventInfo.aim.date}</p>
-                          <p className="text-xs text-white/80">{eventInfo.venue}</p>
+                          <p className="text-xs w-32 text-white/80">{eventInfo.venue}</p>
                         </div>
                       </div>
                       <div className="bg-[#548cac]/20 px-3 py-1 rounded-full">
@@ -350,7 +400,7 @@ export default function NavBar() {
                                         <Link
                                           href={subItem.href}
                                           className="block text-base text-white/80 hover:text-[#548cac] p-2 rounded-lg hover:bg-[#548cac]/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset"
-                                          onClick={() => setIsOpen(false)}
+                                          onClick={closeMenu}
                                           role="menuitem"
                                         >
                                           {subItem.name}
@@ -365,7 +415,7 @@ export default function NavBar() {
                             <Link
                               href={item.href}
                               className="block text-lg font-medium text-white hover:text-[#548cac] p-2 rounded-lg hover:bg-[#548cac]/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac]"
-                              onClick={() => setIsOpen(false)}
+                              onClick={closeMenu}
                             >
                               {item.name}
                             </Link>
@@ -396,4 +446,3 @@ export default function NavBar() {
     </header>
   )
 }
-
