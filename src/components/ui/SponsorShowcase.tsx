@@ -74,7 +74,7 @@ const platinumSponsors = [
   },
   { 
     name: "University Health",
-    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/logo.png",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Foundation+Logo.png",
     website: "https://www.universityhealth.com/",
     description: "University Health is a nationally recognized academic medical center and the primary teaching hospital for UT Health San Antonio.",
   },

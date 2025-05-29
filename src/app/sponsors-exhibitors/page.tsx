@@ -24,7 +24,6 @@ interface Sponsor {
   isExhibitor?: boolean
 }
 
-// Sponsor data - DO NOT CHANGE CONTENT
 const sponsors: Sponsor[] = [
   // Ecosystem Sponsor
   {
@@ -88,7 +87,7 @@ const sponsors: Sponsor[] = [
     id: "universityhealth",
     name: "University Health",
     tier: "innovator",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/logo.png",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Foundation+Logo.png",
     description:
       "University Health is a leading academic medical center in San Antonio, Texas, providing comprehensive healthcare services and advancing medical education and research.",
     website: "https://www.universityhealth.com/",
