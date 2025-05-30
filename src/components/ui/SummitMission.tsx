@@ -103,9 +103,9 @@ export function SummitMission() {
           >
             {/* Mobile Layout - Now with Sticky Header */}
             <div className="lg:hidden h-screen overflow-hidden">
-              {/* Mobile Sticky Header */}
+              {/* Mobile Sticky Header - Fixed navbar offset */}
               <motion.header
-                className="sticky top-0 z-20 w-full bg-gradient-to-b from-[#0F1419] via-[#0F1419] to-transparent pt-8 pb-6 px-4 sm:px-6"
+                className="sticky top-16 z-20 w-full bg-gradient-to-b from-[#0F1419] via-[#0F1419] to-transparent pb-6 px-4 sm:px-6"
                 style={{
                   opacity: mobileHeaderOpacity,
                   scale: mobileHeaderScale,
@@ -114,15 +114,15 @@ export function SummitMission() {
                 <div className="max-w-5xl mx-auto">
                   <motion.h2
                     id="summit-mission-heading"
-                    className="font-extrabold tracking-tight text-white leading-tight text-center"
+                    className="font-extrabold tracking-tight text-white leading-[1.1] text-center"
                     initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
                   >
-                    <div className="text-6xl sm:text-7xl text-[#7DD3FC] drop-shadow-lg mb-3 sm:mb-4">
+                    <div className="text-5xl sm:text-6xl text-[#7DD3FC] drop-shadow-lg mb-3 sm:mb-4">
                       From The Bench
                     </div>
-                    <div className="text-6xl sm:text-7xl relative">To The Battlefield</div>
+                    <div className="text-5xl sm:text-6xl relative">To The Battlefield</div>
                   </motion.h2>
 
                   {/* Mobile animated line that grows as you scroll */}
@@ -141,10 +141,10 @@ export function SummitMission() {
               {/* Mobile Scrollable Content */}
               <div
                 ref={mobileContentRef}
-                className="h-[calc(100vh-200px)] overflow-y-auto scrollbar-thin scrollbar-thumb-[#38BDF8]/20 scrollbar-track-transparent"
+                className="h-[calc(100vh-240px)] overflow-y-auto scrollbar-thin scrollbar-thumb-[#38BDF8]/20 scrollbar-track-transparent"
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
-                <div className="px-4 sm:px-6 py-8 max-w-5xl mx-auto">
+                <div className="px-4 sm:px-6 py-8 max-w-5xl mx-auto mt-6">
                   <div className="space-y-16 sm:space-y-20 pb-16">
                     {/* First paragraph with mobile parallax */}
                     <motion.div
@@ -163,7 +163,7 @@ export function SummitMission() {
                           />
                         </div>
                         <div>
-                          <p className="text-2xl sm:text-3xl text-gray-200 leading-relaxed font-light">
+                          <p className="text-xl sm:text-2xl text-gray-200 leading-relaxed font-light">
                             Designed to advance emerging technologies from the bench to the battlefield, the{" "}
                             <span className="text-[#7DD3FC] font-semibold">AIM Health R&D Summit</span> brings together
                             academia, industry, and the military in a unified forum to promote cross-sector partnership
@@ -191,7 +191,7 @@ export function SummitMission() {
                           />
                         </div>
                         <div>
-                          <p className="text-2xl sm:text-3xl text-gray-200 leading-relaxed font-light">
+                          <p className="text-xl sm:text-2xl text-gray-200 leading-relaxed font-light">
                             By connecting top innovators across sectors,{" "}
                             <span className="text-[#7DD3FC] font-semibold">AIM</span> creates pathways to discovery and
                             commercialization while addressing common critical challenges in military and civilian
@@ -220,7 +220,7 @@ export function SummitMission() {
                           />
                         </div>
                         <div>
-                          <p className="text-2xl sm:text-3xl text-gray-200 leading-relaxed font-light">
+                          <p className="text-xl sm:text-2xl text-gray-200 leading-relaxed font-light">
                             The collaboration between researchers, innovators, and military leaders serves as a{" "}
                             <span className="text-white font-semibold">catalyst for medical advancements</span> that not
                             only enhance military readiness but also have the potential to{" "}
@@ -239,9 +239,9 @@ export function SummitMission() {
 
             {/* Desktop Layout - Sticky Header with Scrollable Content */}
             <div className="hidden lg:block lg:h-screen lg:overflow-hidden">
-              {/* Desktop Sticky Header */}
+              {/* Desktop Sticky Header - Fixed navbar offset */}
               <motion.header
-                className="sticky top-0 z-20 w-full bg-gradient-to-b from-[#0F1419] via-[#0F1419] to-transparent pt-16 pb-8 px-8"
+                className="sticky top-16 z-20 w-full bg-gradient-to-b from-[#0F1419] via-[#0F1419] to-transparent pt-20 pb-8 px-8"
                 style={{
                   opacity: headerOpacity,
                   scale: headerScale,
@@ -310,7 +310,7 @@ export function SummitMission() {
               {/* Desktop Scrollable Content */}
               <div
                 ref={contentRef}
-                className="h-[calc(100vh-200px)] overflow-y-auto scrollbar-thin scrollbar-thumb-[#38BDF8]/20 scrollbar-track-transparent"
+                className="h-[calc(100vh-240px)] overflow-y-auto scrollbar-thin scrollbar-thumb-[#38BDF8]/20 scrollbar-track-transparent"
               >
                 <div className="max-w-7xl mx-auto px-8 py-12">
                   <div className="max-w-4xl mx-auto space-y-32 pb-32">

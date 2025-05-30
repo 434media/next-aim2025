@@ -124,7 +124,7 @@ export default function PreConferenceSymposiums() {
         {/* Full-screen background image */}
         <div className="absolute inset-0">
           <Image
-            src="https://ampd-asset.s3.us-east-2.amazonaws.com/IMG_6123.JPG"
+            src="https://ampd-asset.s3.us-east-2.amazonaws.com/preaimweb-23.jpg"
             alt="AIM Health R&D Summit Pre-Conference Events"
             fill
             className="object-cover"
