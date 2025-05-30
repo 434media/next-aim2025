@@ -69,9 +69,8 @@ export default function NavBar() {
   const { scrollY } = useScroll()
 
   // Smooth scroll-based transforms
-  const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.95])
-  const headerBlur = useTransform(scrollY, [0, 100], [0, 8])
-  const headerScale = useTransform(scrollY, [0, 100], [1, 0.98])
+  const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.98])
+  const headerBlur = useTransform(scrollY, [0, 100], [0, 4])
 
   const newsItems = useMemo(() => initialNewsItems, [])
 
@@ -108,10 +107,9 @@ export default function NavBar() {
   return (
     <motion.header
       ref={headerRef}
-      className="fixed top-0 left-0 right-0 z-50"
+      className="fixed top-0 left-0 right-0 z-40"
       style={{
         opacity: headerOpacity,
-        scale: headerScale,
       }}
     >
       <motion.div
@@ -171,9 +169,10 @@ export default function NavBar() {
               </div>
               <motion.button
                 onClick={() => setIsOpen(true)}
-                className="p-2 rounded-xl transition-all duration-300 hover:bg-[#548cac]/20 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-[#101310] relative overflow-hidden"
+                className="p-2 rounded-xl transition-all duration-300 hover:bg-[#548cac]/20 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-[#101310] relative overflow-hidden touch-manipulation"
+                style={{ pointerEvents: "auto" }}
                 aria-label="Open menu"
-                whileHover={{ scale: 1.05, rotate: 5 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <motion.div

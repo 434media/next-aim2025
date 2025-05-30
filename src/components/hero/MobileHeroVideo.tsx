@@ -21,7 +21,6 @@ export const MobileHeroVideo = React.memo(({ prefersReducedMotion }: MobileHeroV
     offset: ["start start", "end start"],
   })
 
-  const animationTrigger = useMemo(() => scrollYProgress, [])
   const stickyTitleOpacity = useTransform(scrollYProgress, [0, 0.7, 0.9], [1, 0.8, 0])
 
   const handleSkipLink = useCallback(
@@ -50,8 +49,28 @@ export const MobileHeroVideo = React.memo(({ prefersReducedMotion }: MobileHeroV
   const [currentTitleOpacity, setCurrentTitleOpacity] = useState(1)
 
   useEffect(() => {
-    const unsubscribeScroll = scrollYProgress.on("change", setCurrentScrollProgress)
-    const unsubscribeOpacity = stickyTitleOpacity.on("change", setCurrentTitleOpacity)
+    // Use a throttled update to reduce the frequency of state changes during scroll
+    let lastUpdateTime = 0
+    const THROTTLE_MS = 16 // Approximately 60fps
+
+    const handleScrollUpdate = (latest: number) => {
+      const now = performance.now()
+      if (now - lastUpdateTime < THROTTLE_MS) return
+
+      lastUpdateTime = now
+      setCurrentScrollProgress(latest)
+    }
+
+    const handleOpacityUpdate = (latest: number) => {
+      const now = performance.now()
+      if (now - lastUpdateTime < THROTTLE_MS) return
+
+      lastUpdateTime = now
+      setCurrentTitleOpacity(latest)
+    }
+
+    const unsubscribeScroll = scrollYProgress.on("change", handleScrollUpdate)
+    const unsubscribeOpacity = stickyTitleOpacity.on("change", handleOpacityUpdate)
 
     return () => {
       unsubscribeScroll()
@@ -79,14 +98,17 @@ export const MobileHeroVideo = React.memo(({ prefersReducedMotion }: MobileHeroV
         className="fixed top-16 left-0 right-0 z-40 pointer-events-none"
         style={{
           opacity: stickyTitleOpacity,
+          willChange: "opacity",
         }}
       >
-        <HeroTitle animationProgress={animationTrigger} prefersReducedMotion={prefersReducedMotion} isMobile={true} />
-        <TitleParticleEffect
-          scrollProgress={currentScrollProgress}
-          titleOpacity={currentTitleOpacity}
-          prefersReducedMotion={prefersReducedMotion}
-        />
+        <HeroTitle animationProgress={scrollYProgress} prefersReducedMotion={prefersReducedMotion} isMobile={true} />
+        {!prefersReducedMotion && currentTitleOpacity > 0.1 && (
+          <TitleParticleEffect
+            scrollProgress={currentScrollProgress}
+            titleOpacity={currentTitleOpacity}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+        )}
       </motion.div>
 
       {/* Scrolling Content Container */}
@@ -124,7 +146,7 @@ export const MobileHeroVideo = React.memo(({ prefersReducedMotion }: MobileHeroV
                   className="text-lg sm:text-xl text-white/95 leading-relaxed -mt-10 max-w-4xl text-balance tracking-tight font-medium"
                   {...fadeInUp}
                   style={{
-                    textShadow: "0 3px 15px rgba(0,0,0,0.8)",
+                    filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.5))",
                     lineHeight: "1.4",
                   }}
                 >

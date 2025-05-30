@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { motion, AnimatePresence } from "motion/react"
+import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { RiArrowDownSLine, RiCloseLine } from "@remixicon/react"
 import { Button } from "../Button"
@@ -24,35 +24,34 @@ export default function MobileMenu({ isOpen, closeMenu, menuItems, eventInfo, ne
 
   return (
     <>
-      {/* Backdrop */}
+      {/* Backdrop - Remove onClick to prevent interference */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
         className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
-        onClick={closeMenu}
         aria-hidden="true"
       />
 
-      {/* Mobile Menu Panel */}
+      {/* Mobile Menu Panel - Simplified positioning */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.9, x: "100%" }}
-        animate={{ opacity: 1, scale: 1, x: 0 }}
-        exit={{ opacity: 0, scale: 0.9, x: "100%" }}
+        initial={{ opacity: 0, scale: 0.95, y: -20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: -20 }}
         transition={{
           type: "spring",
-          stiffness: 300,
-          damping: 30,
-          duration: 0.4,
+          stiffness: 400,
+          damping: 25,
+          duration: 0.3,
         }}
-        className="fixed top-4 right-4 bottom-4 w-[calc(100%-2rem)] max-w-sm bg-[#101310]/95 backdrop-blur-xl z-50 shadow-2xl rounded-2xl overflow-hidden border border-white/10 flex flex-col"
+        className="fixed inset-4 max-w-sm ml-auto bg-[#101310]/98 backdrop-blur-xl z-50 shadow-2xl rounded-2xl overflow-hidden border border-white/10 flex flex-col"
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
       >
-        {/* Menu background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#548cac]/5 via-transparent to-[#548cac]/10" />
+        {/* Simplified background - remove animated gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#548cac]/5 to-[#548cac]/10" />
 
         {/* Enhanced Header */}
         <motion.div

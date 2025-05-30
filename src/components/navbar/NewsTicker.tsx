@@ -57,13 +57,8 @@ export default function NewsTicker({ newsItems, isDesktop = true, onClose }: New
               }
             }}
           >
-            {/* Animated background shimmer */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-[#548cac]/10 to-transparent opacity-0 group-hover:opacity-100"
-              initial={{ x: "-100%" }}
-              whileHover={{ x: "100%" }}
-              transition={{ duration: 1, ease: "easeInOut" }}
-            />
+            {/* Remove the animated background shimmer and replace with simpler effect */}
+            <motion.div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#548cac]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
             <span className="flex items-center relative z-10 w-full">
               <span className="sr-only">Current news:</span>
@@ -71,13 +66,9 @@ export default function NewsTicker({ newsItems, isDesktop = true, onClose }: New
                 <motion.span
                   className="font-bold text-[#548cac] mr-3"
                   animate={{
-                    textShadow: [
-                      "0 0 0px rgba(84, 140, 172, 0)",
-                      "0 0 8px rgba(84, 140, 172, 0.3)",
-                      "0 0 0px rgba(84, 140, 172, 0)",
-                    ],
+                    opacity: [1, 0.8, 1],
                   }}
-                  transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
+                  transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
                 >
                   News
                 </motion.span>
@@ -100,19 +91,14 @@ export default function NewsTicker({ newsItems, isDesktop = true, onClose }: New
                   </AnimatePresence>
                 </span>
 
-                {/* Progress indicators */}
+                {/* Simplified progress indicators */}
                 <div className="flex space-x-1 ml-3">
                   {newsItems.map((_, index) => (
-                    <motion.div
+                    <div
                       key={index}
                       className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                        index === currentNewsIndex ? "bg-[#548cac] shadow-sm shadow-[#548cac]/50" : "bg-gray-300"
+                        index === currentNewsIndex ? "bg-[#548cac] scale-125" : "bg-gray-300 opacity-50"
                       }`}
-                      animate={{
-                        scale: index === currentNewsIndex ? 1.3 : 1,
-                        opacity: index === currentNewsIndex ? 1 : 0.5,
-                      }}
-                      transition={{ duration: 0.3 }}
                     />
                   ))}
                 </div>
@@ -160,23 +146,21 @@ export default function NewsTicker({ newsItems, isDesktop = true, onClose }: New
           </motion.span>
         </h3>
         <div className="space-y-2">
+          {/* Simplified mobile news items */}
           {newsItems.map((item, index) => (
             <motion.a
               key={index}
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group block p-3 rounded-lg transition-all duration-300 relative overflow-hidden ${
+              className={`group block p-3 rounded-lg transition-all duration-200 ${
                 index === currentNewsIndex
                   ? "bg-[#548cac]/20 border border-[#548cac]/30"
                   : "bg-white/5 hover:bg-[#548cac]/10"
               }`}
               onClick={onClose}
-              whileHover={{ scale: 1.02, x: 5 }}
+              whileHover={{ x: 2 }}
               whileTap={{ scale: 0.98 }}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.9 + index * 0.1, duration: 0.3 }}
             >
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-[#548cac]/0 via-[#548cac]/10 to-[#548cac]/0 opacity-0 group-hover:opacity-100 rounded-lg"
