@@ -4,7 +4,10 @@ import React, { useState, useEffect } from "react"
 import { motion } from "motion/react"
 
 interface AnimatedHeroTextProps {
-  animationProgress: any
+  animationProgress: {
+    on: (event: string, callback: (latest: number) => void) => () => void
+    get: () => number
+  }
   prefersReducedMotion: boolean
 }
 

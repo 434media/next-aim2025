@@ -6,7 +6,10 @@ import { AnimatedHeroText } from "./AnimatedHeroText"
 import { ParticleBackground } from "./ParticleBackground"
 
 interface HeroTitleProps {
-  animationProgress: any
+  animationProgress: {
+    on: (event: string, callback: (latest: number) => void) => () => void
+    get: () => number
+  }
   prefersReducedMotion: boolean
   isMobile: boolean
   className?: string
