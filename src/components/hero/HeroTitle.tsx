@@ -1,15 +1,12 @@
 "use client"
 
 import React from "react"
-import { motion } from "motion/react"
+import { motion, type MotionValue } from "motion/react"
 import { AnimatedHeroText } from "./AnimatedHeroText"
 import { ParticleBackground } from "./ParticleBackground"
 
 interface HeroTitleProps {
-  animationProgress: {
-    on: (event: string, callback: (latest: number) => void) => () => void
-    get: () => number
-  }
+  animationProgress: MotionValue<number>
   prefersReducedMotion: boolean
   isMobile: boolean
   className?: string

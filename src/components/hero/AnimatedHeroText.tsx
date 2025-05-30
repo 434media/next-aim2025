@@ -1,13 +1,10 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
-import { motion } from "motion/react"
+import { motion, type MotionValue } from "motion/react"
 
 interface AnimatedHeroTextProps {
-  animationProgress: {
-    on: (event: string, callback: (latest: number) => void) => () => void
-    get: () => number
-  }
+  animationProgress: MotionValue<number>
   prefersReducedMotion: boolean
 }
 
