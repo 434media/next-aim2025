@@ -183,6 +183,27 @@ const sponsors: Sponsor[] = [
     industry: "Document Management",
     isExhibitor: false,
   },
+  {
+    id: "corcept-therapeutics",
+    name: "Corcept Therapeutics",
+    tier: "catalyst",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Corcept_logo_new_black.png",
+    description: "A global network of dedicated hands and minds focused on unlocking the possibilities of cortisol modulation to revolutionize the treatment of serious diseases. We are the ripples of change in cortisol modulation and we embrace possibility.",
+    website: "https://www.corcept.com/",
+    industry: "Pharmaceuticals & Biotechnology",
+    isExhibitor: true,
+  },
+  {
+    id: "geneva-foundation",
+    name: "The Geneva Foundation",
+    tier: "catalyst",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/geneva.png",
+    description:
+      "The Geneva Foundation is a nonprofit organization that supports military medicine research and education. They collaborate with various institutions to advance healthcare solutions for service members and veterans.",
+    website: "https://genevausa.org/",
+    industry: "Nonprofit & Research",
+    isExhibitor: true,
+  },
 
   // Partner Sponsors
   {

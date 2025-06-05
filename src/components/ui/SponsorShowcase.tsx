@@ -84,6 +84,18 @@ const platinumSponsors = [
     website: "https://mtec-sc.org/",
     description: "We advance the rapid deployment of innovative medical technologies that improve the health of the military and civilians.",
   },
+  {
+    name: "Corcept Therapeutics",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Corcept_logo_new_black.png",
+    website: "https://www.corcept.com/",
+    description: "A global network of dedicated hands and minds focused on unlocking the possibilities of cortisol modulation to revolutionize the treatment of serious diseases. We are the ripples of change in cortisol modulation and we embrace possibility.",
+  },
+  {
+    name: "The Geneva Foundation",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/geneva.png",
+    website: "https://genevausa.org/",
+    description: "The Geneva Foundation is a non-profit organization that supports military medicine research and education.",
+  },
 ]
 
 type Sponsor = (typeof platinumSponsors)[0]
