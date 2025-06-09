@@ -8,8 +8,16 @@ import { useInView } from "react-intersection-observer"
 import dynamic from "next/dynamic"
 import Image from "next/image"
 import ErrorBoundary from "./ErrorBoundary"
-import { Button } from "../Button"
-import { RiArrowRightUpLine, RiCloseLine, RiExternalLinkLine, RiInformationLine } from "@remixicon/react"
+import {
+  RiCloseLine,
+  RiExternalLinkLine,
+  RiInformationLine,
+  RiMapPin2Line,
+  RiMicroscopeLine,
+  RiHeartPulseLine,
+  RiShieldLine,
+  RiGraduationCapLine,
+} from "@remixicon/react"
 import { cn } from "@/lib/utils"
 import { useMediaQuery } from "@/hooks/useMediaQuery"
 
@@ -19,7 +27,7 @@ const GameOfLife = dynamic(() => import("./HeroBackground"), {
   loading: () => <div className="w-full h-full bg-gray-100" aria-hidden="true" />,
 })
 
-// Organization data
+// Organization data with enhanced information
 const organizations = [
   {
     id: "bamc",
@@ -28,6 +36,13 @@ const organizations = [
     logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/bamc.png",
     href: "https://bamc.tricare.mil/",
     description: "The largest DoD hospital and only Level 1 Trauma Center in the DoD.",
+    category: "military",
+    icon: RiHeartPulseLine,
+    color: "#1e40af",
+    spotlight:
+      "The cornerstone of military medicine in San Antonio, BAMC serves as the primary medical facility for Joint Base San Antonio and the surrounding military community.",
+    stats: { beds: "425+", staff: "7,000+", specialty: "Level 1 Trauma" },
+    position: { x: 25, y: 30 },
   },
   {
     id: "dha",
@@ -36,6 +51,13 @@ const organizations = [
     logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/dha_logo.png",
     href: "https://dha.mil/",
     description: "A joint, integrated Combat Support Agency enabling military medical services.",
+    category: "military",
+    icon: RiShieldLine,
+    color: "#dc2626",
+    spotlight:
+      "Leading the transformation of military healthcare through innovative research, policy development, and strategic partnerships across all service branches.",
+    stats: { personnel: "130,000+", facilities: "700+", specialty: "Healthcare Leadership" },
+    position: { x: 75, y: 20 },
   },
   {
     id: "59mdw",
@@ -44,6 +66,13 @@ const organizations = [
     logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/59th_Medical_Wing.png",
     href: "https://www.59mdw.af.mil/",
     description: "The Air Force's premier healthcare, medical education and research wing.",
+    category: "military",
+    icon: RiHeartPulseLine,
+    color: "#0369a1",
+    spotlight:
+      "Advancing aerospace medicine and military healthcare through cutting-edge research, education, and clinical excellence in support of global Air Force operations.",
+    stats: { personnel: "3,500+", missions: "Global", specialty: "Aerospace Medicine" },
+    position: { x: 60, y: 70 },
   },
   {
     id: "usaisr",
@@ -52,6 +81,13 @@ const organizations = [
     logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/USAISR_LOGO_HI_RES+blank+background+black+and+white.jpg",
     href: "https://usaisr.amedd.army.mil/",
     description: "The Army's premier research organization focused on improving combat casualty care.",
+    category: "military",
+    icon: RiMicroscopeLine,
+    color: "#059669",
+    spotlight:
+      "Pioneering life-saving medical innovations for combat casualty care, burn treatment, and trauma surgery that benefit both military personnel and civilian populations worldwide.",
+    stats: { research: "50+ Projects", burns: "#1 Burn Center", specialty: "Trauma Research" },
+    position: { x: 40, y: 50 },
   },
   {
     id: "namrusa",
@@ -60,6 +96,13 @@ const organizations = [
     logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/namru.png",
     href: "https://www.med.navy.mil/Naval-Medical-Research-Unit-San-Antonio/",
     description: "Conducts medical, dental, and biomedical research to enhance warfighter performance.",
+    category: "military",
+    icon: RiMicroscopeLine,
+    color: "#7c3aed",
+    spotlight:
+      "Advancing naval medicine through innovative research in infectious diseases, operational medicine, and warfighter health optimization for maritime operations.",
+    stats: { research: "25+ Studies", focus: "Infectious Disease", specialty: "Naval Medicine" },
+    position: { x: 20, y: 80 },
   },
   {
     id: "utsa",
@@ -68,6 +111,13 @@ const organizations = [
     logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/utsa-wordmark.svg",
     href: "https://www.utsa.edu/",
     description: "An emerging Tier One research institution with nearly 34,000 students.",
+    category: "civilian",
+    icon: RiGraduationCapLine,
+    color: "#f97316",
+    spotlight:
+      "A rapidly ascending research university fostering innovation in biomedical engineering, cybersecurity, and health sciences through collaborative partnerships with military institutions.",
+    stats: { students: "34,000+", research: "$120M+", specialty: "Tier One Research" },
+    position: { x: 80, y: 60 },
   },
   {
     id: "uthscsa",
@@ -76,6 +126,13 @@ const organizations = [
     logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/UTHSA_logo.svg",
     href: "https://www.uthscsa.edu/",
     description: "A leading academic health center with excellence in education and research.",
+    category: "civilian",
+    icon: RiHeartPulseLine,
+    color: "#ea580c",
+    spotlight:
+      "Driving medical breakthroughs through world-class research, education, and patient care, with strong partnerships in military medicine and veteran healthcare.",
+    stats: { students: "3,000+", research: "$200M+", specialty: "Academic Medicine" },
+    position: { x: 15, y: 40 },
   },
   {
     id: "swri",
@@ -84,8 +141,15 @@ const organizations = [
     logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/Southwest_Research_Institute_SwRi.png",
     href: "https://www.swri.org/",
     description: "One of the oldest and largest independent, nonprofit applied research organizations.",
+    category: "civilian",
+    icon: RiMicroscopeLine,
+    color: "#0891b2",
+    spotlight:
+      "Delivering innovative solutions across multiple disciplines including biomedical research, defense technologies, and space science through independent applied research.",
+    stats: { staff: "2,800+", revenue: "$700M+", specialty: "Applied Research" },
+    position: { x: 70, y: 35 },
   },
-]
+] as const satisfies Organization[]
 
 // Organization Modal Component
 interface Organization {
@@ -95,6 +159,12 @@ interface Organization {
   logo: string
   href: string
   description: string
+  category: string
+  icon: React.ComponentType<{ className?: string }>
+  color: string
+  spotlight: string
+  stats: { [key: string]: string } // Changed from Record<string, string> to be more flexible
+  position: { x: number; y: number }
 }
 
 interface OrganizationModalProps {
@@ -108,7 +178,6 @@ const OrganizationModal = ({ organization, isOpen, onClose, isMobile }: Organiza
   const modalRef = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = useReducedMotion()
 
-  // Handle click outside to close modal
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
@@ -116,7 +185,6 @@ const OrganizationModal = ({ organization, isOpen, onClose, isMobile }: Organiza
       }
     }
 
-    // Handle escape key to close modal
     const handleEscKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         onClose()
@@ -126,12 +194,9 @@ const OrganizationModal = ({ organization, isOpen, onClose, isMobile }: Organiza
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside)
       document.addEventListener("keydown", handleEscKey)
-      // Lock body scroll only on mobile
       if (isMobile) {
         document.body.style.overflow = "hidden"
       }
-
-      // Focus the modal when it opens
       if (modalRef.current) {
         modalRef.current.focus()
       }
@@ -140,7 +205,6 @@ const OrganizationModal = ({ organization, isOpen, onClose, isMobile }: Organiza
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
       document.removeEventListener("keydown", handleEscKey)
-      // Restore body scroll
       if (isMobile) {
         document.body.style.overflow = ""
       }
@@ -149,155 +213,144 @@ const OrganizationModal = ({ organization, isOpen, onClose, isMobile }: Organiza
 
   if (!organization) return null
 
+  const IconComponent = organization.icon
+
   return (
     <AnimatePresence>
       {isOpen && (
-        <>
-          {isMobile ? (
-            // Mobile modal (full screen)
-            <motion.div
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: prefersReducedMotion ? 0.1 : 0.2 }}
-            >
-              <motion.div
-                ref={modalRef}
-                className="relative w-full max-w-md bg-white rounded-lg shadow-xl overflow-hidden"
-                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: prefersReducedMotion ? 0.1 : 0.3 }}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby={`modal-title-${organization.id}`}
-                tabIndex={-1}
-              >
-                {/* Modal header */}
-                <div className="flex items-center justify-between p-5 border-b border-gray-200">
-                  <h3 id={`modal-title-${organization.id}`} className="text-xl font-semibold text-gray-900">
-                    {organization.name}
-                  </h3>
-                  <button
-                    onClick={onClose}
-                    className="text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#366A79] rounded-full p-2"
-                    aria-label="Close modal"
-                  >
-                    <RiCloseLine className="w-6 h-6" />
-                  </button>
-                </div>
-
-                {/* Modal content */}
-                <div className="p-5">
-                  <div className="flex flex-col items-center mb-5">
-                    <div className="relative w-32 h-32 mb-4 bg-white p-2 rounded-lg shadow-sm">
-                      <Image
-                        src={organization.logo || "/placeholder.svg"}
-                        alt={`${organization.name} logo`}
-                        fill
-                        className="object-contain"
-                        sizes="128px"
-                      />
-                    </div>
-                    <p className="text-center text-gray-700 text-base leading-relaxed mb-4">
-                      {organization.description}
-                    </p>
-                  </div>
-
-                  <a
-                    href={organization.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center w-full py-3 px-4 bg-[#366A79] text-white rounded-md hover:bg-[#548cac] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#366A79]"
-                  >
-                    Visit Website
-                    <RiExternalLinkLine className="ml-2 h-5 w-5" aria-hidden="true" />
-                  </a>
-                </div>
-              </motion.div>
-            </motion.div>
-          ) : (
-            // Desktop modal (centered in right column with blur)
-            <motion.div
-              className="absolute inset-0 z-20 flex items-center justify-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: prefersReducedMotion ? 0.1 : 0.2 }}
-            >
-              {/* Blurred backdrop that only covers the right column */}
-              <motion.div
-                className="absolute inset-0 backdrop-blur-sm bg-white/30"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                onClick={onClose}
-                aria-hidden="true"
-              />
-
-              <motion.div
-                ref={modalRef}
-                className="relative w-[90%] max-w-[320px] bg-white rounded-lg shadow-xl overflow-hidden"
-                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
-                transition={{ duration: prefersReducedMotion ? 0.1 : 0.3 }}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby={`modal-title-${organization.id}`}
-                tabIndex={-1}
-              >
-                {/* Modal header */}
-                <div className="flex items-center justify-between p-4 border-b border-gray-200">
-                  <h3 id={`modal-title-${organization.id}`} className="text-lg font-semibold text-gray-900">
-                    {organization.name}
-                  </h3>
-                  <button
-                    onClick={onClose}
-                    className="text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#366A79] rounded-full p-1"
-                    aria-label="Close modal"
-                  >
-                    <RiCloseLine className="w-5 h-5" />
-                  </button>
-                </div>
-
-                {/* Modal content */}
-                <div className="p-4">
-                  <div className="flex flex-col items-center mb-4">
-                    <div className="relative w-24 h-24 mb-3 bg-white p-2 rounded-lg shadow-sm">
-                      <Image
-                        src={organization.logo || "/placeholder.svg"}
-                        alt={`${organization.name} logo`}
-                        fill
-                        className="object-contain"
-                        sizes="96px"
-                      />
-                    </div>
-                    <p className="text-center text-sm text-gray-700 leading-relaxed mb-4">{organization.description}</p>
-                  </div>
-
-                  <a
-                    href={organization.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center w-full py-2 px-4 bg-[#366A79] text-white rounded-md hover:bg-[#548cac] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#366A79]"
-                  >
-                    Visit Website
-                    <RiExternalLinkLine className="ml-2 h-4 w-4" aria-hidden="true" />
-                  </a>
-                </div>
-              </motion.div>
-            </motion.div>
+        <motion.div
+          className={cn(
+            "fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm",
+            isMobile ? "p-2" : "p-4",
           )}
-        </>
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: prefersReducedMotion ? 0.1 : 0.2 }}
+        >
+          <motion.div
+            ref={modalRef}
+            className={cn(
+              "relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-white/20",
+              isMobile ? "w-[85vw] max-w-sm max-h-[80vh] overflow-y-auto" : "w-full max-w-2xl",
+            )}
+            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: prefersReducedMotion ? 0.1 : 0.3 }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`modal-title-${organization.id}`}
+            tabIndex={-1}
+          >
+            {/* Enhanced modal header with organization color */}
+            <div
+              className="relative p-8"
+              style={{
+                background: `linear-gradient(135deg, ${organization.color}15 0%, ${organization.color}05 100%)`,
+              }}
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex items-center space-x-4">
+                  <div
+                    className="p-4 rounded-2xl backdrop-blur-sm border border-white/20"
+                    style={{ backgroundColor: `${organization.color}20` }}
+                  >
+                    <div style={{ color: organization.color }}>
+                      <IconComponent className="w-8 h-8" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 id={`modal-title-${organization.id}`} className="text-2xl font-bold text-gray-900">
+                      {organization.shortName}
+                    </h3>
+                    <p className="text-gray-600 text-lg mt-1">{organization.name}</p>
+                    <div
+                      className="px-3 py-1 rounded-full text-sm font-medium mt-2 inline-block"
+                      style={{
+                        backgroundColor: `${organization.color}15`,
+                        color: organization.color,
+                      }}
+                    >
+                      {organization.category === "military" ? "Military Institution" : "Civilian Institution"}
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onClick={onClose}
+                  className="text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-full p-2 transition-colors"
+                  aria-label="Close modal"
+                >
+                  <RiCloseLine className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+
+            {/* Enhanced modal content */}
+            <div className={cn("p-8 pt-0", isMobile && "overflow-y-auto")}>
+              <div className={cn("grid gap-6 mb-6", isMobile ? "grid-cols-1" : "grid-cols-1 lg:grid-cols-3")}>
+                {/* Logo */}
+                <div className="lg:col-span-1">
+                  <div className="relative w-full h-32 bg-white p-4 rounded-2xl shadow-lg border border-gray-100">
+                    <Image
+                      src={organization.logo || "/placeholder.svg"}
+                      alt={`${organization.name} logo`}
+                      fill
+                      className="object-contain"
+                      sizes="200px"
+                    />
+                  </div>
+                </div>
+
+                {/* Stats */}
+                <div className="lg:col-span-2">
+                  <h4 className="text-lg font-semibold text-gray-900 mb-3">Key Statistics</h4>
+                  <div className={cn("grid gap-3", isMobile ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-3")}>
+                    {Object.entries(organization.stats).map(([key, value]) => (
+                      <div key={key} className="p-3 rounded-xl border border-gray-200 bg-gray-50">
+                        <div className="text-sm text-gray-600 capitalize">{key}</div>
+                        <div className="text-lg font-semibold" style={{ color: organization.color }}>
+                          {value}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Description and spotlight */}
+              <div className="space-y-4 mb-6">
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-2">Overview</h4>
+                  <p className="text-gray-700 leading-relaxed">{organization.description}</p>
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-2">Impact & Innovation</h4>
+                  <p className="text-gray-700 leading-relaxed">{organization.spotlight}</p>
+                </div>
+              </div>
+
+              <a
+                href={organization.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-full py-4 px-6 text-white rounded-2xl transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
+                style={{
+                  background: `linear-gradient(135deg, ${organization.color} 0%, ${organization.color}dd 100%)`,
+                }}
+              >
+                Visit Website
+                <RiExternalLinkLine className="ml-2 h-5 w-5" aria-hidden="true" />
+              </a>
+            </div>
+          </motion.div>
+        </motion.div>
       )}
     </AnimatePresence>
   )
 }
 
-// Custom LinkPreview component with hover/click state
+// Enhanced LinkPreview component
 interface InteractiveLinkPreviewProps {
   href: string
   children: React.ReactNode
@@ -319,9 +372,9 @@ const InteractiveLinkPreview = ({
 }: InteractiveLinkPreviewProps) => {
   const prefersReducedMotion = useReducedMotion()
   const isMobile = useMediaQuery("(max-width: 1023px)")
+  const organization = organizations.find((org) => org.id === orgId)
 
   const handleInteraction = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    // Always prevent default on click to show modal
     e.preventDefault()
     onClick(orgId)
   }
@@ -332,22 +385,28 @@ const InteractiveLinkPreview = ({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "font-semibold focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 rounded-sm transition-colors duration-200 underline underline-offset-2 inline-flex items-center gap-1",
-        isActive ? "text-[#548cac]" : "text-[#366A79]/90 hover:text-[#548cac]",
+        "font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg transition-all duration-200 underline underline-offset-2 inline-flex items-center gap-1 relative px-2 py-1 -mx-2 -my-1",
+        isActive
+          ? "text-white shadow-lg transform scale-105"
+          : "text-[#366A79]/90 hover:text-white hover:shadow-md hover:scale-102",
         className,
       )}
+      style={{
+        backgroundColor: isActive ? organization?.color : undefined,
+        borderColor: isActive ? organization?.color : undefined,
+      }}
       onMouseEnter={() => !isMobile && onHover(orgId)}
       onMouseLeave={() => !isMobile && onHover(null)}
       onClick={(e) => handleInteraction(e)}
       onFocus={() => !isMobile && onHover(orgId)}
       onBlur={() => !isMobile && onHover(null)}
-      whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+      whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
       transition={{ duration: 0.2 }}
       aria-label={`View details about ${orgId}`}
     >
       {children}
       <RiInformationLine
-        className={cn("h-4 w-4", isActive ? "text-[#548cac]" : "text-[#366A79]/70")}
+        className={cn("h-4 w-4 transition-colors", isActive ? "text-white" : "text-[#366A79]/70")}
         aria-hidden="true"
       />
     </motion.a>
@@ -355,7 +414,7 @@ const InteractiveLinkPreview = ({
 }
 
 /**
- * A component that showcases Military Health City USA with animated content and interactive organization display
+ * A component that showcases Military Health City USA with enhanced interactive visualization
  */
 export function MilitaryHealthCity() {
   const [ref, inView] = useInView({
@@ -375,24 +434,25 @@ export function MilitaryHealthCity() {
     offset: ["start end", "end start"],
   })
 
-  const textY = useTransform(scrollYProgress, [0, 0.2], ["10%", "0%"])
-  const textOpacity = useTransform(scrollYProgress, [0, 0.2], [0.7, 1])
+  const textY = useTransform(scrollYProgress, [0, 0.3], ["20%", "0%"])
+  const textOpacity = useTransform(scrollYProgress, [0, 0.3], [0.6, 1])
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
   const spring = useSpring(textY, { damping: 15, stiffness: 100 })
 
-  // Find the organization object by ID
-  const getOrgById = (id: string) => {
-    return organizations.find((org) => org.id === id) || null
+  const getOrgById = (id: string): Organization | null => {
+    return (organizations.find((org) => org.id === id) as Organization) || null
   }
 
-  // Handle opening the modal
   const handleOpenModal = (orgId: string) => {
-    setModalOrg(getOrgById(orgId))
+    const org = getOrgById(orgId)
+    setModalOrg(org)
   }
 
-  // Handle closing the modal
   const handleCloseModal = useCallback(() => {
     setModalOrg(null)
   }, [])
+
+  const activeOrgData = activeOrg ? getOrgById(activeOrg) : null
 
   return (
     <div ref={ref} className="relative">
@@ -404,18 +464,67 @@ export function MilitaryHealthCity() {
             ref={containerRef}
             id="military-health-city"
             aria-labelledby="military-health-city-heading"
-            className="relative w-full overflow-hidden bg-gradient-to-b from-gray-50 to-white py-12 sm:py-16 lg:py-20 min-h-[80vh] flex items-center"
+            className="relative w-full overflow-hidden bg-gradient-to-b from-gray-50 via-white to-gray-50 min-h-[90vh] flex items-center"
           >
+            {/* Enhanced animated background */}
+            <motion.div className="absolute inset-0 z-0" style={{ y: backgroundY }} aria-hidden="true">
+              <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-gradient-to-br from-[#548cac]/10 to-orange-500/10 blur-xl animate-pulse" />
+              <div
+                className="absolute bottom-32 right-16 w-24 h-24 rounded-full bg-gradient-to-tl from-orange-500/10 to-[#548cac]/10 blur-xl animate-pulse"
+                style={{ animationDelay: "1s" }}
+              />
+              <div
+                className="absolute top-1/2 left-1/4 w-16 h-16 rounded-full bg-gradient-to-r from-[#548cac]/5 to-orange-500/5 blur-lg animate-pulse"
+                style={{ animationDelay: "2s" }}
+              />
+
+              {/* Connection lines between organizations */}
+              {!isMobile && activeOrgData && (
+                <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
+                  {organizations
+                    .filter((org) => org.id !== activeOrg && org.category === activeOrgData.category)
+                    .map((org, index) => (
+                      <motion.line
+                        key={`${activeOrg}-${org.id}`}
+                        x1={`${activeOrgData.position.x}%`}
+                        y1={`${activeOrgData.position.y}%`}
+                        x2={`${org.position.x}%`}
+                        y2={`${org.position.y}%`}
+                        stroke={activeOrgData.color}
+                        strokeWidth="2"
+                        strokeOpacity="0.3"
+                        strokeDasharray="5,5"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={{ pathLength: 1, opacity: 0.3 }}
+                        exit={{ pathLength: 0, opacity: 0 }}
+                        transition={{ duration: 0.8, delay: index * 0.1 }}
+                      />
+                    ))}
+                </svg>
+              )}
+            </motion.div>
+
             <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <div className="mx-auto max-w-7xl">
+                {/* Enhanced header section */}
                 <motion.div
                   style={{
                     y: prefersReducedMotion ? 0 : spring,
                     opacity: prefersReducedMotion ? 1 : textOpacity,
                   }}
-                  className="text-center mb-10 sm:mb-12"
+                  className="text-center mb-12 sm:mb-16"
                 >
-                  <div className="space-y-4 sm:space-y-5">
+                  <div className="space-y-6 sm:space-y-8">
+                    <motion.p
+                      className="text-lg sm:text-xl text-gray-600 font-medium max-w-3xl mx-auto"
+                      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: prefersReducedMotion ? 0.1 : 0.6, delay: 0.1 }}
+                    >
+                      <span className="text-[#548cac] font-semibold">🏥 Interactive Ecosystem:</span> Hover over links
+                      to explore connections
+                    </motion.p>
+
                     <motion.h2
                       id="military-health-city-heading"
                       className="font-extrabold text-[#101310] tracking-tight"
@@ -423,55 +532,62 @@ export function MilitaryHealthCity() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: prefersReducedMotion ? 0.1 : 0.8, delay: 0.2 }}
                     >
-                      <span className="block text-xl sm:text-2xl md:text-3xl mb-2 sm:mb-3">San Antonio, TX</span>
-                      <span className="block text-[#548cac] text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+                      <span className="flex items-center justify-center gap-2 text-xl sm:text-2xl md:text-3xl mb-3 sm:mb-4">
+                        <RiMapPin2Line className="w-6 h-6 sm:w-8 sm:h-8 text-[#548cac]" />
+                        San Antonio, TX
+                      </span>
+                      <span className="block bg-gradient-to-r from-[#548cac] via-orange-500 to-[#548cac] bg-clip-text text-transparent text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
                         Military Medical City USA
                       </span>
                     </motion.h2>
 
                     <motion.div
-                      className={cn(
-                        "h-1 bg-gradient-to-r from-[#548cac] to-[#366A79] mx-auto rounded-full",
-                        "w-24 sm:w-32 md:w-40 lg:w-48",
-                      )}
-                      initial={prefersReducedMotion ? { width: "100%" } : { width: 0 }}
-                      animate={{ width: "100%" }}
+                      className="flex items-center justify-center gap-4"
+                      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: prefersReducedMotion ? 0.1 : 0.8, delay: 0.5 }}
-                    />
+                    >
+                      <div className="h-1 bg-gradient-to-r from-[#548cac] to-orange-500 rounded-full w-16 sm:w-24" />
+                      <div className="p-2 bg-gradient-to-r from-[#548cac] to-orange-500 rounded-full">
+                        <RiHeartPulseLine className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="h-1 bg-gradient-to-r from-orange-500 to-[#548cac] rounded-full w-16 sm:w-24" />
+                    </motion.div>
                   </div>
                 </motion.div>
 
-                {/* Mobile instruction text */}
+                {/* Mobile instruction */}
                 {isMobile && (
-                  <div className="text-center mb-6">
+                  <div className="text-center mb-8">
                     <motion.p
-                      className="text-sm text-gray-600 italic"
+                      className="text-sm text-gray-600 italic bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 inline-block"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 1, duration: 0.5 }}
                     >
-                      Tap on highlighted links to learn more
+                      💡 Tap highlighted links to explore organizations
                     </motion.p>
                   </div>
                 )}
 
-                {/* Two-column layout */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 h-full">
-                  {/* Left column - Text content */}
+                {/* Enhanced two-column layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 h-full">
+                  {/* Left column - Enhanced text content */}
                   <motion.div
-                    className="text-left space-y-5 sm:space-y-6"
-                    initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: -20 }}
+                    className="text-left space-y-6 sm:space-y-8"
+                    initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: prefersReducedMotion ? 0.1 : 0.6 }}
+                    transition={{ duration: prefersReducedMotion ? 0.1 : 0.8, delay: 0.3 }}
                   >
-                    <div className="text-base sm:text-lg md:text-xl text-gray-700 text-balance tracking-tight leading-relaxed">
+                    <div className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed space-y-6">
                       <motion.div
-                        initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
+                        initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: prefersReducedMotion ? 0.1 : 0.6, delay: 0 * 0.15 }}
-                        className="mb-5"
+                        transition={{ duration: prefersReducedMotion ? 0.1 : 0.6, delay: 0.4 }}
+                        className="relative"
                       >
-                        <p>
+                        <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-[#548cac] to-orange-500 rounded-full opacity-30" />
+                        <p className="pl-6">
                           Long known as Military City, USA, San Antonio is home to the DoD&apos;s largest joint base and
                           its only Level 1 Trauma Center{" "}
                           <InteractiveLinkPreview
@@ -498,12 +614,13 @@ export function MilitaryHealthCity() {
                       </motion.div>
 
                       <motion.div
-                        initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
+                        initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: prefersReducedMotion ? 0.1 : 0.6, delay: 1 * 0.15 }}
-                        className="mb-5"
+                        transition={{ duration: prefersReducedMotion ? 0.1 : 0.6, delay: 0.5 }}
+                        className="relative"
                       >
-                        <p>
+                        <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-orange-500 to-[#548cac] rounded-full opacity-30" />
+                        <p className="pl-6 tracking-tighter md:tracking-tight">
                           San Antonio hosts premier military medical research facilities including the{" "}
                           <InteractiveLinkPreview
                             href="https://www.59mdw.af.mil/"
@@ -539,12 +656,13 @@ export function MilitaryHealthCity() {
                       </motion.div>
 
                       <motion.div
-                        initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
+                        initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: prefersReducedMotion ? 0.1 : 0.6, delay: 2 * 0.15 }}
-                        className="mb-5"
+                        transition={{ duration: prefersReducedMotion ? 0.1 : 0.6, delay: 0.6 }}
+                        className="relative"
                       >
-                        <p>
+                        <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-[#548cac] to-orange-500 rounded-full opacity-30" />
+                        <p className="pl-6">
                           The city is also home to leading civilian research institutions including{" "}
                           <InteractiveLinkPreview
                             href="https://www.utsa.edu/"
@@ -581,138 +699,181 @@ export function MilitaryHealthCity() {
                       </motion.div>
 
                       <motion.div
-                        initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
+                        initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: prefersReducedMotion ? 0.1 : 0.6, delay: 3 * 0.15 }}
+                        transition={{ duration: prefersReducedMotion ? 0.1 : 0.6, delay: 0.7 }}
+                        className="relative bg-gradient-to-r from-[#548cac]/5 to-orange-500/5 p-6 rounded-2xl border border-[#548cac]/10"
                       >
-                        <p>
+                        <p className="text-lg font-medium text-gray-800">
                           This unique ecosystem of military and civilian medical expertise creates the perfect
                           environment for cross-sector collaboration and innovation in healthcare, making San Antonio
                           the ideal host for the AIM Health R&D Summit.
                         </p>
                       </motion.div>
                     </div>
-
-                    <motion.div
-                      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: prefersReducedMotion ? 0.1 : 0.6, delay: 4 * 0.15 }}
-                      className="mt-8"
-                    >
-                      <Button
-                        variant="primary"
-                        href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-base py-3 px-6 whitespace-nowrap focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#548cac] focus-visible:outline-none transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg"
-                        aria-label="Register for AIM 2025 to engage with San Antonio's bioscience ecosystem (opens in new tab)"
-                      >
-                        <span className="flex items-center justify-center">
-                          Register for AIM 2025
-                          <RiArrowRightUpLine className="ml-2 h-5 w-5" aria-hidden="true" />
-                        </span>
-                      </Button>
-                    </motion.div>
                   </motion.div>
 
-                  {/* Right column - Interactive organization display (desktop only) */}
+                  {/* Right column - Revolutionary Interactive Ecosystem Visualization */}
                   {!isMobile && (
                     <motion.div
                       ref={rightColumnRef}
                       className="relative h-full flex items-center justify-center"
-                      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: 20 }}
+                      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: 30 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: prefersReducedMotion ? 0.1 : 0.6, delay: 0.3 }}
+                      transition={{ duration: prefersReducedMotion ? 0.1 : 0.8, delay: 0.4 }}
                     >
-                      <div className="relative w-full h-full min-h-[400px] sm:min-h-[500px] flex items-center justify-center">
-                        <h3 className="sr-only">Partner Organizations</h3>
+                      <div className="relative w-full h-full min-h-[600px] flex items-center justify-center">
+                        <h3 className="sr-only">Interactive Military Health Ecosystem</h3>
 
-                        {/* Desktop instruction text */}
-                        <div className="absolute -top-8 left-0 right-0 text-center">
-                          <motion.p
-                            className="text-sm text-gray-600"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 1, duration: 0.5 }}
-                          >
-                            <span className="font-medium">Military Health Ecosystem:</span> Hover over links to explore
-                            organizations
-                          </motion.p>
-                        </div>
+                        {/* Enhanced instruction */}
 
-                        {/* Grid layout for organizations */}
-                        <div className="grid grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4 w-full">
-                          {organizations.map((org) => {
+                        {/* Dynamic spotlight panel */}
+                        <AnimatePresence mode="wait">
+                          {activeOrgData ? (
+                            <motion.div
+                              key={activeOrgData.id}
+                              className="absolute inset-0 rounded-3xl overflow-hidden shadow-2xl border border-white/20"
+                              style={{
+                                background: `linear-gradient(135deg, ${activeOrgData.color}15 0%, ${activeOrgData.color}05 50%, transparent 100%)`,
+                              }}
+                              initial={{ opacity: 0, scale: 0.9 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{ opacity: 0, scale: 0.9 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <div className="absolute inset-0 bg-white/60 backdrop-blur-sm" />
+
+                              {/* Organization spotlight content */}
+                              <div className="relative z-10 p-8 h-full flex flex-col justify-center">
+                                <div className="text-center mb-6">
+                                  <div
+                                    className="w-20 h-20 mx-auto mb-4 rounded-2xl flex items-center justify-center shadow-lg"
+                                    style={{ backgroundColor: `${activeOrgData.color}20` }}
+                                  >
+                                    <activeOrgData.icon className="w-10 h-10 text-current" />
+                                  </div>
+                                  <h4 className="text-2xl font-bold text-gray-900 mb-2">{activeOrgData.shortName}</h4>
+                                  <p className="text-gray-600 text-sm mb-4">{activeOrgData.name}</p>
+                                  <div
+                                    className="px-3 py-1 rounded-full text-sm font-medium inline-block"
+                                    style={{
+                                      backgroundColor: `${activeOrgData.color}15`,
+                                      color: activeOrgData.color,
+                                    }}
+                                  >
+                                    {activeOrgData.category === "military"
+                                      ? "Military Institution"
+                                      : "Civilian Institution"}
+                                  </div>
+                                </div>
+
+                                <div className="space-y-4">
+                                  <p className="text-gray-700 leading-relaxed text-center">{activeOrgData.spotlight}</p>
+
+                                  <div className="grid grid-cols-3 gap-3">
+                                    {Object.entries(activeOrgData.stats).map(([key, value]) => (
+                                      <div key={key} className="text-center p-3 bg-white/50 rounded-xl">
+                                        <div className="text-xs text-gray-600 capitalize">{key}</div>
+                                        <div className="text-sm font-bold" style={{ color: activeOrgData.color }}>
+                                          {value}
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+
+                                <button
+                                  onClick={() => handleOpenModal(activeOrgData.id)}
+                                  className="mt-6 w-full py-3 px-6 text-white rounded-xl transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
+                                  style={{
+                                    background: `linear-gradient(135deg, ${activeOrgData.color} 0%, ${activeOrgData.color}dd 100%)`,
+                                  }}
+                                >
+                                  Learn More
+                                </button>
+                              </div>
+                            </motion.div>
+                          ) : (
+                            <motion.div
+                              className="absolute inset-0 rounded-3xl bg-gradient-to-br from-gray-50 to-white border border-gray-200 shadow-lg"
+                              initial={{ opacity: 1 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                            >
+                              <div className="h-full flex flex-col items-center justify-center p-8 text-center">
+                                <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-[#548cac]/20 to-orange-500/20 flex items-center justify-center">
+                                  <RiMapPin2Line className="w-12 h-12 text-[#548cac]" />
+                                </div>
+                                <h4 className="text-2xl font-bold text-gray-900 mb-4">Military Health Ecosystem</h4>
+                                <p className="text-gray-600 leading-relaxed mb-6">
+                                  Explore the interconnected network of military and civilian institutions that make San
+                                  Antonio the epicenter of military health innovation.
+                                </p>
+                                <div className="grid grid-cols-2 gap-4 w-full">
+                                  <div className="p-4 bg-[#548cac]/5 rounded-xl border border-[#548cac]/10">
+                                    <div className="text-2xl font-bold text-[#548cac]">5</div>
+                                    <div className="text-sm text-gray-600">Military Institutions</div>
+                                  </div>
+                                  <div className="p-4 bg-orange-500/5 rounded-xl border border-orange-500/10">
+                                    <div className="text-2xl font-bold text-orange-600">3</div>
+                                    <div className="text-sm text-gray-600">Civilian Partners</div>
+                                  </div>
+                                </div>
+                                <p className="text-sm text-gray-500 mt-4 italic">
+                                  Hover over organization links to explore connections
+                                </p>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
+                        {/* Organization position indicators */}
+                        <div className="absolute inset-0 pointer-events-none">
+                          {organizations.map((org, index) => {
                             const isActive = activeOrg === org.id
+                            const IconComponent = org.icon
 
                             return (
                               <motion.div
                                 key={org.id}
-                                className={cn(
-                                  "relative overflow-hidden rounded-lg transition-all duration-300 bg-white",
-                                  isActive
-                                    ? "ring-4 ring-[#548cac] shadow-lg scale-105 z-10"
-                                    : "ring-1 ring-gray-200 hover:ring-gray-300",
-                                )}
+                                className="absolute"
+                                style={{
+                                  left: `${org.position.x}%`,
+                                  top: `${org.position.y}%`,
+                                  transform: "translate(-50%, -50%)",
+                                }}
+                                initial={{ opacity: 0, scale: 0 }}
+                                animate={{
+                                  opacity: activeOrg ? (isActive ? 1 : 0.3) : 0.6,
+                                  scale: isActive ? 1.5 : 1,
+                                }}
+                                transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
                               >
-                                <div className="p-3">
-                                  {/* Logo */}
-                                  <div className="relative aspect-square w-full bg-white mb-2">
-                                    <Image
-                                      src={org.logo || "/placeholder.svg"}
-                                      alt={`${org.name} logo`}
-                                      fill
-                                      className="object-contain p-2"
-                                      sizes="(max-width: 640px) 80px, (max-width: 768px) 100px, 120px"
-                                    />
-                                  </div>
-
-                                  {/* Organization name always visible */}
-                                  <div className="text-center">
-                                    <p
-                                      className={cn(
-                                        "text-xs font-medium truncate transition-colors duration-200",
-                                        isActive ? "text-[#548cac]" : "text-gray-700",
-                                      )}
-                                    >
-                                      {org.shortName}
-                                    </p>
-                                  </div>
-                                </div>
-
-                                {/* Show brief description on hover/active */}
-                                <AnimatePresence>
-                                  {isActive && (
-                                    <motion.div
-                                      className="absolute inset-0 bg-white/95 backdrop-blur-sm p-3 flex items-center justify-center"
-                                      initial={{ opacity: 0 }}
-                                      animate={{ opacity: 1 }}
-                                      exit={{ opacity: 0 }}
-                                      transition={{ duration: 0.2 }}
-                                    >
-                                      <div className="text-center max-w-[95%]">
-                                        <p className="text-sm font-semibold text-[#548cac] mb-2">{org.shortName}</p>
-                                        <p className="text-xs leading-relaxed text-gray-600 line-clamp-3">
-                                          {org.description}
-                                        </p>
-                                      </div>
-                                    </motion.div>
+                                <div
+                                  className={cn(
+                                    "w-8 h-8 rounded-full flex items-center justify-center shadow-lg border-2 border-white transition-all duration-300",
+                                    isActive ? "shadow-2xl" : "shadow-md",
                                   )}
-                                </AnimatePresence>
+                                  style={{
+                                    backgroundColor: org.color,
+                                    transform: isActive ? "scale(1.2)" : "scale(1)",
+                                  }}
+                                >
+                                  <IconComponent className="w-4 h-4 text-white" />
+                                </div>
+                                {isActive && (
+                                  <motion.div
+                                    className="absolute -inset-4 rounded-full border-2 border-dashed opacity-50"
+                                    style={{ borderColor: org.color }}
+                                    initial={{ scale: 0, opacity: 0 }}
+                                    animate={{ scale: 1, opacity: 0.5 }}
+                                    transition={{ duration: 0.3 }}
+                                  />
+                                )}
                               </motion.div>
                             )
                           })}
                         </div>
-
-                        {/* Organization Modal for desktop - positioned within the right column */}
-                        {!isMobile && modalOrg && (
-                          <OrganizationModal
-                            organization={modalOrg}
-                            isOpen={!!modalOrg}
-                            onClose={handleCloseModal}
-                            isMobile={isMobile}
-                          />
-                        )}
                       </div>
                     </motion.div>
                   )}
@@ -720,34 +881,21 @@ export function MilitaryHealthCity() {
               </div>
             </div>
 
-            {/* Background animation with reduced opacity */}
-            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-5" aria-hidden="true">
+            {/* Enhanced background animation */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-3" aria-hidden="true">
               {!prefersReducedMotion && <GameOfLife />}
             </div>
-
-            {/* Enhanced decorative elements */}
-            <div
-              className="absolute top-20 left-10 w-24 h-24 rounded-full bg-gradient-to-br from-[#548cac]/10 to-[#366A79]/5 blur-xl"
-              aria-hidden="true"
-            ></div>
-            <div
-              className="absolute bottom-20 right-10 w-32 h-32 rounded-full bg-gradient-to-tl from-[#548cac]/10 to-[#366A79]/5 blur-xl"
-              aria-hidden="true"
-            ></div>
           </section>
 
-          {/* Organization Modal for mobile */}
-          {isMobile && (
-            <OrganizationModal
-              organization={modalOrg}
-              isOpen={!!modalOrg}
-              onClose={handleCloseModal}
-              isMobile={isMobile}
-            />
-          )}
+          {/* Enhanced Organization Modal */}
+          <OrganizationModal
+            organization={modalOrg}
+            isOpen={!!modalOrg}
+            onClose={handleCloseModal}
+            isMobile={isMobile}
+          />
         </ErrorBoundary>
       )}
     </div>
   )
 }
-
