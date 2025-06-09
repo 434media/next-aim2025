@@ -63,7 +63,7 @@ export default function SurfPresentersSection() {
         >
           {/* Header */}
           <div className="p-6 bg-gradient-to-r from-[#366A79] to-[#548cac] text-white">
-            <h3 className="text-2xl font-bold mb-2">Explore Research</h3>
+            <h3 className="text-2xl font-bold mb-2">Explore Poster Presenters</h3>
             <p className="text-sm opacity-90">
               Search through {presentersData.length} presentations across {categories.length - 1} research categories
             </p>
