@@ -15,6 +15,7 @@ interface MobileHeroVideoProps {
 
 export const MobileHeroVideo = React.memo(({ prefersReducedMotion }: MobileHeroVideoProps) => {
   const containerRef = useRef<HTMLElement>(null)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -22,6 +23,29 @@ export const MobileHeroVideo = React.memo(({ prefersReducedMotion }: MobileHeroV
   })
 
   const stickyTitleOpacity = useTransform(scrollYProgress, [0, 0.7, 0.9], [1, 0.8, 0])
+
+  // Listen for mobile menu state changes
+  useEffect(() => {
+    const checkMobileMenu = () => {
+      // Check if mobile menu is open by looking for the backdrop element
+      const backdrop = document.querySelector('[aria-hidden="true"].fixed.inset-0.bg-black\\/60')
+      setIsMobileMenuOpen(!!backdrop)
+    }
+
+    // Check initially
+    checkMobileMenu()
+
+    // Set up observer to watch for mobile menu changes
+    const observer = new MutationObserver(checkMobileMenu)
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["class", "style"],
+    })
+
+    return () => observer.disconnect()
+  }, [])
 
   const handleSkipLink = useCallback(
     (e: React.KeyboardEvent) => {
@@ -93,16 +117,17 @@ export const MobileHeroVideo = React.memo(({ prefersReducedMotion }: MobileHeroV
         Skip to main content
       </a>
 
-      {/* Fixed Sticky Hero Title Box */}
+      {/* Fixed Sticky Hero Title Box - Hide when mobile menu is open */}
       <motion.div
-        className="fixed top-16 left-0 right-0 z-40 pointer-events-none"
+        className="fixed top-16 left-0 right-0 z-30 pointer-events-none"
         style={{
-          opacity: stickyTitleOpacity,
+          opacity: isMobileMenuOpen ? 0 : stickyTitleOpacity,
           willChange: "opacity",
+          visibility: isMobileMenuOpen ? "hidden" : "visible",
         }}
       >
         <HeroTitle animationProgress={scrollYProgress} prefersReducedMotion={prefersReducedMotion} isMobile={true} />
-        {!prefersReducedMotion && currentTitleOpacity > 0.1 && (
+        {!prefersReducedMotion && currentTitleOpacity > 0.1 && !isMobileMenuOpen && (
           <TitleParticleEffect
             scrollProgress={currentScrollProgress}
             titleOpacity={currentTitleOpacity}

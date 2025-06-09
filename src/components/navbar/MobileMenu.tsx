@@ -24,17 +24,17 @@ export default function MobileMenu({ isOpen, closeMenu, menuItems, eventInfo, ne
 
   return (
     <>
-      {/* Backdrop - Remove onClick to prevent interference */}
+      {/* Backdrop - Higher z-index to ensure it's above hero content */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[55]"
         aria-hidden="true"
       />
 
-      {/* Mobile Menu Panel - Simplified positioning */}
+      {/* Mobile Menu Panel - Highest z-index to ensure it's always on top */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: -20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -45,15 +45,15 @@ export default function MobileMenu({ isOpen, closeMenu, menuItems, eventInfo, ne
           damping: 25,
           duration: 0.3,
         }}
-        className="fixed inset-4 max-w-sm ml-auto bg-[#101310]/98 backdrop-blur-xl z-50 shadow-2xl rounded-2xl overflow-hidden border border-white/10 flex flex-col"
+        className="fixed inset-4 max-w-sm ml-auto bg-[#101310]/98 backdrop-blur-xl z-[60] shadow-2xl rounded-2xl overflow-hidden border border-white/10 flex flex-col"
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
       >
-        {/* Simplified background - remove animated gradient */}
+        {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#548cac]/5 to-[#548cac]/10" />
 
-        {/* Enhanced Header */}
+        {/* Header */}
         <motion.div
           className="flex items-center justify-between p-6 border-b border-[#548cac]/20 bg-[#101310]/50 flex-shrink-0"
           initial={{ opacity: 0, y: -20 }}
@@ -63,7 +63,7 @@ export default function MobileMenu({ isOpen, closeMenu, menuItems, eventInfo, ne
           <h2 className="text-xl font-semibold text-white">Menu</h2>
           <motion.button
             onClick={closeMenu}
-            className="p-2 rounded-xl hover:bg-[#548cac]/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] relative overflow-hidden"
+            className="p-3 rounded-xl hover:bg-[#548cac]/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] relative overflow-hidden min-h-[48px] min-w-[48px] flex items-center justify-center"
             aria-label="Close menu"
             whileHover={{ scale: 1.1, rotate: 90 }}
             whileTap={{ scale: 0.9 }}
@@ -78,7 +78,7 @@ export default function MobileMenu({ isOpen, closeMenu, menuItems, eventInfo, ne
           </motion.button>
         </motion.div>
 
-        {/* Enhanced Event Info */}
+        {/* Event Info */}
         <motion.div
           className="p-6 border-b border-[#548cac]/20 bg-gradient-to-r from-[#101310]/80 to-[#101310]/60 flex-shrink-0"
           initial={{ opacity: 0, x: -20 }}
@@ -109,9 +109,9 @@ export default function MobileMenu({ isOpen, closeMenu, menuItems, eventInfo, ne
 
         {/* Scrollable Content Area */}
         <div className="flex-1 overflow-y-auto">
-          {/* Enhanced Navigation */}
+          {/* Navigation */}
           <nav className="p-6">
-            <ul className="space-y-3" role="list">
+            <ul className="space-y-4" role="list">
               {menuItems.map((item, index) => (
                 <motion.li
                   key={item.name}
@@ -122,7 +122,7 @@ export default function MobileMenu({ isOpen, closeMenu, menuItems, eventInfo, ne
                   {item.dropdown ? (
                     <div className="space-y-2">
                       <motion.div
-                        className="flex items-center justify-between p-3 rounded-xl hover:bg-[#548cac]/10 transition-all duration-300 relative overflow-hidden"
+                        className="flex items-center justify-between p-4 rounded-xl hover:bg-[#548cac]/10 transition-all duration-300 relative overflow-hidden min-h-[48px] cursor-pointer"
                         onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}
                         aria-expanded={activeDropdown === item.name}
                         whileHover={{ scale: 1.02, x: 5 }}
@@ -135,7 +135,7 @@ export default function MobileMenu({ isOpen, closeMenu, menuItems, eventInfo, ne
                           whileHover={{ x: "100%" }}
                           transition={{ duration: 0.6 }}
                         />
-                        <span className="relative z-10">{item.name}</span>
+                        <span className="relative z-10 text-lg font-medium text-white">{item.name}</span>
                         <motion.div
                           className="relative z-10"
                           animate={{
@@ -144,14 +144,14 @@ export default function MobileMenu({ isOpen, closeMenu, menuItems, eventInfo, ne
                           }}
                           transition={{ duration: 0.3 }}
                         >
-                          <RiArrowDownSLine className="size-5" aria-hidden="true" />
+                          <RiArrowDownSLine className="size-5 text-white" aria-hidden="true" />
                         </motion.div>
                       </motion.div>
 
                       <AnimatePresence>
                         {activeDropdown === item.name && (
                           <motion.ul
-                            className="pl-4 space-y-1 overflow-hidden"
+                            className="pl-4 space-y-2 overflow-hidden"
                             role="menu"
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
@@ -168,7 +168,7 @@ export default function MobileMenu({ isOpen, closeMenu, menuItems, eventInfo, ne
                                 {subItem.href && (
                                   <Link
                                     href={subItem.href}
-                                    className="group block text-base text-white/80 hover:text-[#548cac] p-3 rounded-lg hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden"
+                                    className="group block text-base font-medium text-white/80 hover:text-[#548cac] p-4 rounded-lg hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden min-h-[48px] items-center"
                                     onClick={closeMenu}
                                     role="menuitem"
                                   >
@@ -192,7 +192,7 @@ export default function MobileMenu({ isOpen, closeMenu, menuItems, eventInfo, ne
                       <motion.div whileHover={{ scale: 1.02, x: 5 }} whileTap={{ scale: 0.98 }}>
                         <Link
                           href={item.href}
-                          className="group block text-lg font-medium text-white hover:text-[#548cac] p-3 rounded-xl hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] relative overflow-hidden"
+                          className="group block text-lg font-medium text-white hover:text-[#548cac] p-4 rounded-xl hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] relative overflow-hidden min-h-[48px] items-center"
                           onClick={closeMenu}
                         >
                           <motion.div
@@ -211,11 +211,11 @@ export default function MobileMenu({ isOpen, closeMenu, menuItems, eventInfo, ne
             </ul>
           </nav>
 
-          {/* Mobile News Ticker - Moved to Bottom */}
+          {/* Mobile News Ticker */}
           <NewsTicker newsItems={newsItems} isDesktop={false} onClose={closeMenu} />
         </div>
 
-        {/* Enhanced Register Button - Fixed at Bottom */}
+        {/* Register Button */}
         <motion.div
           className="p-6 border-t border-[#548cac]/20 bg-gradient-to-r from-[#101310]/80 to-[#101310]/60 flex-shrink-0"
           initial={{ opacity: 0, y: 20 }}
@@ -226,7 +226,7 @@ export default function MobileMenu({ isOpen, closeMenu, menuItems, eventInfo, ne
             <Button
               variant="primary"
               href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-              className="w-full py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+              className="w-full py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300 min-h-[48px]"
               target="_blank"
               rel="noopener noreferrer"
             >

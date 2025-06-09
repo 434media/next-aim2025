@@ -20,10 +20,6 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
-    name: "Attend",
-    dropdown: [{ name: "Why Attend", href: "/why-attend" }],
-  },
-  {
     name: "Sponsors & Exhibitors",
     href: "/sponsors-exhibitors",
   },
@@ -31,6 +27,7 @@ const menuItems: MenuItem[] = [
     name: "More",
     dropdown: [
       { name: "SURF", href: "/surf" },
+      { name: "Why Attend", href: "/why-attend" },
       { name: "Travel & Venue", href: "/travel-venue" },
       { name: "FAQ", href: "/faq" },
       { name: "Contact Us", href: "/contact-us" },
@@ -170,7 +167,7 @@ export default function NavBar() {
               </div>
               <motion.button
                 onClick={() => setIsOpen(true)}
-                className="p-2 rounded-xl transition-all duration-300 hover:bg-[#548cac]/20 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-[#101310] relative overflow-hidden touch-manipulation"
+                className="p-3 rounded-xl transition-all duration-300 hover:bg-[#548cac]/20 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-[#101310] relative overflow-hidden touch-manipulation min-h-[48px] min-w-[48px] flex items-center justify-center"
                 style={{ pointerEvents: "auto" }}
                 aria-label="Open menu"
                 whileHover={{ scale: 1.05 }}
