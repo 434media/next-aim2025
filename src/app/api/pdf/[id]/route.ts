@@ -8,9 +8,9 @@ const pdfMappings: Record<string, string> = {
     "https://ampd-asset.s3.us-east-2.amazonaws.com/List+of+AIM_SURF+Poster+Presentations.docx.pdf",
 }
 
-export async function GET(_request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(_request: NextRequest, context: { params: { id: string } }) {
   try {
-    const { id } = params
+    const { id } = context.params
     const pdfUrl = pdfMappings[id]
 
     if (!pdfUrl) {
