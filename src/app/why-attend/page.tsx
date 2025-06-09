@@ -124,7 +124,7 @@ export default function WhyAttend() {
             transition={{ duration: 1.2, ease: "easeOut" }}
           >
             <Image
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/preaimweb-20.jpg"
+              src="https://ampd-asset.s3.us-east-2.amazonaws.com/IMG_6120.JPG"
               alt="AIM Health R&D Summit - Professional conference collaboration"
               fill
               className="object-cover object-center"
@@ -173,7 +173,7 @@ export default function WhyAttend() {
               animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <h1 className="mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+              <h1 className="mb-8 text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
                 <span className="block">Why Attend</span>
                 <span className="block bg-gradient-to-r from-[#548cac] via-orange-500 to-[#4f4f2c] bg-clip-text text-transparent">
                   AIM Health R&D Summit
@@ -295,7 +295,7 @@ export default function WhyAttend() {
               animate={statsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+              <h2 className="text-5xl font-bold text-gray-900 mb-6">
                 <span className="bg-gradient-to-r from-[#548cac] to-orange-500 bg-clip-text text-transparent">
                   Experience Innovation
                 </span>

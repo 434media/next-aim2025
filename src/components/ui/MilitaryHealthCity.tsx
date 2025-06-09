@@ -532,11 +532,11 @@ export function MilitaryHealthCity() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: prefersReducedMotion ? 0.1 : 0.8, delay: 0.2 }}
                     >
-                      <span className="flex items-center justify-center gap-2 text-xl sm:text-2xl md:text-3xl mb-3 sm:mb-4">
+                      <span className="flex items-center justify-center gap-2 text-2xl md:text-3xl mb-3 sm:mb-4">
                         <RiMapPin2Line className="w-6 h-6 sm:w-8 sm:h-8 text-[#548cac]" />
                         San Antonio, TX
                       </span>
-                      <span className="block bg-gradient-to-r from-[#548cac] via-orange-500 to-[#548cac] bg-clip-text text-transparent text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+                      <span className="block bg-gradient-to-r from-[#548cac] via-orange-500 to-[#548cac] bg-clip-text text-transparent text-4xl md:text-5xl lg:text-6xl">
                         Military Medical City USA
                       </span>
                     </motion.h2>
