@@ -21,10 +21,11 @@ const sections = {
   more: {
     title: "More",
     items: [
-      { label: "SURF", href: "/surf" },
-      { label: "FAQ", href: "/faq" },
-      { label: "Travel & Venue", href: "/travel-venue" },
       { label: "Why Attend", href: "/why-attend" },
+      { label: "SURF", href: "/surf" },
+      { label: "MMID", href: "/mmid" },
+      { label: "Travel & Venue", href: "/travel-venue" },
+      { label: "FAQ", href: "/faq" },
       { label: "Contact Us", href: "/contact-us" },
     ],
   },

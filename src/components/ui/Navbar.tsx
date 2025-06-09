@@ -26,8 +26,9 @@ const menuItems: MenuItem[] = [
   {
     name: "More",
     dropdown: [
-      { name: "SURF", href: "/surf" },
       { name: "Why Attend", href: "/why-attend" },
+      { name: "SURF", href: "/surf" },
+      { name: "MMID", href: "/mmid" },
       { name: "Travel & Venue", href: "/travel-venue" },
       { name: "FAQ", href: "/faq" },
       { name: "Contact Us", href: "/contact-us" },
