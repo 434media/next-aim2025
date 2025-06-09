@@ -11,6 +11,7 @@ const sections = {
   discover: {
     title: "Discover",
     items: [
+      { label: "Why Attend", href: "/why-attend" },
       { label: "Keynotes", href: "/keynotes" },
       { label: "Schedule", href: "/schedule" },
       { label: "Speakers", href: "/speakers" },
@@ -21,7 +22,6 @@ const sections = {
   more: {
     title: "More",
     items: [
-      { label: "Why Attend", href: "/why-attend" },
       { label: "SURF", href: "/surf" },
       { label: "MMID", href: "/mmid" },
       { label: "Travel & Venue", href: "/travel-venue" },

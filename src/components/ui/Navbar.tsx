@@ -20,13 +20,18 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
+    name: "Attend",
+    dropdown: [
+      { name: "Why Attend", href: "/why-attend" },
+    ],
+  },
+  {
     name: "Sponsors & Exhibitors",
     href: "/sponsors-exhibitors",
   },
   {
     name: "More",
     dropdown: [
-      { name: "Why Attend", href: "/why-attend" },
       { name: "SURF", href: "/surf" },
       { name: "MMID", href: "/mmid" },
       { name: "Travel & Venue", href: "/travel-venue" },
