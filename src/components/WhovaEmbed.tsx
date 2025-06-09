@@ -119,7 +119,7 @@ export default function WhovaEmbed({ className = "" }: WhovaEmbedProps) {
               <div className="absolute inset-0 h-16 w-16 mx-auto rounded-full border-4 border-[#548cac]/30 animate-ping"></div>
             </div>
             <p className="text-xl text-white/80 mb-2">Preparing Interactive Schedule</p>
-            <p className="text-sm text-white/60">Loading when you're ready to explore</p>
+            <p className="text-sm text-white/60">Loading when you&apos;re ready to explore</p>
           </div>
         </div>
       )}
