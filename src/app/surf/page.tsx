@@ -1,17 +1,26 @@
 import type { Metadata } from "next"
-import SurfComingSoon from "./SurfComingSoon"
+import { Suspense } from "react"
+import SurfHero2025 from "./SurfHero2025"
+import SurfPresentersSection from "./SurfPresentersSection"
 import PdfArchive from "./PdfArchive"
 
 export const metadata: Metadata = {
   title: "SURF | AIM Health R&D Summit",
-  description: "San Antonio Military Health and Universities Research Forum (SURF) - Coming Soon",
+  description: "San Antonio Military Health and Universities Research Forum (SURF) - 2025 Presenters and Archive",
 }
 
 export default function SurfPage() {
   return (
-    <main className="min-h-screen bg-[#101310]">
-      {/* Hero Section with Coming Soon */}
-      <SurfComingSoon />
+    <main className="min-h-screen bg-white">
+      {/* 2025 SURF Hero Section */}
+      <Suspense fallback={<div className="h-[60vh] bg-gray-100 animate-pulse"></div>}>
+        <SurfHero2025 />
+      </Suspense>
+
+      {/* 2025 SURF Presenters Section */}
+      <Suspense fallback={<div className="h-[40vh] bg-gray-50 animate-pulse"></div>}>
+        <SurfPresentersSection />
+      </Suspense>
 
       {/* Archive Section */}
       <section className="bg-gray-50 py-16 sm:py-24">

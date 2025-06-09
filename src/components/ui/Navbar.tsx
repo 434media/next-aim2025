@@ -30,6 +30,7 @@ const menuItems: MenuItem[] = [
   {
     name: "More",
     dropdown: [
+      { name: "SURF", href: "/surf" },
       { name: "Travel & Venue", href: "/travel-venue" },
       { name: "FAQ", href: "/faq" },
       { name: "Contact Us", href: "/contact-us" },
