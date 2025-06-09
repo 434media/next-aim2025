@@ -143,10 +143,10 @@ export default function PreConferenceSymposiums() {
 
         {/* Content overlay */}
         <div className="relative z-20 h-full flex flex-col justify-start mt-16">
-          <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 pb-20 sm:pb-32">
+          <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 pb-20">
             <FadeContainer className="max-w-4xl">
               <motion.h1
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight"
+                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -282,7 +282,7 @@ export default function PreConferenceSymposiums() {
         {/* Archived Symposiums Section */}
         {archivedSymposiums.length > 0 && (
           <motion.section
-            className="mt-12 lg:mt-16 space-y-8 lg:space-y-10 pb-20"
+            className="mt-0 lg:mt-16 space-y-8 lg:space-y-10 pb-20"
             variants={fadeInUp}
             aria-labelledby="archived-heading"
           >
