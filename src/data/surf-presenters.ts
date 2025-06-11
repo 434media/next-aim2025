@@ -219,7 +219,7 @@ export const presentersData: Presenter[] = [
     title: "Expeditionary Medical and PPE Technologies for the Modern Warfighter",
     authors: "Girish Srinivas, Ph.D.; Ned Metcalf; David Eisenberg, Ph.D.; Denis Kissounko, Ph.D.",
     category: "Emerging Technologies",
-    institution: "TDA Research, Inc.",
+    institution: "TDA Research",
   },
   {
     id: "emerging-10",
