@@ -113,9 +113,9 @@ const sponsors: Sponsor[] = [
     tier: "catalyst",
     logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/designplex.webp",
     description:
-      "DesignPlex Architects specializes in healthcare facility design, creating innovative spaces that enhance patient care and medical research capabilities.",
-    website: "https://www.designplexarchitects.com/",
-    industry: "Architecture & Design",
+      "At DesignPlex, we specialize in the prototyping, design development, and contract manufacturing of medical devices. Whether you have an idea for a new product, redesign of an existing product, or looking for a new CM for your Class 2 or 3 medical device, we are here to help you!",
+    website: "https://designplexbio.com/",
+    industry: "Medical Device Prototyping",
     isExhibitor: true,
   },
   {
