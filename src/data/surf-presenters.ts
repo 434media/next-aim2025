@@ -216,13 +216,20 @@ export const presentersData: Presenter[] = [
   },
   {
     id: "emerging-9",
+    title: "Expeditionary Medical and PPE Technologies for the Modern Warfighter",
+    authors: "Girish Srinivas, Ph.D.; Ned Metcalf; David Eisenberg, Ph.D.; Denis Kissounko, Ph.D.",
+    category: "Emerging Technologies",
+    institution: "TDA Research, Inc.",
+  },
+  {
+    id: "emerging-10",
     title: "Marvel: Magnetic Arteriovenous Lattice for Improved Kidney Dialysis",
     authors: "Joaquin Rodriguez, David Restrepo, Marlist Villegas Verschoyle, R. Lyle Hood, Cody Gonzalez",
     category: "Emerging Technologies",
     institution: "The University of Texas at San Antonio",
   },
   {
-    id: "emerging-10",
+    id: "emerging-11",
     title:
       "Non-Invasive Prediction of Mean Arterial Pressure using Photoplethysmography in a Swine Hemorrhage and Resuscitation Study",
     authors: "Jose Gonzalez, Eric J. Snider",
@@ -230,7 +237,7 @@ export const presentersData: Presenter[] = [
     institution: "U.S. Army Institute of Surgical Research",
   },
   {
-    id: "emerging-11",
+    id: "emerging-12",
     title:
       "Perceived Operational Efficacy of the MOVES SLC During Air Force Critical Care Air Transport Team Simulated Training Exercise",
     authors: "Luciana Torres, Lance McGinnis, Nina Hoskins, Gloria Rodriguez, Melissa Clemons, Amber Hadjis",
@@ -238,7 +245,7 @@ export const presentersData: Presenter[] = [
     institution: "59th Medical Wing, Brooke Army Medical Center",
   },
   {
-    id: "emerging-12",
+    id: "emerging-13",
     title: "Repositionable Aortic Endograft Limb Twisting and Thrombosis",
     authors: "Linh Nguyen, Less Ochoa, Thomas Gianis, Wayne Causey",
     category: "Emerging Technologies",
