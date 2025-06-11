@@ -5,7 +5,7 @@ const pdfMappings: Record<string, string> = {
   "surf-2023": "https://ampd-asset.s3.us-east-2.amazonaws.com/SURF-Program_2023_Final_6.1.23_v1.pdf",
   "surf-2021": "https://ampd-asset.s3.us-east-2.amazonaws.com/SURF-2021_Program.pdf",
   "surf-2025-presenters":
-    "https://ampd-asset.s3.us-east-2.amazonaws.com/List+of+AIM_SURF+Poster+Presentations.docx.pdf",
+    "https://ampd-asset.s3.us-east-2.amazonaws.com/List+of+AIM_SURF+Poster+Presentations.pdf",
 }
 
 export async function GET(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
