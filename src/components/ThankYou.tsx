@@ -300,8 +300,9 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
                   className="relative"
                 >
                   <motion.h1
-                    className="font-black text-white text-6xl xs:text-7xl sm:text-8xl leading-tight"
+                    className="font-black text-white leading-[0.85] tracking-tight"
                     style={{
+                      fontSize: "clamp(4rem, 18vw, 12rem)", // Responsive scaling from 64px to 192px
                       textShadow: "0 8px 32px rgba(0, 0, 0, 0.8)",
                     }}
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -431,8 +432,9 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
                   className="relative"
                 >
                   <motion.h2
-                    className="font-bold text-white text-4xl xs:text-5xl sm:text-6xl leading-tight"
+                    className="font-bold text-white leading-tight tracking-tight"
                     style={{
+                      fontSize: "clamp(2rem, 8vw, 5rem)", // Responsive scaling from 32px to 80px
                       textShadow: "0 4px 16px rgba(0, 0, 0, 0.8)",
                     }}
                     initial={{ opacity: 0, scale: 0.9 }}
