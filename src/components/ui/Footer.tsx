@@ -2,8 +2,6 @@
 
 import Link from "next/link"
 import { motion, useInView } from "motion/react"
-import { Button } from "../Button"
-import { RiArrowRightUpLine } from "@remixicon/react"
 import { useState, useEffect, useCallback, useMemo, useRef } from "react"
 import { AIMLogo } from "../../../public/AIMLogo" // Declare the AIMLogo variable
 
@@ -92,83 +90,6 @@ export default function Footer() {
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-
-      {/* Enhanced Full-width CTAs */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="py-12 md:py-16">
-          <div className="grid grid-cols-1 divide-y divide-white/10">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="flex flex-col md:flex-row items-center justify-between gap-6 first:pb-8 last:pt-8 group"
-              onMouseEnter={() => handleSectionHover("sponsor")}
-              onMouseLeave={() => handleSectionHover(null)}
-            >
-              <motion.div whileHover={{ x: 5 }} transition={{ duration: 0.3, ease: "easeOut" }}>
-                <h2 className="text-2xl sm:text-3xl font-bold transition-colors duration-300 group-hover:text-[#548cac]">
-                  Become a Sponsor
-                </h2>
-                <p className="mt-2 text-[#548cac] text-lg transition-all duration-300 group-hover:text-white/90">
-                  Join leading organizations in supporting innovation in military medicine.
-                </p>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2 }}>
-                <Button
-                  variant="secondary"
-                  href="https://support.velocitytx.org/campaign/642575/donate"
-                  className="w-full sm:w-auto text-lg py-3 px-6 relative overflow-hidden group/btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span className="absolute inset-0 bg-gradient-to-r from-[#548cac]/20 to-transparent opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
-                  <span className="flex items-center justify-center relative z-10">
-                    Learn More
-                    <motion.div animate={{ x: hoveredSection === "sponsor" ? 3 : 0 }} transition={{ duration: 0.2 }}>
-                      <RiArrowRightUpLine className="ml-2 size-5" aria-hidden="true" />
-                    </motion.div>
-                  </span>
-                </Button>
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              className="flex flex-col md:flex-row items-center justify-between gap-6 first:pb-8 last:pt-8 group"
-              onMouseEnter={() => handleSectionHover("register")}
-              onMouseLeave={() => handleSectionHover(null)}
-            >
-              <motion.div whileHover={{ x: 5 }} transition={{ duration: 0.3, ease: "easeOut" }}>
-                <h2 className="text-2xl sm:text-3xl font-bold transition-colors duration-300 group-hover:text-[#548cac]">
-                  Register Now
-                </h2>
-                <p className="mt-2 text-[#548cac] text-lg transition-all duration-300 group-hover:text-white/90">
-                  Don&apos;t miss this opportunity to be part of the premier event in military medical innovation.
-                </p>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2 }}>
-                <Button
-                  variant="primary"
-                  href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-                  className="w-full sm:w-auto text-lg py-3 px-6 relative overflow-hidden group/btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
-                  <span className="flex items-center justify-center relative z-10">
-                    Register Now
-                    <motion.div animate={{ x: hoveredSection === "register" ? 3 : 0 }} transition={{ duration: 0.2 }}>
-                      <RiArrowRightUpLine className="ml-2 size-5" aria-hidden="true" />
-                    </motion.div>
-                  </span>
-                </Button>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-      </div>
 
       {/* Enhanced Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 relative z-10">

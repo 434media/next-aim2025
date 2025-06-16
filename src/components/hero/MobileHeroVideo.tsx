@@ -2,10 +2,8 @@
 
 import React, { useRef, useCallback, useMemo, useEffect, useState } from "react"
 import { motion, useScroll, useTransform } from "motion/react"
-import { RiArrowRightUpLine } from "@remixicon/react"
 import { HeroTitle } from "./HeroTitle"
 import { VideoPlayer } from "./VideoPlayer"
-import { Button } from "../Button"
 import { FadeDiv } from "../Fade"
 import { TitleParticleEffect } from "./TitleParticleEffect"
 
@@ -192,53 +190,6 @@ export const MobileHeroVideo = React.memo(({ prefersReducedMotion }: MobileHeroV
                   This unique convergence of thought leaders creates pathways to discovery and commercialization while
                   addressing critical challenges in both military and civilian healthcare.
                 </motion.p>
-              </FadeDiv>
-            </div>
-
-            {/* Buttons - Simplified animations */}
-            <div className="flex flex-col gap-4 w-full max-w-md pt-8">
-              <FadeDiv>
-                <Button
-                  variant="primary"
-                  href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-                  className="text-base py-4 px-8 w-full hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#548cac] shadow-xl hover:shadow-2xl font-semibold"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Register Now for AIM Summit (opens in new tab)"
-                >
-                  <span className="flex items-center justify-center">
-                    Register Now
-                    <motion.span
-                      className="ml-2 size-5"
-                      whileHover={prefersReducedMotion ? {} : { x: 2, y: -2 }}
-                      aria-hidden="true"
-                    >
-                      <RiArrowRightUpLine />
-                    </motion.span>
-                  </span>
-                </Button>
-              </FadeDiv>
-
-              <FadeDiv>
-                <Button
-                  variant="secondary"
-                  href="https://support.velocitytx.org/campaign/642575/donate"
-                  className="text-base py-4 px-8 w-full hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#4f4f2c] shadow-xl hover:shadow-2xl font-semibold"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Become a Sponsor for AIM Summit (opens in new tab)"
-                >
-                  <span className="flex items-center justify-center">
-                    Become a Sponsor
-                    <motion.span
-                      className="ml-2 size-5"
-                      whileHover={prefersReducedMotion ? {} : { x: 2, y: -2 }}
-                      aria-hidden="true"
-                    >
-                      <RiArrowRightUpLine />
-                    </motion.span>
-                  </span>
-                </Button>
               </FadeDiv>
             </div>
           </div>

@@ -4,7 +4,6 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import Link from "next/link"
 import { RiArrowDownSLine, RiCloseLine } from "@remixicon/react"
-import { Button } from "../Button"
 import { AIMLogo } from "../../../public/AIMLogo"
 import NewsTicker from "./NewsTicker"
 import type { MenuItem, NewsItem, EventInfo } from "./types"
@@ -214,26 +213,6 @@ export default function MobileMenu({ isOpen, closeMenu, menuItems, eventInfo, ne
           {/* Mobile News Ticker */}
           <NewsTicker newsItems={newsItems} isDesktop={false} onClose={closeMenu} />
         </div>
-
-        {/* Register Button */}
-        <motion.div
-          className="p-6 border-t border-[#548cac]/20 bg-gradient-to-r from-[#101310]/80 to-[#101310]/60 flex-shrink-0"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.3 }}
-        >
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Button
-              variant="primary"
-              href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-              className="w-full py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300 min-h-[48px]"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Register Now
-            </Button>
-          </motion.div>
-        </motion.div>
       </motion.div>
     </>
   )

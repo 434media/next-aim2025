@@ -5,7 +5,6 @@ import { motion, useScroll, useTransform } from "motion/react"
 import { HeroTitle } from "./HeroTitle"
 import { VideoPlayer } from "./VideoPlayer"
 import { TitleParticleEffect } from "./TitleParticleEffect"
-import { RiArrowRightUpLine } from "@remixicon/react"
 
 interface DesktopHeroVideoProps {
   prefersReducedMotion: boolean
@@ -13,7 +12,6 @@ interface DesktopHeroVideoProps {
 
 export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHeroVideoProps) => {
   const containerRef = useRef<HTMLElement>(null)
-  const buttonsRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -168,49 +166,6 @@ export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHer
               </div>
             </div>
           </div>
-
-          {/* CTA Buttons - positioned at bottom to align with video */}
-          <motion.div
-            ref={buttonsRef}
-            className="flex flex-col sm:flex-row gap-4 sm:gap-6 px-8 lg:px-12 py-16 pointer-events-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-          >
-            <motion.a
-              href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full border border-transparent bg-[#548cac] text-lg sm:text-lg py-4 px-8 md:py-5 md:px-10 w-full sm:w-auto text-white shadow-xl hover:shadow-2xl font-semibold transition-all duration-200 hover:bg-[#548cac]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#548cac] focus-visible:ring-offset-2"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              aria-label="Register Now for AIM Summit (opens in new tab)"
-            >
-              <span className="flex items-center justify-center">
-                Register Now
-                <motion.span className="ml-2 size-5 md:size-6" whileHover={{ x: 2, y: -2 }} aria-hidden="true">
-                  <RiArrowRightUpLine />
-                </motion.span>
-              </span>
-            </motion.a>
-
-            <motion.a
-              href="https://support.velocitytx.org/campaign/642575/donate"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full border border-transparent bg-[#4f4f2c] text-lg sm:text-lg py-4 px-8 md:py-5 md:px-10 w-full sm:w-auto text-white shadow-xl hover:shadow-2xl font-semibold transition-all duration-200 hover:bg-[#4f4f2c]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4f4f2c] focus-visible:ring-offset-2"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              aria-label="Become a Sponsor for AIM Summit (opens in new tab)"
-            >
-              <span className="flex items-center justify-center">
-                Become a Sponsor
-                <motion.span className="ml-2 size-5 md:size-6" whileHover={{ x: 2, y: -2 }} aria-hidden="true">
-                  <RiArrowRightUpLine />
-                </motion.span>
-              </span>
-            </motion.a>
-          </motion.div>
         </div>
 
         {/* Right Video Section - 50% width, aligned with CTA buttons */}
