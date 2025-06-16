@@ -215,50 +215,52 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
         />
       )}
 
-      {/* Ambient Color Orbs for Atmosphere - Simplified on mobile */}
-      <motion.div
-        className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-20 blur-3xl"
-        style={{
-          background: `radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, transparent 70%)`,
-        }}
-        animate={
-          prefersReducedMotion || isMobile
-            ? {}
-            : {
-                scale: [1, 1.2, 1],
-                x: [-20, 20, -20],
-                y: [-10, 10, -10],
-              }
-        }
-        transition={{
-          duration: 8,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-      />
-
+      {/* Ambient Color Orbs for Atmosphere - Desktop only */}
       {!isMobile && (
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-15 blur-3xl"
-          style={{
-            background: `radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%)`,
-          }}
-          animate={
-            prefersReducedMotion
-              ? {}
-              : {
-                  scale: [1.2, 1, 1.2],
-                  x: [20, -20, 20],
-                  y: [10, -10, 10],
-                }
-          }
-          transition={{
-            duration: 10,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-        />
+        <>
+          <motion.div
+            className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-20 blur-3xl"
+            style={{
+              background: `radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, transparent 70%)`,
+            }}
+            animate={
+              prefersReducedMotion
+                ? {}
+                : {
+                    scale: [1, 1.2, 1],
+                    x: [-20, 20, -20],
+                    y: [-10, 10, -10],
+                  }
+            }
+            transition={{
+              duration: 8,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+            }}
+          />
+
+          <motion.div
+            className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-15 blur-3xl"
+            style={{
+              background: `radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%)`,
+            }}
+            animate={
+              prefersReducedMotion
+                ? {}
+                : {
+                    scale: [1.2, 1, 1.2],
+                    x: [20, -20, 20],
+                    y: [10, -10, 10],
+                  }
+            }
+            transition={{
+              duration: 10,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+          />
+        </>
       )}
 
       {/* Main Content with Enhanced Spacing */}
@@ -289,110 +291,118 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
             </motion.div>
 
             <div className="space-y-4 lg:space-y-8">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.5, rotateX: isMobile ? 0 : -30 }}
-                animate={{ opacity: 1, scale: 1, rotateX: 0 }}
-                transition={{ duration: isMobile ? 0.8 : 1.5, ease: [0.22, 1, 0.36, 1] }}
-                className="relative"
-              >
-                {/* Enhanced background glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 via-emerald-400/20 to-blue-400/30 blur-3xl scale-150 opacity-80" />
-
+              {/* Mobile-specific Thank You text */}
+              {isMobile ? (
                 <motion.div
-                  animate={
-                    prefersReducedMotion || isMobile
-                      ? {}
-                      : {
-                          filter: [
-                            "brightness(1.1) contrast(1.05)",
-                            "brightness(1.2) contrast(1.1)",
-                            "brightness(1.1) contrast(1.05)",
-                          ],
-                        }
-                  }
-                  transition={{
-                    duration: 4,
-                    repeat: Number.POSITIVE_INFINITY,
-                    ease: "easeInOut",
-                  }}
-                  style={{
-                    filter: "brightness(1.1) contrast(1.05) saturate(1.1)",
-                  }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative"
                 >
-                  <div
-                    style={
-                      isMobile
-                        ? {
-                            // Simplified mobile styling for better readability
-                            color: "white",
-                            textShadow: `
-            0 0 10px rgba(6, 182, 212, 0.8),
-            0 0 20px rgba(16, 185, 129, 0.6),
-            0 4px 8px rgba(0, 0, 0, 0.9)
-          `,
-                          }
+                  <motion.h1
+                    className="font-black text-white text-6xl xs:text-7xl sm:text-8xl leading-tight"
+                    style={{
+                      textShadow: "0 8px 32px rgba(0, 0, 0, 0.8)",
+                    }}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      duration: 1.5,
+                      ease: [0.22, 1, 0.36, 1],
+                      delay: 0.3,
+                    }}
+                  >
+                    Thank You
+                  </motion.h1>
+                </motion.div>
+              ) : (
+                // Desktop version with all effects
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5, rotateX: -30 }}
+                  animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+                  transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative"
+                >
+                  {/* Enhanced background glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 via-emerald-400/20 to-blue-400/30 blur-3xl scale-150 opacity-80" />
+
+                  <motion.div
+                    animate={
+                      prefersReducedMotion
+                        ? {}
                         : {
-                            // Full desktop styling
-                            WebkitTextStroke: "3px transparent",
-                            WebkitTextFillColor: "white",
-                            textShadow: `
-            0 0 20px rgba(6, 182, 212, 0.8),
-            0 0 40px rgba(16, 185, 129, 0.6),
-            0 0 60px rgba(59, 130, 246, 0.4),
-            0 8px 16px rgba(0, 0, 0, 0.9)
-          `,
-                            background: `
-            linear-gradient(45deg, 
-              rgba(6, 182, 212, 0.9) 0%, 
-              rgba(16, 185, 129, 0.9) 25%, 
-              rgba(59, 130, 246, 0.9) 50%, 
-              rgba(16, 185, 129, 0.9) 75%, 
-              rgba(6, 182, 212, 0.9) 100%
-            )
-          `,
-                            WebkitBackgroundClip: "text",
-                            backgroundClip: "text",
-                            WebkitTextStrokeColor: "transparent",
-                            backgroundImage: `
-            linear-gradient(45deg, 
-              rgba(6, 182, 212, 1) 0%, 
-              rgba(16, 185, 129, 1) 25%, 
-              rgba(59, 130, 246, 1) 50%, 
-              rgba(16, 185, 129, 1) 75%, 
-              rgba(6, 182, 212, 1) 100%
-            )
-          `,
-                            WebkitTextStrokeWidth: "3px",
+                            filter: [
+                              "brightness(1.1) contrast(1.05)",
+                              "brightness(1.2) contrast(1.1)",
+                              "brightness(1.1) contrast(1.05)",
+                            ],
                           }
                     }
+                    transition={{
+                      duration: 4,
+                      repeat: Number.POSITIVE_INFINITY,
+                      ease: "easeInOut",
+                    }}
+                    style={{
+                      filter: "brightness(1.1) contrast(1.05) saturate(1.1)",
+                    }}
                   >
-                    <AnimatedText
-                      text="Thank You"
-                      className={`relative font-black text-white drop-shadow-2xl ${
-                        isMobile
-                          ? "text-5xl xs:text-6xl sm:text-7xl"
-                          : "text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[12rem]"
-                      }`}
-                      variant="glow"
-                      prefersReducedMotion={prefersReducedMotion || isMobile}
-                      duration={isMobile ? 1 : 2}
-                    />
-                  </div>
-                </motion.div>
-                {/* Enhanced glowing border effect - Simplified on mobile */}
-                {!isMobile && (
+                    <div
+                      style={{
+                        WebkitTextStroke: "3px transparent",
+                        WebkitTextFillColor: "white",
+                        textShadow: `
+          0 0 20px rgba(6, 182, 212, 0.8),
+          0 0 40px rgba(16, 185, 129, 0.6),
+          0 0 60px rgba(59, 130, 246, 0.4),
+          0 8px 16px rgba(0, 0, 0, 0.9)
+        `,
+                        background: `
+          linear-gradient(45deg, 
+            rgba(6, 182, 212, 0.9) 0%, 
+            rgba(16, 185, 129, 0.9) 25%, 
+            rgba(59, 130, 246, 0.9) 50%, 
+            rgba(16, 185, 129, 0.9) 75%, 
+            rgba(6, 182, 212, 0.9) 100%
+          )
+        `,
+                        WebkitBackgroundClip: "text",
+                        backgroundClip: "text",
+                        WebkitTextStrokeColor: "transparent",
+                        backgroundImage: `
+          linear-gradient(45deg, 
+            rgba(6, 182, 212, 1) 0%, 
+            rgba(16, 185, 129, 1) 25%, 
+            rgba(59, 130, 246, 1) 50%, 
+            rgba(16, 185, 129, 1) 75%, 
+            rgba(6, 182, 212, 1) 100%
+          )
+        `,
+                        WebkitTextStrokeWidth: "3px",
+                      }}
+                    >
+                      <AnimatedText
+                        text="Thank You"
+                        className="relative font-black text-white drop-shadow-2xl text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[12rem]"
+                        variant="glow"
+                        prefersReducedMotion={prefersReducedMotion}
+                        duration={2}
+                      />
+                    </div>
+                  </motion.div>
+                  {/* Enhanced glowing border effect */}
                   <div
                     className="absolute inset-0 blur-sm scale-105 opacity-70"
                     style={{
                       background: `
-      linear-gradient(45deg, 
-        rgba(6, 182, 212, 0.6) 0%, 
-        rgba(16, 185, 129, 0.6) 25%, 
-        rgba(59, 130, 246, 0.6) 50%, 
-        rgba(16, 185, 129, 0.6) 75%, 
-        rgba(6, 182, 212, 0.6) 100%
-      )
-    `,
+        linear-gradient(45deg, 
+          rgba(6, 182, 212, 0.6) 0%, 
+          rgba(16, 185, 129, 0.6) 25%, 
+          rgba(59, 130, 246, 0.6) 50%, 
+          rgba(16, 185, 129, 0.6) 75%, 
+          rgba(6, 182, 212, 0.6) 100%
+        )
+      `,
                       WebkitBackgroundClip: "text",
                       backgroundClip: "text",
                       WebkitTextFillColor: "transparent",
@@ -409,50 +419,62 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
                   >
                     <span className="opacity-0">Thank You</span>
                   </div>
-                )}
-              </motion.div>
+                </motion.div>
+              )}
 
-              <motion.div
-                initial={{ opacity: 0, y: isMobile ? 20 : 30, scale: isMobile ? 1 : 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: isMobile ? 0.6 : 1.2, delay: isMobile ? 0.4 : 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="relative"
-                style={
-                  isMobile
-                    ? {
-                        // Simplified mobile styling
-                        textShadow: `
-          0 0 10px rgba(255, 255, 255, 0.8),
-          0 4px 8px rgba(0, 0, 0, 0.9)
-        `,
-                      }
-                    : {
-                        // Full desktop styling
-                        textShadow: `
-          0 0 20px rgba(255, 255, 255, 0.8),
-          0 0 40px rgba(6, 182, 212, 0.6),
-          0 8px 16px rgba(0, 0, 0, 0.9)
-        `,
-                        filter: "brightness(1.1) contrast(1.05)",
-                        WebkitTextStroke: "1px rgba(255, 255, 255, 0.03)",
-                      }
-                }
-              >
-                {/* Background glow for subtitle */}
-                <div className="absolute inset-0 bg-gradient-to-r from-white/30 to-cyan-300/30 blur-2xl scale-110 opacity-60" />
+              {/* Subtitle - Mobile optimized */}
+              {isMobile ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative"
+                >
+                  <motion.h2
+                    className="font-bold text-white text-4xl xs:text-5xl sm:text-6xl leading-tight"
+                    style={{
+                      textShadow: "0 4px 16px rgba(0, 0, 0, 0.8)",
+                    }}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      duration: 1.2,
+                      ease: [0.22, 1, 0.36, 1],
+                      delay: 1,
+                    }}
+                  >
+                    for Attending AIM
+                  </motion.h2>
+                </motion.div>
+              ) : (
+                // Desktop version
+                <motion.div
+                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 1.2, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative"
+                  style={{
+                    textShadow: `
+            0 0 20px rgba(255, 255, 255, 0.8),
+            0 0 40px rgba(6, 182, 212, 0.6),
+            0 8px 16px rgba(0, 0, 0, 0.9)
+          `,
+                    filter: "brightness(1.1) contrast(1.05)",
+                    WebkitTextStroke: "1px rgba(255, 255, 255, 0.03)",
+                  }}
+                >
+                  {/* Background glow for subtitle */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/30 to-cyan-300/30 blur-2xl scale-110 opacity-60" />
 
-                <AnimatedText
-                  text="for Attending AIM"
-                  className={`relative font-bold text-white drop-shadow-xl ${
-                    isMobile
-                      ? "text-3xl xs:text-4xl sm:text-5xl"
-                      : "text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl"
-                  }`}
-                  delay={isMobile ? 0.5 : 1}
-                  prefersReducedMotion={prefersReducedMotion || isMobile}
-                  duration={isMobile ? 0.8 : 1.5}
-                />
-              </motion.div>
+                  <AnimatedText
+                    text="for Attending AIM"
+                    className="relative font-bold text-white drop-shadow-xl text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl"
+                    delay={1}
+                    prefersReducedMotion={prefersReducedMotion}
+                    duration={1.5}
+                  />
+                </motion.div>
+              )}
             </div>
 
             <motion.div variants={itemVariants} className="max-w-4xl mx-auto pt-4 lg:pt-8">
@@ -465,6 +487,11 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
                 }}
                 whileHover={!isMobile ? { scale: prefersReducedMotion ? 1 : 1.01 } : {}}
                 transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: isMobile ? 15 : 0 }}
+                animate={{ opacity: 1, y: 0 }}
+                {...(isMobile && {
+                  transition: { duration: 1, delay: 1.5, ease: [0.22, 1, 0.36, 1] },
+                })}
               >
                 Together, we&apos;ve advanced the future of military medicine and healthcare innovation. Your
                 participation made AIM {year} an{" "}
@@ -609,7 +636,7 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
                 style={{ transformStyle: isMobile ? "flat" : "preserve-3d" }}
               >
                 <div className="relative bg-gradient-to-br from-cyan-500/10 via-blue-500/5 to-purple-500/10 backdrop-blur-xl rounded-3xl p-8 lg:p-10 border-2 border-cyan-300/30 hover:border-cyan-200/50 transition-all duration-500 shadow-2xl hover:shadow-cyan-400/20 overflow-hidden h-full flex flex-col">
-                  {/* Animated background pattern - Simplified on mobile */}
+                  {/* Animated background pattern - Desktop only */}
                   {!isMobile && (
                     <motion.div
                       className="absolute inset-0 opacity-20"
@@ -749,7 +776,7 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
                 style={{ transformStyle: isMobile ? "flat" : "preserve-3d" }}
               >
                 <div className="relative bg-gradient-to-br from-emerald-500/10 via-teal-500/5 to-cyan-500/10 backdrop-blur-xl rounded-3xl p-8 lg:p-10 border-2 border-emerald-300/30 hover:border-emerald-200/50 transition-all duration-500 shadow-2xl hover:shadow-emerald-400/20 overflow-hidden h-full flex flex-col">
-                  {/* Animated background pattern - Simplified on mobile */}
+                  {/* Animated background pattern - Desktop only */}
                   {!isMobile && (
                     <motion.div
                       className="absolute inset-0 opacity-20"
@@ -957,10 +984,10 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
       {/* Enhanced Bottom Gradient */}
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black via-gray-900/90 to-transparent pointer-events-none" />
 
-      {/* Accessible Decorative Elements - Simplified on mobile */}
-      <div className="absolute top-20 left-10 w-3 h-3 bg-cyan-400 rounded-full opacity-80 animate-pulse shadow-lg shadow-cyan-400/50" />
+      {/* Accessible Decorative Elements - Desktop only */}
       {!isMobile && (
         <>
+          <div className="absolute top-20 left-10 w-3 h-3 bg-cyan-400 rounded-full opacity-80 animate-pulse shadow-lg shadow-cyan-400/50" />
           <div
             className="absolute top-40 right-20 w-4 h-4 bg-emerald-400 rounded-full opacity-60 animate-pulse shadow-lg shadow-emerald-400/50"
             style={{ animationDelay: "1s" }}
