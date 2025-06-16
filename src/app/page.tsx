@@ -1,21 +1,30 @@
 import { PartnerMarquee } from "@/components/ui/PartnerMarquee"
 import { mainPartners, additionalPartners } from "@/data/partners"
 import CatchupBanner from "@/components/ui/CatchupBanner"
-import { HeroVideo } from "@/components/ui/HeroVideo"
+// import { HeroVideo } from "@/components/ui/HeroVideo"
 import { SponsorShowcase } from "@/components/ui/SponsorShowcase"
 import Testimonial from "@/components/ui/Testimonial"
 import { SummitMission } from "@/components/ui/SummitMission"
+import { ThankYou } from "@/components/ThankYou"
 
 export default function Home() {
   return (
     <main className="relative mx-auto flex flex-col scroll-smooth" id="main-content">
+      {/* Thank You Section - Now at top */}
+      <section aria-labelledby="thank-you-heading" className="w-full">
+        <h2 id="thank-you-heading" className="sr-only">
+          Thank You Message
+        </h2>
+        <ThankYou />
+      </section>
+
       {/* Hero Section */}
-      <section aria-labelledby="hero-heading" className="w-full">
+     {/*  <section aria-labelledby="hero-heading" className="w-full">
         <h1 id="hero-heading" className="sr-only">
           AIM Health R&D Summit
         </h1>
         <HeroVideo />
-      </section>
+      </section> */}
 
       {/* Partners Section */}
       <section aria-labelledby="partners-heading" className="w-full bg-white py-6 sm:py-8">
@@ -51,15 +60,6 @@ export default function Home() {
         <Testimonial />
       </section>
 
-
-      {/* Features Section */}
-      {/* <section aria-labelledby="features-heading" className="w-full mt-16 sm:mt-20">
-        <h2 id="features-heading" className="sr-only">
-          Features
-        </h2>
-        <Features />
-      </section> */}
-
       {/* Catchup Banner Section */}
       <section aria-labelledby="catchup-heading" className="w-full mt-16 sm:mt-20 px-4 xl:px-0">
         <h2 id="catchup-heading" className="sr-only">
@@ -78,4 +78,3 @@ export default function Home() {
     </main>
   )
 }
-

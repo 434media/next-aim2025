@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "motion/react"
 import { HeroTitle } from "./HeroTitle"
 import { VideoPlayer } from "./VideoPlayer"
 import { TitleParticleEffect } from "./TitleParticleEffect"
+import { RiArrowRightUpLine } from "@remixicon/react"
 
 interface DesktopHeroVideoProps {
   prefersReducedMotion: boolean
@@ -12,39 +13,18 @@ interface DesktopHeroVideoProps {
 
 export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHeroVideoProps) => {
   const containerRef = useRef<HTMLElement>(null)
+  const buttonsRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   })
 
-  // Extended scroll range for smoother transition to next section
-  const { scrollYProgress: containerExitProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end 200px"], // Extended by 200px for longer transition
-  })
-
   // Animation triggers
   const animationTrigger = useTransform(scrollYProgress, [0, 0.05], [0, 1])
 
-  // Sticky title visibility - smoother exit starting earlier
-  const stickyTitleOpacity = useTransform(scrollYProgress, [0, 0.7, 0.9], [1, 0.9, 0.1]) // Increased minimum opacity
-
-  const combinedStickyOpacity = useTransform([stickyTitleOpacity, containerExitProgress], (values) => {
-    const [opacity, exitProgress] = values as [number, number]
-    // Extended fade range for longer transition
-    if (exitProgress >= 0.6) {
-      const exitFade = Math.max(0, 1 - (exitProgress - 0.6) / 0.4) // Longer fade from 0.6 to 1.0
-      return Math.min(opacity, exitFade)
-    }
-    return opacity
-  })
-
-  // Subtle slide-up exit animation - starts earlier for extended transition
-  const exitTransform = useTransform(containerExitProgress, [0.6, 1], ["translateY(0px)", "translateY(-30px)"])
-
-  // Very subtle scale for depth - extended range
-  const exitScale = useTransform(containerExitProgress, [0.65, 1], [1, 0.96])
+  // Sticky title visibility - only visible within hero section
+  const stickyTitleOpacity = useTransform(scrollYProgress, [0, 0.7, 0.95], [1, 0.9, 0])
 
   // Text blur effects when content touches sticky title
   const textBlur = useTransform(
@@ -72,9 +52,7 @@ export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHer
         ref={containerRef}
         className="relative min-h-[100vh] flex flex-row items-stretch overflow-hidden bg-[#101310]"
         aria-label="Hero section with background video"
-        style={{
-          marginTop: "5rem",
-        }}
+        id="hero-section"
       >
         {/* Skip Link */}
         <a
@@ -85,44 +63,47 @@ export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHer
           Skip to main content
         </a>
 
-        {/* Fixed Sticky Hero Title with Particle Effect */}
+        {/* Sticky Hero Title - Only visible within hero section */}
         <motion.div
-          className="fixed top-20 left-0 w-1/2 z-30 bg-[#101310] pointer-events-none"
+          className="absolute top-0 left-0 w-1/2 z-30 pointer-events-none"
           style={{
-            opacity: combinedStickyOpacity,
-            transform: exitTransform,
-            scale: exitScale,
+            opacity: stickyTitleOpacity,
+            position: "sticky",
+            top: "5rem", // Account for navbar height
+            willChange: "opacity",
           }}
         >
-          {/* Solid dark background that stays throughout scroll */}
-          <div className="absolute inset-0 bg-[#101310] shadow-xl"></div>
+          {/* Enhanced solid dark background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#101310] via-[#101310] to-[#101310]/95 shadow-2xl border-r border-white/10"></div>
 
           <div className="relative">
-            {/* Increased brightness for the title */}
-            <div className="brightness-110">
+            {/* Enhanced brightness and contrast for the title */}
+            <div className="brightness-125 contrast-110 saturate-110">
               <HeroTitle
                 animationProgress={animationTrigger}
                 prefersReducedMotion={prefersReducedMotion}
                 isMobile={false}
-                className="py-6 px-8 lg:px-12"
+                className="py-8 px-8 lg:px-12"
               />
             </div>
 
-            {/* Enhanced Particle Effect */}
-            <TitleParticleEffect
-              scrollProgress={scrollYProgress.get()}
-              titleOpacity={combinedStickyOpacity.get()}
-              prefersReducedMotion={prefersReducedMotion}
-            />
+            {/* Enhanced Particle Effect with better performance */}
+            {!prefersReducedMotion && (
+              <TitleParticleEffect
+                scrollProgress={scrollYProgress.get()}
+                titleOpacity={stickyTitleOpacity.get()}
+                prefersReducedMotion={prefersReducedMotion}
+              />
+            )}
           </div>
         </motion.div>
 
         {/* Left Content Section - 50% width */}
         <div className="relative w-1/2 h-full flex flex-col justify-between">
-          {/* Scrolling Content that flows behind fixed sticky title */}
+          {/* Scrolling Content that flows behind sticky title */}
           <div className="relative px-8 lg:px-12">
-            {/* Larger spacer to prevent text from being cut off by sticky title */}
-            <div className="h-64" aria-hidden="true" />
+            {/* Spacer to account for sticky title */}
+            <div className="h-80" aria-hidden="true" />
 
             {/* Content that will scroll past the sticky title */}
             <div className="space-y-10 lg:space-y-12">
@@ -134,7 +115,7 @@ export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHer
                 }}
               >
                 <motion.p
-                  className="text-xl sm:text-2xl md:text-3xl text-white/95 leading-relaxed max-w-4xl text-balance tracking-tight font-medium mt-24"
+                  className="text-xl sm:text-2xl md:text-3xl text-white/95 leading-relaxed max-w-4xl text-balance tracking-tight font-medium"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -166,6 +147,49 @@ export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHer
               </div>
             </div>
           </div>
+
+          {/* CTA Buttons - positioned at bottom to align with video */}
+          <motion.div
+            ref={buttonsRef}
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 px-8 lg:px-12 py-16 pointer-events-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+          >
+            <motion.a
+              href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full border border-transparent bg-[#548cac] text-lg sm:text-lg py-4 px-8 md:py-5 md:px-10 w-full sm:w-auto text-white shadow-xl hover:shadow-2xl font-semibold transition-all duration-200 hover:bg-[#548cac]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#548cac] focus-visible:ring-offset-2"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              aria-label="Register Now for AIM Summit (opens in new tab)"
+            >
+              <span className="flex items-center justify-center">
+                Register Now
+                <motion.span className="ml-2 size-5 md:size-6" whileHover={{ x: 2, y: -2 }} aria-hidden="true">
+                  <RiArrowRightUpLine />
+                </motion.span>
+              </span>
+            </motion.a>
+
+            <motion.a
+              href="https://support.velocitytx.org/campaign/642575/donate"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full border border-transparent bg-[#4f4f2c] text-lg sm:text-lg py-4 px-8 md:py-5 md:px-10 w-full sm:w-auto text-white shadow-xl hover:shadow-2xl font-semibold transition-all duration-200 hover:bg-[#4f4f2c]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4f4f2c] focus-visible:ring-offset-2"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              aria-label="Become a Sponsor for AIM Summit (opens in new tab)"
+            >
+              <span className="flex items-center justify-center">
+                Become a Sponsor
+                <motion.span className="ml-2 size-5 md:size-6" whileHover={{ x: 2, y: -2 }} aria-hidden="true">
+                  <RiArrowRightUpLine />
+                </motion.span>
+              </span>
+            </motion.a>
+          </motion.div>
         </div>
 
         {/* Right Video Section - 50% width, aligned with CTA buttons */}
@@ -176,7 +200,7 @@ export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHer
         </div>
       </section>
 
-      {/* Transition Buffer Zone - extends the hero-to-content transition */}
+      {/* Transition Buffer Zone */}
       <div className="h-32 bg-gradient-to-b from-[#101310] to-transparent relative z-10" aria-hidden="true" />
     </>
   )
