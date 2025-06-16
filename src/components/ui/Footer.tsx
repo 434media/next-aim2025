@@ -31,7 +31,7 @@ const sections = {
 
 export default function Footer() {
   const [isVisible, setIsVisible] = useState(false)
-  const [hoveredSection, setHoveredSection] = useState<string | null>(null)
+  const [, setHoveredSection] = useState<string | null>(null)
 
   // Enhanced scroll-triggered visibility
   const footerRef = useRef(null)
