@@ -8,7 +8,6 @@ import {
   RiFileTextLine,
   RiVideoLine,
   RiExternalLinkLine,
-  RiArrowRightUpLine,
 } from "@remixicon/react"
 import { Button } from "@/components/Button"
 import { FadeContainer } from "@/components/Fade"
@@ -162,32 +161,6 @@ export default function PreConferenceSymposiums() {
                 Our pre-conference symposiums offer a unique opportunity to engage with experts, explore collaboration
                 opportunities, and gain insights into the military healthcare ecosystem.
               </motion.p>
-
-              <motion.div
-                className="mt-10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.5 }}
-              >
-                <a
-                  href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    window.open(
-                      "https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/",
-                      "_blank",
-                      "noopener,noreferrer",
-                    )
-                  }}
-                  className="group inline-flex items-center justify-center px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-lg font-medium text-white bg-[#548cac] rounded-md hover:bg-[#447a99] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#548cac] focus:ring-offset-black relative overflow-hidden"
-                >
-                  <span className="relative z-10">Register for AIM Summit</span>
-                  <RiArrowRightUpLine className="ml-2 relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#548cac] to-[#4f4f2c] opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-sm"></div>
-                </a>
-              </motion.div>
             </FadeContainer>
           </div>
         </div>

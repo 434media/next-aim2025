@@ -4,10 +4,8 @@ import type React from "react"
 
 import { motion, useReducedMotion } from "motion/react"
 import { useInView } from "react-intersection-observer"
-import { RiArrowRightUpLine } from "@remixicon/react"
 import { FadeContainer } from "@/components/Fade"
 import { MilitaryHealthCity } from "../../components/ui/MilitaryHealthCity"
-import { Button } from "@/components/Button"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
@@ -241,29 +239,6 @@ export default function WhyAttend() {
                 }
                 delay={0.3}
               />
-            </motion.div>
-
-            {/* Call to Action */}
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{
-                duration: 0.6,
-                delay: 1.2,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              <Button
-                variant="primary"
-                href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-                className="text-lg py-5 px-10 bg-gradient-to-r from-[#548cac] to-orange-500 hover:from-[#4a7a96] hover:to-orange-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold"
-              >
-                <span className="flex items-center">
-                  Register Now
-                  <RiArrowRightUpLine className="ml-3 h-6 w-6" />
-                </span>
-              </Button>
             </motion.div>
           </div>
         </FadeContainer>
