@@ -886,11 +886,11 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
                 textShadow: "0 4px 20px rgba(0,0,0,0.9)",
               }}
             >
-              "The future of military medicine starts here, and it continues with{" "}
+              &quot;The future of military medicine starts here, and it continues with{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-emerald-300 font-semibold">
                 you
               </span>
-              ."
+              .&quot;
             </motion.p>
           </motion.div>
         </div>
