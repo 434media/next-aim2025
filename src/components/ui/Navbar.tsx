@@ -167,7 +167,7 @@ export default function NavBar() {
                   </motion.span>
                 </Link>
                 <div className="text-left">
-                  <div className="text-sm font-medium text-white">{eventInfo.aim.date}</div>
+                  {/* <div className="text-sm font-medium text-white">{eventInfo.aim.date}</div> */}
                   <div className="text-xs text-white/70">{eventInfo.location}</div>
                 </div>
               </div>
@@ -210,10 +210,10 @@ export default function NavBar() {
                           aria-hidden="true"
                         />
                       </motion.span>
-                      <span className="mx-3 text-white/60">|</span>
+                      {/* <span className="mx-3 text-white/60">|</span>
                       <motion.span className="text-white font-medium" whileHover={{ color: "#548cac" }}>
                         {eventInfo.aim.date}
-                      </motion.span>
+                      </motion.span> */}
                     </Link>
                   </span>
                 </div>

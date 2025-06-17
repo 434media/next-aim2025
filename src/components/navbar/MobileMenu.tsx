@@ -93,8 +93,8 @@ export default function MobileMenu({ isOpen, closeMenu, menuItems, eventInfo, ne
                 <AIMLogo variant="white" className="h-12 w-auto" />
               </motion.div>
               <div>
-                <p className="text-sm font-semibold text-white">{eventInfo.aim.date}</p>
-                <p className="text-xs text-white/80 leading-tight">{eventInfo.venue}</p>
+                {/* <p className="text-sm font-semibold text-white">{eventInfo.aim.date}</p> */}
+               {/*  <p className="text-xs text-white/80 leading-tight">{eventInfo.venue}</p> */}
               </div>
             </div>
             <motion.div
