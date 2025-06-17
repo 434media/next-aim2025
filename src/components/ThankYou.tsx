@@ -83,7 +83,7 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
   const stats = [
     {
       label: "Attendees",
-      value: "900+",
+      value: "600+",
       icon: "👥",
       color: currentTheme.primary,
       bgColor: "rgba(6, 182, 212, 0.1)", // Cyan with transparency
@@ -91,7 +91,7 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
     },
     {
       label: "Speakers",
-      value: "90+",
+      value: "60+",
       icon: "🎤",
       color: currentTheme.secondary,
       bgColor: "rgba(16, 185, 129, 0.1)", // Emerald with transparency
@@ -99,19 +99,11 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
     },
     {
       label: "Sessions",
-      value: "75+",
+      value: "70+",
       icon: "📋",
       color: currentTheme.accent,
       bgColor: "rgba(245, 158, 11, 0.1)", // Amber with transparency
       glowColor: "rgba(245, 158, 11, 0.3)",
-    },
-    {
-      label: "Countries",
-      value: "25+",
-      icon: "🌍",
-      color: currentTheme.highlight,
-      bgColor: "rgba(236, 72, 153, 0.1)", // Pink with transparency
-      glowColor: "rgba(236, 72, 153, 0.3)",
     },
   ]
 
@@ -508,7 +500,7 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
           {/* Enhanced Stats Grid with Accessible Colors */}
           <motion.div
             variants={itemVariants}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 max-w-6xl mx-auto"
+            className="grid grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-6xl mx-auto"
           >
             {stats.map((stat, index) => (
               <motion.div
