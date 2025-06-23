@@ -176,7 +176,7 @@ export default function CatchupBanner() {
 
           {/* Enhanced Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full justify-center max-w-2xl mx-auto"
+            className="flex gap-4 sm:gap-6 w-full justify-center max-w-xs mx-auto"
             variants={itemVariants}
           >
             <motion.div
@@ -198,21 +198,6 @@ export default function CatchupBanner() {
                   <RiPlayFill className="mr-2 size-6" aria-hidden="true" />
                   Watch highlights
                 </motion.span>
-              </Button>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="flex-1"
-            >
-              <Button
-                href="https://support.velocitytx.org/campaign/642575/donate"
-                variant="secondary"
-                className="w-full text-lg py-4 px-8"
-              >
-                Become a Sponsor
               </Button>
             </motion.div>
           </motion.div>

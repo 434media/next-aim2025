@@ -12,30 +12,16 @@ import type { MenuItem, NewsItem, EventInfo } from "../navbar/types"
 const menuItems: MenuItem[] = [
   { name: "AIM Pre-Conference Symposiums", href: "/pre-conference-symposiums" },
   {
-    name: "Agenda",
-    dropdown: [
-      { name: "Keynotes", href: "/keynotes" },
-      { name: "Schedule", href: "/schedule" },
-      { name: "Speakers", href: "/speakers" },
-    ],
-  },
-  {
     name: "Attend",
     dropdown: [
       { name: "Why Attend", href: "/why-attend" },
     ],
   },
   {
-    name: "Sponsors & Exhibitors",
-    href: "/sponsors-exhibitors",
-  },
-  {
     name: "More",
     dropdown: [
       { name: "SURF", href: "/surf" },
       { name: "MMID", href: "/mmid" },
-      { name: "Travel & Venue", href: "/travel-venue" },
-      { name: "FAQ", href: "/faq" },
       { name: "Contact Us", href: "/contact-us" },
     ],
   },
@@ -224,8 +210,6 @@ export default function NavBar() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3, duration: 0.5 }}
                 >
-                  <span className="hover:text-[#548cac] transition-colors cursor-default">{eventInfo.venue}</span>
-                  <span className="text-white/40">|</span>
                   <span className="hover:text-[#548cac] transition-colors cursor-default">{eventInfo.location}</span>
                 </motion.div>
               </div>

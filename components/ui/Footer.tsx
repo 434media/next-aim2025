@@ -10,10 +10,6 @@ const sections = {
     title: "Discover",
     items: [
       { label: "Why Attend", href: "/why-attend" },
-      { label: "Keynotes", href: "/keynotes" },
-      { label: "Schedule", href: "/schedule" },
-      { label: "Speakers", href: "/speakers" },
-      { label: "Sponsors & Exhibitors", href: "/sponsors-exhibitors" },
       { label: "Pre-Conference Symposiums", href: "/pre-conference-symposiums" },
     ],
   },
@@ -22,8 +18,6 @@ const sections = {
     items: [
       { label: "SURF", href: "/surf" },
       { label: "MMID", href: "/mmid" },
-      { label: "Travel & Venue", href: "/travel-venue" },
-      { label: "FAQ", href: "/faq" },
       { label: "Contact Us", href: "/contact-us" },
     ],
   },
