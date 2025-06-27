@@ -40,7 +40,7 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
     }
   }, [prefersReducedMotion, isMobile])
 
-  // Updated stats with only 3 cards
+  // Enhanced stats with better descriptions and icons
   const stats = [
     {
       label: "Attendees",
@@ -49,7 +49,7 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
       color: "from-cyan-300 to-blue-400",
       bgColor: "rgba(6, 182, 212, 0.1)",
       glowColor: "rgba(6, 182, 212, 0.3)",
-      description: "Healthcare professionals and military leaders",
+      description: "Healthcare professionals and military leaders united",
     },
     {
       label: "Speakers",
@@ -58,7 +58,7 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
       color: "from-emerald-300 to-teal-400",
       bgColor: "rgba(16, 185, 129, 0.1)",
       glowColor: "rgba(16, 185, 129, 0.3)",
-      description: "Industry experts and thought leaders",
+      description: "Visionary experts sharing breakthrough insights",
     },
     {
       label: "Sessions",
@@ -67,7 +67,7 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
       color: "from-amber-300 to-orange-400",
       bgColor: "rgba(245, 158, 11, 0.1)",
       glowColor: "rgba(245, 158, 11, 0.3)",
-      description: "Presentations, panels, and workshops",
+      description: "Transformative presentations and collaborative workshops",
     },
   ]
 
@@ -115,10 +115,10 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
 
       {/* Enhanced Particle Field - Reduced on mobile */}
       <ParticleField
-        particleCount={isMobile ? 20 : 80}
-        color="rgba(6, 182, 212, 0.7)"
-        size={4}
-        speed={isMobile ? 0.1 : 0.3}
+        particleCount={isMobile ? 30 : 100}
+        color="rgba(6, 182, 212, 0.8)"
+        size={5}
+        speed={isMobile ? 0.15 : 0.4}
         prefersReducedMotion={prefersReducedMotion || isMobile}
       />
 
@@ -127,20 +127,20 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
         <motion.div
           className="fixed pointer-events-none z-5"
           style={{
-            left: mousePosition.x - 300,
-            top: mousePosition.y - 300,
-            width: 600,
-            height: 600,
-            background: `radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, rgba(16, 185, 129, 0.1) 50%, transparent 70%)`,
+            left: mousePosition.x - 400,
+            top: mousePosition.y - 400,
+            width: 800,
+            height: 800,
+            background: `radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, rgba(16, 185, 129, 0.15) 40%, rgba(245, 158, 11, 0.1) 70%, transparent 80%)`,
             borderRadius: "50%",
-            filter: "blur(60px)",
+            filter: "blur(80px)",
           }}
           animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.4, 0.7, 0.4],
+            scale: [1, 1.4, 1],
+            opacity: [0.5, 0.8, 0.5],
           }}
           transition={{
-            duration: 4,
+            duration: 5,
             repeat: Number.POSITIVE_INFINITY,
             ease: "easeInOut",
           }}
@@ -155,30 +155,33 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
       >
-        <div className="max-w-7xl mx-auto space-y-16 lg:space-y-20">
-          {/* Hero Thank You Message */}
-          <motion.div variants={itemVariants} className="text-center space-y-8 lg:space-y-12">
+        <div className="max-w-7xl mx-auto space-y-20 lg:space-y-24">
+          {/* Mission Accomplished Badge */}
+          <motion.div variants={itemVariants} className="text-center">
             <motion.div
               className="inline-block"
               whileHover={
-                !isMobile ? { scale: prefersReducedMotion ? 1 : 1.05, rotate: prefersReducedMotion ? 0 : 1 } : {}
+                !isMobile ? { scale: prefersReducedMotion ? 1 : 1.08, rotate: prefersReducedMotion ? 0 : 2 } : {}
               }
-              transition={{ duration: 0.4, type: "spring", stiffness: 300 }}
+              transition={{ duration: 0.5, type: "spring", stiffness: 300 }}
             >
-              <span className="inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-emerald-500/20 border-2 border-cyan-300/30 text-cyan-100 text-sm sm:text-base font-semibold backdrop-blur-md shadow-2xl">
-                <RiSparklingLine className="mr-2 size-4 sm:size-5 text-cyan-300" />
+              <span className="inline-flex items-center px-6 py-4 sm:px-8 sm:py-5 rounded-full bg-gradient-to-r from-cyan-500/25 to-emerald-500/25 border-2 border-cyan-300/40 text-cyan-100 text-lg sm:text-xl font-bold backdrop-blur-xl shadow-2xl hover:shadow-cyan-400/30 transition-all duration-300">
+                <RiSparklingLine className="mr-3 size-5 sm:size-6 text-cyan-300" />
                 AIM {year} • Mission Accomplished
-                <RiHeartLine className="ml-2 size-4 sm:size-5 text-rose-400" />
+                <RiHeartLine className="ml-3 size-5 sm:size-6 text-rose-400" />
               </span>
             </motion.div>
+          </motion.div>
 
+          {/* Hero: Relive the Moments */}
+          <motion.div variants={itemVariants} className="text-center space-y-12 lg:space-y-16">
             {/* Main Title */}
-            <div className="space-y-6">
+            <div className="space-y-8">
               {isMobile ? (
                 <motion.h1
                   className="font-black text-white leading-[0.85] tracking-tight"
                   style={{
-                    fontSize: "clamp(4rem, 18vw, 12rem)",
+                    fontSize: "clamp(3.5rem, 16vw, 10rem)",
                     textShadow: "0 8px 32px rgba(0, 0, 0, 0.8)",
                   }}
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -189,130 +192,130 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
                     delay: 0.3,
                   }}
                 >
-                  Thank You
+                  Relive the{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-emerald-300 to-blue-300">
+                    Moments
+                  </span>
                 </motion.h1>
               ) : (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.5, rotateX: -30 }}
+                  initial={{ opacity: 0, scale: 0.6, rotateX: -20 }}
                   animate={{ opacity: 1, scale: 1, rotateX: 0 }}
-                  transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
                   className="relative"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 via-emerald-400/20 to-blue-400/30 blur-3xl scale-150 opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/40 via-emerald-400/30 to-amber-400/40 blur-3xl scale-150 opacity-90" />
                     <AnimatedText
-                      text="Thank You"
-                      className="relative font-black text-white drop-shadow-2xl text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[12rem]"
+                      text="Relive the Moments"
+                      className="relative font-black text-white drop-shadow-2xl text-6xl md:text-7xl lg:text-8xl xl:text-[9rem] 2xl:text-[11rem]"
                       variant="glow"
                       prefersReducedMotion={prefersReducedMotion}
-                      duration={2}
+                      duration={2.5}
                     />
                 </motion.div>
               )}
 
-              {/* Subtitle */}
-              <motion.p
-                className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-gray-200 leading-relaxed font-light max-w-4xl mx-auto"
-                style={{
-                  textShadow: "0 4px 25px rgba(0,0,0,0.9)",
-                }}
-                initial={{ opacity: 0, y: isMobile ? 20 : 30 }}
+              {/* Enhanced Subtitle */}
+              <motion.div
+                className="space-y-6"
+                initial={{ opacity: 0, y: isMobile ? 20 : 40 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.2, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.4, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
               >
-                Together, we&apos;ve advanced the future of military medicine and healthcare innovation. Your
-                participation made AIM {year} an{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-emerald-300 font-bold">
-                  unprecedented success
-                </span>
-                .
-              </motion.p>
+                <p
+                  className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-gray-200 leading-relaxed font-light max-w-6xl mx-auto"
+                  style={{
+                    textShadow: "0 4px 25px rgba(0,0,0,0.9)",
+                  }}
+                >
+                  Experience the{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-emerald-300 font-semibold">
+                    breakthrough innovations
+                  </span>{" "}
+                  and{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-amber-300 font-semibold">
+                    transformative insights
+                  </span>{" "}
+                  that defined AIM&nbsp;{year}
+                </p>
+              </motion.div>
             </div>
           </motion.div>
 
-          {/* Event Recap Carousel */}
+          {/* Event Recap Carousel - Enhanced */}
           <motion.div variants={itemVariants} className="space-y-8">
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-            >
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-                Relive the{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-emerald-300">
-                  Moments
-                </span>
-              </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Relive the groundbreaking moments and innovative breakthroughs that defined AIM 2025. Access exclusive content and behind-the-scenes insights.
-              </p>
-            </motion.div>
             <EventRecapCarousel />
           </motion.div>
 
-          {/* Smooth Stats Grid - Removed scale hover animation */}
+          {/* Enhanced Stats Grid */}
           <motion.div
             variants={itemVariants}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-5xl mx-auto"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto"
           >
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
                 className="relative group"
-                initial={{ opacity: 0, y: isMobile ? 20 : 40 }}
+                initial={{ opacity: 0, y: isMobile ? 20 : 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                style={{
-                  transitionDelay: `${index * 0.1}s`,
+                transition={{
+                  duration: 0.8,
+                  delay: index * 0.15,
+                  ease: [0.22, 1, 0.36, 1],
                 }}
               >
                 <div
-                  className="bg-white/10 backdrop-blur-xl rounded-3xl p-6 sm:p-8 lg:p-10 border-2 border-white/20 hover:border-white/40 transition-all duration-300 shadow-2xl hover:shadow-3xl relative overflow-hidden h-full flex flex-col justify-center items-center text-center group"
+                  className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 sm:p-10 lg:p-12 border-2 border-white/20 hover:border-white/40 transition-all duration-500 shadow-2xl hover:shadow-3xl relative overflow-hidden h-full flex flex-col justify-center items-center text-center group hover:scale-105"
                   style={{
                     backgroundColor: stat.bgColor,
                     borderColor: stat.glowColor,
                   }}
                 >
-                  {/* Static background gradient - no animation */}
+                  {/* Enhanced background gradient */}
                   <div
-                    className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-3xl`}
+                    className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-25 transition-opacity duration-500 rounded-3xl`}
                   />
 
-                  <div className="relative z-10 space-y-4">
-                    {/* Static icon - subtle hover effect only */}
-                    <div className="text-5xl lg:text-6xl xl:text-7xl mb-6 transition-transform duration-300 group-hover:scale-105">
+                  <div className="relative z-10 space-y-6">
+                    {/* Enhanced icon with animation */}
+                    <motion.div
+                      className="text-6xl lg:text-7xl xl:text-8xl mb-8"
+                      whileHover={!isMobile ? { scale: 1.1, rotate: 5 } : {}}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    >
                       {stat.icon}
-                    </div>
+                    </motion.div>
 
-                    {/* Static value with subtle hover effect */}
+                    {/* Enhanced value with better glow */}
                     <div
                       className={`font-black text-transparent bg-clip-text bg-gradient-to-r ${stat.color} ${
-                        isMobile ? "text-4xl" : "text-5xl lg:text-6xl xl:text-7xl"
-                      } mb-3 transition-all duration-300 group-hover:brightness-110`}
+                        isMobile ? "text-5xl" : "text-6xl lg:text-7xl xl:text-8xl"
+                      } mb-4 transition-all duration-500 group-hover:brightness-125`}
                       style={{
-                        textShadow: `0 0 30px ${stat.glowColor}`,
+                        textShadow: `0 0 40px ${stat.glowColor}`,
                       }}
                     >
                       {stat.value}
                     </div>
 
-                    {/* Label */}
-                    <div className="text-white text-xl lg:text-2xl font-bold mb-2 transition-colors duration-300 group-hover:text-gray-100">
+                    {/* Enhanced label */}
+                    <div className="text-white text-2xl lg:text-3xl font-bold mb-3 transition-colors duration-300 group-hover:text-gray-100">
                       {stat.label}
                     </div>
 
-                    {/* Description */}
-                    <div className="text-gray-300 text-sm lg:text-base font-medium leading-relaxed transition-colors duration-300 group-hover:text-gray-200">
+                    {/* Enhanced description */}
+                    <div className="text-gray-300 text-base lg:text-lg font-medium leading-relaxed transition-colors duration-300 group-hover:text-gray-200 max-w-xs mx-auto">
                       {stat.description}
                     </div>
                   </div>
                 </div>
 
-                {/* Simplified hover glow effect - Desktop only, no complex animations */}
+                {/* Enhanced hover glow effect - Desktop only */}
                 {!isMobile && (
                   <div
-                    className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 -z-10 blur-2xl scale-110"
+                    className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 -z-10 blur-3xl scale-125"
                     style={{
-                      background: `linear-gradient(135deg, ${stat.glowColor}, transparent)`,
+                      background: `linear-gradient(135deg, ${stat.glowColor}, transparent, ${stat.glowColor})`,
                     }}
                   />
                 )}
@@ -320,10 +323,10 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
             ))}
           </motion.div>
 
-          {/* Call to Action */}
-          <motion.div variants={itemVariants} className="text-center space-y-8">
+          {/* Enhanced Call to Action */}
+          <motion.div variants={itemVariants} className="text-center space-y-10">
             <motion.p
-              className="text-2xl italic font-light text-gray-100 max-w-3xl mx-auto"
+              className="text-xl sm:text-2xl lg:text-3xl italic font-light text-gray-100 max-w-5xl mx-auto leading-relaxed"
               style={{
                 textShadow: "0 4px 20px rgba(0,0,0,0.9)",
               }}
@@ -381,7 +384,7 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
       </motion.div>
 
       {/* Enhanced Bottom Gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black via-gray-900/90 to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black via-gray-900/95 to-transparent pointer-events-none" />
     </section>
   )
 })

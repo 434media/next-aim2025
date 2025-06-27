@@ -1,11 +1,10 @@
 "use client"
 
-import React, { useRef, useCallback } from "react"
-import { motion, useScroll, useTransform } from "motion/react"
+import React, { useRef, useCallback, useEffect } from "react"
+import { motion, useScroll, useTransform, useMotionValue } from "motion/react"
 import { HeroTitle } from "./HeroTitle"
 import { VideoPlayer } from "./VideoPlayer"
 import { TitleParticleEffect } from "./TitleParticleEffect"
-import { RiArrowRightUpLine } from "@remixicon/react"
 
 interface DesktopHeroVideoProps {
   prefersReducedMotion: boolean
@@ -13,26 +12,39 @@ interface DesktopHeroVideoProps {
 
 export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHeroVideoProps) => {
   const containerRef = useRef<HTMLElement>(null)
-  const buttonsRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
 
-  const { scrollYProgress } = useScroll({
+  // Create motion value for content scroll progress
+  const contentScrollProgress = useMotionValue(0)
+
+  // Custom scroll listener for the content area
+  useEffect(() => {
+    const contentElement = contentRef.current
+    if (!contentElement) return
+
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = contentElement
+      const maxScroll = scrollHeight - clientHeight
+      const progress = maxScroll > 0 ? scrollTop / maxScroll : 0
+      contentScrollProgress.set(progress)
+    }
+
+    contentElement.addEventListener("scroll", handleScroll, { passive: true })
+    return () => contentElement.removeEventListener("scroll", handleScroll)
+  }, [contentScrollProgress])
+
+  // Create animation trigger from the motion value
+  const animationTrigger = useTransform(contentScrollProgress, [0, 0.1], [0, 1])
+
+  // Sticky title effects - responds to page scroll when hero is in view
+  const { scrollYProgress: pageScrollProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   })
 
-  // Animation triggers
-  const animationTrigger = useTransform(scrollYProgress, [0, 0.05], [0, 1])
-
-  // Sticky title visibility - only visible within hero section
-  const stickyTitleOpacity = useTransform(scrollYProgress, [0, 0.7, 0.95], [1, 0.9, 0])
-
-  // Text blur effects when content touches sticky title
-  const textBlur = useTransform(
-    scrollYProgress,
-    [0, 0.1, 0.2, 0.25],
-    ["blur(0px)", "blur(0px)", "blur(6px)", "blur(0px)"],
-  )
-  const textOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.25], [1, 1, 0.4, 1])
+  const headerOpacity = useTransform(pageScrollProgress, [0, 0.1, 0.9, 1], [1, 1, 0.95, 0.9])
+  const headerScale = useTransform(pageScrollProgress, [0, 0.5, 1], [1, 0.98, 0.96])
+  const headerY = useTransform(pageScrollProgress, [0, 1], [0, -20])
 
   const handleSkipLink = useCallback(
     (e: React.KeyboardEvent) => {
@@ -50,7 +62,7 @@ export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHer
     <>
       <section
         ref={containerRef}
-        className="relative min-h-[100vh] flex flex-row items-stretch overflow-hidden bg-[#101310]"
+        className="relative bg-[#101310] overflow-hidden"
         aria-label="Hero section with background video"
         id="hero-section"
       >
@@ -63,139 +75,223 @@ export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHer
           Skip to main content
         </a>
 
-        {/* Sticky Hero Title - Only visible within hero section */}
-        <motion.div
-          className="absolute top-0 left-0 w-1/2 z-30 pointer-events-none"
-          style={{
-            opacity: stickyTitleOpacity,
-            position: "sticky",
-            top: "5rem", // Account for navbar height
-            willChange: "opacity",
-          }}
-        >
-          {/* Enhanced solid dark background */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#101310] via-[#101310] to-[#101310]/95 shadow-2xl border-r border-white/10"></div>
+        {/* Main Hero Layout */}
+        <div className="flex flex-row h-screen overflow-hidden">
+          {/* Left Content Section - 50% width */}
+          <div className="w-1/2 h-screen overflow-hidden">
+            {/* Sticky Header */}
+            <motion.header
+              className="sticky top-4 z-20 w-full bg-gradient-to-b from-[#101310] via-[#101310] to-transparent pt-8 pb-8 px-8"
+              style={{
+                opacity: headerOpacity,
+                scale: headerScale,
+                y: headerY,
+              }}
+            >
+              <div className="max-w-7xl mx-auto">
+                <div className="brightness-125 contrast-110 saturate-110">
+                  <HeroTitle
+                    animationProgress={animationTrigger}
+                    prefersReducedMotion={prefersReducedMotion}
+                    isMobile={false}
+                    className="py-6 w-full"
+                  />
+                </div>
 
-          <div className="relative">
-            {/* Enhanced brightness and contrast for the title */}
-            <div className="brightness-125 contrast-110 saturate-110">
-              <HeroTitle
-                animationProgress={animationTrigger}
-                prefersReducedMotion={prefersReducedMotion}
-                isMobile={false}
-                className="py-8 px-8 lg:px-12"
-              />
-            </div>
+                {/* Particle Effect */}
+                {!prefersReducedMotion && (
+                  <TitleParticleEffect
+                    scrollProgress={contentScrollProgress.get()}
+                    titleOpacity={headerOpacity.get()}
+                    prefersReducedMotion={prefersReducedMotion}
+                  />
+                )}
+              </div>
+            </motion.header>
 
-            {/* Enhanced Particle Effect with better performance */}
-            {!prefersReducedMotion && (
-              <TitleParticleEffect
-                scrollProgress={scrollYProgress.get()}
-                titleOpacity={stickyTitleOpacity.get()}
-                prefersReducedMotion={prefersReducedMotion}
-              />
-            )}
-          </div>
-        </motion.div>
+            {/* Scrollable Content - This is what drives the Here/Now change */}
+            <div
+              ref={contentRef}
+              className="h-[calc(100vh-280px)] overflow-y-auto scrollbar-thin scrollbar-thumb-[#38BDF8]/20 scrollbar-track-transparent"
+            >
+              <div className="max-w-7xl mx-auto px-8 py-12">
+                <div className="max-w-4xl mx-auto space-y-32 pb-32">
+                  {/* First paragraph */}
+                  <motion.div
+                    className="group"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                  >
+                    <div className="flex items-start space-x-6">
+                      <div className="mt-2">
+                        <motion.div
+                          className="w-1 h-24 bg-gradient-to-b from-[#7DD3FC] to-transparent rounded-full"
+                          animate={{ height: [0, 96] }}
+                          transition={{ duration: 1.5, delay: 0.5 }}
+                        />
+                      </div>
+                      <div>
+                        <p className="text-3xl xl:text-4xl 2xl:text-5xl text-gray-200 leading-relaxed font-light">
+                          The AIM Health R&D Summit brings together top innovators from academia, industry, and the
+                          military to accelerate the research, development, and commercialization of{" "}
+                          <span className="text-[#7DD3FC] font-semibold group-hover:text-sky-300 transition-colors duration-300">
+                            transformative medical technologies
+                          </span>
+                          .
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
 
-        {/* Left Content Section - 50% width */}
-        <div className="relative w-1/2 h-full flex flex-col justify-between">
-          {/* Scrolling Content that flows behind sticky title */}
-          <div className="relative px-8 lg:px-12">
-            {/* Spacer to account for sticky title */}
-            <div className="h-80" aria-hidden="true" />
+                  {/* Second paragraph */}
+                  <motion.div
+                    className="group"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                  >
+                    <div className="flex items-start space-x-6">
+                      <div className="mt-2">
+                        <motion.div
+                          className="w-1 h-24 bg-gradient-to-b from-[#7DD3FC] to-transparent rounded-full"
+                          animate={{ height: [0, 96] }}
+                          transition={{ duration: 1.5, delay: 1 }}
+                        />
+                      </div>
+                      <div>
+                        <p className="text-3xl xl:text-4xl 2xl:text-5xl text-gray-200 leading-relaxed font-light">
+                          This unique convergence of thought leaders creates pathways to discovery and commercialization
+                          while addressing critical challenges in{" "}
+                          <span className="text-white font-semibold group-hover:text-gray-100 transition-colors duration-300">
+                            military and civilian healthcare
+                          </span>
+                          .
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
 
-            {/* Content that will scroll past the sticky title */}
-            <div className="space-y-10 lg:space-y-12">
-              {/* First paragraph with blur effects when touching sticky title */}
-              <motion.div
-                style={{
-                  filter: textBlur,
-                  opacity: textOpacity,
-                }}
-              >
-                <motion.p
-                  className="text-xl sm:text-2xl md:text-3xl text-white/95 leading-relaxed max-w-4xl text-balance tracking-tight font-medium"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  style={{
-                    textShadow: "0 3px 15px rgba(0,0,0,0.8)",
-                    lineHeight: "1.4",
-                  }}
-                >
-                  The AIM Health R&D Summit brings together top innovators from academia, industry, and the military to
-                  accelerate the research, development, and commercialization of transformative medical technologies.
-                </motion.p>
-              </motion.div>
+                  {/* Third paragraph */}
+                  <motion.div
+                    className="group"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                  >
+                    <div className="flex items-start space-x-6">
+                      <div className="mt-2">
+                        <motion.div
+                          className="w-1 h-24 bg-gradient-to-b from-[#7DD3FC] to-transparent rounded-full"
+                          animate={{ height: [0, 96] }}
+                          transition={{ duration: 1.5, delay: 1.5 }}
+                        />
+                      </div>
+                      <div>
+                        <p className="text-3xl xl:text-4xl 2xl:text-5xl text-gray-200 leading-relaxed font-light">
+                          Join us in shaping the future of healthcare innovation through{" "}
+                          <span className="text-[#7DD3FC] font-semibold group-hover:text-sky-300 transition-colors duration-300">
+                            collaboration, breakthrough research, and transformative partnerships
+                          </span>{" "}
+                          that save lives.
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
 
-              {/* Second paragraph - no blur effects */}
-              <div className="space-y-6 md:space-y-8">
-                <motion.p
-                  className="text-lg sm:text-xl md:text-2xl text-white/90 leading-relaxed max-w-4xl text-balance tracking-tight"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-                  style={{
-                    textShadow: "0 2px 12px rgba(0,0,0,0.7)",
-                    lineHeight: "1.5",
-                  }}
-                >
-                  This unique convergence of thought leaders creates pathways to discovery and commercialization while
-                  addressing critical challenges in both military and civilian healthcare.
-                </motion.p>
+                  {/* Fourth paragraph */}
+                  <motion.div
+                    className="group"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.8 }}
+                  >
+                    <div className="flex items-start space-x-6">
+                      <div className="mt-2">
+                        <motion.div
+                          className="w-1 h-24 bg-gradient-to-b from-[#38BDF8] to-transparent rounded-full"
+                          animate={{ height: [0, 96] }}
+                          transition={{ duration: 1.5, delay: 2 }}
+                        />
+                      </div>
+                      <div>
+                        <p className="text-2xl xl:text-3xl 2xl:text-4xl text-gray-200 leading-relaxed font-light">
+                          Through collaborative partnerships and innovative thinking, we continue to drive breakthroughs
+                          that transform healthcare delivery and improve outcomes for{" "}
+                          <span className="text-white font-semibold group-hover:text-gray-100 transition-colors duration-300">
+                            military personnel and civilians alike
+                          </span>
+                          .
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Fifth paragraph */}
+                  <motion.div
+                    className="group"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 1.0 }}
+                  >
+                    <div className="flex items-start space-x-6">
+                      <div className="mt-2">
+                        <motion.div
+                          className="w-1 h-24 bg-gradient-to-b from-[#0EA5E9] to-transparent rounded-full"
+                          animate={{ height: [0, 96] }}
+                          transition={{ duration: 1.5, delay: 2.5 }}
+                        />
+                      </div>
+                      <div>
+                        <p className="text-2xl xl:text-3xl 2xl:text-4xl text-gray-200 leading-relaxed font-light">
+                          Our commitment to innovation extends beyond the summit, fostering year-round collaboration and
+                          knowledge sharing that drives{" "}
+                          <span className="text-[#0EA5E9] font-semibold group-hover:text-sky-300 transition-colors duration-300">
+                            continuous advancement in medical research
+                          </span>
+                          .
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Sixth paragraph */}
+                  <motion.div
+                    className="group"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 1.2 }}
+                  >
+                    <div className="flex items-start space-x-6">
+                      <div className="mt-2">
+                        <motion.div
+                          className="w-1 h-24 bg-gradient-to-b from-[#06B6D4] to-transparent rounded-full"
+                          animate={{ height: [0, 96] }}
+                          transition={{ duration: 1.5, delay: 3 }}
+                        />
+                      </div>
+                      <div>
+                        <p className="text-2xl xl:text-3xl 2xl:text-4xl text-gray-200 leading-relaxed font-light">
+                          Together, we are building a future where medical innovation knows no boundaries, where
+                          breakthrough discoveries translate into{" "}
+                          <span className="text-[#06B6D4] font-semibold group-hover:text-cyan-300 transition-colors duration-300">
+                            life-saving solutions for all
+                          </span>
+                          .
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* CTA Buttons - positioned at bottom to align with video */}
-          <motion.div
-            ref={buttonsRef}
-            className="flex flex-col sm:flex-row gap-4 sm:gap-6 px-8 lg:px-12 py-16 pointer-events-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-          >
-            <motion.a
-              href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full border border-transparent bg-[#548cac] text-lg sm:text-lg py-4 px-8 md:py-5 md:px-10 w-full sm:w-auto text-white shadow-xl hover:shadow-2xl font-semibold transition-all duration-200 hover:bg-[#548cac]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#548cac] focus-visible:ring-offset-2"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              aria-label="Register Now for AIM Summit (opens in new tab)"
-            >
-              <span className="flex items-center justify-center">
-                Register Now
-                <motion.span className="ml-2 size-5 md:size-6" whileHover={{ x: 2, y: -2 }} aria-hidden="true">
-                  <RiArrowRightUpLine />
-                </motion.span>
-              </span>
-            </motion.a>
-
-            <motion.a
-              href="https://support.velocitytx.org/campaign/642575/donate"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full border border-transparent bg-[#4f4f2c] text-lg sm:text-lg py-4 px-8 md:py-5 md:px-10 w-full sm:w-auto text-white shadow-xl hover:shadow-2xl font-semibold transition-all duration-200 hover:bg-[#4f4f2c]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4f4f2c] focus-visible:ring-offset-2"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              aria-label="Become a Sponsor for AIM Summit (opens in new tab)"
-            >
-              <span className="flex items-center justify-center">
-                Become a Sponsor
-                <motion.span className="ml-2 size-5 md:size-6" whileHover={{ x: 2, y: -2 }} aria-hidden="true">
-                  <RiArrowRightUpLine />
-                </motion.span>
-              </span>
-            </motion.a>
-          </motion.div>
-        </div>
-
-        {/* Right Video Section - 50% width, aligned with CTA buttons */}
-        <div className="relative w-1/2 flex items-center justify-center">
-          <div className="relative w-full h-full flex items-center">
-            <VideoPlayer prefersReducedMotion={prefersReducedMotion} className="absolute inset-0" />
+          {/* Right Video Section - 50% width */}
+          <div className="w-1/2 relative">
+            <div className="sticky top-0 h-screen">
+              <VideoPlayer prefersReducedMotion={prefersReducedMotion} className="w-full h-full" />
+            </div>
           </div>
         </div>
       </section>

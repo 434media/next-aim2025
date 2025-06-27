@@ -1,17 +1,19 @@
 import { PartnerMarquee } from "../components/ui/PartnerMarquee"
 import { additionalPartners, mainPartners } from "../data/partners"
 import { ThankYou } from "../components/ThankYou"
-import { SummitMission } from "../components/ui/SummitMission"
+import { SummitMission } from "../components//ui/SummitMission"
+import { HeroVideo } from "../components/ui/HeroVideo"
+import Testimonial from "../components/ui/Testimonial"
 
 export default function Home() {
   return (
     <main className="relative mx-auto flex flex-col scroll-smooth" id="main-content">
-      {/* Thank You Section with Event Recap */}
-      <section aria-labelledby="thank-you-heading" className="w-full">
-        <h2 id="thank-you-heading" className="sr-only">
-          Thank You and Event Recap
-        </h2>
-        <ThankYou />
+      {/* Hero Video Section */}
+      <section aria-labelledby="hero-heading" className="w-full">
+        <h1 id="hero-heading" className="sr-only">
+          AIM Summit - Advancing Innovation in Military Medicine
+        </h1>
+        <HeroVideo />
       </section>
 
       {/* Mission Section */}
@@ -20,6 +22,14 @@ export default function Home() {
           Summit Mission
         </h2>
         <SummitMission />
+      </section>
+
+      {/* Testimonial Section */}
+      <section aria-labelledby="testimonial-heading" className="w-full">
+        <h2 id="testimonial-heading" className="sr-only">
+          Testimonials
+        </h2>
+        <Testimonial />
       </section>
 
       {/* Partners Section */}
@@ -31,7 +41,7 @@ export default function Home() {
 
           {/* Section Header */}
           <div className="text-center mb-12">
-            <h3 className="text-5xl lg:text-6xl font-black text-gray-900 mb-4">
+            <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 mb-4">
               Powered by{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600">
                 Innovation
@@ -60,7 +70,7 @@ export default function Home() {
                 Interested in partnering with us?{" "}
                 <a
                   href="/contact-us"
-                  className="text-cyan-600 hover:text-cyan-700 underline underline-offset-2 transition-colors duration-200 block md:inline-block"
+                  className="text-cyan-600 hover:text-cyan-700 underline underline-offset-2 transition-colors duration-200"
                 >
                   Get in touch
                 </a>
@@ -68,6 +78,14 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Thank You Section with Event Recap */}
+      <section aria-labelledby="thank-you-heading" className="w-full">
+        <h2 id="thank-you-heading" className="sr-only">
+          Thank You and Event Recap
+        </h2>
+        <ThankYou />
       </section>
     </main>
   )

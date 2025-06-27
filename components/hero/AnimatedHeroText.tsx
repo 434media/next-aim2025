@@ -42,13 +42,22 @@ export const AnimatedHeroText = React.memo(({ animationProgress, prefersReducedM
   }, [])
 
   const [showNow, setShowNow] = useState(false)
+  const [hasScrolled, setHasScrolled] = useState(false)
 
+  // Scroll-based change - responds to paragraph content scrolling
   useEffect(() => {
     const unsubscribe = animationProgress.on("change", (latest: number) => {
-      setShowNow(latest > 0.1)
+      // Change to "Now" when paragraph content starts scrolling
+      if (latest > 0.15) {
+        setHasScrolled(true)
+        setShowNow(true)
+      } else if (hasScrolled && latest < 0.05) {
+        // Only allow return to "Here" if user has scrolled and then scrolled back to top
+        setShowNow(false)
+      }
     })
     return unsubscribe
-  }, [animationProgress])
+  }, [animationProgress, hasScrolled])
 
   const currentText = showNow ? "Now" : "Here"
   const currentGradient = showNow
