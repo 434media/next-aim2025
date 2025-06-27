@@ -102,9 +102,7 @@ export const ThankYou = React.memo(({ year = 2025 }: ThankYouProps) => {
   return (
     <section
       id="thank-you"
-      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-gray-900 to-black scroll-mt-20"
-      style={{ marginTop: "5rem" }}
-    >
+      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-gray-900 to-black scroll-mt-20">
       {/* Enhanced Background with Accessible Overlays */}
       <motion.div className="absolute inset-0" style={!isMobile ? { y: backgroundY } : {}}>
         <div className="absolute inset-0">
