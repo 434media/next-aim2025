@@ -3,7 +3,7 @@
 A modern, responsive website for the AIM Health R&D Summit - the premier event connecting academia, industry, and military to advance medical innovation.
 
 ## 🚀 Project Overview
-
+ 
 The AIM Summit website serves as the central hub for attendees, sponsors, and speakers to access event information, register, and engage with the summit content. Built with modern web technologies, it features dynamic content, interactive elements, and seamless user experience across all devices.
 
 ### Key Features
