@@ -115,9 +115,9 @@ export const MobileHeroVideo = React.memo(({ prefersReducedMotion }: MobileHeroV
         Skip to main content
       </a>
 
-      {/* Fixed Sticky Hero Title Box - Hide when mobile menu is open */}
+      {/* Fixed Sticky Hero Title - Solid background, no floating box */}
       <motion.div
-        className="fixed top-16 left-0 right-0 z-30 pointer-events-none"
+        className="fixed top-24 left-0 right-0 z-30 pointer-events-none bg-[#101310] py-4 px-4"
         style={{
           opacity: isMobileMenuOpen ? 0 : stickyTitleOpacity,
           willChange: "opacity",
@@ -137,8 +137,8 @@ export const MobileHeroVideo = React.memo(({ prefersReducedMotion }: MobileHeroV
       {/* Scrolling Content Container */}
       <div className="relative z-10">
         <div className="px-4 sm:px-6 py-6 space-y-6">
-          {/* Spacer to prevent text from being cut off by sticky title */}
-          <div className="h-40" aria-hidden="true" />
+          {/* Increased spacer to prevent text from being cut off by sticky title */}
+          <div className="h-48" aria-hidden="true" />
 
           {/* Video Section - Moved above hero content */}
           <motion.div className="relative w-full max-w-4xl mx-auto overflow-hidden z-20 rounded-3xl">
