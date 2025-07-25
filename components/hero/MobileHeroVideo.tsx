@@ -131,7 +131,7 @@ export const MobileHeroVideo = React.memo(({ prefersReducedMotion }: MobileHeroV
           <div className="h-48" aria-hidden="true" />
 
           {/* Video Section - Moved above hero content with improved container */}
-          <motion.div className="relative w-full max-w-3xl mx-auto overflow-hidden z-20 rounded-3xl mt-10">
+          <motion.div className="relative w-full max-w-3xl mx-auto overflow-hidden z-20 rounded-3xl mt-6">
             {/* Mobile-optimized video container */}
             <div
               className="relative w-full bg-white/20 backdrop-blur-sm rounded-3xl border border-gray-200"

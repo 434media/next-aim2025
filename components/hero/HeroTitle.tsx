@@ -16,7 +16,7 @@ interface HeroTitleProps {
 export const HeroTitle = React.memo(
   ({ animationProgress, prefersReducedMotion, isMobile, className = "", style = {} }: HeroTitleProps) => {
     return (
-      <div className={`md:mt-10 relative overflow-hidden py-4 px-4 sm:px-6 ${className}`} style={style}>
+      <div className={`md:mt-10 relative overflow-hidden ${className}`} style={style}>
         <ParticleBackground prefersReducedMotion={prefersReducedMotion} />
         <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-transparent opacity-70" />
         <motion.h1
