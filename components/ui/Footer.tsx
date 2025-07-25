@@ -10,15 +10,18 @@ const footerSections = {
   explore: {
     title: "Explore",
     items: [
+      { label: "AIM 2025", href: "/aim2025" },
       { label: "Pre-Conference Symposiums", href: "/pre-conference-symposiums" },
-      { label: "Why Attend", href: "/why-attend" },
       { label: "SURF Program", href: "/surf" },
       { label: "MMID Initiative", href: "/mmid" },
     ],
   },
   connect: {
     title: "Connect",
-    items: [{ label: "Contact Us", href: "/contact-us" }],
+    items: [
+      { label: "Contact Us", href: "/contact-us" },
+      { label: "434 MEDIA", href: "https://www.434media.com/" },
+    ],
   },
 }
 

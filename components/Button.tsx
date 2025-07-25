@@ -6,7 +6,7 @@ import React from "react"
 const variants = {
   primary: clsx(
     "inline-flex items-center justify-center px-4 py-2",
-    "rounded-full border border-transparent bg-[#548cac] shadow-md",
+    "rounded-lg border border-transparent bg-[#548cac] shadow-md",
     "whitespace-nowrap text-base font-medium text-white",
     "transition-colors duration-200 ease-in-out",
     "hover:bg-[#548cac]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#548cac] focus-visible:ring-offset-2",
@@ -14,7 +14,7 @@ const variants = {
   ),
   secondary: clsx(
     "inline-flex items-center justify-center px-4 py-2",
-    "rounded-full border border-transparent bg-[#4f4f2c] shadow-md",
+    "rounded-lg border border-transparent bg-[#4f4f2c] shadow-md",
     "whitespace-nowrap text-base font-medium text-white",
     "transition-colors duration-200 ease-in-out",
     "hover:bg-[#4f4f2c]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4f4f2c] focus-visible:ring-offset-2",
@@ -22,7 +22,7 @@ const variants = {
   ),
   outline: clsx(
     "inline-flex items-center justify-center px-4 py-2",
-    "rounded-full border border-[#101310] bg-transparent",
+    "rounded-lg border border-[#101310] bg-transparent",
     "whitespace-nowrap text-base font-medium text-[#101310]",
     "transition-colors duration-200 ease-in-out",
     "hover:bg-[#101310]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#101310] focus-visible:ring-offset-2",

@@ -1,8 +1,8 @@
 "use client"
 
 import React, { useRef, useState, useEffect, useCallback } from "react"
-import { motion, AnimatePresence } from "motion/react"
-import { VisuallyHidden } from "../ui/visually-hidden"
+import { motion, AnimatePresence } from "framer-motion"
+import { VisuallyHidden } from "../../components/ui/visually-hidden"
 import Image from "next/image"
 
 interface VideoPlayerProps {
@@ -100,7 +100,7 @@ export const VideoPlayer = React.memo(({ prefersReducedMotion, className = "", s
       </video>
 
       <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-[#548cac]/10 to-[#4f4f2c]/10 z-20 pointer-events-none"
+        className="absolute inset-0 bg-white/5 z-20 pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: isVideoLoaded ? 1 : 0 }}
         transition={{ duration: prefersReducedMotion ? 0.1 : 1 }}
@@ -115,17 +115,17 @@ const VideoLoadingState = React.memo(({ progress }: { progress: number }) => (
   <motion.div
     initial={{ opacity: 1 }}
     exit={{ opacity: 0 }}
-    className="absolute inset-0 flex flex-col items-center justify-center bg-aim-navy/20 backdrop-blur-sm z-30"
+    className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100/90 backdrop-blur-sm z-30"
   >
     <div className="text-center space-y-4">
       <div
-        className="loading-spinner size-12 border-4 border-bexar-blue/30 border-t-bexar-blue rounded-full animate-spin"
+        className="loading-spinner size-12 border-4 border-gray-300 border-t-bexar-blue rounded-full animate-spin"
         role="status"
       >
         <VisuallyHidden>Loading video</VisuallyHidden>
       </div>
       {progress > 0 && progress < 100 && (
-        <div className="w-32 h-1 bg-white/20 rounded-full overflow-hidden">
+        <div className="w-32 h-1 bg-gray-200 rounded-full overflow-hidden">
           <motion.div
             className="h-full bg-bexar-blue rounded-full"
             initial={{ width: 0 }}
@@ -134,7 +134,7 @@ const VideoLoadingState = React.memo(({ progress }: { progress: number }) => (
           />
         </div>
       )}
-      <p className="text-white text-sm">Loading video...</p>
+      <p className="text-gray-700 text-sm">Loading video...</p>
     </div>
   </motion.div>
 ))
@@ -142,9 +142,9 @@ const VideoLoadingState = React.memo(({ progress }: { progress: number }) => (
 VideoLoadingState.displayName = "VideoLoadingState"
 
 const VideoErrorState = React.memo(({ onRetry }: { onRetry: () => void }) => (
-  <div className="absolute inset-0 flex items-center justify-center bg-aim-navy/80 z-30">
+  <div className="absolute inset-0 flex items-center justify-center bg-gray-100/95 z-30">
     <div className="text-center p-6 max-w-md space-y-4">
-      <p className="text-white text-lg mb-4">Video could not be loaded</p>
+      <p className="text-gray-800 text-lg mb-4">Video could not be loaded</p>
       <Image
         src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-poster.png"
         alt="AIM Summit"

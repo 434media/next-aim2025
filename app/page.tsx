@@ -1,9 +1,9 @@
 import { PartnerMarquee } from "../components/ui/PartnerMarquee"
 import { additionalPartners, mainPartners } from "../data/partners"
-import { ThankYou } from "../components/ThankYou"
 import { SummitMission } from "../components//ui/SummitMission"
 import { HeroVideo } from "../components/ui/HeroVideo"
 import Testimonial from "../components/ui/Testimonial"
+import { ExperienceInnovationCTA } from "../components/ExperienceInnovationCTA"
 
 export default function Home() {
   return (
@@ -62,30 +62,15 @@ export default function Home() {
               ariaLabel="Additional partners and sponsors"
             />
           </div>
-
-          {/* Partnership CTA */}
-          <div className="text-center mt-16">
-            <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-cyan-50 to-emerald-50 border-2 border-cyan-200/50 rounded-full">
-              <span className="text-gray-700 font-semibold">
-                Interested in partnering with us?{" "}
-                <a
-                  href="/contact-us"
-                  className="text-cyan-600 hover:text-cyan-700 underline underline-offset-2 transition-colors duration-200"
-                >
-                  Get in touch
-                </a>
-              </span>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Thank You Section with Event Recap */}
-      <section aria-labelledby="thank-you-heading" className="w-full">
-        <h2 id="thank-you-heading" className="sr-only">
-          Thank You and Event Recap
+      {/* Experience Innovation CTA Section */}
+      <section aria-labelledby="cta-heading" className="w-full">
+        <h2 id="cta-heading" className="sr-only">
+          Experience Innovation Call to Action
         </h2>
-        <ThankYou />
+        <ExperienceInnovationCTA />
       </section>
     </main>
   )

@@ -7,8 +7,8 @@ import { RiMenuLine, RiCloseLine } from "@remixicon/react"
 import { AIMLogo } from "../../public/AIMLogo"
 
 const navigationItems = [
+  { name: "AIM 2025", href: "/aim2025" },
   { name: "Pre-Conference Symposiums", href: "/pre-conference-symposiums" },
-  { name: "Why Attend", href: "/why-attend" },
   { name: "SURF", href: "/surf" },
   { name: "MMID", href: "/mmid" },
   { name: "Contact Us", href: "/contact-us" },
@@ -123,26 +123,14 @@ export default function NavBar() {
               </motion.div>
 
               {/* Menu Button */}
-              <motion.button
+              <button
                 onClick={toggleMenu}
-                className={`relative p-3 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-[#101310] group ${
-                  isMenuOpen
-                    ? "bg-[#548cac]/20 text-[#548cac]"
-                    : "hover:bg-[#548cac]/10 text-white hover:text-[#548cac]"
+                className={`relative p-3 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-[#101310] ${
+                  isMenuOpen ? "bg-[#548cac]/20 text-[#548cac]" : "text-white hover:text-[#548cac]"
                 }`}
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={isMenuOpen}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
               >
-                {/* Animated background */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-[#548cac]/0 via-[#548cac]/20 to-[#548cac]/0 opacity-0 group-hover:opacity-100 rounded-xl"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "100%" }}
-                  transition={{ duration: 0.6 }}
-                />
-
                 {/* Menu Icon with smooth transition */}
                 <motion.div
                   className="relative z-10"
@@ -173,13 +161,13 @@ export default function NavBar() {
                     )}
                   </AnimatePresence>
                 </motion.div>
-              </motion.button>
+              </button>
             </div>
           </div>
         </motion.div>
       </motion.header>
 
-      {/* Enhanced Mobile/Desktop Menu */}
+      {/* Full Screen Slide-out Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <>
@@ -189,112 +177,101 @@ export default function NavBar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40"
               onClick={closeMenu}
               aria-hidden="true"
             />
 
-            {/* Menu Panel */}
+            {/* Full Screen Menu Panel */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: -20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: -20 }}
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
               transition={{
-                type: "spring",
-                stiffness: 300,
-                damping: 25,
+                type: "tween",
+                ease: "easeInOut",
                 duration: 0.4,
               }}
-              className="fixed top-24 left-4 right-4 lg:left-1/2 lg:right-auto lg:w-96 lg:-translate-x-1/2 bg-[#101310]/95 backdrop-blur-2xl z-50 rounded-3xl border border-white/10 shadow-2xl overflow-hidden"
+              className="fixed top-0 right-0 bottom-0 w-full sm:w-[500px] lg:w-[600px] bg-gradient-to-br from-[#101310] via-[#1a1f1a] to-[#101310] z-50 overflow-hidden sm:overflow-visible"
               role="dialog"
               aria-modal="true"
               aria-label="Navigation menu"
             >
-              {/* Animated background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#548cac]/10 via-transparent to-[#548cac]/5" />
+              {/* Close Button */}
+              <motion.button
+                onClick={closeMenu}
+                className="absolute top-8 md:top-12 right-6 p-3 rounded-xl bg-white/10 hover:bg-white/20 text-white hover:text-[#548cac] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] z-10"
+                aria-label="Close menu"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2, duration: 0.2 }}
+              >
+                <RiCloseLine className="size-6" />
+              </motion.button>
 
-              {/* Floating particles effect */}
-              <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {[...Array(8)].map((_, i) => (
+              {/* Static background gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#548cac]/10 via-transparent to-[#4f4f2c]/10" />
+
+              {/* Scrollable content container for mobile */}
+              <div className="relative h-full overflow-y-auto sm:overflow-visible">
+                <div className="min-h-full flex flex-col sm:justify-center p-8 lg:p-12">
+                  {/* Menu Header */}
                   <motion.div
-                    key={i}
-                    className="absolute w-1 h-1 bg-[#548cac]/30 rounded-full"
-                    style={{
-                      left: `${20 + i * 10}%`,
-                      top: `${20 + i * 8}%`,
-                    }}
-                    animate={{
-                      y: [-5, 5, -5],
-                      opacity: [0.3, 0.7, 0.3],
-                      scale: [1, 1.2, 1],
-                    }}
-                    transition={{
-                      duration: 3 + i * 0.5,
-                      repeat: Number.POSITIVE_INFINITY,
-                      ease: "easeInOut",
-                      delay: i * 0.2,
-                    }}
-                  />
-                ))}
-              </div>
+                    className="mb-8 sm:mb-12"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1, duration: 0.3 }}
+                  >
+                    <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">Navigate</h2>
+                    <div className="w-24 h-1 bg-gradient-to-r from-[#548cac] to-[#4f4f2c] rounded-full" />
+                  </motion.div>
 
-              <div className="relative p-8">
-                {/* Menu Header */}
-                <motion.div
-                  className="text-center mb-8"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1, duration: 0.3 }}
-                >
-                  <h2 className="text-2xl font-bold text-white mb-2">Navigation</h2>
-                  <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#548cac] to-transparent mx-auto" />
-                </motion.div>
-
-                {/* Navigation Items */}
-                <nav>
-                  <ul className="space-y-2" role="list">
-                    {navigationItems.map((item, index) => (
-                      <motion.li
-                        key={item.name}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{
-                          delay: 0.2 + index * 0.1,
-                          duration: 0.4,
-                          ease: "easeOut",
-                        }}
-                      >
-                        <Link
-                          href={item.href}
-                          className="group block p-4 rounded-2xl hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden"
-                          onClick={closeMenu}
+                  {/* Navigation Items */}
+                  <nav className="flex-1 sm:flex-none">
+                    <ul className="space-y-4 sm:space-y-6" role="list">
+                      {navigationItems.map((item, index) => (
+                        <motion.li
+                          key={item.name}
+                          initial={{ opacity: 0, x: 30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{
+                            delay: 0.15 + index * 0.05,
+                            duration: 0.3,
+                            ease: "easeOut",
+                          }}
                         >
-                          {/* Hover effect */}
-                          <motion.div
-                            className="absolute inset-0 bg-gradient-to-r from-[#548cac]/0 via-[#548cac]/20 to-[#548cac]/0 opacity-0 group-hover:opacity-100 rounded-2xl"
-                            initial={{ x: "-100%" }}
-                            whileHover={{ x: "100%" }}
-                            transition={{ duration: 0.8 }}
-                          />
-
-                          <motion.div
-                            className="relative z-10 flex items-center justify-between"
-                            whileHover={{ x: 5 }}
-                            transition={{ duration: 0.2 }}
+                          <Link
+                            href={item.href}
+                            className="group block py-4 px-6 rounded-2xl hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden border border-transparent hover:border-[#548cac]/20"
+                            onClick={closeMenu}
                           >
-                            <span className="text-lg font-medium text-white group-hover:text-[#548cac] transition-colors duration-300">
-                              {item.name}
-                            </span>
-                            <motion.div
-                              className="w-2 h-2 rounded-full bg-[#548cac]/40 group-hover:bg-[#548cac] transition-colors duration-300"
-                              whileHover={{ scale: 1.5 }}
-                            />
-                          </motion.div>
-                        </Link>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </nav>
+                            {/* Simplified hover effect */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-[#548cac]/0 via-[#548cac]/10 to-[#548cac]/0 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300" />
+
+                            <div className="relative z-10 flex items-center justify-between">
+                              <span className="text-xl lg:text-2xl font-medium text-white group-hover:text-[#548cac] transition-colors duration-300">
+                                {item.name}
+                              </span>
+                              {/* Hide dots on mobile, show on desktop */}
+                              <div className="hidden sm:block w-3 h-3 rounded-full bg-[#548cac]/40 group-hover:bg-[#548cac] transition-colors duration-300" />
+                            </div>
+                          </Link>
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </nav>
+
+                  {/* Footer */}
+                  <motion.div
+                    className="mt-8 sm:mt-12 pt-8 border-t border-white/10 pb-8 sm:pb-0"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 0.3 }}
+                  >
+                    <p className="text-white/60 text-sm">AIM Health R&D Summit</p>
+                    <p className="text-[#548cac] text-lg font-semibold mt-1">The Future of Military Medicine</p>
+                  </motion.div>
+                </div>
               </div>
             </motion.div>
           </>

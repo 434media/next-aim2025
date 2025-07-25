@@ -60,7 +60,7 @@ export const TitleParticleEffect = React.memo(
             x: Math.cos(angle) * radius + (Math.random() - 0.5) * 40,
             y: Math.sin(angle) * radius + (Math.random() - 0.5) * 40,
           },
-          color: i % 3 === 0 ? "#548cac" : i % 3 === 1 ? "#ffffff" : "#4f4f2c", // Brand colors
+          color: i % 3 === 0 ? "#548cac" : i % 3 === 1 ? "#101310" : "#4f4f2c", // Updated colors for light background
           blur: Math.random() * 2,
         })
       }
@@ -108,13 +108,13 @@ export const TitleParticleEffect = React.memo(
           />
         ))}
 
-        {/* Additional glow effect */}
+        {/* Additional glow effect - updated for light background */}
         <motion.div
-          className="absolute inset-0 bg-gradient-radial from-white/10 via-transparent to-transparent"
+          className="absolute inset-0 bg-gradient-radial from-gray-300/20 via-transparent to-transparent"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{
             opacity: [0, 0.3, 0],
-            scale: [0.8, 1.2, 2],
+            scale: [0.8, 1.5, 2],
           }}
           transition={{
             duration: 3,

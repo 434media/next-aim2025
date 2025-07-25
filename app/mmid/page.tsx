@@ -4,128 +4,47 @@ import { motion } from "motion/react"
 import { RiArrowRightSLine, RiPlayCircleLine, RiHistoryLine, RiBookOpenLine } from "@remixicon/react"
 import { FadeContainer } from "../../components/Fade"
 import ParticleBackground from "../../components/ParticleBackground"
-import Image from "next/image"
+import { ExperienceInnovationCTA } from "../../components/ExperienceInnovationCTA"
 
 export default function MMIDPage() {
   return (
-    <main className="min-h-screen bg-black text-white overflow-hidden mt-10 md:mt-0" id="main-content" aria-labelledby="page-heading">
+    <>
+    <main
+      className="min-h-screen bg-white text-gray-900 overflow-hidden mt-10 md:mt-0"
+      id="main-content"
+      aria-labelledby="page-heading"
+    >
       {/* Full-Screen Hero Section */}
       <div className="relative w-full min-h-screen flex flex-col">
-        {/* Animated background gradient - Enhanced Green theme */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0A1F0A] via-[#1A4A1A] to-[#0F2F0F]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50" />
-          {/* Additional depth layer */}
-          <div className="absolute inset-0 bg-gradient-to-br from-green-900/20 via-transparent to-green-800/10" />
-        </div>
+        {/* Clean white background */}
+        <div className="absolute inset-0 bg-white" />
 
-        {/* Enhanced MMID Logo Background Pattern */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Large centered logo with enhanced effects */}
-          <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-            initial={{ opacity: 0, scale: 0.3, rotate: -15 }}
-            animate={{ opacity: 0.12, scale: 1, rotate: 0 }}
-            transition={{ duration: 3, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="relative">
-              {/* Glow effect behind logo */}
-              <div className="absolute inset-0 bg-green-400/5 rounded-full blur-3xl scale-150 animate-pulse" />
-              <div
-                className="absolute inset-0 bg-green-300/3 rounded-full blur-2xl scale-125 animate-pulse"
-                style={{ animationDelay: "2s" }}
-              />
-              <Image
-                src="https://ampd-asset.s3.us-east-2.amazonaws.com/mmid.png"
-                alt=""
-                width={900}
-                height={675}
-                className="w-full h-auto max-w-5xl opacity-80"
-                style={{
-                  filter: "invert(1) brightness(1.2) contrast(0.8)",
-                  mixBlendMode: "screen",
-                }}
-                aria-hidden="true"
-              />
-            </div>
-          </motion.div>
-
-          {/* Additional floating logo elements for depth */}
-          <motion.div
-            className="absolute top-20 right-20 opacity-5"
-            animate={{
-              y: [-15, 15, -15],
-              rotate: [0, 10, -10, 0],
-              scale: [0.8, 1.1, 0.8],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          >
-            <Image
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/mmid.png"
-              alt=""
-              width={200}
-              height={150}
-              style={{ filter: "invert(1) brightness(0.8)" }}
-              aria-hidden="true"
-            />
-          </motion.div>
-
-          <motion.div
-            className="absolute bottom-32 left-16 opacity-4"
-            animate={{
-              y: [20, -20, 20],
-              rotate: [0, -8, 8, 0],
-              scale: [1, 0.9, 1.2, 1],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-              delay: 3,
-            }}
-          >
-            <Image
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/mmid.png"
-              alt=""
-              width={180}
-              height={135}
-              style={{ filter: "invert(1) brightness(0.6)" }}
-              aria-hidden="true"
-            />
-          </motion.div>
-        </div>
-
-        {/* Enhanced particle background - Green theme */}
+        {/* Enhanced particle background - Light theme */}
         <div className="absolute inset-0 z-10">
           <ParticleBackground
             className="w-full h-full"
-            gradientFrom="#0A1F0A"
-            gradientVia="#1A4A1A"
-            gradientTo="#0F2F0F"
+            gradientFrom="#ffffff"
+            gradientVia="#f9fafb"
+            gradientTo="#ffffff"
             particleCount={80}
           />
         </div>
 
-        {/* Enhanced radial light effects - Green theme */}
+        {/* Subtle radial light effects */}
         <div className="absolute inset-0 z-10 pointer-events-none">
           <motion.div
-            className="absolute top-1/4 left-1/4 w-96 h-96 bg-green-600/8 rounded-full blur-3xl"
-            animate={{ scale: [1, 1.3, 1], opacity: [0.08, 0.15, 0.08] }}
+            className="absolute top-1/4 left-1/4 w-96 h-96 bg-gray-100/20 rounded-full blur-3xl"
+            animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.2, 0.1] }}
             transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-green-500/12 rounded-full blur-2xl"
-            animate={{ scale: [1.2, 0.8, 1.2], opacity: [0.12, 0.06, 0.12] }}
+            className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gray-50/30 rounded-full blur-2xl"
+            animate={{ scale: [1.2, 0.8, 1.2], opacity: [0.15, 0.05, 0.15] }}
             transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 2 }}
           />
           <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-green-400/4 rounded-full blur-3xl"
-            animate={{ scale: [0.8, 1.4, 0.8], opacity: [0.04, 0.08, 0.04] }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gray-50/10 rounded-full blur-3xl"
+            animate={{ scale: [0.8, 1.4, 0.8], opacity: [0.1, 0.15, 0.1] }}
             transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 4 }}
           />
         </div>
@@ -141,24 +60,36 @@ export default function MMIDPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="flex items-center justify-center gap-2 sm:gap-3 md:gap-4 mb-6 sm:mb-7 md:mb-8">
+                <div className="flex items-center justify-center gap-2 sm:gap-3 md:gap-4 mb-6 sm:mb-7 md:mb-8 mt-6 md:mt-0">
                   <motion.div
-                    className="h-6 sm:h-8 md:h-10 w-1 sm:w-1.5 bg-gradient-to-b from-[#4A9A4A] to-[#2A6A2A] rounded-full"
+                    className="h-6 sm:h-8 md:h-10 w-1 sm:w-1.5 bg-gradient-to-b from-green-600 to-green-800 rounded-full"
                     initial={{ scaleY: 0 }}
                     animate={{ scaleY: 1 }}
                     transition={{ duration: 0.8, delay: 0.5 }}
                   />
-                  <motion.h1
-                    className="xs:text-2xl text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white tracking-tight leading-tight px-2 sm:px-0"
+                  <motion.div
+                    className="text-center"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1, delay: 0.6 }}
                   >
-                    <span className="block sm:inline">MMID Preparatory</span>{" "}
-                    <span className="block sm:inline">Webinar Sessions</span>
-                  </motion.h1>
+                    <h1 className="text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-bold tracking-tight leading-tight px-2 sm:px-0 mb-2 sm:mb-4">
+                      <span
+                        className="bg-gradient-to-r from-green-600 via-green-500 to-green-700 bg-clip-text text-transparent animate-pulse"
+                        style={{
+                          backgroundSize: "200% 200%",
+                          animation: "gradient-shift 3s ease-in-out infinite",
+                        }}
+                      >
+                        MMID
+                      </span>
+                    </h1>
+                    <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 tracking-tight leading-tight px-2 sm:px-0">
+                      Preparatory Webinar Sessions
+                    </h2>
+                  </motion.div>
                   <motion.div
-                    className="h-6 sm:h-8 md:h-10 w-1 sm:w-1.5 bg-gradient-to-b from-[#4A9A4A] to-[#2A6A2A] rounded-full"
+                    className="h-6 sm:h-8 md:h-10 w-1 sm:w-1.5 bg-gradient-to-b from-green-600 to-green-800 rounded-full"
                     initial={{ scaleY: 0 }}
                     animate={{ scaleY: 1 }}
                     transition={{ duration: 0.8, delay: 0.7 }}
@@ -184,29 +115,29 @@ export default function MMIDPage() {
                     transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
                   >
                     <RiPlayCircleLine
-                      className="h-6 w-6 sm:h-7 sm:w-7 text-[#4A9A4A] mt-0 sm:mt-1.5"
+                      className="h-6 w-6 sm:h-7 sm:w-7 text-green-600 mt-0 sm:mt-1.5"
                       aria-hidden="true"
                     />
                   </motion.div>
-                  <p className="text-white text-base sm:text-lg md:text-xl lg:text-2xl font-semibold leading-relaxed text-center sm:text-left max-w-4xl">
+                  <p className="text-gray-900 text-base sm:text-lg md:text-xl lg:text-2xl font-semibold leading-relaxed text-center max-w-4xl">
                     Watch instructional/informational videos of previous AIM Health R&D Summit and Military Medical
                     Industry Days (MMID) webinar sessions
                   </p>
                 </motion.div>
 
                 <motion.div
-                  className="bg-black/40 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 lg:p-10 border border-green-500/30 shadow-2xl shadow-green-900/20 mx-2 sm:mx-0"
+                  className="bg-white/80 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 lg:p-10 border border-gray-200 shadow-2xl shadow-gray-200/30 mx-2 sm:mx-0"
                   whileInView={{ y: [20, 0], opacity: [0, 1] }}
                   transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                  <p className="text-gray-200 text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed mb-4 sm:mb-5 md:mb-6 font-medium text-left">
+                  <p className="text-gray-700 text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed mb-4 sm:mb-5 md:mb-6 font-medium text-center">
                     Access our complete video library of the preparatory webinar sessions held over the last several
                     years that address various key topics such as
-                    <span className="text-white font-bold mx-1 sm:mx-2 px-1 sm:px-2 py-0.5 sm:py-1 bg-green-500/20 rounded text-xs sm:text-sm md:text-base lg:text-lg inline-block my-1">
+                    <span className="text-gray-900 font-bold mx-1 sm:mx-2 px-1 sm:px-2 py-0.5 sm:py-1 bg-gray-100 rounded text-xs sm:text-sm md:text-base lg:text-lg inline-block my-1">
                       &quot;Keys to Collaborating with the Military&quot;
                     </span>{" "}
                     to
-                    <span className="text-white font-bold mx-1 sm:mx-2 px-1 sm:px-2 py-0.5 sm:py-1 bg-green-500/20 rounded text-xs sm:text-sm md:text-base lg:text-lg inline-block my-1">
+                    <span className="text-gray-900 font-bold mx-1 sm:mx-2 px-1 sm:px-2 py-0.5 sm:py-1 bg-gray-100 rounded text-xs sm:text-sm md:text-base lg:text-lg inline-block my-1">
                       &quot;Licensing Technologies from The Military&quot;
                     </span>
                     along with various others.
@@ -218,10 +149,10 @@ export default function MMIDPage() {
                     transition={{ duration: 0.6, delay: 0.4 }}
                   >
                     <RiHistoryLine
-                      className="h-5 w-5 sm:h-6 sm:w-6 text-[#4A9A4A] flex-shrink-0 mt-0.5 sm:mt-1 mx-auto sm:mx-0"
+                      className="h-5 w-5 sm:h-6 sm:w-6 text-green-600 flex-shrink-0 mt-0.5 sm:mt-1 mx-auto sm:mx-0"
                       aria-hidden="true"
                     />
-                    <p className="text-gray-300 text-sm sm:text-base md:text-lg lg:text-xl italic font-medium leading-relaxed text-center sm:text-left">
+                    <p className="text-gray-600 text-sm sm:text-base md:text-lg lg:text-xl italic font-medium leading-relaxed text-center sm:text-left">
                       All were designed to help you optimize your experience at the AIM Health R&D Summit and provide
                       essential information about military medical innovation and research.
                     </p>
@@ -232,9 +163,9 @@ export default function MMIDPage() {
                     whileInView={{ scale: [0.9, 1.05, 1] }}
                     transition={{ duration: 0.6, delay: 0.6 }}
                   >
-                    <div className="inline-flex flex-col sm:flex-row items-center px-3 sm:px-4 md:px-6 py-2 sm:py-3 bg-gradient-to-r from-black/50 to-green-900/30 rounded-lg sm:rounded-xl border border-green-400/40 shadow-lg text-center sm:text-left">
-                      <RiBookOpenLine className="h-4 w-4 sm:h-5 sm:w-5 text-[#4A9A4A] mb-1 sm:mb-0 sm:mr-3" />
-                      <span className="text-white font-semibold text-xs sm:text-sm md:text-base lg:text-lg leading-tight">
+                    <div className="inline-flex flex-col sm:flex-row items-center px-3 sm:px-4 md:px-6 py-2 sm:py-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg sm:rounded-xl border border-gray-300 shadow-lg text-center sm:text-left">
+                      <RiBookOpenLine className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 mb-1 sm:mb-0 sm:mr-3" />
+                      <span className="text-gray-900 font-semibold text-xs sm:text-sm md:text-base lg:text-lg leading-tight">
                         Topics include collaboration strategies, licensing, funding opportunities, and more
                       </span>
                     </div>
@@ -242,7 +173,7 @@ export default function MMIDPage() {
                 </motion.div>
               </motion.div>
 
-              {/* Enhanced CTA Button - Mobile-optimized */}
+              {/* Enhanced CTA Button - Updated for light theme */}
               <motion.div
                 className="flex justify-center px-2 sm:px-0"
                 initial={{ opacity: 0, y: 40, scale: 0.8 }}
@@ -253,18 +184,18 @@ export default function MMIDPage() {
                   href="https://youtube.com/playlist?list=PLu4stFKpxLBXb7TY7luPCEAHBg1CZQru8&si=UnnuZ2Q2E08QSBVP"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative inline-flex items-center justify-center px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-6 text-base sm:text-lg md:text-xl font-bold text-white bg-[#FF0000] hover:bg-[#CC0000] rounded-xl sm:rounded-2xl transition-all duration-500 focus:outline-none focus:ring-4 focus:ring-red-500/50 focus:ring-offset-4 focus:ring-offset-black shadow-2xl shadow-red-900/60 overflow-hidden w-full max-w-xs sm:max-w-sm md:min-w-[320px] lg:min-w-[360px]"
+                  className="group relative inline-flex items-center justify-center px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-6 text-base sm:text-lg md:text-xl font-bold text-white bg-gray-900 hover:bg-gray-800 rounded-xl sm:rounded-2xl transition-all duration-500 focus:outline-none focus:ring-4 focus:ring-gray-500/50 focus:ring-offset-4 focus:ring-offset-white shadow-2xl shadow-gray-900/30 overflow-hidden w-full max-w-xs sm:max-w-sm md:min-w-[320px] lg:min-w-[360px]"
                   whileHover={{ scale: 1.05, y: -3 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.2 }}
                 >
                   {/* Enhanced animated background gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#FF0000] via-[#FF4444] to-[#FF0000] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                   {/* Multiple shimmer layers */}
                   <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shimmer transition-opacity duration-500" />
                   <div
-                    className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-red-200/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shimmer transition-opacity duration-700"
+                    className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-gray-200/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shimmer transition-opacity duration-700"
                     style={{ animationDelay: "0.2s" }}
                   />
 
@@ -293,8 +224,8 @@ export default function MMIDPage() {
                   </span>
 
                   {/* Enhanced pulse effects */}
-                  <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-red-400/20 scale-100 group-hover:scale-110 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-sm" />
-                  <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-red-300/10 scale-100 group-hover:scale-125 opacity-0 group-hover:opacity-100 transition-all duration-700 blur-md" />
+                  <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gray-400/20 scale-100 group-hover:scale-110 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-sm" />
+                  <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gray-300/10 scale-100 group-hover:scale-125 opacity-0 group-hover:opacity-100 transition-all duration-700 blur-md" />
                 </motion.a>
               </motion.div>
             </FadeContainer>
@@ -310,8 +241,15 @@ export default function MMIDPage() {
         .animate-shimmer {
           animation: shimmer 1.5s ease-in-out;
         }
+        @keyframes gradient-shift {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
       `}</style>
     </main>
+
+    <ExperienceInnovationCTA />
+    </>
   )
 }
 

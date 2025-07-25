@@ -11,9 +11,9 @@ import {
 } from "@remixicon/react"
 import { Button } from "../../components/Button"
 import { FadeContainer } from "../../components/Fade"
-import ParticleBackground from "../../components/ParticleBackground"
 import Image from "next/image"
 import { ComingSoonVideo } from "../../components/ui/ComingSoonVideo"
+import { ExperienceInnovationCTA } from "../../components/ExperienceInnovationCTA"
 
 // Define the Speaker interface
 interface Speaker {
@@ -113,74 +113,62 @@ export default function PreConferenceSymposiums() {
   const archivedSymposiums = symposiums.filter((s) => s.completed)
 
   return (
-    <main className="min-h-screen bg-black text-white pt-24 sm:pt-28" id="main-content" aria-labelledby="page-heading">
+    <>
+    <main
+      className="min-h-screen bg-white text-gray-900 pt-24 sm:pt-28"
+      id="main-content"
+      aria-labelledby="page-heading"
+    >
       {/* Hero Section with Featured Image as the Star */}
       <div className="relative w-full h-[90vh] min-h-[600px] overflow-hidden">
         {/* Full-screen background image */}
         <div className="absolute inset-0">
           <Image
-            src="https://ampd-asset.s3.us-east-2.amazonaws.com/preaimweb-20.jpg"
+            src="https://ampd-asset.s3.us-east-2.amazonaws.com/preaimweb-23.jpg"
             alt="AIM Health R&D Summit Pre-Conference Events"
             fill
-            className="object-cover"
+            className="object-cover object-right md:object-center brightness-[0.85]"
             sizes="100vw"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
-        </div>
-
-        {/* ParticleBackground implementation matching keynotes/page.tsx */}
-        <div className="absolute inset-0 z-10">
-          <ParticleBackground
-            className="w-full h-full"
-            gradientFrom="#101310"
-            gradientVia="#366A79"
-            gradientTo="#4f4f2c"
-            particleCount={30}
-          />
+          {/* Semi-transparent overlay instead of gradient */}
+          <div className="absolute inset-0 bg-white/40"></div>
         </div>
 
         {/* Content overlay */}
         <div className="relative z-20 h-full flex flex-col justify-start mt-16">
           <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 pb-20">
             <FadeContainer className="max-w-4xl">
-              <motion.h1
-                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight"
+              <motion.div
+                className="bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-lg inline-block"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               >
-                Pre-Conference Symposiums
-              </motion.h1>
-              <motion.p
-                className="mt-6 text-base sm:text-lg md:text-xl lg:text-2xl text-white/80 max-w-xl"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-              >
-                Our pre-conference symposiums offer a unique opportunity to engage with experts, explore collaboration
-                opportunities, and gain insights into the military healthcare ecosystem.
-              </motion.p>
+                <motion.h1
+                  className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 leading-tight"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  Pre-Conference Symposiums
+                </motion.h1>
+                <motion.p
+                  className="mt-6 text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 max-w-xl"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5, duration: 0.8 }}
+                >
+                  Our pre-conference symposiums offer a unique opportunity to engage with experts, explore collaboration
+                  opportunities, and gain insights into the military healthcare ecosystem.
+                </motion.p>
+              </motion.div>
             </FadeContainer>
           </div>
         </div>
 
-        {/* Decorative elements */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent z-10"></div>
-        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black to-transparent z-10"></div>
-      </div>
-
-      {/* Connecting gradient transition between hero and content */}
-      <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-black to-zinc-900 -z-10">
-          <ParticleBackground
-            className="w-full h-full"
-            gradientFrom="#101310"
-            gradientVia="#366A79"
-            gradientTo="#4f4f2c"
-            particleCount={30}
-          />
-        </div>
+        {/* Clean transition to content */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-white z-10"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
@@ -193,24 +181,27 @@ export default function PreConferenceSymposiums() {
           >
             <div className="flex items-center gap-3 mb-8">
               <div className="h-8 w-1 bg-[#366A79] rounded-full"></div>
-              <h2 id="upcoming-heading" className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-white">
+              <h2
+                id="upcoming-heading"
+                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-900"
+              >
                 Upcoming Symposiums
               </h2>
             </div>
             {upcomingSymposiums.map((symposium, index) => (
               <motion.article
                 key={index}
-                className="relative p-6 rounded-lg border border-zinc-700/50 bg-zinc-900/70 backdrop-blur-sm shadow-md hover:shadow-lg transition-shadow duration-300 hover:scale-[1.02] hover:-translate-y-1"
+                className="relative p-6 rounded-lg border border-gray-200 bg-white/90 backdrop-blur-sm shadow-md hover:shadow-lg transition-shadow duration-300 hover:scale-[1.02] hover:-translate-y-1"
                 variants={fadeInUp}
                 custom={index}
                 transition={{ delay: index * 0.05, duration: 0.3, ease: "easeInOut" }}
               >
                 <div className="flex flex-col gap-4 sm:gap-6 md:gap-8">
                   <div className="space-y-3">
-                    <h3 className="text-xl sm:text-2xl font-light group-hover:text-gray-200 transition-colors text-white">
+                    <h3 className="text-xl sm:text-2xl font-light group-hover:text-gray-700 transition-colors text-gray-900">
                       {symposium.title}
                     </h3>
-                    <div className="space-y-2 text-gray-300">
+                    <div className="space-y-2 text-gray-600">
                       <div className="flex items-center">
                         <RiCalendarLine
                           className="mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-[#548cac]"
@@ -226,7 +217,7 @@ export default function PreConferenceSymposiums() {
                         <span className="text-sm sm:text-base md:text-lg">{symposium.location}</span>
                       </div>
                     </div>
-                    <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-prose leading-relaxed">
+                    <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-prose leading-relaxed">
                       {symposium.description}
                     </p>
                   </div>
@@ -234,7 +225,7 @@ export default function PreConferenceSymposiums() {
                     <Button
                       href={symposium.registerLink}
                       variant="secondary"
-                      className="whitespace-nowrap group/button text-base py-2.5 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 focus:ring-offset-black"
+                      className="whitespace-nowrap group/button text-base py-2.5 sm:py-3 md:py-4 px-4 sm:px-6 md:px-8 focus:ring-offset-white"
                       aria-label={`Register for ${symposium.title}`}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -261,14 +252,17 @@ export default function PreConferenceSymposiums() {
           >
             <div className="flex items-center gap-3 mb-8">
               <div className="h-8 w-1 bg-[#366A79] rounded-full"></div>
-              <h2 id="archived-heading" className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-white">
+              <h2
+                id="archived-heading"
+                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-900"
+              >
                 Archived Symposiums
               </h2>
             </div>
             {archivedSymposiums.map((symposium, index) => (
               <motion.article
                 key={index}
-                className="relative p-6 rounded-lg border border-zinc-700/50 bg-zinc-900/70 backdrop-blur-sm shadow-md hover:shadow-lg transition-shadow duration-300 hover:scale-[1.02] hover:-translate-y-1"
+                className="relative p-6 rounded-lg border border-gray-200 bg-white/90 backdrop-blur-sm shadow-md"
                 variants={fadeInUp}
                 custom={index}
                 transition={{ delay: index * 0.05, duration: 0.3, ease: "easeInOut" }}
@@ -276,14 +270,12 @@ export default function PreConferenceSymposiums() {
                 <div className="flex flex-col gap-4 sm:gap-6 md:gap-8">
                   <div className="space-y-5">
                     <div className="flex flex-wrap items-center gap-3">
-                      <h3 className="text-xl sm:text-2xl font-light group-hover:text-gray-200 transition-colors text-white">
-                        {symposium.title}
-                      </h3>
-                      <span className="px-3 py-1 text-xs font-medium bg-zinc-800 text-zinc-300 rounded-full">
+                      <h3 className="text-xl sm:text-2xl font-light text-gray-900">{symposium.title}</h3>
+                      <span className="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">
                         Completed
                       </span>
                     </div>
-                    <div className="space-y-3 text-gray-300">
+                    <div className="space-y-3 text-gray-600">
                       <div className="flex items-center">
                         <RiCalendarLine
                           className="mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-[#548cac]"
@@ -299,17 +291,17 @@ export default function PreConferenceSymposiums() {
                         <span className="text-sm sm:text-base md:text-lg">{symposium.location}</span>
                       </div>
                     </div>
-                    <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-prose leading-relaxed">
+                    <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-prose leading-relaxed">
                       {symposium.description}
                     </p>
 
                     {symposium.speakers && symposium.speakers.length > 0 && (
                       <div className="mt-8">
-                        <h4 className="text-sm font-medium text-white mb-4">Featured Speakers</h4>
+                        <h4 className="text-sm font-medium text-gray-900 mb-4">Featured Speakers</h4>
                         <ul className="space-y-3">
                           {symposium.speakers.map((speaker, idx) => (
-                            <li key={idx} className="text-gray-300">
-                              <span className="font-medium text-white">{speaker.name}</span>
+                            <li key={idx} className="text-gray-600">
+                              <span className="font-medium text-gray-900">{speaker.name}</span>
                               <span className="block text-sm mt-1">{speaker.title}</span>
                             </li>
                           ))}
@@ -326,7 +318,7 @@ export default function PreConferenceSymposiums() {
                             href={symposium.slideDeckUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-zinc-800 hover:bg-zinc-700 text-white rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black"
+                            className="inline-flex items-center px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-white"
                             aria-label={`View slide deck for ${symposium.title}`}
                           >
                             <RiFileTextLine className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 mr-2.5" aria-hidden="true" />
@@ -337,13 +329,13 @@ export default function PreConferenceSymposiums() {
                         {symposium.recordingUrl && (
                           <a
                             href={`/video-player?url=${encodeURIComponent(symposium.recordingUrl)}&title=${encodeURIComponent(symposium.title)}`}
-                            className="inline-flex items-center px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-zinc-800 hover:bg-zinc-700 text-white rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black"
+                            className="inline-flex items-center px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-white"
                             aria-label={`Watch recording of ${symposium.title}`}
                           >
                             <RiVideoLine className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 mr-2.5" aria-hidden="true" />
                             <span>Watch Recording</span>
                             {symposium.videoDuration && (
-                              <span className="ml-2 text-xs bg-black/30 px-2 py-0.5 rounded-full">
+                              <span className="ml-2 text-xs bg-gray-200 px-2 py-0.5 rounded-full">
                                 {symposium.videoDuration}
                               </span>
                             )}
@@ -352,12 +344,12 @@ export default function PreConferenceSymposiums() {
                         {symposium.videoComingSoon && symposium.videoUrl && (
                           <a
                             href={symposium.videoUrl}
-                            className="inline-flex items-center px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-zinc-800 hover:bg-zinc-700 text-white rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black"
+                            className="inline-flex items-center px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-white"
                             aria-label={`Watch coming soon video for ${symposium.title}`}
                           >
                             <RiVideoLine className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 mr-2.5" aria-hidden="true" />
                             <span>Watch Recording</span>
-                            <span className="ml-2 text-xs bg-black/30 px-2 py-0.5 rounded-full">Coming Soon</span>
+                            <span className="ml-2 text-xs bg-gray-200 px-2 py-0.5 rounded-full">Coming Soon</span>
                           </a>
                         )}
                       </div>
@@ -377,6 +369,9 @@ export default function PreConferenceSymposiums() {
         )}
       </div>
     </main>
+
+    <ExperienceInnovationCTA />
+    </>
   )
 }
 

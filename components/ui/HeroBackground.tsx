@@ -200,4 +200,3 @@ const HeroBackground = () => {
 }
 
 export default HeroBackground
-

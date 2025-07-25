@@ -17,7 +17,7 @@ export const HeroVideo = React.memo(() => {
 
   if (!isMounted) {
     // Return a minimal placeholder while we wait for client-side hydration
-    return <div className="min-h-[100vh] bg-[#101310]" aria-label="Loading hero section..." />
+    return <div className="min-h-[100vh] bg-white" aria-label="Loading hero section..." />
   }
 
   // Render the appropriate component based on device type

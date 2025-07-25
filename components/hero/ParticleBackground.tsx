@@ -29,10 +29,10 @@ export const ParticleBackground = React.memo(({ prefersReducedMotion }: Particle
       Array.from({ length: 25 }, (_, i) => ({
         id: i,
         size: Math.random() * 3 + 1,
-        color: ["#548cac", "#4f4f2c", "#f97316", "#ffffff"][Math.floor(Math.random() * 4)],
+        color: ["#548cac", "#4f4f2c", "#f97316", "#101310"][Math.floor(Math.random() * 4)], // Updated colors for light background
         left: Math.random() * 100,
         top: Math.random() * 100,
-        opacity: Math.random() * 0.5 + 0.1,
+        opacity: Math.random() * 0.3 + 0.1, // Reduced opacity for light background
         duration: Math.random() * 12 + 8,
         xOffset: Math.random() * 30 - 15,
         yOffset: Math.random() * 30 - 15,

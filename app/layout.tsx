@@ -2,11 +2,12 @@ import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import "./globals.css"
+import { Suspense } from "react"
 
 import Footer from "../components/ui/Footer"
 import NavBar from "../components/ui/Navbar"
 import { siteConfig } from "../app/siteConfig"
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -106,12 +107,14 @@ export default function RootLayout({
         </script>
       </head>
       <body
-        className={`${GeistSans.className} min-h-screen overflow-x-hidden scroll-auto bg-[#101310] text-white antialiased selection:bg-[#548cac] selection:text-white`}
+        className={`${GeistSans.className} min-h-screen overflow-x-hidden scroll-auto bg-white text-gray-900 antialiased selection:bg-cyan-200 selection:text-gray-900`}
       >
-        <NavBar />
-        {children}
-        <Footer />
-        <Analytics />
+        <Suspense fallback={<div>Loading...</div>}>
+          <NavBar />
+          {children}
+          <Footer />
+          <Analytics />
+        </Suspense>
       </body>
     </html>
   )

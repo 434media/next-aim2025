@@ -1,11 +1,11 @@
 "use client"
 
-import React, { useRef, useCallback, useMemo, useEffect, useState } from "react"
-import { motion, useScroll, useTransform } from "motion/react"
+import React, { useRef, useCallback, useEffect, useState } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { HeroTitle } from "./HeroTitle"
 import { VideoPlayer } from "./VideoPlayer"
-import { FadeDiv } from "../Fade"
 import { TitleParticleEffect } from "./TitleParticleEffect"
+import { HeroContent } from "./HeroContent"
 
 interface MobileHeroVideoProps {
   prefersReducedMotion: boolean
@@ -57,16 +57,6 @@ export const MobileHeroVideo = React.memo(({ prefersReducedMotion }: MobileHeroV
     [prefersReducedMotion],
   )
 
-  // Simplified fade in animation
-  const fadeInUp = useMemo(
-    () => ({
-      initial: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
-      animate: { opacity: 1, y: 0 },
-      transition: { duration: prefersReducedMotion ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] },
-    }),
-    [prefersReducedMotion],
-  )
-
   const [currentScrollProgress, setCurrentScrollProgress] = useState(0)
   const [currentTitleOpacity, setCurrentTitleOpacity] = useState(1)
 
@@ -103,21 +93,21 @@ export const MobileHeroVideo = React.memo(({ prefersReducedMotion }: MobileHeroV
   return (
     <section
       ref={containerRef}
-      className="relative h-[200vh] bg-[#101310] overflow-hidden"
+      className="relative h-[216vh] bg-white overflow-hidden"
       aria-label="Hero section with background video"
     >
       {/* Skip Link */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-[#101310] focus:rounded-md focus:outline-none focus:ring-2 focus:ring-bexar-blue"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-gray-900 focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-bexar-blue"
         onKeyDown={handleSkipLink}
       >
         Skip to main content
       </a>
 
-      {/* Fixed Sticky Hero Title - Solid background, no floating box */}
+      {/* Fixed Sticky Hero Title - Light background styling */}
       <motion.div
-        className="fixed top-24 left-0 right-0 z-30 pointer-events-none bg-[#101310] py-4 px-4"
+        className="fixed top-24 left-0 right-0 z-30 pointer-events-none bg-white py-4 px-4 sm:px-6 border-b border-gray-200"
         style={{
           opacity: isMobileMenuOpen ? 0 : stickyTitleOpacity,
           willChange: "opacity",
@@ -134,17 +124,17 @@ export const MobileHeroVideo = React.memo(({ prefersReducedMotion }: MobileHeroV
         )}
       </motion.div>
 
-      {/* Scrolling Content Container */}
+      {/* Scrolling Content Container with improved typography */}
       <div className="relative z-10">
-        <div className="px-4 sm:px-6 py-6 space-y-6">
+        <div className="px-4 sm:px-6 lg:px-8 py-6 space-y-8 max-w-4xl mx-auto">
           {/* Increased spacer to prevent text from being cut off by sticky title */}
           <div className="h-48" aria-hidden="true" />
 
-          {/* Video Section - Moved above hero content */}
-          <motion.div className="relative w-full max-w-4xl mx-auto overflow-hidden z-20 rounded-3xl">
+          {/* Video Section - Moved above hero content with improved container */}
+          <motion.div className="relative w-full max-w-3xl mx-auto overflow-hidden z-20 rounded-3xl mt-10">
             {/* Mobile-optimized video container */}
             <div
-              className="-mt-6 relative w-full bg-black/20 backdrop-blur-sm rounded-3xl border border-white/10"
+              className="relative w-full bg-white/20 backdrop-blur-sm rounded-3xl border border-gray-200"
               style={{ aspectRatio: "4/5" }}
             >
               <VideoPlayer
@@ -160,47 +150,27 @@ export const MobileHeroVideo = React.memo(({ prefersReducedMotion }: MobileHeroV
           {/* Spacer between video and content */}
           <div className="h-8" aria-hidden="true" />
 
-          {/* Hero Content - Now below the video - Simplified animations */}
-          <div className="space-y-6 md:space-y-8">
-            {/* Paragraph content - Removed complex blur effects */}
-            <div>
-              <FadeDiv>
-                <motion.p
-                  className="text-lg sm:text-xl text-white/95 leading-relaxed -mt-10 max-w-4xl text-balance tracking-tight font-medium"
-                  {...fadeInUp}
-                  style={{
-                    filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.5))",
-                    lineHeight: "1.4",
-                  }}
-                >
-                  The AIM Health R&D Summit brings together top innovators from academia, industry, and the military to
-                  accelerate the research, development, and commercialization of transformative medical technologies.
-                </motion.p>
-              </FadeDiv>
-
-              <FadeDiv>
-                <motion.p
-                  className="text-base sm:text-lg text-white/90 leading-relaxed mt-6 max-w-4xl text-balance tracking-tight"
-                  {...fadeInUp}
-                  style={{
-                    textShadow: "0 2px 12px rgba(0,0,0,0.7)",
-                    lineHeight: "1.5",
-                  }}
-                >
-                  This unique convergence of thought leaders creates pathways to discovery and commercialization while
-                  addressing critical challenges in both military and civilian healthcare.
-                </motion.p>
-              </FadeDiv>
-            </div>
+          {/* Hero Content with improved typography container */}
+          <div className="max-w-3xl mx-auto -mt-16 pb-32">
+            <HeroContent
+              isMobile={true}
+              firstParagraphStyle={
+                {
+                  // Remove inline font size to use responsive classes
+                }
+              }
+              secondParagraphStyle={
+                {
+                  // Remove inline font size to use responsive classes
+                }
+              }
+            />
           </div>
 
-          {/* Minimal breathing room after content */}
-          <div className="h-20" />
+          {/* Increased breathing room after content to ensure CTA button is visible */}
+          <div className="h-60" />
         </div>
       </div>
-
-      {/* Enhanced background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#101310] via-[#101310] to-[#0a0f0a] pointer-events-none z-0" />
     </section>
   )
 })

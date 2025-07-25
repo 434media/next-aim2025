@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform, useMotionValue } from "motion/react"
 import { HeroTitle } from "./HeroTitle"
 import { VideoPlayer } from "./VideoPlayer"
 import { TitleParticleEffect } from "./TitleParticleEffect"
+import { HeroContent } from "./HeroContent"
 
 interface DesktopHeroVideoProps {
   prefersReducedMotion: boolean
@@ -62,14 +63,14 @@ export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHer
     <>
       <section
         ref={containerRef}
-        className="relative bg-[#101310] overflow-hidden"
+        className="relative bg-white overflow-hidden"
         aria-label="Hero section with background video"
         id="hero-section"
       >
         {/* Skip Link */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-[#101310] focus:rounded-md focus:outline-none focus:ring-2 focus:ring-bexar-blue"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-gray-900 focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-bexar-blue"
           onKeyDown={handleSkipLink}
         >
           Skip to main content
@@ -77,11 +78,11 @@ export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHer
 
         {/* Main Hero Layout */}
         <div className="flex flex-row h-screen overflow-hidden">
-          {/* Left Content Section - 50% width */}
-          <div className="w-1/2 h-screen overflow-hidden">
+          {/* Left Content Section - 50% width with improved typography container */}
+          <div className="w-1/2 h-screen overflow-hidden bg-white">
             {/* Sticky Header */}
             <motion.header
-              className="sticky top-4 z-20 w-full bg-gradient-to-b from-[#101310] via-[#101310] to-transparent pt-8 pb-8 px-8"
+              className="sticky top-4 z-20 w-full bg-white pt-8 pb-8 px-6 lg:px-8 xl:px-12"
               style={{
                 opacity: headerOpacity,
                 scale: headerScale,
@@ -89,7 +90,7 @@ export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHer
               }}
             >
               <div className="max-w-7xl mx-auto">
-                <div className="brightness-125 contrast-110 saturate-110">
+                <div className="brightness-100 contrast-100 saturate-100">
                   <HeroTitle
                     animationProgress={animationTrigger}
                     prefersReducedMotion={prefersReducedMotion}
@@ -109,179 +110,27 @@ export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHer
               </div>
             </motion.header>
 
-            {/* Scrollable Content - This is what drives the Here/Now change */}
+            {/* Scrollable Content with improved typography container */}
             <div
               ref={contentRef}
-              className="h-[calc(100vh-280px)] overflow-y-auto scrollbar-thin scrollbar-thumb-[#38BDF8]/20 scrollbar-track-transparent"
+              className="h-[calc(100vh-330px)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300/50 scrollbar-track-transparent bg-white"
             >
-              <div className="max-w-7xl mx-auto px-8 py-12">
-                <div className="max-w-4xl mx-auto space-y-32 pb-32">
-                  {/* First paragraph */}
-                  <motion.div
-                    className="group"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                  >
-                    <div className="flex items-start space-x-6">
-                      <div className="mt-2">
-                        <motion.div
-                          className="w-1 h-24 bg-gradient-to-b from-[#7DD3FC] to-transparent rounded-full"
-                          animate={{ height: [0, 96] }}
-                          transition={{ duration: 1.5, delay: 0.5 }}
-                        />
-                      </div>
-                      <div>
-                        <p className="text-3xl xl:text-4xl 2xl:text-5xl text-gray-200 leading-relaxed font-light">
-                          The AIM Health R&D Summit brings together top innovators from academia, industry, and the
-                          military to accelerate the research, development, and commercialization of{" "}
-                          <span className="text-[#7DD3FC] font-semibold group-hover:text-sky-300 transition-colors duration-300">
-                            transformative medical technologies
-                          </span>
-                          .
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Second paragraph */}
-                  <motion.div
-                    className="group"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                  >
-                    <div className="flex items-start space-x-6">
-                      <div className="mt-2">
-                        <motion.div
-                          className="w-1 h-24 bg-gradient-to-b from-[#7DD3FC] to-transparent rounded-full"
-                          animate={{ height: [0, 96] }}
-                          transition={{ duration: 1.5, delay: 1 }}
-                        />
-                      </div>
-                      <div>
-                        <p className="text-3xl xl:text-4xl 2xl:text-5xl text-gray-200 leading-relaxed font-light">
-                          This unique convergence of thought leaders creates pathways to discovery and commercialization
-                          while addressing critical challenges in{" "}
-                          <span className="text-white font-semibold group-hover:text-gray-100 transition-colors duration-300">
-                            military and civilian healthcare
-                          </span>
-                          .
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Third paragraph */}
-                  <motion.div
-                    className="group"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.6 }}
-                  >
-                    <div className="flex items-start space-x-6">
-                      <div className="mt-2">
-                        <motion.div
-                          className="w-1 h-24 bg-gradient-to-b from-[#7DD3FC] to-transparent rounded-full"
-                          animate={{ height: [0, 96] }}
-                          transition={{ duration: 1.5, delay: 1.5 }}
-                        />
-                      </div>
-                      <div>
-                        <p className="text-3xl xl:text-4xl 2xl:text-5xl text-gray-200 leading-relaxed font-light">
-                          Join us in shaping the future of healthcare innovation through{" "}
-                          <span className="text-[#7DD3FC] font-semibold group-hover:text-sky-300 transition-colors duration-300">
-                            collaboration, breakthrough research, and transformative partnerships
-                          </span>{" "}
-                          that save lives.
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Fourth paragraph */}
-                  <motion.div
-                    className="group"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.8 }}
-                  >
-                    <div className="flex items-start space-x-6">
-                      <div className="mt-2">
-                        <motion.div
-                          className="w-1 h-24 bg-gradient-to-b from-[#38BDF8] to-transparent rounded-full"
-                          animate={{ height: [0, 96] }}
-                          transition={{ duration: 1.5, delay: 2 }}
-                        />
-                      </div>
-                      <div>
-                        <p className="text-2xl xl:text-3xl 2xl:text-4xl text-gray-200 leading-relaxed font-light">
-                          Through collaborative partnerships and innovative thinking, we continue to drive breakthroughs
-                          that transform healthcare delivery and improve outcomes for{" "}
-                          <span className="text-white font-semibold group-hover:text-gray-100 transition-colors duration-300">
-                            military personnel and civilians alike
-                          </span>
-                          .
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Fifth paragraph */}
-                  <motion.div
-                    className="group"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 1.0 }}
-                  >
-                    <div className="flex items-start space-x-6">
-                      <div className="mt-2">
-                        <motion.div
-                          className="w-1 h-24 bg-gradient-to-b from-[#0EA5E9] to-transparent rounded-full"
-                          animate={{ height: [0, 96] }}
-                          transition={{ duration: 1.5, delay: 2.5 }}
-                        />
-                      </div>
-                      <div>
-                        <p className="text-2xl xl:text-3xl 2xl:text-4xl text-gray-200 leading-relaxed font-light">
-                          Our commitment to innovation extends beyond the summit, fostering year-round collaboration and
-                          knowledge sharing that drives{" "}
-                          <span className="text-[#0EA5E9] font-semibold group-hover:text-sky-300 transition-colors duration-300">
-                            continuous advancement in medical research
-                          </span>
-                          .
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Sixth paragraph */}
-                  <motion.div
-                    className="group"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 1.2 }}
-                  >
-                    <div className="flex items-start space-x-6">
-                      <div className="mt-2">
-                        <motion.div
-                          className="w-1 h-24 bg-gradient-to-b from-[#06B6D4] to-transparent rounded-full"
-                          animate={{ height: [0, 96] }}
-                          transition={{ duration: 1.5, delay: 3 }}
-                        />
-                      </div>
-                      <div>
-                        <p className="text-2xl xl:text-3xl 2xl:text-4xl text-gray-200 leading-relaxed font-light">
-                          Together, we are building a future where medical innovation knows no boundaries, where
-                          breakthrough discoveries translate into{" "}
-                          <span className="text-[#06B6D4] font-semibold group-hover:text-cyan-300 transition-colors duration-300">
-                            life-saving solutions for all
-                          </span>
-                          .
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
+              <div className="max-w-6xl mx-auto px-6 lg:px-8 xl:px-12 py-12 bg-white -mt-6">
+                {/* Typography container with optimal reading width */}
+                <div className="max-w-5xl">
+                  <HeroContent
+                    isMobile={false}
+                    firstParagraphStyle={
+                      {
+                        // Remove inline font size to use responsive classes
+                      }
+                    }
+                    secondParagraphStyle={
+                      {
+                        // Remove inline font size to use responsive classes
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -297,7 +146,7 @@ export const DesktopHeroVideo = React.memo(({ prefersReducedMotion }: DesktopHer
       </section>
 
       {/* Transition Buffer Zone */}
-      <div className="h-32 bg-gradient-to-b from-[#101310] to-transparent relative z-10" aria-hidden="true" />
+      <div className="h-32 bg-white relative z-10" aria-hidden="true" />
     </>
   )
 })

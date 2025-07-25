@@ -2,19 +2,17 @@
 
 import React from "react"
 import { motion, type MotionStyle } from "motion/react"
-import { RiArrowRightUpLine } from "@remixicon/react"
-import { Button } from "../Button"
 import { FadeDiv } from "../Fade"
+import { Button } from "../Button"
 
 interface HeroContentProps {
   isMobile: boolean
   firstParagraphStyle?: MotionStyle
   secondParagraphStyle?: MotionStyle
-  buttonsStyle?: MotionStyle
 }
 
 export const HeroContent = React.memo(
-  ({ isMobile, firstParagraphStyle = {}, secondParagraphStyle = {}, buttonsStyle = {} }: HeroContentProps) => {
+  ({ isMobile, firstParagraphStyle = {}, secondParagraphStyle = {} }: HeroContentProps) => {
     const fadeInUp = {
       initial: { opacity: 0, y: 20 },
       animate: { opacity: 1, y: 0 },
@@ -22,24 +20,25 @@ export const HeroContent = React.memo(
     }
 
     return (
-      <motion.div className="space-y-6 md:space-y-8">
-        {/* Paragraph content with selective blur effects */}
-        <motion.div>
+      <motion.div className="space-y-8 bg-white">
+        {/* Paragraph content with improved typography */}
+        <motion.div className="space-y-6">
           <FadeDiv>
             <motion.p
               className={`${
                 isMobile
-                  ? "text-lg sm:text-xl text-white/95 leading-relaxed"
-                  : "text-xl sm:text-2xl md:text-3xl text-white/95 leading-relaxed mt-48"
-              } max-w-4xl text-balance tracking-tight font-medium`}
+                  ? "text-xl sm:text-2xl text-gray-800 leading-relaxed"
+                  : "text-2xl lg:text-3xl text-gray-800 leading-relaxed"
+              } max-w-5xl text-balance tracking-tight font-medium`}
               {...fadeInUp}
               style={{
-                textShadow: "0 3px 15px rgba(0,0,0,0.8)",
-                lineHeight: "1.4",
+                textShadow: "0 1px 3px rgba(0,0,0,0.1)",
+                lineHeight: isMobile ? "1.5" : "1.4",
+                maxWidth: "65ch", // Optimal reading width
                 ...firstParagraphStyle,
               }}
             >
-              The AIM Health R&D Summit brings together top innovators from academia, industry, and the military to
+              The AIM Health R&D Summit brings together top innovators from academia, industry, and military to
               accelerate the research, development, and commercialization of transformative medical technologies.
             </motion.p>
           </FadeDiv>
@@ -48,13 +47,14 @@ export const HeroContent = React.memo(
             <motion.p
               className={`${
                 isMobile
-                  ? "text-base sm:text-lg text-white/90 leading-relaxed mt-6"
-                  : "text-lg sm:text-xl md:text-2xl text-white/90 leading-relaxed mt-8"
-              } max-w-4xl text-balance tracking-tight`}
+                  ? "text-lg sm:text-xl text-gray-700 leading-relaxed"
+                  : "text-xl lg:text-2xl xl:text-3xl text-gray-700 leading-relaxed"
+              } max-w-4xl text-balance tracking-tight font-normal`}
               {...fadeInUp}
               style={{
-                textShadow: "0 2px 12px rgba(0,0,0,0.7)",
-                lineHeight: "1.5",
+                textShadow: "0 1px 2px rgba(0,0,0,0.05)",
+                lineHeight: isMobile ? "1.6" : "1.5",
+                maxWidth: "70ch", // Slightly wider for secondary text
                 ...secondParagraphStyle,
               }}
             >
@@ -62,64 +62,41 @@ export const HeroContent = React.memo(
               addressing critical challenges in both military and civilian healthcare.
             </motion.p>
           </FadeDiv>
-        </motion.div>
 
-        {/* Buttons with separate blur control - positioned to never scroll past sticky title */}
-        <motion.div
-          className={`${isMobile ? "flex flex-col gap-4 w-full max-w-md pt-8" : "flex flex-col sm:flex-row gap-4 sm:gap-6 pt-16"}`}
-          {...fadeInUp}
-          style={buttonsStyle}
-        >
+          {/* CTA Section */}
           <FadeDiv>
-            <Button
-              variant="primary"
-              href="https://whova.com/portal/registration/Y-ZNcxeCfgZo09u3PpLM/"
-              className={`${
-                isMobile
-                  ? "text-base py-4 px-8 w-full"
-                  : "text-base sm:text-lg py-4 px-8 md:py-5 md:px-10 w-full sm:w-auto"
-              } hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#548cac] shadow-xl hover:shadow-2xl font-semibold`}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Register Now for AIM Summit (opens in new tab)"
-            >
-              <span className="flex items-center justify-center">
-                Register Now
-                <motion.span
-                  className={`ml-2 ${isMobile ? "size-5" : "size-5 md:size-6"}`}
-                  whileHover={{ x: 2, y: -2 }}
-                  aria-hidden="true"
-                >
-                  <RiArrowRightUpLine />
-                </motion.span>
-              </span>
-            </Button>
-          </FadeDiv>
+            <motion.div className="space-y-6 pt-4" {...fadeInUp} transition={{ ...fadeInUp.transition, delay: 0.3 }}>
+              <motion.p
+                className={`${
+                  isMobile
+                    ? "text-lg sm:text-xl text-gray-800 leading-relaxed"
+                    : "text-xl lg:text-2xl xl:text-3xl text-gray-800 leading-relaxed"
+                } max-w-4xl text-balance tracking-tight font-semibold`}
+                style={{
+                  textShadow: "0 1px 2px rgba(0,0,0,0.05)",
+                  lineHeight: isMobile ? "1.5" : "1.4",
+                  maxWidth: "60ch",
+                }}
+              >
+                The future of military medicine starts here, and it continues with you.
+              </motion.p>
 
-          <FadeDiv>
-            <Button
-              variant="secondary"
-              href="https://support.velocitytx.org/campaign/642575/donate"
-              className={`${
-                isMobile
-                  ? "text-base py-4 px-8 w-full"
-                  : "text-base sm:text-lg py-4 px-8 md:py-5 md:px-10 w-full sm:w-auto"
-              } hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#4f4f2c] shadow-xl hover:shadow-2xl font-semibold`}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Become a Sponsor for AIM Summit (opens in new tab)"
-            >
-              <span className="flex items-center justify-center">
-                Become a Sponsor
-                <motion.span
-                  className={`ml-2 ${isMobile ? "size-5" : "size-5 md:size-6"}`}
-                  whileHover={{ x: 2, y: -2 }}
-                  aria-hidden="true"
+              <motion.div
+                className="flex justify-start"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
+              >
+                <Button
+                  href="/contact-us"
+                  className={`${
+                    isMobile ? "px-6 py-3 text-base" : "px-8 py-4 text-lg lg:text-xl"
+                  } bg-gradient-to-r from-[#548cac] to-[#4f4f2c] hover:from-[#4a7a96] hover:to-[#464529] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105`}
                 >
-                  <RiArrowRightUpLine />
-                </motion.span>
-              </span>
-            </Button>
+                  Get Involved
+                </Button>
+              </motion.div>
+            </motion.div>
           </FadeDiv>
         </motion.div>
       </motion.div>
