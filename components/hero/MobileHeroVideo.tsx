@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useRef, useCallback, useEffect, useState } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform } from "motion/react"
 import { HeroTitle } from "./HeroTitle"
 import { VideoPlayer } from "./VideoPlayer"
 import { TitleParticleEffect } from "./TitleParticleEffect"
