@@ -163,45 +163,10 @@ export const ExperienceInnovationCTA: React.FC<ExperienceInnovationCTAProps> = (
               animate={inView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
-              Ready to be part of the future of military health innovation? Contact us to learn more about participation
-              opportunities.
+              Ready to be part of the future of military health innovation? 
+              <br />
+              Contact us to learn more about participation opportunities.
             </motion.p>
-          </motion.div>
-
-          {/* Stats Row */}
-          <motion.div
-            className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 mt-16 pt-12 border-t border-gray-200"
-            initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.8, delay: 1 }}
-          >
-            {[
-              { number: "600+", label: "Attendees" },
-              { number: "60+", label: "Speakers" },
-              { number: "70+", label: "Sessions" },
-              { number: "100%", label: "Innovation" },
-            ].map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                className="text-center group"
-                initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
-                whileHover={
-                  prefersReducedMotion
-                    ? {}
-                    : {
-                        y: -4,
-                        transition: { duration: 0.2 },
-                      }
-                }
-              >
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 group-hover:text-[#548cac] transition-colors duration-300">
-                  {stat.number}
-                </div>
-                <div className="text-sm sm:text-base text-gray-600 font-medium mt-1">{stat.label}</div>
-              </motion.div>
-            ))}
           </motion.div>
         </div>
       </div>

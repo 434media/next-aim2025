@@ -2,14 +2,12 @@
 
 import { useState, useEffect, useRef } from "react"
 import {
-  RiCalendarLine,
-  RiMapPinLine,
   RiCloseLine,
   RiExternalLinkLine,
   RiInformationLine,
   RiStarLine,
 } from "@remixicon/react"
-import { motion, AnimatePresence, useReducedMotion } from "motion/react"
+import { motion, AnimatePresence } from "motion/react"
 import Image from "next/image"
 
 // Sponsor data structure
@@ -165,7 +163,7 @@ const sponsors: Sponsor[] = [
     id: "audicin",
     name: "Audicin",
     tier: "catalyst",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Icon_Audicin-04.png",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/HorizontalLogo_Audicin-02.png",
     description:
       "Audicin is a neurowellness technology company delivering audio solutions to enhance focus, recovery, and sleep for active duty service members and veterans. Engineered for operational demands and post-service care for PTSD, Audicin supports cognitive readiness, stress regulation, and long-term resilience through mission-tested sound therapy.",
     website: "https://www.audicin.com/",
@@ -343,17 +341,8 @@ const sponsors: Sponsor[] = [
 ]
 
 export default function SponsorsExhibitorsClientPage() {
-  // State to track if component is mounted (client-side only)
-  const [isMounted, setIsMounted] = useState(false)
   const [selectedSponsor, setSelectedSponsor] = useState<Sponsor | null>(null)
-  const [activeCategory, setActiveCategory] = useState<string>("all")
-  const prefersReducedMotion = useReducedMotion()
   const containerRef = useRef<HTMLDivElement>(null)
-
-  // Only run on client side
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
 
   // Filter sponsors by tier
   const ecosystemSponsors = sponsors.filter((s) => s.tier === "ecosystem")
@@ -362,185 +351,31 @@ export default function SponsorsExhibitorsClientPage() {
   const partnerSponsors = sponsors.filter((s) => s.tier === "partner")
   const collaboratorSponsors = sponsors.filter((s) => s.tier === "collaborator")
 
-  // Count exhibitors
-  const exhibitorCount = sponsors.filter((s) => s.isExhibitor).length
-
-  // Scroll to section
-  const scrollToSection = (category: string) => {
-    setActiveCategory(category)
-    const element = document.getElementById(category)
-    if (element) {
-      const yOffset = -100 // Adjust for navbar
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
-      window.scrollTo({ top: y, behavior: "smooth" })
-    }
-  }
-
   return (
-    <main className="flex min-h-screen flex-col items-center bg-gray-50">
+    <main className="flex min-h-screen flex-col items-center">
       {/* Hero Section with proper top padding to avoid navbar overlap */}
       <div className="w-full min-h-screen flex items-center justify-center relative">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1a1c1a] via-[#1e2320] to-[#232725] z-0"></div>
-
-        {/* Particle effect - client-side only */}
-        {isMounted && !prefersReducedMotion && (
-          <div className="absolute inset-0 z-0" aria-hidden="true">
-            {[...Array(30)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute rounded-full"
-                style={{
-                  width: Math.random() * 4 + 1,
-                  height: Math.random() * 4 + 1,
-                  backgroundColor: ["#548cac", "#4f4f2c", "#f97316", "#ffffff"][Math.floor(Math.random() * 4)],
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  opacity: Math.random() * 0.5 + 0.3,
-                }}
-                animate={{
-                  x: [0, Math.random() * 50 - 25],
-                  y: [0, Math.random() * 50 - 25],
-                }}
-                transition={{
-                  duration: Math.random() * 5 + 3,
-                  repeat: Number.POSITIVE_INFINITY,
-                  repeatType: "reverse",
-                  ease: "easeInOut",
-                }}
-              />
-            ))}
-          </div>
-        )}
-
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 mt-24">
           <div className="mx-auto max-w-4xl text-center mb-12 md:mb-16">
             <motion.h1
-              className="mb-6 sm:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight"
+              className="mb-6 sm:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-neutral-950 leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              Sponsors & Exhibitors
+              AIM'25 SPONSORS
             </motion.h1>
 
             {/* Event info section with improved spacing and responsive layout */}
             <motion.div
-              className="mx-auto mb-8 sm:mb-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-base sm:text-lg md:text-xl text-white/90"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-            >
-              {/* Date */}
-              <div className="flex items-center justify-center">
-                <RiCalendarLine
-                  className="h-5 w-5 sm:h-6 sm:w-6 mr-3 text-[#548cac] flex-shrink-0"
-                  aria-hidden="true"
-                />
-                <span>June 16-17, 2025</span>
-              </div>
-
-              {/* Separator - Hidden on mobile, visible on desktop */}
-              <span className="hidden sm:inline-block h-1.5 w-1.5 rounded-full bg-white/60" aria-hidden="true"></span>
-
-              {/* Location */}
-              <div className="flex items-center justify-center">
-                <RiMapPinLine className="h-5 w-5 sm:h-6 sm:w-6 mr-3 text-[#548cac] flex-shrink-0" aria-hidden="true" />
-                <span>Henry B. González Convention Center</span>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="mx-auto mb-12 max-w-2xl text-base sm:text-lg md:text-xl text-white/90 leading-relaxed"
+              className="mx-auto mb-12 max-w-2xl text-base sm:text-lg md:text-xl text-neutral-950/90 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             >
               <p>
-                Meet the innovative companies and organizations supporting the AIM Health R&D Summit. Our sponsors and
-                exhibitors are essential partners in our mission to accelerate military medical innovation through
-                cross-sector collaboration.
+                Our sponsors and exhibitors are essential partners in our mission to accelerate military medical innovation through cross-sector collaboration.
               </p>
-            </motion.div>
-
-            {/* Stats and quick navigation */}
-            <motion.div
-              className="flex flex-wrap justify-center gap-4 mb-12"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-            >
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-4 text-white">
-                <div className="text-3xl font-bold">{sponsors.length}</div>
-                <div className="text-sm uppercase tracking-wider">Total Sponsors</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-4 text-white">
-                <div className="text-3xl font-bold">{exhibitorCount}</div>
-                <div className="text-sm uppercase tracking-wider">Exhibitors</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-4 text-white">
-                <div className="text-3xl font-bold">5</div>
-                <div className="text-sm uppercase tracking-wider">Categories</div>
-              </div>
-            </motion.div>
-
-            {/* Category navigation */}
-            <motion.div
-              className="flex flex-wrap justify-center gap-3 mb-12"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-            >
-              <button
-                onClick={() => scrollToSection("ecosystem")}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  activeCategory === "ecosystem"
-                    ? "bg-[#2A3990] text-white shadow-lg shadow-[#2A3990]/20"
-                    : "bg-white/20 text-white hover:bg-white/30"
-                }`}
-              >
-                Ecosystem
-              </button>
-              <button
-                onClick={() => scrollToSection("innovator")}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  activeCategory === "innovator"
-                    ? "bg-[#548cac] text-white shadow-lg shadow-[#548cac]/20"
-                    : "bg-white/20 text-white hover:bg-white/30"
-                }`}
-              >
-                Innovators
-              </button>
-              <button
-                onClick={() => scrollToSection("catalyst")}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  activeCategory === "catalyst"
-                    ? "bg-[#4f4f2c] text-white shadow-lg shadow-[#4f4f2c]/20"
-                    : "bg-white/20 text-white hover:bg-white/30"
-                }`}
-              >
-                Catalysts
-              </button>
-              <button
-                onClick={() => scrollToSection("partner")}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  activeCategory === "partner"
-                    ? "bg-[#f97316] text-white shadow-lg shadow-[#f97316]/20"
-                    : "bg-white/20 text-white hover:bg-white/30"
-                }`}
-              >
-                Partners
-              </button>
-              <button
-                onClick={() => scrollToSection("collaborator")}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  activeCategory === "collaborator"
-                    ? "bg-[#366A79] text-white shadow-lg shadow-[#366A79]/20"
-                    : "bg-white/20 text-white hover:bg-white/30"
-                }`}
-              >
-                Collaborators
-              </button>
             </motion.div>
           </div>
 
@@ -550,7 +385,7 @@ export default function SponsorsExhibitorsClientPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="bg-white/90 backdrop-blur-sm rounded-xl p-6 md:p-8 lg:p-10 shadow-xl w-full max-w-7xl mx-auto"
+            className="bg-white/90 backdrop-blur-sm rounded-xl p-6 md:p-8 lg:p-10 shadow-xl w-full max-w-5xl mx-auto"
           >
             <div className="space-y-16">
               {/* Ecosystem Sponsor - New Top Tier */}
@@ -579,7 +414,7 @@ export default function SponsorsExhibitorsClientPage() {
                       </div>
 
                       <div className="relative flex flex-col md:flex-row items-center gap-6 md:gap-8">
-                        <div className="w-full md:w-1/3 aspect-[3/2] relative rounded-lg overflow-hidden bg-white p-4 shadow-inner group-hover:shadow-md transition-all duration-300">
+                        <div className="w-full md:w-1/3 aspect-[3/2] relative rounded-lg overflow-hidden p-4">
                           <div className="absolute inset-0 bg-gradient-to-br from-[#2A3990]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                           <Image
                             src={sponsor.logo || "/placeholder.svg"}
@@ -595,13 +430,13 @@ export default function SponsorsExhibitorsClientPage() {
                               {sponsor.name}
                             </h3>
                             {sponsor.isExhibitor && (
-                              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#2A3990] text-white shadow-sm">
+                              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#2A3990] w-fit text-white shadow-sm">
                                 Exhibiting
                               </span>
                             )}
                           </div>
-                          <p className="text-sm text-gray-600">{sponsor.industry}</p>
-                          <p className="text-sm md:text-base text-gray-700">{sponsor.description}</p>
+                          <p className="text-sm text-neutral-600">{sponsor.industry}</p>
+                          <p className="text-sm md:text-base text-neutral-700">{sponsor.description}</p>
                           <div className="flex justify-end">
                             <motion.a
                               href={sponsor.website}
@@ -749,7 +584,7 @@ function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
       case "collaborator":
         return "border-[#366A79]/30 hover:border-[#366A79]/80"
       default:
-        return "border-gray-200 hover:border-gray-400"
+        return "border-neutral-200 hover:border-neutral-400"
     }
   }
 
@@ -767,7 +602,7 @@ function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
       case "collaborator":
         return "group-hover:shadow-[#366A79]/20"
       default:
-        return "group-hover:shadow-gray-200/20"
+        return "group-hover:shadow-neutral-200/20"
     }
   }
 
@@ -790,8 +625,6 @@ function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
       whileTap={{ scale: 0.98 }}
       aria-label={`View details about ${sponsor.name}${sponsor.isExhibitor ? ", Exhibiting" : ""}`}
     >
-      {/* Subtle background gradient on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
       {/* Enhanced shadow on hover */}
       <div
@@ -830,7 +663,7 @@ function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
 
       {/* Info indicator - adjusted position to account for exhibitor strip */}
       <div className="absolute bottom-8 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-        <div className="bg-gray-100 rounded-full p-1 shadow-sm">
+        <div className="bg-neutral-100 rounded-full p-1 shadow-sm">
           <RiInformationLine className="h-5 w-5 text-[#548cac]" aria-hidden="true" />
         </div>
       </div>
@@ -934,11 +767,11 @@ function SponsorInfoModal({ sponsor, onClose }: SponsorInfoModalProps) {
         }
       default:
         return {
-          gradient: "from-gray-100 via-gray-50 to-transparent",
-          badge: "bg-gray-100 text-gray-700",
-          text: "text-gray-700",
-          button: "bg-gray-700 hover:bg-gray-800",
-          ring: "focus:ring-gray-400",
+          gradient: "from-neutral-100 via-neutral-50 to-transparent",
+          badge: "bg-neutral-100 text-neutral-700",
+          text: "text-neutral-700",
+          button: "bg-neutral-700 hover:bg-neutral-800",
+          ring: "focus:ring-neutral-400",
         }
     }
   }
@@ -966,13 +799,8 @@ function SponsorInfoModal({ sponsor, onClose }: SponsorInfoModalProps) {
       >
         {/* Modal Header with enhanced gradient */}
         <div className={`relative h-40 bg-gradient-to-r ${tierStyles.gradient}`}>
-          {/* Animated background pattern */}
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)] animate-pulse"></div>
-          </div>
-
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="bg-white rounded-lg p-4 w-32 h-32 flex items-center justify-center shadow-md">
+          <div className="absolute inset-0 flex items-center justify-center bg-white">
+            <div className="p-4 w-full h-40 flex items-center justify-center">
               <div className="relative w-full h-full">
                 <Image
                   src={sponsor.logo || "/placeholder.svg"}
@@ -985,7 +813,7 @@ function SponsorInfoModal({ sponsor, onClose }: SponsorInfoModalProps) {
             </div>
           </div>
           <button
-            className={`absolute top-3 right-3 p-2 rounded-full bg-white/80 text-gray-700 hover:bg-white hover:text-gray-900 transition-colors focus:outline-none ${tierStyles.ring} focus:ring-2 shadow-sm`}
+            className={`absolute top-3 right-3 p-2 rounded-full bg-white/80 text-neutral-700 hover:bg-white hover:text-neutral-900 transition-colors focus:outline-none ${tierStyles.ring} focus:ring-2 shadow-sm`}
             onClick={onClose}
             aria-label="Close modal"
           >
@@ -995,13 +823,13 @@ function SponsorInfoModal({ sponsor, onClose }: SponsorInfoModalProps) {
 
         {/* Modal Content */}
         <div className="p-6 md:p-8">
-          <h3 id={`sponsor-modal-title-${sponsor.id}`} className="text-2xl font-bold text-gray-900 mb-2">
+          <h3 id={`sponsor-modal-title-${sponsor.id}`} className="text-2xl font-bold text-neutral-900 mb-2">
             {sponsor.name}
           </h3>
 
           {sponsor.industry && <p className={`${tierStyles.text} text-base mb-6`}>{sponsor.industry}</p>}
 
-          <p className="text-gray-700 text-base leading-relaxed mb-8">{sponsor.description}</p>
+          <p className="text-neutral-700 text-base leading-relaxed mb-8">{sponsor.description}</p>
 
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
             <div className="flex flex-wrap items-center gap-2">

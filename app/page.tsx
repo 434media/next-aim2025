@@ -1,8 +1,6 @@
 import { PartnerMarquee } from "../components/ui/PartnerMarquee"
 import { additionalPartners, mainPartners } from "../data/partners"
-import { SummitMission } from "../components//ui/SummitMission"
 import { HeroVideo } from "../components/ui/HeroVideo"
-import Testimonial from "../components/ui/Testimonial"
 import { ExperienceInnovationCTA } from "../components/ExperienceInnovationCTA"
 
 export default function Home() {
@@ -14,22 +12,6 @@ export default function Home() {
           AIM Summit - Advancing Innovation in Military Medicine
         </h1>
         <HeroVideo />
-      </section>
-
-      {/* Mission Section */}
-      <section aria-labelledby="mission-heading" className="w-full">
-        <h2 id="mission-heading" className="sr-only">
-          Summit Mission
-        </h2>
-        <SummitMission />
-      </section>
-
-      {/* Testimonial Section */}
-      <section aria-labelledby="testimonial-heading" className="w-full">
-        <h2 id="testimonial-heading" className="sr-only">
-          Testimonials
-        </h2>
-        <Testimonial />
       </section>
 
       {/* Partners Section */}
