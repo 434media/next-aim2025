@@ -2,10 +2,10 @@
 
 import type React from "react"
 
-import { useRef, useState, useEffect, useCallback } from "react"
 import { motion, useAnimation, useReducedMotion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 export interface Partner {
   name: string
@@ -40,6 +40,24 @@ export function PartnerMarquee({
   const [isMounted, setIsMounted] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null)
 
+  const startAnimation = useCallback(() => {
+    if (!contentWidth) return
+
+    const duration = contentWidth / (speed * 0.4)
+
+    controls.start({
+      x: reverse ? [0, -contentWidth] : [-contentWidth, 0],
+      transition: {
+        x: {
+          repeat: Number.POSITIVE_INFINITY,
+          repeatType: "loop",
+          duration,
+          ease: "linear",
+        },
+      },
+    })
+  }, [contentWidth, controls, reverse, speed])
+
   // Calculate dimensions for the animation
   useEffect(() => {
     setIsMounted(true)
@@ -61,28 +79,9 @@ export function PartnerMarquee({
 
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
-  }, [isMounted, prefersReducedMotion])
+  }, [isMounted, prefersReducedMotion, startAnimation])
 
   // Start or restart the animation
-  const startAnimation = useCallback(() => {
-    if (!contentWidth) return
-
-    const duration = contentWidth / (speed * 0.4)
-
-    controls.start({
-      x: reverse ? [0, -contentWidth] : [-contentWidth, 0],
-      transition: {
-        x: {
-          repeat: Number.POSITIVE_INFINITY,
-          repeatType: "loop",
-          duration,
-          ease: "linear",
-        },
-      },
-    })
-  }, [contentWidth, controls, reverse, speed])
-
-  // Handle animation based on user preferences
   useEffect(() => {
     if (!isMounted || !contentWidth) return
 
