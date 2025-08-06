@@ -1,14 +1,14 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
 import {
   RiCloseLine,
   RiExternalLinkLine,
   RiInformationLine,
   RiStarLine,
 } from "@remixicon/react"
-import { motion, AnimatePresence } from "motion/react"
+import { AnimatePresence, motion } from "motion/react"
 import Image from "next/image"
+import { useEffect, useRef, useState } from "react"
 
 // Sponsor data structure
 interface Sponsor {
@@ -363,7 +363,7 @@ export default function SponsorsExhibitorsClientPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              AIM'25 SPONSORS
+              AIM&apos;25 SPONSORS
             </motion.h1>
 
             {/* Event info section with improved spacing and responsive layout */}

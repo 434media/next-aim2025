@@ -1,8 +1,8 @@
+import { RiStarLine } from "@remixicon/react"
 import type { Metadata } from "next"
+import { Suspense } from "react"
 import { FadeContainer, FadeDiv } from "../../components/Fade"
 import WhovaSpeakersEmbed from "../../components/WhovaSpeakersEmbed"
-import { Suspense } from "react"
-import { RiStarLine } from "@remixicon/react"
 
 export const metadata: Metadata = {
   title: "Speakers | AIM Health R&D Summit",
@@ -28,7 +28,7 @@ export default function SpeakersPage() {
             <div className="mb-8 flex justify-center">
               <div className="inline-flex items-center rounded-full bg-sky-100 px-6 py-2 text-sm font-semibold text-sky-700 ring-1 ring-sky-200 backdrop-blur-sm">
                 <RiStarLine className="mr-2 h-4 w-4" />
-                AIM'25 Speaker Lineup
+                AIM&apos;25 Speaker Lineup
               </div>
             </div>
 
@@ -55,7 +55,7 @@ export default function SpeakersPage() {
               {/* Main container */}
               <div className="relative bg-white/90 backdrop-blur-xl border border-neutral-200 rounded-2xl p-6 md:p-10 shadow-xl hover:shadow-2xl transition-all duration-500 hover:border-sky-200">
                 <div className="mb-6 text-center">
-                  <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-2">Explore AIM'25</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-2">Explore AIM&apos;25</h2>
                   <p className="text-neutral-700 max-w-2xl mx-auto font-medium">
                     Speaker and session details
                   </p>

@@ -1,11 +1,12 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
-import { Dialog, DialogContent, DialogTitle } from "./dialog"
+import { RiCloseLine, RiPlayFill } from "@remixicon/react"
+import { AnimatePresence, motion, useInView, useScroll, useSpring, useTransform } from "motion/react"
+import Image from "next/image"
+import { useEffect, useRef, useState } from "react"
 import { Button } from "../Button"
-import { RiPlayFill, RiCloseLine } from "@remixicon/react"
+import { Dialog, DialogContent, DialogTitle } from "./dialog"
 import { VisuallyHidden } from "./visually-hidden"
-import { motion, useInView, useScroll, useTransform, useSpring, AnimatePresence } from "motion/react"
 
 const stats = [
   {
@@ -101,11 +102,13 @@ export default function CatchupBanner() {
         {/* Background image with transforms */}
         {imageLoaded && (
           <motion.div className="absolute inset-0 w-full h-full" style={{ y: imageY, scale: imageScale }}>
-            <img
+            <Image
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/milcityusa-2-testimonial.png"
               alt=""
               className="w-full h-full object-cover rounded-2xl"
               aria-hidden="true"
+              fill
+              priority
             />
           </motion.div>
         )}

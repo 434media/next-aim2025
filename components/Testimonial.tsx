@@ -1,10 +1,10 @@
 "use client"
 
+import { RiArrowRightLine, RiExternalLinkLine } from "@remixicon/react"
 import { motion, useInView } from "motion/react"
 import Image from "next/image"
-import { useRef } from "react"
-import { RiExternalLinkLine, RiArrowRightLine } from "@remixicon/react"
 import Link from "next/link"
+import { useRef } from "react"
 
 // Define the testimonial data structure
 type Testimonial = {
@@ -48,7 +48,7 @@ const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "We're grateful to the AIM Summit for providing a powerful platform to connect with academic, industry, and military leaders—driving innovation in military medicine and healthcare. As a national trauma research consortium, TRC4 is dedicated to advancing trauma care through collaborative, data-driven research and grant-funded programs. Events like these amplify our shared mission and accelerate progress in saving lives.",
+      "We're grateful to the AIM Summit for providing a powerful platform to connect with academic, industry, and military leaders",
     highlightedText:
       "We're grateful to the AIM Summit for providing a powerful platform to connect with academic, industry, and military leaders",
     author: "Christina Spencer",
@@ -128,22 +128,22 @@ export default function SponsorSpotlight() {
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-5xl text-center mb-16"
         >
-          <h2 
-            id="sponsor-spotlight-heading" 
+          <h2
+            id="sponsor-spotlight-heading"
             className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-neutral-900 leading-[0.9] mb-6"
           >
             Special thanks to our sponsors
           </h2>
           <p className="text-lg leading-8 text-neutral-600 mb-8 max-w-2xl mx-auto">
-            Interested in sponsoring <strong>AIM'26</strong>?{" "}
-            <Link 
-              href="/contact-us" 
+            Interested in sponsoring <strong>AIM&apos;26</strong>?{" "}
+            <Link
+              href="/contact-us"
               className="font-semibold text-sky-600 hover:text-sky-700 transition-colors duration-200 underline decoration-sky-600/30 hover:decoration-sky-700/50"
             >
               Contact us
             </Link>
           </p>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
@@ -196,11 +196,10 @@ export default function SponsorSpotlight() {
                 {pair.map((testimonial, index) => (
                   <article
                     key={testimonial.sponsorName}
-                    className={`flex flex-col px-8 py-12 ${
-                      index === 1 && pair.length === 2
+                    className={`flex flex-col px-8 py-12 ${index === 1 && pair.length === 2
                         ? "border-l pt-12 pl-12"
                         : "pb-12 pr-6"
-                    }`}
+                      }`}
                     aria-labelledby={`testimonial-${pairIndex}-${index}-author`}
                   >
                     {/* Logo */}
@@ -221,8 +220,8 @@ export default function SponsorSpotlight() {
                     <figure className="flex flex-auto flex-col justify-between">
                       <blockquote className="text-xl leading-8 text-neutral-900 mb-10">
                         <p>
-                          <span className="font-semibold text-sky-600">"{testimonial.highlightedText}</span>
-                          {testimonial.quote.substring(testimonial.highlightedText.length)}"
+                          <span className="font-semibold text-sky-600">&quot;{testimonial.highlightedText}</span>
+                          {testimonial.quote.substring(testimonial.highlightedText.length)}&quot;
                         </p>
                       </blockquote>
 
@@ -316,8 +315,8 @@ export default function SponsorSpotlight() {
                   <figure className="flex flex-auto flex-col justify-around">
                     <blockquote className="text-lg leading-7 text-neutral-900">
                       <p>
-                        <span className="font-semibold text-sky-600">"{testimonial.highlightedText}</span>
-                        {testimonial.quote.substring(testimonial.highlightedText.length)}"
+                        <span className="font-semibold text-sky-600">&quot;{testimonial.highlightedText}</span>
+                        {testimonial.quote.substring(testimonial.highlightedText.length)}&quot;
                       </p>
                     </blockquote>
 

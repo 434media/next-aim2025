@@ -1,10 +1,10 @@
 "use client"
 
+import { RiArrowRightLine } from "@remixicon/react"
+import { ExternalLink } from 'lucide-react'
 import { motion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
-import { ExternalLink } from 'lucide-react'
-import { RiArrowRightLine } from "@remixicon/react"
 import { GlowingEffect } from "../components/ui/glowing-effect"
 
 interface Speaker {
@@ -114,7 +114,7 @@ export function AIM2025Speakers() {
             variants={itemVariants}
             className="text-lg sm:text-xl lg:text-2xl text-neutral-600 max-w-4xl mx-auto mb-10 leading-relaxed font-medium"
           >
-            Meet the leaders, researchers, and dedicated professionals who shaped the future of military medicine at AIM'25.
+            Meet the leaders, researchers, and dedicated professionals who shaped the future of military medicine at AIM&apos;25.
           </motion.p>
 
           {/* View All Speakers Button */}
@@ -125,7 +125,7 @@ export function AIM2025Speakers() {
               href="/speakers"
               className="inline-flex items-center px-8 py-4 bg-neutral-900 text-white font-semibold rounded-full hover:bg-neutral-800 transition-all duration-300 group shadow-lg hover:shadow-xl"
             >
-              View AIM'25 Speakers
+              View AIM&apos;25 Speakers
               <RiArrowRightLine className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
           </motion.div>
@@ -170,7 +170,7 @@ export function AIM2025Speakers() {
                     movementDuration={1.5}
                     className="rounded-2xl"
                   />
-                  
+
                   <div className="flex items-center space-x-6 relative z-10">
                     {/* Speaker Image */}
                     <div className="relative flex-shrink-0">
