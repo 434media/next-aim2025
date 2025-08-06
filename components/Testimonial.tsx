@@ -98,6 +98,162 @@ const testimonials: Testimonial[] = [
   },
 ]
 
+function TestimonialCard({ testimonial, pairIndex, index }: { testimonial: Testimonial, pairIndex: number, index: number }) {
+  return (
+    <article
+      key={testimonial.sponsorName}
+      className={`flex flex-col px-8 py-12 ${index === 1 && testimonials.length > 1
+        ? "border-l pt-12 pl-12"
+        : "pb-12 pr-6"
+        }`}
+      aria-labelledby={`testimonial-${pairIndex}-${index}-author`}
+    >
+      {/* Logo */}
+      <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }} className="mb-10">
+        <div className="relative h-16 w-full max-w-sm">
+          <Image
+            src={testimonial.logo || "/placeholder.svg"}
+            alt={testimonial.logoAlt}
+            fill
+            className="object-contain object-left"
+            sizes="400px"
+            priority={pairIndex === 0}
+          />
+        </div>
+      </motion.div>
+
+      {/* Quote and Author */}
+      <figure className="flex flex-auto flex-col justify-between">
+        <blockquote className="text-xl leading-8 text-neutral-900 mb-10">
+          <p>
+            <span className="font-semibold text-sky-600">&quot;{testimonial.highlightedText}</span>
+            {testimonial.quote.substring(testimonial.highlightedText.length)}&quot;
+          </p>
+        </blockquote>
+
+        <div className="space-y-6">
+          <figcaption className="flex items-center gap-x-6">
+            <div className="relative">
+              <Image
+                alt=""
+                src={testimonial.image || "/placeholder.svg"}
+                width={56}
+                height={56}
+                className="w-full h-full rounded-full bg-neutral-50 object-cover ring-2 ring-white shadow-lg"
+              />
+            </div>
+            <div className="text-base">
+              <div
+                id={`testimonial-${pairIndex}-${index}-author`}
+                className="font-semibold text-neutral-900"
+              >
+                {testimonial.author}
+              </div>
+              <div className="mt-1 text-neutral-500 leading-tight">{testimonial.title}</div>
+            </div>
+          </figcaption>
+
+          <motion.a
+            href={testimonial.websiteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg group w-fit focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+            aria-label={`Visit ${testimonial.sponsorName} website (opens in new tab)`}
+          >
+            <span>Visit {testimonial.sponsorName}</span>
+            <RiExternalLinkLine
+              className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </motion.a>
+        </div>
+      </figure>
+    </article>
+  )
+}
+
+function MobileTestimonialCard({ testimonial, isInView, index }: { testimonial: Testimonial, isInView: boolean, index: number }) {
+  return (
+    <motion.div
+      key={`mobile-${testimonial.sponsorName}`}
+      className="flex-none w-full snap-start h-full"
+      initial={{ opacity: 0, x: 50 }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+    >
+      <article
+        className="flex flex-col px-6 py-8 h-full"
+        aria-labelledby={`mobile-testimonial-${index}-author`}
+      >
+        {/* Logo */}
+        <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }} className="">
+          <div className="relative h-16 w-full max-w-xs">
+            <Image
+              src={testimonial.logo || "/placeholder.svg"}
+              alt={testimonial.logoAlt}
+              fill
+              className="object-contain object-left"
+              sizes="300px"
+              priority={index === 0}
+            />
+          </div>
+        </motion.div>
+
+        {/* Quote and Author */}
+        <figure className="flex flex-auto flex-col justify-around">
+          <blockquote className="text-lg leading-7 text-neutral-900">
+            <p>
+              <span className="font-semibold text-sky-600">&quot;{testimonial.highlightedText}</span>
+              {testimonial.quote.substring(testimonial.highlightedText.length)}&quot;
+            </p>
+          </blockquote>
+
+          <div className="space-y-4">
+            <figcaption className="flex items-center gap-x-4">
+              <div className="relative">
+                <Image
+                  alt="profile"
+                  src={testimonial.image || "/placeholder.svg"}
+                  width={48}
+                  height={48}
+                  className="w-full h-full rounded-full bg-neutral-50 object-cover ring-2 ring-white shadow-lg"
+                />
+              </div>
+              <div className="text-sm">
+                <div
+                  id={`mobile-testimonial-${index}-author`}
+                  className="font-semibold text-neutral-900"
+                >
+                  {testimonial.author}
+                </div>
+                <div className="mt-1 text-neutral-500 leading-tight">{testimonial.title}</div>
+              </div>
+            </figcaption>
+
+            <motion.a
+              href={testimonial.websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg group w-fit focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+              aria-label={`Visit ${testimonial.sponsorName} website (opens in new tab)`}
+            >
+              <span>Visit {testimonial.sponsorName}</span>
+              <RiExternalLinkLine
+                className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                aria-hidden="true"
+              />
+            </motion.a>
+          </div>
+        </figure>
+      </article>
+    </motion.div>
+  )
+}
+
 export default function SponsorSpotlight() {
   const sectionRef = useRef(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 })
@@ -153,7 +309,7 @@ export default function SponsorSpotlight() {
               href="/sponsors-exhibitors"
               className="inline-flex items-center px-6 py-3 text-base font-semibold text-white bg-neutral-900 border border-transparent rounded-lg hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 transition-all duration-200"
             >
-              View AIM'25 Sponsors
+              View AIM&apos;25 Sponsors
               <RiArrowRightLine className="ml-2 size-4" />
             </Link>
           </motion.div>
@@ -194,77 +350,12 @@ export default function SponsorSpotlight() {
                 transition={{ duration: 0.6, delay: pairIndex * 0.2 }}
               >
                 {pair.map((testimonial, index) => (
-                  <article
+                  <TestimonialCard
                     key={testimonial.sponsorName}
-                    className={`flex flex-col px-8 py-12 ${index === 1 && pair.length === 2
-                        ? "border-l pt-12 pl-12"
-                        : "pb-12 pr-6"
-                      }`}
-                    aria-labelledby={`testimonial-${pairIndex}-${index}-author`}
-                  >
-                    {/* Logo */}
-                    <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }} className="mb-10">
-                      <div className="relative h-16 w-full max-w-sm">
-                        <Image
-                          src={testimonial.logo || "/placeholder.svg"}
-                          alt={testimonial.logoAlt}
-                          fill
-                          className="object-contain object-left"
-                          sizes="400px"
-                          priority={pairIndex === 0}
-                        />
-                      </div>
-                    </motion.div>
-
-                    {/* Quote and Author */}
-                    <figure className="flex flex-auto flex-col justify-between">
-                      <blockquote className="text-xl leading-8 text-neutral-900 mb-10">
-                        <p>
-                          <span className="font-semibold text-sky-600">&quot;{testimonial.highlightedText}</span>
-                          {testimonial.quote.substring(testimonial.highlightedText.length)}&quot;
-                        </p>
-                      </blockquote>
-
-                      <div className="space-y-6">
-                        <figcaption className="flex items-center gap-x-6">
-                          <div className="relative">
-                            <Image
-                              alt=""
-                              src={testimonial.image || "/placeholder.svg"}
-                              width={56}
-                              height={56}
-                              className="w-full h-full rounded-full bg-neutral-50 object-cover ring-2 ring-white shadow-lg"
-                            />
-                          </div>
-                          <div className="text-base">
-                            <div
-                              id={`testimonial-${pairIndex}-${index}-author`}
-                              className="font-semibold text-neutral-900"
-                            >
-                              {testimonial.author}
-                            </div>
-                            <div className="mt-1 text-neutral-500 leading-tight">{testimonial.title}</div>
-                          </div>
-                        </figcaption>
-
-                        <motion.a
-                          href={testimonial.websiteUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          className="inline-flex items-center gap-2 px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg group w-fit focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
-                          aria-label={`Visit ${testimonial.sponsorName} website (opens in new tab)`}
-                        >
-                          <span>Visit {testimonial.sponsorName}</span>
-                          <RiExternalLinkLine
-                            className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5"
-                            aria-hidden="true"
-                          />
-                        </motion.a>
-                      </div>
-                    </figure>
-                  </article>
+                    testimonial={testimonial}
+                    pairIndex={pairIndex}
+                    index={index}
+                  />
                 ))}
               </motion.div>
             ))}
@@ -286,81 +377,12 @@ export default function SponsorSpotlight() {
             tabIndex={0}
           >
             {testimonials.map((testimonial, index) => (
-              <motion.div
+              <MobileTestimonialCard
                 key={`mobile-${testimonial.sponsorName}`}
-                className="flex-none w-full snap-start h-full"
-                initial={{ opacity: 0, x: 50 }}
-                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <article
-                  className="flex flex-col px-6 py-8 h-full"
-                  aria-labelledby={`mobile-testimonial-${index}-author`}
-                >
-                  {/* Logo */}
-                  <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }} className="">
-                    <div className="relative h-16 w-full max-w-xs">
-                      <Image
-                        src={testimonial.logo || "/placeholder.svg"}
-                        alt={testimonial.logoAlt}
-                        fill
-                        className="object-contain object-left"
-                        sizes="300px"
-                        priority={index === 0}
-                      />
-                    </div>
-                  </motion.div>
-
-                  {/* Quote and Author */}
-                  <figure className="flex flex-auto flex-col justify-around">
-                    <blockquote className="text-lg leading-7 text-neutral-900">
-                      <p>
-                        <span className="font-semibold text-sky-600">&quot;{testimonial.highlightedText}</span>
-                        {testimonial.quote.substring(testimonial.highlightedText.length)}&quot;
-                      </p>
-                    </blockquote>
-
-                    <div className="space-y-4">
-                      <figcaption className="flex items-center gap-x-4">
-                        <div className="relative">
-                          <Image
-                            alt="profile"
-                            src={testimonial.image || "/placeholder.svg"}
-                            width={48}
-                            height={48}
-                            className="w-full h-full rounded-full bg-neutral-50 object-cover ring-2 ring-white shadow-lg"
-                          />
-                        </div>
-                        <div className="text-sm">
-                          <div
-                            id={`mobile-testimonial-${index}-author`}
-                            className="font-semibold text-neutral-900"
-                          >
-                            {testimonial.author}
-                          </div>
-                          <div className="mt-1 text-neutral-500 leading-tight">{testimonial.title}</div>
-                        </div>
-                      </figcaption>
-
-                      <motion.a
-                        href={testimonial.websiteUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg group w-fit focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
-                        aria-label={`Visit ${testimonial.sponsorName} website (opens in new tab)`}
-                      >
-                        <span>Visit {testimonial.sponsorName}</span>
-                        <RiExternalLinkLine
-                          className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5"
-                          aria-hidden="true"
-                        />
-                      </motion.a>
-                    </div>
-                  </figure>
-                </article>
-              </motion.div>
+                testimonial={testimonial}
+                isInView={isInView}
+                index={index}
+              />
             ))}
           </motion.div>
         </div>

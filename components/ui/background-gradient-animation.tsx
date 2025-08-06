@@ -2,8 +2,8 @@
 
 import type React from "react"
 
-import { cn } from "../../lib/utils"
 import { useEffect, useRef, useState } from "react"
+import { cn } from "../../lib/utils"
 
 export const BackgroundGradientAnimation = ({
   gradientBackgroundStart = "rgb(108, 0, 162)",
@@ -53,7 +53,18 @@ export const BackgroundGradientAnimation = ({
     document.body.style.setProperty("--pointer-color", pointerColor)
     document.body.style.setProperty("--size", size)
     document.body.style.setProperty("--blending-value", blendingValue)
-  }, [])
+  }, [
+    gradientBackgroundStart,
+    gradientBackgroundEnd,
+    firstColor,
+    secondColor,
+    thirdColor,
+    fourthColor,
+    fifthColor,
+    pointerColor,
+    size,
+    blendingValue,
+  ])
 
   useEffect(() => {
     function move() {
@@ -65,7 +76,7 @@ export const BackgroundGradientAnimation = ({
       interactiveRef.current.style.transform = `translate(${Math.round(curX)}px, ${Math.round(curY)}px)`
     }
     move()
-  }, [tgX, tgY])
+  }, [tgX, tgY, curX, curY])
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     if (interactiveRef.current) {

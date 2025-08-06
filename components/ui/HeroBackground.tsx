@@ -174,6 +174,7 @@ const HeroBackground = () => {
 
   // Pause animation when component is not visible
   useEffect(() => {
+    const currentCanvas = canvasRef.current
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsPaused(!entry.isIntersecting)
@@ -181,13 +182,13 @@ const HeroBackground = () => {
       { threshold: 0.1 },
     )
 
-    if (canvasRef.current) {
-      observer.observe(canvasRef.current)
+    if (currentCanvas) {
+      observer.observe(currentCanvas)
     }
 
     return () => {
-      if (canvasRef.current) {
-        observer.unobserve(canvasRef.current)
+      if (currentCanvas) {
+        observer.unobserve(currentCanvas)
       }
     }
   }, [])

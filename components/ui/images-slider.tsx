@@ -1,8 +1,8 @@
 "use client"
-import { cn } from "../../lib/utils"
-import { motion, AnimatePresence } from "motion/react"
+import { AnimatePresence, motion } from "motion/react"
 import type React from "react"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
+import { cn } from "../../lib/utils"
 
 export const ImagesSlider = ({
   images,
@@ -25,19 +25,15 @@ export const ImagesSlider = ({
   const [, setLoading] = useState(false)
   const [loadedImages, setLoadedImages] = useState<string[]>([])
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1 === images.length ? 0 : prevIndex + 1))
-  }
+  }, [images.length])
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1))
-  }
+  }, [images.length])
 
-  useEffect(() => {
-    loadImages()
-  }, [])
-
-  const loadImages = () => {
+  const loadImages = useCallback(() => {
     setLoading(true)
     const loadPromises = images.map((image) => {
       return new Promise((resolve, reject) => {
@@ -54,7 +50,11 @@ export const ImagesSlider = ({
         setLoading(false)
       })
       .catch((error) => console.error("Failed to load images", error))
-  }
+  }, [images])
+
+  useEffect(() => {
+    loadImages()
+  }, [loadImages])
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -68,7 +68,7 @@ export const ImagesSlider = ({
     window.addEventListener("keydown", handleKeyDown)
 
     // autoplay
-    let interval: any
+    let interval: NodeJS.Timeout | undefined
     if (autoplay) {
       interval = setInterval(() => {
         handleNext()
@@ -79,7 +79,7 @@ export const ImagesSlider = ({
       window.removeEventListener("keydown", handleKeyDown)
       clearInterval(interval)
     }
-  }, [])
+  }, [autoplay, handleNext, handlePrevious])
 
   const slideVariants = {
     initial: {
