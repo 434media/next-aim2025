@@ -3,9 +3,12 @@
 import React from "react"
 
 export const HeroVideo = React.memo(() => {
-  // Full screen video only
+  // Responsive video: full screen on desktop (16:9), 4:5 aspect ratio on mobile
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-black" aria-label="Hero video section">
+    <section 
+      className="relative w-full h-screen lg:h-screen aspect-[4/5] lg:aspect-auto overflow-hidden bg-black" 
+      aria-label="Hero video section with responsive aspect ratios"
+    >
       <video
         className="absolute inset-0 w-full h-full object-cover"
         autoPlay
