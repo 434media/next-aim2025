@@ -7,7 +7,7 @@ export default function SurfHero2025() {
     <section className="relative bg-white pt-32 pb-12 md:pt-28 md:pb-16 lg:pt-32 lg:pb-20 overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-neutral-50 to-white"></div>
       </div>
 
       <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
@@ -19,7 +19,7 @@ export default function SurfHero2025() {
             className="max-w-6xl mx-auto"
           >
             <motion.h1
-              className="text-6xl lg:text-9xl font-black mb-6 sm:mb-8 md:mb-10 text-gray-900 leading-[0.9] sm:leading-[0.95] tracking-tight"
+              className="text-6xl lg:text-9xl font-black mb-6 sm:mb-8 md:mb-10 text-neutral-900 leading-[0.9] sm:leading-[0.95] tracking-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -53,12 +53,12 @@ export default function SurfHero2025() {
             />
             
             <motion.p
-              className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-gray-700 mb-12 sm:mb-14 md:mb-16 lg:mb-20 leading-relaxed sm:leading-relaxed md:leading-[1.4] lg:leading-[1.5] max-w-xs sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto font-light px-4 sm:px-0"
+              className="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-neutral-700 mb-12 sm:mb-14 md:mb-16 lg:mb-20 leading-relaxed sm:leading-relaxed md:leading-[1.4] lg:leading-[1.5] max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto font-light px-4 sm:px-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              San Antonio Military Health and Universities Research Forum brings together military and civilian researchers, clinicians, and students to showcase cutting-edge research in military medicine and healthcare innovation.
+              San Antonio Military Health and Universities Research Forum <strong>(SURF)</strong> brings together military and civilian researchers, clinicians, and students to showcase cutting-edge research in military medicine and healthcare innovation.
             </motion.p>
 
             {/* Call to action */}
@@ -66,6 +66,7 @@ export default function SurfHero2025() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
+              className="-mt-6 md:mt-0"
             >
               <motion.button
                 className="bg-gradient-to-r from-[#548cac] to-[#8ECAE6] text-white px-8 py-4 sm:px-10 sm:py-4 md:px-12 md:py-5 lg:px-14 lg:py-6 rounded-xl font-semibold text-base sm:text-lg md:text-xl lg:text-2xl shadow-lg hover:shadow-xl transition-all duration-300"
