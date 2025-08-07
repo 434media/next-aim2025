@@ -294,7 +294,7 @@ export default function SponsorSpotlight() {
             Interested in sponsoring <strong>AIM&apos;26</strong>?{" "}
             <Link
               href="/contact-us"
-              className="font-semibold text-sky-600 hover:text-sky-700 transition-colors duration-200 underline decoration-sky-600/30 hover:decoration-sky-700/50"
+              className="block md:inline-flex font-semibold text-sky-600 hover:text-sky-700 transition-colors duration-200 underline decoration-sky-600/30 hover:decoration-sky-700/50"
             >
               Contact us
             </Link>
