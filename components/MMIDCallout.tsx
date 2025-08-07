@@ -14,17 +14,17 @@ export default function MMIDCallout() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           viewport={{ once: true }}
         >
-          <div className="relative px-8 py-16 sm:px-16 sm:py-20 lg:px-24 lg:py-24 text-left md:text-center">
+          <div className="relative px-0 py-16 sm:px-16 sm:py-20 lg:px-24 lg:py-24 text-left md:text-center">
 
             {/* Heading */}
             <motion.h2
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-900 tracking-tight leading-tight mb-6"
+              className="text-5xl lg:text-7xl font-extrabold text-neutral-900 tracking-tight leading-tight mb-6 -mt-16"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              Preparatory Webinar Sessions
+              Preparatory Webinars
             </motion.h2>
 
             {/* Description */}
@@ -40,7 +40,7 @@ export default function MMIDCallout() {
 
             {/* CTA Button */}
             <motion.div
-              className="flex justify-center"
+              className="flex justify-start md:justify-center" 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}

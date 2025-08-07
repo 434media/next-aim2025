@@ -116,10 +116,10 @@ export default function PreConferenceSymposiums() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-neutral-900 leading-[0.9] tracking-tight"
+                    className="text-5xl lg:text-6xl xl:text-7xl font-black text-neutral-900 leading-[0.9] tracking-tight"
                     id="page-heading"
                   >
-                    Pre-Conference Symposiums
+                    Conference Symposiums
                   </motion.h1>
                   
                   <motion.div
