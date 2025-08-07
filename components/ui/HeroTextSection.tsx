@@ -68,7 +68,7 @@ export const HeroTextSection = React.memo(() => {
     return (
       <section
         ref={containerRef}
-        className="relative overflow-hidden min-h-[110vh] bg-gradient-to-tr from-slate-900 via-neutral-950 to-black"
+        className="relative overflow-hidden min-h-[100vh] bg-gradient-to-tr from-slate-900 via-neutral-950 to-black"
         aria-label="Hero text section"
       >
         {/* Skip Link */}
@@ -260,7 +260,7 @@ export const HeroTextSection = React.memo(() => {
         }}
       >
         <div className="bg-gradient-to-b from-transparent via-slate-900/80 to-slate-900 backdrop-blur-sm">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
             <div className="text-center max-w-4xl mx-auto">
               {/* Paragraph Text */}
               <motion.p

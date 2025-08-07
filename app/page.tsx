@@ -2,7 +2,6 @@ import { PartnerMarquee } from "../components/ui/PartnerMarquee"
 import { additionalPartners, mainPartners } from "../data/partners"
 import { HeroVideo } from "../components/ui/HeroVideo"
 import { HeroTextSection } from "../components/ui/HeroTextSection"
-import { ExperienceInnovationCTA } from "../components/ExperienceInnovationCTA"
 
 export default function Home() {
   return (
@@ -30,22 +29,8 @@ export default function Home() {
             Our Partners
           </h2>
 
-          {/* Section Header */}
-          <div className="text-center mb-12">
-            <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 mb-4">
-              Powered by{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600">
-                Innovation
-              </span>
-            </h3>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Our success is built on the foundation of strategic partnerships with industry leaders, research
-              institutions, and government organizations committed to advancing military medicine.
-            </p>
-          </div>
-
           <div className="space-y-8">
-            <PartnerMarquee partners={mainPartners} ariaLabel="Main partners and sponsors" />
+            <PartnerMarquee partners={mainPartners} ariaLabel="Main partners and sponsors" showHeader={true} />
             <PartnerMarquee
               partners={additionalPartners}
               reverse
@@ -54,14 +39,6 @@ export default function Home() {
             />
           </div>
         </div>
-      </section>
-
-      {/* Experience Innovation CTA Section */}
-      <section aria-labelledby="cta-heading" className="w-full">
-        <h2 id="cta-heading" className="sr-only">
-          Experience Innovation Call to Action
-        </h2>
-        <ExperienceInnovationCTA />
       </section>
     </main>
   )

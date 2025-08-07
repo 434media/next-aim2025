@@ -123,7 +123,7 @@ export function AIM2025Speakers() {
           >
             <Link
               href="/speakers"
-              className="inline-flex items-center px-8 py-4 bg-neutral-900 text-white font-semibold rounded-full hover:bg-neutral-800 transition-all duration-300 group shadow-lg hover:shadow-xl"
+              className="inline-flex items-center px-8 py-4 bg-neutral-900 text-white font-semibold rounded-lg hover:bg-neutral-800 transition-all duration-300 group shadow-lg hover:shadow-xl"
             >
               View AIM&apos;25 Speakers
               <RiArrowRightLine className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
