@@ -1,17 +1,26 @@
 import { PartnerMarquee } from "../components/ui/PartnerMarquee"
 import { additionalPartners, mainPartners } from "../data/partners"
 import { HeroVideo } from "../components/ui/HeroVideo"
+import { HeroTextSection } from "../components/ui/HeroTextSection"
 import { ExperienceInnovationCTA } from "../components/ExperienceInnovationCTA"
 
 export default function Home() {
   return (
     <main className="relative mx-auto flex flex-col scroll-smooth" id="main-content">
-      {/* Hero Video Section */}
-      <section aria-labelledby="hero-heading" className="w-full">
-        <h1 id="hero-heading" className="sr-only">
-          AIM Summit - Advancing Innovation in Military Medicine
+      {/* Full Screen Hero Video Section */}
+      <section aria-labelledby="hero-video-heading" className="w-full">
+        <h1 id="hero-video-heading" className="sr-only">
+          AIM Summit - Hero Video
         </h1>
         <HeroVideo />
+      </section>
+
+      {/* Hero Text Section - Centered */}
+      <section aria-labelledby="hero-text-heading" className="w-full">
+        <h2 id="hero-text-heading" className="sr-only">
+          AIM Summit - Advancing Innovation in Military Medicine
+        </h2>
+        <HeroTextSection />
       </section>
 
       {/* Partners Section */}

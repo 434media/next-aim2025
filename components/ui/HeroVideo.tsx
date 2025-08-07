@@ -1,30 +1,28 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
-import { useMediaQuery } from "../../hooks/useMediaQuery"
-import { useReducedMotion } from "../../hooks/useReducedMotion"
-import { DesktopHeroVideo } from "../hero/DesktopHeroVideo"
-import { MobileHeroVideo } from "../hero/MobileHeroVideo"
+import React from "react"
 
 export const HeroVideo = React.memo(() => {
-  const prefersReducedMotion = useReducedMotion()
-  const isMobile = useMediaQuery("(max-width: 1023px)")
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
-  if (!isMounted) {
-    // Return a minimal placeholder while we wait for client-side hydration
-    return <div className="min-h-[100vh] bg-white" aria-label="Loading hero section..." />
-  }
-
-  // Render the appropriate component based on device type
-  return isMobile ? (
-    <MobileHeroVideo prefersReducedMotion={prefersReducedMotion} />
-  ) : (
-    <DesktopHeroVideo prefersReducedMotion={prefersReducedMotion} />
+  // Full screen video only
+  return (
+    <section className="relative w-full h-screen overflow-hidden bg-black" aria-label="Hero video section">
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-label="AIM Summit promotional video"
+      >
+        <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+Long+Form+V4.mp4" type="video/mp4" />
+        <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+Long+Form+V4.mp4" type="video/webm" />
+        Your browser does not support the video tag.
+      </video>
+      
+      {/* Optional overlay for better text readability if needed */}
+      <div className="absolute inset-0 bg-black/20" />
+    </section>
   )
 })
 
