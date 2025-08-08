@@ -8,7 +8,7 @@ import { cn } from "../lib/utils"
 
 const eventImages = [
   {
-    url: "https://ampd-asset.s3.us-east-2.amazonaws.com/recap+poster.png",
+    url: "https://ampd-asset.s3.us-east-2.amazonaws.com/recap-poster-group",
     title: "AIM'25 Recap",
     subtitle: "The future of military medicine starts now",
     buttonText: "Watch AIM'25 Video",
