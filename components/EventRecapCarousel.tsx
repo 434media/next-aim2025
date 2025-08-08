@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, forwardRef } from "react"
-import { motion, AnimatePresence, wrap } from "framer-motion"
+import { motion, AnimatePresence, wrap } from "motion/react"
 import { RiPlayFill, RiCloseLine, RiArrowRightLine, RiArrowLeftLine } from "@remixicon/react"
 import { useMediaQuery } from "../hooks/useMediaQuery"
 import { cn } from "../lib/utils"
