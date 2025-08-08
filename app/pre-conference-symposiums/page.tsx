@@ -166,7 +166,7 @@ export default function PreConferenceSymposiums() {
             >
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  src="https://ampd-asset.s3.us-east-2.amazonaws.com/preaimweb-20.jpg"
+                  src="https://ampd-asset.s3.us-east-2.amazonaws.com/preaimweb-23.jpg"
                   alt="Pre-conference symposium participants engaging in collaborative discussion"
                   fill
                   className="object-cover"

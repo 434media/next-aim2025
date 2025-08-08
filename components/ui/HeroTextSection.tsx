@@ -120,7 +120,7 @@ export const HeroTextSection = React.memo(() => {
                       initial={{ opacity: 0, rotateX: 90 }}
                       animate={{ opacity: 1, rotateX: 0 }}
                       transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                      className="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent"
+                      className="bg-gradient-to-r from-red-400 via-orange-400 to-amber-400 bg-clip-text text-transparent"
                     >
                       Now
                     </motion.span>
@@ -237,7 +237,7 @@ export const HeroTextSection = React.memo(() => {
                       initial={{ opacity: 0, y: 30, rotateX: 90 }}
                       animate={{ opacity: 1, y: 0, rotateX: 0 }}
                       transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                      className="inline-block ml-4 bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent"
+                      className="inline-block ml-4 bg-gradient-to-r from-red-400 via-orange-400 to-amber-400 bg-clip-text text-transparent"
                       style={{ transformOrigin: "center bottom" }}
                     >
                       Now

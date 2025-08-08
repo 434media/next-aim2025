@@ -1,14 +1,14 @@
 "use client"
 
 import { useState, useEffect, forwardRef } from "react"
-import { motion, AnimatePresence, wrap } from "motion/react"
+import { motion, AnimatePresence, wrap } from "framer-motion"
 import { RiPlayFill, RiCloseLine, RiArrowRightLine, RiArrowLeftLine } from "@remixicon/react"
 import { useMediaQuery } from "../hooks/useMediaQuery"
 import { cn } from "../lib/utils"
 
 const eventImages = [
   {
-    url: "https://ampd-asset.s3.us-east-2.amazonaws.com/keynote.jpeg",
+    url: "https://ampd-asset.s3.us-east-2.amazonaws.com/recap+poster.png",
     title: "AIM'25 Recap",
     subtitle: "The future of military medicine starts now",
     buttonText: "Watch AIM'25 Video",
@@ -16,7 +16,7 @@ const eventImages = [
     videoUrl: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+Long+Form+V4.mp4"
   },
   {
-    url: "https://ampd-asset.s3.us-east-2.amazonaws.com/mtec-speaker.jpg",
+    url: "https://ampd-asset.s3.us-east-2.amazonaws.com/keynote.jpeg",
     title: "Leaders Shaping Tomorrow",
     subtitle: "Across military defense and civilian sectors",
     buttonText: "View AIM'25 Speakers",
@@ -32,7 +32,7 @@ const eventImages = [
     link: "/posters"
   },
   {
-    url: "https://ampd-asset.s3.us-east-2.amazonaws.com/preaimweb-23.jpg",
+    url: "https://ampd-asset.s3.us-east-2.amazonaws.com/preaimweb-20.jpg",
     title: "Pre-Conference Symposiums",
     subtitle: "Focused sessions with deep insights into military healthcare innovation",
     buttonText: "View AIM'25 Sessions",
@@ -80,12 +80,11 @@ const SlideImage = forwardRef<HTMLImageElement, { src: string; alt: string; dire
           }
         }}
         className="image h-full w-full absolute inset-0 object-cover object-center z-10"
-        onError={(e) => {
-          console.error('❌ Image failed to render:', src)
-          e.currentTarget.style.display = 'none'
+        style={{
+          aspectRatio: '4/5'
         }}
-        onLoad={() => {
-          console.log('✅ Image rendered successfully:', src)
+        onError={(e) => {
+          e.currentTarget.style.display = 'none'
         }}
       />
     )
@@ -101,6 +100,13 @@ const SlideContent = forwardRef<HTMLDivElement, {
   buttonVariants: any
   direction: number
 }>(function SlideContent({ image, onCTAClick, isMobile, isTablet, textRevealVariants, buttonVariants, direction }, ref) {
+  
+  const handleButtonClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    onCTAClick(image)
+  }
+
   return (
     <motion.div
       ref={ref}
@@ -130,95 +136,122 @@ const SlideContent = forwardRef<HTMLDivElement, {
       }}
       className="z-30 absolute bottom-0 left-0 right-0 flex flex-col justify-end items-center px-4 sm:px-6 lg:px-8 text-center pb-8 sm:pb-12 lg:pb-16"
     >
-      {/* Smaller Text Overlay with compact background */}
       <motion.div
-        className={`relative ${isMobile ? "mb-4" : "mb-6"} overflow-hidden`}
+        className={`relative ${isMobile ? "mb-4" : "mb-6"} overflow-hidden max-w-sm mx-auto`}
         variants={textRevealVariants}
         initial="hidden"
         animate="visible"
         exit="exit"
       >
-        {/* Compact background for accessibility */}
-        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm rounded-xl" />
+        <div className="absolute inset-0 bg-black/75 backdrop-blur-sm rounded-xl" />
 
         <div className="relative px-4 py-3 sm:px-6 sm:py-4">
           <motion.h2
-            className={`leading-tight font-bold tracking-tight text-white ${
+            className={`leading-tight tracking-tight text-white ${
               isMobile
-                ? "text-xl sm:text-2xl"
+                ? "text-2xl font-black mb-1"
                 : isTablet
-                  ? "text-2xl lg:text-3xl"
-                  : "text-3xl xl:text-4xl"
+                  ? "text-3xl font-bold mb-2"
+                  : "text-4xl font-bold mb-2"
             }`}
             style={{
-              textShadow: "0 2px 4px rgba(0,0,0,0.8)",
+              textShadow: "0 2px 8px rgba(0,0,0,0.9)",
             }}
           >
             <motion.span 
-              className="block text-white font-bold mb-1"
+              className="block text-white"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.3 }}
             >
               {image.title}
             </motion.span>
-            <motion.span 
-              className="block"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15, duration: 0.3 }}
-            >
-              <span className="text-sky-200 font-semibold text-sm sm:text-base lg:text-lg">{image.subtitle}</span>
-            </motion.span>
           </motion.h2>
+          
+          <motion.p
+            className={`text-sky-100 leading-snug tracking-tighter ${
+              isMobile
+                ? "text-sm font-medium"
+                : isTablet
+                  ? "text-base font-medium"
+                  : "text-lg font-medium"
+            }`}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.3 }}
+            style={{
+              textShadow: "0 1px 4px rgba(0,0,0,0.8)",
+            }}
+          >
+            {image.subtitle}
+          </motion.p>
         </div>
       </motion.div>
 
-      {/* Smaller CTA Button */}
       <motion.div
-        className="relative overflow-hidden"
+        className="relative"
         variants={buttonVariants}
         initial="hidden"
         animate="visible"
-        whileHover="hover"
-        whileTap="tap"
       >
         {image.action === "link" && image.link ? (
           <motion.button
-            onClick={() => onCTAClick(image)}
-            className={`relative transition-all duration-300 shadow-xl bg-white hover:bg-gray-50 text-black font-semibold border border-white hover:border-gray-100 ${
+            onClick={handleButtonClick}
+            whileHover={{ 
+              scale: 1.05,
+              y: -2,
+              transition: { duration: 0.2, ease: "easeOut" }
+            }}
+            whileTap={{ 
+              scale: 0.95,
+              transition: { duration: 0.1 }
+            }}
+            className={`relative transition-all duration-300 shadow-xl bg-white hover:bg-gray-50 text-black border border-white hover:border-gray-100 cursor-pointer select-none ${
               isMobile
-                ? "text-sm py-2 px-4 rounded-lg"
+                ? "text-sm font-bold py-3 px-6 rounded-lg"
                 : isTablet
-                  ? "text-base py-2.5 px-5 rounded-lg"
-                  : "text-base py-3 px-6 rounded-lg"
+                  ? "text-base font-semibold py-3 px-6 rounded-lg"
+                  : "text-lg font-semibold py-4 px-8 rounded-lg"
             }`}
             style={{
-              boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
+              pointerEvents: "auto",
+              zIndex: 100
             }}
           >
-            <span className="flex items-center justify-center relative z-10">
+            <span className="flex items-center justify-center relative z-10 pointer-events-none">
               {image.buttonText}
-              <RiArrowRightLine className={`${isMobile ? "ml-1.5 size-3.5" : "ml-2 size-4"}`} />
+              <RiArrowRightLine className={`${isMobile ? "ml-2 size-4" : "ml-2 size-5"}`} />
             </span>
           </motion.button>
         ) : (
           <motion.button
-            onClick={() => onCTAClick(image)}
-            className={`relative transition-all duration-300 shadow-xl bg-white hover:bg-gray-50 text-black font-semibold border border-white hover:border-gray-100 ${
+            onClick={handleButtonClick}
+            whileHover={{ 
+              scale: 1.05,
+              y: -2,
+              transition: { duration: 0.2, ease: "easeOut" }
+            }}
+            whileTap={{ 
+              scale: 0.95,
+              transition: { duration: 0.1 }
+            }}
+            className={`relative transition-all duration-300 shadow-xl bg-white hover:bg-gray-50 text-black border border-white hover:border-gray-100 cursor-pointer select-none ${
               isMobile
-                ? "text-sm py-2 px-4 rounded-lg"
+                ? "text-sm font-bold py-3 px-6 rounded-lg"
                 : isTablet
-                  ? "text-base py-2.5 px-5 rounded-lg"
-                  : "text-base py-3 px-6 rounded-lg"
+                  ? "text-base font-semibold py-3 px-6 rounded-lg"
+                  : "text-lg font-semibold py-4 px-8 rounded-lg"
             }`}
             style={{
-              boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
+              pointerEvents: "auto",
+              zIndex: 100
             }}
           >
-            <span className="flex items-center justify-center relative z-10">
+            <span className="flex items-center justify-center relative z-10 pointer-events-none">
               {image.buttonText}
-              <RiPlayFill className={`${isMobile ? "ml-1.5 size-3.5" : "ml-2 size-4"}`} />
+              <RiPlayFill className={`${isMobile ? "ml-2 size-4" : "ml-2 size-5"}`} />
             </span>
           </motion.button>
         )}
@@ -236,11 +269,11 @@ export function EventRecapCarousel() {
   const [direction, setDirection] = useState<1 | -1>(1)
   const [loading, setLoading] = useState(true)
   const [loadedImages, setLoadedImages] = useState<string[]>([])
-  const [imageErrors, setImageErrors] = useState<string[]>([])
+  const [, setImageErrors] = useState<string[]>([])
+  const [videoError, setVideoError] = useState<string | null>(null)
 
   const images = eventImages.map(event => event.url)
 
-  // Load images on component mount
   useEffect(() => {
     loadImages()
   }, [])
@@ -253,33 +286,27 @@ export function EventRecapCarousel() {
 
     setLoading(true)
     setImageErrors([])
-    console.log('🔄 Starting to load images:', images)
     
     try {
       const loadPromises = images.map((imageSrc, index) => {
         return new Promise<{ src: string; index: number; success: boolean }>((resolve) => {
           const img = new Image()
           
-          // Set up timeout for slow loading images
           const timeout = setTimeout(() => {
-            console.warn(`⏰ Image ${index + 1} timed out after 10 seconds:`, imageSrc)
             resolve({ src: imageSrc, index, success: false })
           }, 10000)
           
           img.onload = () => {
             clearTimeout(timeout)
-            console.log(`✅ Successfully loaded image ${index + 1}:`, imageSrc)
             resolve({ src: imageSrc, index, success: true })
           }
           
-          img.onerror = (error) => {
+          img.onerror = () => {
             clearTimeout(timeout)
-            console.warn(`❌ Failed to load image ${index + 1}:`, imageSrc, error)
             setImageErrors(prev => [...prev, imageSrc])
             resolve({ src: imageSrc, index, success: false })
           }
           
-          // Don't set crossOrigin to avoid CORS issues with S3
           img.src = imageSrc
         })
       })
@@ -289,19 +316,9 @@ export function EventRecapCarousel() {
         .filter(result => result.success)
         .map(result => result.src)
       
-      console.log(`📊 Image loading complete: ${successfulImages.length}/${images.length} successful`)
-      console.log('✅ Successfully loaded images:', successfulImages)
-      console.log('❌ Failed images:', results.filter(r => !r.success).map(r => r.src))
-      
       setLoadedImages(successfulImages)
       
-      if (successfulImages.length === 0) {
-        console.error('❌ No images could be loaded successfully')
-        // Don't throw error, just set empty array
-      }
-      
     } catch (error) {
-      console.error("❌ Critical error during image loading:", error)
       setLoadedImages([])
     } finally {
       setLoading(false)
@@ -316,16 +333,22 @@ export function EventRecapCarousel() {
 
   const handleCTAClick = (image: typeof eventImages[0]) => {
     if (image.action === "video") {
+      setVideoError(null)
       setCurrentVideoUrl(image.videoUrl || "")
       setIsVideoModalOpen(true)
     } else if (image.action === "link" && image.link) {
-      window.location.href = image.link
+      if (image.link.startsWith('/')) {
+        window.location.href = image.link
+      } else {
+        window.open(image.link, '_blank', 'noopener,noreferrer')
+      }
     }
   }
 
   const closeVideoModal = () => {
     setIsVideoModalOpen(false)
     setCurrentVideoUrl("")
+    setVideoError(null)
   }
 
   const handleSlideChange = (index: number) => {
@@ -333,6 +356,12 @@ export function EventRecapCarousel() {
       setDirection(index > currentImageIndex ? 1 : -1)
       setCurrentImageIndex(index)
     }
+  }
+
+  const handleVideoError = (error: React.SyntheticEvent<HTMLVideoElement, Event>) => {
+    const videoElement = error.currentTarget
+    const errorMessage = `Video failed to load: ${videoElement.error?.message || 'Unknown error'}`
+    setVideoError(errorMessage)
   }
 
   const currentImage = eventImages[currentImageIndex]
@@ -380,37 +409,12 @@ export function EventRecapCarousel() {
         delay: 0.1,
         ease: [0.34, 1.56, 0.64, 1]
       }
-    },
-    hover: {
-      scale: 1.03,
-      y: -1,
-      transition: {
-        duration: 0.15,
-        ease: "easeOut"
-      }
-    },
-    tap: {
-      scale: 0.97,
-      transition: {
-        duration: 0.1
-      }
     }
   }
 
-  // Debug logging
-  console.log('🎠 EventRecapCarousel Debug:', {
-    currentImageIndex,
-    totalEvents: eventImages.length,
-    currentEventTitle: currentImage?.title,
-    loadedImages: loadedImages.length,
-    loading,
-    imageErrors: imageErrors.length
-  })
-
-  // Loading state
   if (loading) {
     return (
-      <section className="relative w-full h-screen overflow-hidden isolate bg-black flex items-center justify-center">
+      <section className="relative w-full overflow-hidden isolate bg-black flex items-center justify-center" style={{ aspectRatio: isMobile ? '4/5' : '16/9', minHeight: isMobile ? '100vh' : '100vh' }}>
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4 mx-auto"></div>
           <p className="text-white font-medium">Loading carousel images...</p>
@@ -420,14 +424,10 @@ export function EventRecapCarousel() {
     )
   }
 
-  // Error state - but still show carousel with fallback
   if (!areImagesLoaded) {
-    console.warn('⚠️ No images loaded, showing carousel with placeholders')
-    // Instead of showing error, show carousel with placeholder images
     return (
       <section className="relative w-full overflow-hidden isolate bg-white">
         <div className="mx-auto max-w-7xl relative">
-          {/* Navigation Buttons */}
           <motion.button
             initial={false}
             animate={{ 
@@ -460,18 +460,14 @@ export function EventRecapCarousel() {
             <RiArrowRightLine className="w-6 h-6" />
           </motion.button>
 
-          {/* Placeholder Image Container */}
-          <div className="overflow-hidden h-screen w-full relative flex items-center justify-center isolate bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
-            {/* Overlay */}
+          <div className="overflow-hidden w-full relative flex items-center justify-center isolate bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900" style={{ aspectRatio: isMobile ? '4/5' : '16/9', minHeight: isMobile ? '100vh' : '100vh' }}>
             <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
             
-            {/* Placeholder Pattern */}
             <div className="absolute inset-0 z-10 opacity-20">
               <div className="w-full h-full bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-indigo-500/30"></div>
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]"></div>
             </div>
 
-            {/* Content Overlay */}
             <AnimatePresence mode="wait" custom={direction}>
               <SlideContent
                 key={currentImageIndex}
@@ -485,7 +481,6 @@ export function EventRecapCarousel() {
               />
             </AnimatePresence>
 
-            {/* Slide indicators */}
             <motion.div 
               className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-50"
               initial={{ opacity: 0, y: 20 }}
@@ -510,7 +505,6 @@ export function EventRecapCarousel() {
           </div>
         </div>
 
-        {/* Accessibility: Screen reader content */}
         <div className="sr-only">
           <p>Event recap slideshow showcasing highlights from AIM 2025</p>
           <p>{currentImage.title} - {currentImage.subtitle}</p>
@@ -523,9 +517,7 @@ export function EventRecapCarousel() {
   return (
     <>
       <section className="relative w-full overflow-hidden isolate bg-white">
-        {/* Full Viewport Slider with max-w-7xl constraint */}
         <div className="mx-auto max-w-7xl relative">
-          {/* Navigation Buttons */}
           <motion.button
             initial={false}
             animate={{ 
@@ -558,9 +550,7 @@ export function EventRecapCarousel() {
             <RiArrowRightLine className="w-6 h-6" />
           </motion.button>
 
-          {/* Image Slider Container */}
-          <div className={cn("overflow-hidden h-screen w-full relative flex items-center justify-center isolate bg-black")}>
-            {/* Image Animation */}
+          <div className={cn("overflow-hidden w-full relative flex items-center justify-center isolate bg-black")} style={{ aspectRatio: isMobile ? '4/5' : '16/9', minHeight: isMobile ? '100vh' : '100vh' }}>
             <AnimatePresence mode="wait" custom={direction}>
               <SlideImage
                 key={safeCurrentIndex}
@@ -570,7 +560,6 @@ export function EventRecapCarousel() {
               />
             </AnimatePresence>
 
-            {/* Content Overlay */}
             <AnimatePresence mode="wait" custom={direction}>
               <SlideContent
                 key={currentImageIndex}
@@ -584,7 +573,6 @@ export function EventRecapCarousel() {
               />
             </AnimatePresence>
 
-            {/* Slide indicators */}
             <motion.div 
               className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-50"
               initial={{ opacity: 0, y: 20 }}
@@ -609,7 +597,6 @@ export function EventRecapCarousel() {
           </div>
         </div>
 
-        {/* Accessibility: Screen reader content */}
         <div className="sr-only">
           <p>Event recap slideshow showcasing highlights from AIM 2025</p>
           <p>{currentImage.title} - {currentImage.subtitle}</p>
@@ -617,14 +604,13 @@ export function EventRecapCarousel() {
         </div>
       </section>
 
-      {/* Enhanced Video Modal */}
       <AnimatePresence>
-        {isVideoModalOpen && (
+        {isVideoModalOpen && currentVideoUrl && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-xl"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-xl p-4"
             onClick={closeVideoModal}
           >
             <motion.div
@@ -637,29 +623,65 @@ export function EventRecapCarousel() {
                 damping: 30,
                 duration: 0.4
               }}
-              className="relative w-full max-w-6xl mx-4 bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/10"
+              className={`relative w-full bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/10 ${
+                isMobile ? 'max-w-sm' : 'max-w-6xl'
+              }`}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Enhanced Close Button */}
               <motion.button
                 onClick={closeVideoModal}
-                className="absolute top-6 right-6 z-10 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all duration-300 backdrop-blur-sm border border-white/20"
+                className="absolute top-4 right-4 z-10 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all duration-300 backdrop-blur-sm border border-white/20"
                 aria-label="Close video modal"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <RiCloseLine className="size-6" />
+                <RiCloseLine className="size-5" />
               </motion.button>
 
-              {/* Video Container */}
-              <div className="relative w-full bg-black rounded-3xl overflow-hidden" style={{ paddingBottom: "56.25%" }}>
-                <iframe
-                  src={currentVideoUrl}
-                  className="absolute inset-0 w-full h-full rounded-3xl"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  title="AIM Event Recap Video"
-                />
+              <div 
+                className="relative w-full bg-black rounded-3xl overflow-hidden" 
+                style={{ 
+                  paddingBottom: isMobile ? "125%" : "56.25%" // 4:5 for mobile, 16:9 for desktop
+                }}
+              >
+                {videoError ? (
+                  <div className="absolute inset-0 flex items-center justify-center text-white p-6 text-center">
+                    <div>
+                      <div className="text-red-400 mb-4">
+                        <RiPlayFill className="size-12 mx-auto mb-3 opacity-50" />
+                      </div>
+                      <h3 className={`font-semibold mb-2 ${isMobile ? 'text-lg' : 'text-xl'}`}>Video Unavailable</h3>
+                      <p className={`text-gray-300 mb-4 ${isMobile ? 'text-sm' : 'text-base'}`}>{videoError}</p>
+                      <a 
+                        href={currentVideoUrl} 
+                        className={`inline-flex items-center bg-white/10 hover:bg-white/20 rounded-lg text-white transition-colors duration-200 ${
+                          isMobile ? 'px-3 py-2 text-sm' : 'px-4 py-2 text-base'
+                        }`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Try Direct Link
+                        <RiArrowRightLine className="ml-2 size-4" />
+                      </a>
+                    </div>
+                  </div>
+                ) : (
+                  <video
+                    className="absolute inset-0 w-full h-full rounded-3xl object-cover"
+                    controls
+                    autoPlay
+                    preload="metadata"
+                    onError={handleVideoError}
+                  >
+                    <source src={currentVideoUrl} type="video/mp4" />
+                    <p className="text-white p-4">
+                      Your browser doesn't support HTML5 video. 
+                      <a href={currentVideoUrl} className="text-blue-400 hover:text-blue-300 underline ml-1">
+                        Download the video instead
+                      </a>
+                    </p>
+                  </video>
+                )}
               </div>
             </motion.div>
           </motion.div>
