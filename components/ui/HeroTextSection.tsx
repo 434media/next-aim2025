@@ -81,9 +81,9 @@ export const HeroTextSection = React.memo(() => {
         </a>
 
         {/* Mobile Full Screen Layout */}
-        <div className="sticky top-0 h-screen flex flex-col items-start justify-center px-4 z-10">
+        <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-4 z-10">
           <motion.div
-            className="text-center w-full max-w-lg mx-auto flex flex-col justify-center"
+            className="text-center w-full max-w-lg mx-auto flex-1 flex flex-col justify-center"
             style={{
               opacity: titleOpacity,
               scale: titleScale,
@@ -138,7 +138,7 @@ export const HeroTextSection = React.memo(() => {
                 scale: contentScale,
               }}
             >
-              <p className="text-lg sm:text-xl font-light text-gray-200 leading-relaxed max-w-md mx-auto tracking-tight">
+              <p className="mt-10 text-lg sm:text-xl font-light text-gray-200 leading-relaxed max-w-md mx-auto tracking-tight">
                 Join military and civilian leaders, researchers, and innovators to explore breakthrough technologies, share cutting-edge research, and forge partnerships that will transform healthcare for our service members and beyond.
               </p>
 
