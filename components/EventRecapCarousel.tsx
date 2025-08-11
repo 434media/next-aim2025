@@ -13,7 +13,7 @@ const eventImages = [
     subtitle: "The future of military medicine starts now",
     buttonText: "Watch AIM'25 Video",
     action: "video" as const,
-    videoUrl: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+Long+Form+V4.mp4"
+    videoUrl: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM-V6.mp4"
   },
   {
     url: "https://ampd-asset.s3.us-east-2.amazonaws.com/keynote.jpeg",

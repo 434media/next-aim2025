@@ -138,9 +138,8 @@ export const HeroTextSection = React.memo(() => {
                 scale: contentScale,
               }}
             >
-              <p className="text-lg sm:text-xl font-light text-gray-200 leading-relaxed max-w-md mx-auto">
-                Join military and civilian leaders, researchers, and innovators as we explore breakthrough 
-                technologies and transform healthcare for our service members.
+              <p className="text-lg sm:text-xl font-light text-gray-200 leading-relaxed max-w-md mx-auto tracking-tight">
+                Join military and civilian leaders, researchers, and innovators to explore breakthrough technologies, share cutting-edge research, and forge partnerships that will transform healthcare for our service members and beyond.
               </p>
 
               <div>
@@ -252,7 +251,7 @@ export const HeroTextSection = React.memo(() => {
 
       {/* Content Section - Overlapping with title */}
       <motion.div
-        className="relative z-20 -mt-32 sm:-mt-40 md:-mt-48"
+        className="relative z-20 -mt-32 sm:-mt-40"
         style={{
           opacity: contentOpacity,
           y: contentY,
@@ -264,14 +263,12 @@ export const HeroTextSection = React.memo(() => {
             <div className="text-center max-w-4xl mx-auto">
               {/* Paragraph Text */}
               <motion.p
-                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-200 leading-relaxed mb-12 sm:mb-16"
+                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-200 leading-relaxed mb-12 sm:mb-16 tracking-tighter"
                 initial={{ opacity: 0, y: 30 }}
                 animate={showContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{ duration: 1, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
               >
-                Join military and civilian leaders, researchers, and innovators as we explore breakthrough 
-                technologies, share cutting-edge research, and forge partnerships that will transform 
-                healthcare for our service members and beyond.
+                Join military and civilian leaders, researchers, and innovators to explore breakthrough technologies, share cutting-edge research, and forge partnerships that will transform healthcare for our service members and beyond.
               </motion.p>
 
               {/* Get Involved Button */}

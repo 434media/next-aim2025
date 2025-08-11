@@ -31,8 +31,8 @@ export const HeroVideo = React.memo(() => {
         preload="metadata"
         aria-label="AIM Summit promotional video"
       >
-        <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+Long+Form+V4.mp4" type="video/mp4" />
-        <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+Long+Form+V4.mp4" type="video/webm" />
+        <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM-V6.mp4" type="video/mp4" />
+        <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM-V6.mp4" type="video/webm" />
         Your browser does not support the video tag.
       </video>
       
