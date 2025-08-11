@@ -28,7 +28,7 @@ export const HeroVideo = React.memo(() => {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         aria-label="AIM Summit promotional video"
       >
         <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM-V6.mp4" type="video/mp4" />
