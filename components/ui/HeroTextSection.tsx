@@ -81,9 +81,9 @@ export const HeroTextSection = React.memo(() => {
         </a>
 
         {/* Mobile Full Screen Layout */}
-        <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-4 z-10">
+        <div className="sticky top-0 h-screen flex flex-col items-start justify-center px-4 z-10">
           <motion.div
-            className="text-center w-full max-w-lg mx-auto flex-1 flex flex-col justify-center"
+            className="text-center w-full max-w-lg mx-auto flex flex-col justify-center"
             style={{
               opacity: titleOpacity,
               scale: titleScale,
