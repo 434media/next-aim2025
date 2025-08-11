@@ -1,7 +1,7 @@
 "use client"
 
-import React, { useRef, useCallback, useEffect, useState } from "react"
-import { motion, useScroll, useTransform, AnimatePresence } from "motion/react"
+import { AnimatePresence, motion, useScroll, useTransform } from "motion/react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import { useMediaQuery } from "../../hooks/useMediaQuery"
 import { useReducedMotion } from "../../hooks/useReducedMotion"
 import { Button } from "../Button"
@@ -23,24 +23,24 @@ export const HeroTextSection = React.memo(() => {
   const titleOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1])
   const titleScale = useTransform(scrollYProgress, [0, 0.15], [0.9, 1])
   const titleY = useTransform(scrollYProgress, [0, 0.15], [50, 0])
-  
+
   // Word switch animation trigger - happens quickly after title appears
-  const wordSwitchTrigger = useTransform(scrollYProgress, [0.2, 0.35], [0, 1])
-  
-  // Content reveal animation - appears much sooner
-  const contentOpacity = useTransform(scrollYProgress, [0.25, 0.4], [0, 1])
-  const contentY = useTransform(scrollYProgress, [0.25, 0.4], [20, 0])
-  const contentScale = useTransform(scrollYProgress, [0.25, 0.4], [0.98, 1])
+  const wordSwitchTrigger = useTransform(scrollYProgress, [0.15, 0.3], [0, 1])
+
+  // Content reveal animation - appears sooner on desktop to reduce scroll gap
+  const contentOpacity = useTransform(scrollYProgress, [0.12, 0.26], [0, 1])
+  const contentY = useTransform(scrollYProgress, [0.12, 0.26], [20, 0])
+  const contentScale = useTransform(scrollYProgress, [0.12, 0.26], [0.99, 1])
 
   // Background color transition
-  const backgroundOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1])
+  const backgroundOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1])
 
   // Listen for scroll progress changes
   useEffect(() => {
     const unsubscribeWordSwitch = wordSwitchTrigger.on("change", (value) => {
       setShowWordSwitch(value > 0.5)
     })
-    
+
     const unsubscribeContent = contentOpacity.on("change", (value) => {
       setShowContent(value > 0.1)
     })
@@ -68,7 +68,7 @@ export const HeroTextSection = React.memo(() => {
     return (
       <section
         ref={containerRef}
-        className="relative overflow-hidden min-h-[100vh] bg-gradient-to-tr from-slate-900 via-neutral-950 to-black"
+        className="relative overflow-hidden min-h-[85vh] bg-gradient-to-tr from-slate-900 via-neutral-950 to-black"
         aria-label="Hero text section"
       >
         {/* Skip Link */}
@@ -80,8 +80,8 @@ export const HeroTextSection = React.memo(() => {
           Skip to main content
         </a>
 
-        {/* Mobile Full Screen Layout */}
-        <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-4 z-10">
+        {/* Mobile Layout - slightly shorter than full screen to reduce dead space */}
+        <div className="sticky top-0 h-[75vh] flex flex-col items-center justify-center px-4 z-10">
           <motion.div
             className="text-center w-full max-w-lg mx-auto flex-1 flex flex-col justify-center"
             style={{
@@ -91,8 +91,8 @@ export const HeroTextSection = React.memo(() => {
             }}
           >
             {/* Mobile Title - Military Medicine on same line */}
-            <h1 className="text-5xl sm:text-6xl font-black leading-[0.8] tracking-tight mb-8">
-              <motion.span 
+            <h1 className="text-5xl sm:text-6xl font-black leading-[0.8] tracking-tight mb-3">
+              <motion.span
                 className="text-white"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -131,14 +131,14 @@ export const HeroTextSection = React.memo(() => {
 
             {/* Content directly below title - no animations, immediate display */}
             <motion.div
-              className="space-y-6"
+              className="space-y-4"
               style={{
                 opacity: contentOpacity,
                 y: contentY,
                 scale: contentScale,
               }}
             >
-              <p className="mt-10 text-lg sm:text-xl font-light text-gray-200 leading-relaxed max-w-md mx-auto tracking-tight">
+              <p className="mt-4 text-lg sm:text-xl font-light text-gray-200 leading-relaxed max-w-md mx-auto tracking-tight">
                 Join military and civilian leaders, researchers, and innovators to explore breakthrough technologies, share cutting-edge research, and forge partnerships that will transform healthcare for our service members and beyond.
               </p>
 
@@ -160,11 +160,11 @@ export const HeroTextSection = React.memo(() => {
     )
   }
 
-  // Desktop version (unchanged)
+  // Desktop version (tuned for tighter scroll)
   return (
     <section
       ref={containerRef}
-      className="relative overflow-hidden min-h-[120vh]"
+      className="relative overflow-hidden min-h-[100vh]"
       aria-label="Hero text section"
     >
       {/* Skip Link */}
@@ -182,8 +182,8 @@ export const HeroTextSection = React.memo(() => {
         style={{ opacity: backgroundOpacity }}
       />
 
-      {/* Sticky Full Viewport Title */}
-      <div className="sticky top-0 h-screen flex items-center justify-center z-10">
+      {/* Sticky Title (slightly shorter than full viewport to bring content closer) */}
+      <div className="sticky top-0 h-[90vh] lg:h-[85vh] xl:h-[80vh] flex items-center justify-center z-10">
         <motion.div
           className="text-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
           style={{
@@ -195,7 +195,7 @@ export const HeroTextSection = React.memo(() => {
           {/* Main Title with Word Switch Animation */}
           <div className="relative">
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-black leading-[0.85] tracking-tight mb-4">
-              <motion.span 
+              <motion.span
                 className="block mb-2 sm:mb-4 text-white"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -203,7 +203,7 @@ export const HeroTextSection = React.memo(() => {
               >
                 The Future of
               </motion.span>
-              <motion.span 
+              <motion.span
                 className="block mb-2 sm:mb-4 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -211,7 +211,7 @@ export const HeroTextSection = React.memo(() => {
               >
                 Military Medicine
               </motion.span>
-              <motion.span 
+              <motion.span
                 className="block text-white"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -249,17 +249,17 @@ export const HeroTextSection = React.memo(() => {
         </motion.div>
       </div>
 
-      {/* Content Section - Overlapping with title */}
+      {/* Content Section - Overlaps upward to minimize scroll between title and content */}
       <motion.div
-        className="relative z-20"
+        className="relative z-20 -mt-10 sm:-mt-12 lg:-mt-20 xl:-mt-24"
         style={{
           opacity: contentOpacity,
           y: contentY,
           scale: contentScale,
         }}
       >
-        <div className="bg-gradient-to-b from-transparent via-slate-900/80 to-slate-900 backdrop-blur-sm">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+        <div className="bg-gradient-to-b from-transparent via-slate-900/70 to-slate-900 backdrop-blur-sm">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-16">
             <div className="text-center max-w-4xl mx-auto">
               {/* Paragraph Text */}
               <motion.p
