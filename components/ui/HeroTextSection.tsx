@@ -251,7 +251,7 @@ export const HeroTextSection = React.memo(() => {
 
       {/* Content Section - Overlapping with title */}
       <motion.div
-        className="relative z-20 -mt-32 sm:-mt-40"
+        className="relative z-20"
         style={{
           opacity: contentOpacity,
           y: contentY,
