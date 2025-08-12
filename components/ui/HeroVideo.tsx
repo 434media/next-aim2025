@@ -19,7 +19,7 @@ export const HeroVideo = React.memo(() => {
         loop
         playsInline
         preload="auto"
-        poster="https://ampd-asset.s3.us-east-2.amazonaws.com/recap+poster.png"
+        poster="https://ampd-asset.s3.us-east-2.amazonaws.com/aimhero-short.png"
         aria-label="AIM Summit promotional video"
       >
         <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+Cut+Down+Website.mp4" type="video/mp4" />

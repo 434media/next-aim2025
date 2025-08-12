@@ -672,6 +672,7 @@ export function EventRecapCarousel() {
                     autoPlay
                     preload="metadata"
                     onError={handleVideoError}
+                    poster="https://ampd-asset.s3.us-east-2.amazonaws.com/recap+poster.png"
                   >
                     <source src={currentVideoUrl} type="video/mp4" />
                     <p className="text-white p-4">
