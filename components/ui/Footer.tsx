@@ -10,18 +10,19 @@ const footerSections = {
   explore: {
     title: "Explore",
     items: [
-      { label: "Pre-Conference Symposiums", href: "/pre-conference-symposiums" },
-      { label: "Why Attend", href: "/why-attend" },
-      { label: "SURF Program", href: "/surf" },
-      { label: "MMID Initiative", href: "/mmid" },
+      { label: "AIM'25", href: "/aim2025" },
+      { label: "Symposiums", href: "/pre-conference-symposiums" },
+      { label: "Posters", href: "/posters" },
     ],
   },
   connect: {
     title: "Connect",
-    items: [{ label: "Contact Us", href: "/contact-us" }],
+    items: [
+      { label: "Contact Us", href: "/contact-us" },
+      { label: "434 MEDIA", href: "https://www.434media.com/" },
+    ],
   },
 }
-
 
 export default function Footer() {
   const [isVisible, setIsVisible] = useState(false)
@@ -48,7 +49,7 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="bg-[#101310] text-white relative overflow-hidden"
+      className="bg-[#000] text-white relative overflow-hidden"
       aria-labelledby="footer-heading"
     >
       <h2 id="footer-heading" className="sr-only">
@@ -58,7 +59,7 @@ export default function Footer() {
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#101310] via-[#101310] to-[#0a0f0a]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#000] via-[#000] to-[#0a0f0a]" />
 
         {/* Floating particles */}
         {[...Array(12)].map((_, i) => (
@@ -97,6 +98,18 @@ export default function Footer() {
           style={{
             backgroundImage: "radial-gradient(circle at 2px 2px, rgba(84, 140, 172, 0.4) 1px, transparent 0)",
             backgroundSize: "40px 40px",
+          }}
+        />
+      </div>
+
+      {/* Background pattern */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url('https://ampd-asset.s3.us-east-2.amazonaws.com/434MediaICONWHITE.png')`,
+            backgroundSize: "100px",
+            backgroundRepeat: "repeat",
           }}
         />
       </div>
@@ -287,7 +300,7 @@ export default function Footer() {
             animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
             transition={{ delay: 1, duration: 0.6 }}
           >
-            <span>Actions speak louder</span>
+            <span>Actions Speak Louder</span>
             <motion.div
               className="w-2 h-2 rounded-full bg-[#548cac]"
               animate={{

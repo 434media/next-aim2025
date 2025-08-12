@@ -7,42 +7,28 @@ export const siteConfig = {
   links: {
     home: "/",
     preConferenceSymposiums: "/pre-conference-symposiums",
-    whyAttend: "/why-attend",
     sponsorsExhibitors: "/sponsors-exhibitors",
     travelVenue: "/travel-venue",
     faq: "/faq",
     contactUs: "/contact-us",
+    
   },
   navItems: [
     {
-      title: "AIM Pre-Conference Symposiums",
+      title: "Symposiums",
       href: "/pre-conference-symposiums",
     },
     {
-      title: "Agenda",
-      items: [
-        { title: "Keynote", href: "/keynote" },
-        { title: "Schedule", href: "/schedule" },
-        { title: "Speakers", href: "/speakers" },
-      ],
+      title: "AIM'25",
+      href: "/aim-25"
     },
     {
-      title: "Attend",
-      items: [
-        { title: "Why Attend", href: "/why-attend" },
-      ],
+      title: "Posters",
+      href: "/posters"
     },
     {
-      title: "Sponsors & Exhibitors",
-      href: "/sponsors-exhibitors",
-    },
-    {
-      title: "More",
-      items: [
-        { title: "Travel & Venue", href: "/travel-venue" },
-        { title: "FAQ", href: "/faq" },
-        { title: "Contact Us", href: "/contact-us" },
-      ],
+      title: "Contact Us",
+      href: "/contact-us"
     },
   ],
 /*   social: {

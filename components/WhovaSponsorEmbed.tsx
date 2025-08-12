@@ -1,17 +1,18 @@
 "use client"
 
-import { useRef, useEffect } from "react"
 import Script from "next/script"
+import { useEffect, useRef } from "react"
 
 export default function WhovaSponsorEmbed() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    const currentRef = containerRef.current
     // Cleanup function to remove all children when component unmounts
     return () => {
-      if (containerRef.current) {
-        while (containerRef.current.firstChild) {
-          containerRef.current.removeChild(containerRef.current.firstChild)
+      if (currentRef) {
+        while (currentRef.firstChild) {
+          currentRef.removeChild(currentRef.firstChild)
         }
       }
     }

@@ -1,9 +1,9 @@
 "use client"
 
-import { RiArrowRightLine, RiFileDownloadLine, RiFilterLine, RiSearchLine, RiTeamLine } from "@remixicon/react"
+import { useState, useMemo, useEffect } from "react"
 import { motion } from "motion/react"
-import { useEffect, useMemo, useState } from "react"
-import { categories, getCategoryColor, getInstitutionBadgeColor, presentersData } from "../../data/surf-presenters"
+import { RiSearchLine, RiFilterLine, RiTeamLine, RiFileDownloadLine, RiArrowRightLine } from "@remixicon/react"
+import { presentersData, categories, getInstitutionBadgeColor, getCategoryColor } from "../../data/surf-presenters"
 
 export default function SurfPresentersSection() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -45,9 +45,11 @@ export default function SurfPresentersSection() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">2025 SURF Presenters</h2>
-          <div className="h-1 w-24 bg-gradient-to-r from-[#366A79] to-[#8ECAE6] mx-auto mb-6"></div>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mb-6 tracking-tight leading-[0.9]">
+            AIM'25 Presenters
+          </h2>
+          <div className="h-1.5 w-32 md:w-40 bg-gradient-to-r from-[#366A79] to-[#8ECAE6] mx-auto mb-8"></div>
+          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-light text-gray-600 max-w-4xl mx-auto leading-relaxed">
             Discover groundbreaking research from leading military and civilian institutions advancing healthcare
             innovation
           </p>
@@ -63,8 +65,8 @@ export default function SurfPresentersSection() {
         >
           {/* Header */}
           <div className="p-6 bg-gradient-to-r from-[#366A79] to-[#548cac] text-white">
-            <h3 className="text-2xl font-bold mb-2">Explore Poster Presenters</h3>
-            <p className="text-sm opacity-90">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 tracking-tight">Explore Research</h3>
+            <p className="text-sm sm:text-base opacity-90 font-light">
               Search through {presentersData.length} presentations across {categories.length - 1} research categories
             </p>
           </div>
@@ -76,7 +78,7 @@ export default function SurfPresentersSection() {
                 <input
                   type="text"
                   placeholder="Search by title, author, or keywords..."
-                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#548cac] focus:border-transparent text-gray-800 text-lg"
+                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#548cac] focus:border-transparent text-gray-800 text-base sm:text-lg font-normal"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   aria-label="Search presenters or topics"
@@ -88,7 +90,7 @@ export default function SurfPresentersSection() {
               </div>
               <div className="relative">
                 <button
-                  className="flex items-center px-6 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 text-gray-700 font-medium min-w-[200px] justify-between"
+                  className="flex items-center px-6 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 text-gray-700 font-medium min-w-[200px] justify-between text-base"
                   onClick={() => setIsFilterOpen(!isFilterOpen)}
                   aria-expanded={isFilterOpen}
                   aria-controls="category-filter"
@@ -111,8 +113,9 @@ export default function SurfPresentersSection() {
                     {categories.map((category) => (
                       <button
                         key={category}
-                        className={`block w-full text-left px-4 py-3 hover:bg-gray-50 text-gray-700 transition-colors ${selectedCategory === category ? "bg-[#548cac]/10 text-[#366A79] font-medium" : ""
-                          }`}
+                        className={`block w-full text-left px-4 py-3 hover:bg-gray-50 text-gray-700 transition-colors font-normal ${
+                          selectedCategory === category ? "bg-[#548cac]/10 text-[#366A79] font-medium" : ""
+                        }`}
                         onClick={() => {
                           setSelectedCategory(category)
                           setIsFilterOpen(false)
@@ -128,7 +131,7 @@ export default function SurfPresentersSection() {
 
             {/* Results count */}
             <div className="mt-4 flex items-center justify-between">
-              <p className="text-gray-600">
+              <p className="text-gray-600 font-normal text-sm sm:text-base">
                 Showing {displayedPresenters.length} of {filteredPresenters.length} presentations
                 {selectedCategory !== "All Categories" && (
                   <span className="ml-2 text-[#548cac] font-medium">in {selectedCategory}</span>
@@ -137,7 +140,7 @@ export default function SurfPresentersSection() {
               <a
                 href="/api/pdf/surf-2025-presenters"
                 download="AIM-SURF-2025-Presenters.pdf"
-                className="inline-flex items-center text-[#548cac] hover:text-[#366A79] font-medium group"
+                className="inline-flex items-center text-[#548cac] hover:text-[#366A79] font-medium group text-sm sm:text-base"
                 aria-label="Download 2025 AIM Poster Presenters"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -171,10 +174,12 @@ export default function SurfPresentersSection() {
                       >
                         {presenter.category}
                       </span>
-                      <h4 className="font-semibold mt-3 text-gray-800 leading-tight line-clamp-3">{presenter.title}</h4>
+                      <h4 className="font-semibold mt-3 text-gray-800 leading-tight line-clamp-3 text-base sm:text-lg">
+                        {presenter.title}
+                      </h4>
                       <div className="flex items-start mt-3">
                         <RiTeamLine className="h-4 w-4 mr-2 mt-1 text-gray-400 flex-shrink-0" />
-                        <p className="text-sm text-gray-600 line-clamp-2">{presenter.authors}</p>
+                        <p className="text-sm text-gray-600 line-clamp-2 font-light">{presenter.authors}</p>
                       </div>
 
                       {presenter.institution && (
@@ -185,13 +190,13 @@ export default function SurfPresentersSection() {
                             .map((inst, i) => (
                               <span
                                 key={i}
-                                className={`text-xs px-2 py-1 rounded-full ${getInstitutionBadgeColor(inst)}`}
+                                className={`text-xs px-2 py-1 rounded-full font-normal ${getInstitutionBadgeColor(inst)}`}
                               >
                                 {inst}
                               </span>
                             ))}
                           {presenter.institution.split(", ").length > 2 && (
-                            <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-600">
+                            <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-600 font-normal">
                               +{presenter.institution.split(", ").length - 2} more
                             </span>
                           )}
@@ -212,7 +217,7 @@ export default function SurfPresentersSection() {
                   >
                     <button
                       onClick={() => setDisplayCount((prev) => Math.min(prev + 6, filteredPresenters.length))}
-                      className="px-8 py-3 bg-[#548cac] hover:bg-[#366A79] text-white rounded-xl font-medium transition-colors"
+                      className="px-8 py-3 bg-[#548cac] hover:bg-[#366A79] text-white rounded-xl font-medium transition-colors text-base sm:text-lg"
                     >
                       Show More ({Math.min(remainingCount, 6)} of {remainingCount} remaining)
                     </button>
@@ -221,7 +226,7 @@ export default function SurfPresentersSection() {
               </>
             ) : (
               <div className="text-center py-12">
-                <p className="text-gray-500 text-lg mb-4">No presentations found matching your criteria.</p>
+                <p className="text-gray-500 text-lg mb-4 font-light">No presentations found matching your criteria.</p>
                 <button
                   className="px-6 py-3 bg-[#548cac] hover:bg-[#366A79] text-white rounded-xl font-medium transition-colors"
                   onClick={() => {
