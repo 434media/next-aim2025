@@ -258,7 +258,7 @@ export const HeroTextSection = React.memo(() => {
           scale: contentScale,
         }}
       >
-        <div className="bg-gradient-to-b from-transparent via-slate-900/70 to-slate-900 backdrop-blur-sm">
+        <div className="bg-gradient-to-b from-transparent via-slate-900/70 to-slate-900">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-16">
             <div className="text-center max-w-4xl mx-auto">
               {/* Paragraph Text */}
