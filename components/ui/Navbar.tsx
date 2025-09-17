@@ -20,12 +20,10 @@ export default function NavBar() {
   const headerRef = useRef<HTMLElement>(null)
   const { scrollY } = useScroll()
 
-  // Enhanced scroll effects
   const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.95])
   const headerBlur = useTransform(scrollY, [0, 100], [0, 8])
   const logoScale = useTransform(scrollY, [0, 100], [1, 0.9])
 
-  // Track scroll state
   useEffect(() => {
     const unsubscribe = scrollY.on("change", (latest) => {
       setIsScrolled(latest > 50)
@@ -41,7 +39,6 @@ export default function NavBar() {
     setIsMenuOpen(false)
   }, [])
 
-  // Handle escape key and body scroll lock for mobile menu
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeMenu()
@@ -49,7 +46,6 @@ export default function NavBar() {
 
     if (isMenuOpen) {
       document.addEventListener("keydown", handleKeyDown)
-      // Only lock scroll on mobile when menu is open
       if (window.innerWidth < 1024) {
         document.body.style.overflow = "hidden"
       }
@@ -84,12 +80,10 @@ export default function NavBar() {
               backdropFilter: `blur(${headerBlur}px)`,
             }}
           >
-            {/* Animated background gradient */}
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#548cac]/5 via-transparent to-[#548cac]/5 opacity-0 hover:opacity-100 transition-opacity duration-700" />
 
             <div className="relative px-6 lg:px-8 py-4">
               <div className="flex items-center justify-between">
-                {/* Logo */}
                 <motion.div style={{ scale: logoScale }}>
                   <Link href="/" className="group flex items-center space-x-3" aria-label="AIM Health R&D Summit Home">
                     <motion.div
@@ -102,7 +96,6 @@ export default function NavBar() {
                         variant="white"
                         className="h-10 w-auto transition-all duration-300 group-hover:drop-shadow-[0_0_15px_rgba(84,140,172,0.3)]"
                       />
-                      {/* Subtle glow effect */}
                       <motion.div
                         className="absolute inset-0 rounded-lg bg-[#548cac]/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                         aria-hidden="true"
@@ -125,33 +118,32 @@ export default function NavBar() {
                   </Link>
                 </motion.div>
 
-                {/* Desktop Navigation Links */}
-                <nav className="hidden lg:flex items-center space-x-8">
-                  {navigationItems.map((item, index) => (
-                    <motion.div
-                      key={item.name}
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 + index * 0.05, duration: 0.3 }}
-                    >
-                      <Link
-                        href={item.href}
-                        className="relative text-white hover:text-[#548cac] transition-colors duration-300 font-medium group py-2 px-3 rounded-lg hover:bg-[#548cac]/10 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black"
+                <div className="flex items-center space-x-8">
+                  <nav className="hidden lg:flex items-center space-x-8">
+                    {navigationItems.map((item, index) => (
+                      <motion.div
+                        key={item.name}
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 + index * 0.05, duration: 0.3 }}
                       >
-                        {item.name}
-                        {/* Underline effect */}
-                        <motion.div
-                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#548cac] origin-left"
-                          initial={{ scaleX: 0 }}
-                          whileHover={{ scaleX: 1 }}
-                          transition={{ duration: 0.3, ease: "easeInOut" }}
-                        />
-                      </Link>
-                    </motion.div>
-                  ))}
-                </nav>
+                        <Link
+                          href={item.href}
+                          className="relative text-white hover:text-[#548cac] transition-colors duration-300 font-medium group py-2 px-3 rounded-lg hover:bg-[#548cac]/10 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black"
+                        >
+                          {item.name}
+                          <motion.div
+                            className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#548cac] origin-left"
+                            initial={{ scaleX: 0 }}
+                            whileHover={{ scaleX: 1 }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                          />
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </nav>
+                </div>
 
-                {/* Mobile Menu Button */}
                 <button
                   onClick={toggleMenu}
                   className={`lg:hidden relative p-3 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black ${
@@ -160,7 +152,6 @@ export default function NavBar() {
                   aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                   aria-expanded={isMenuOpen}
                 >
-                  {/* Menu Icon with smooth transition */}
                   <motion.div
                     className="relative z-10"
                     animate={{ rotate: isMenuOpen ? 180 : 0 }}
@@ -196,7 +187,6 @@ export default function NavBar() {
           </motion.div>
         </div>
 
-        {/* Mobile Dropdown Menu */}
         <AnimatePresence>
           {isMenuOpen && (
             <div className="max-w-5xl mx-auto px-4 lg:px-8">
@@ -213,13 +203,11 @@ export default function NavBar() {
                 className="lg:hidden mt-2"
               >
                 <div className="bg-black/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
-                  {/* Menu Header */}
                   <div className="px-6 py-4 border-b border-white/10">
-                    <h3 className="text-lg font-semibold text-white">Navigation</h3>
+                    <h3 className="text-lg font-semibold text-white">Explore</h3>
                     <div className="w-12 h-0.5 bg-gradient-to-r from-[#548cac] to-[#4f4f2c] rounded-full mt-2" />
                   </div>
 
-                  {/* Navigation Items */}
                   <nav className="py-2">
                     {navigationItems.map((item, index) => (
                       <motion.div
@@ -237,7 +225,6 @@ export default function NavBar() {
                           className="group block px-6 py-4 hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden"
                           onClick={closeMenu}
                         >
-                          {/* Hover effect */}
                           <div className="absolute inset-0 bg-gradient-to-r from-[#548cac]/0 via-[#548cac]/5 to-[#548cac]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                           <div className="relative z-10 flex items-center justify-between">
@@ -251,7 +238,6 @@ export default function NavBar() {
                     ))}
                   </nav>
 
-                  {/* Footer */}
                   <div className="px-6 py-4 border-t border-white/10 bg-[#548cac]/5">
                     <p className="text-white/60 text-sm">AIM Health R&D Summit</p>
                     <p className="text-[#548cac] text-sm font-semibold mt-1">The Future of Military Medicine</p>
@@ -263,7 +249,6 @@ export default function NavBar() {
         </AnimatePresence>
       </motion.header>
 
-      {/* Mobile Menu Backdrop */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div

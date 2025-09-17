@@ -1,11 +1,27 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import { PartnerMarquee } from "../components/ui/PartnerMarquee"
 import { additionalPartners, mainPartners } from "../data/partners"
 import { HeroVideo } from "../components/ui/HeroVideo"
 import { HeroTextSection } from "../components/ui/HeroTextSection"
+import AIM2026Popup from "../components/AIM2026Popup"
 
 export default function Home() {
+  const [showPopup, setShowPopup] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPopup(true)
+    }, 3000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <main className="relative mx-auto flex flex-col scroll-smooth" id="main-content">
+      <AIM2026Popup showModal={showPopup} onClose={() => setShowPopup(false)} />
+
       {/* Full Screen Hero Video Section */}
       <section aria-labelledby="hero-video-heading" className="w-full">
         <h1 id="hero-video-heading" className="sr-only">
