@@ -177,10 +177,10 @@ export default function AIM2026Popup({ showModal, onClose }: AIM2026PopupProps) 
             <div className="lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-sky-500 to-sky-600">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10 z-10" />
               <Image
-                src="https://ampd-asset.s3.us-east-2.amazonaws.com/San+Antonio+Skyline"
+                src="https://ampd-asset.s3.us-east-2.amazonaws.com/collab3.jpeg"
                 alt="AIM Health R&D Summit Collaboration"
                 fill
-                className="object-cover opacity-90 object-left"
+                className="object-cover"
                 priority
               />
             </div>

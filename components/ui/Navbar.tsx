@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useEffect, useCallback, useRef } from "react"
-import { motion, AnimatePresence, useScroll, useTransform } from "motion/react"
+import { RiArrowRightUpLine, RiCloseLine, RiMenuLine } from "@remixicon/react"
+import { AnimatePresence, motion, useScroll, useTransform } from "motion/react"
 import Link from "next/link"
-import { RiMenuLine, RiCloseLine } from "@remixicon/react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { AIMLogo } from "../../public/AIMLogo"
 
 const navigationItems = [
@@ -16,6 +16,7 @@ const navigationItems = [
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isAIM2026ModalOpen, setIsAIM2026ModalOpen] = useState(false)
 
   const headerRef = useRef<HTMLElement>(null)
   const { scrollY } = useScroll()
@@ -39,12 +40,23 @@ export default function NavBar() {
     setIsMenuOpen(false)
   }, [])
 
+  const toggleAIM2026Modal = useCallback(() => {
+    setIsAIM2026ModalOpen((prev) => !prev)
+  }, [])
+
+  const closeAIM2026Modal = useCallback(() => {
+    setIsAIM2026ModalOpen(false)
+  }, [])
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeMenu()
+      if (e.key === "Escape") {
+        closeMenu()
+        closeAIM2026Modal()
+      }
     }
 
-    if (isMenuOpen) {
+    if (isMenuOpen || isAIM2026ModalOpen) {
       document.addEventListener("keydown", handleKeyDown)
       if (window.innerWidth < 1024) {
         document.body.style.overflow = "hidden"
@@ -58,7 +70,7 @@ export default function NavBar() {
       document.removeEventListener("keydown", handleKeyDown)
       document.body.style.overflow = "unset"
     }
-  }, [isMenuOpen, closeMenu])
+  }, [isMenuOpen, isAIM2026ModalOpen, closeMenu, closeAIM2026Modal])
 
   return (
     <>
@@ -103,17 +115,42 @@ export default function NavBar() {
                     </motion.div>
 
                     <motion.div
-                      className="hidden sm:block"
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.2, duration: 0.5 }}
+                      className="flex flex-col items-start justify-center"
                     >
-                      <h1 className="text-lg font-bold text-white group-hover:text-[#548cac] transition-colors duration-300">
+                      <h1 className="text-sm font-semibold text-white/70 leading-none">
                         Health R&D Summit
                       </h1>
-                      <p className="text-xs text-white/70 group-hover:text-[#548cac]/80 transition-colors duration-300">
-                        Military Medical Innovation
-                      </p>
+                      <motion.div
+                        className="relative"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.4, duration: 0.8 }}
+                      >
+                        <motion.p
+                          className="text-sm font-medium text-white/70 hover:text-[#548cac] transition-all duration-300 cursor-pointer relative pb-1"
+                          onClick={toggleAIM2026Modal}
+                          whileHover={{ x: 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          Join us May 19, 2026
+                          <motion.span className="ml-1" whileHover={{ x: 0 }}>
+                            <RiArrowRightUpLine className="inline size-3 text-[#548cac]" />
+                          </motion.span>
+                        </motion.p>
+                        <motion.div
+                          className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#548cac] via-cyan-400 to-[#548cac] rounded-full shadow-[0_0_8px_rgba(84,140,172,0.6)]"
+                          initial={{ width: 0, opacity: 0 }}
+                          animate={{ width: "100%", opacity: 1 }}
+                          transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
+                          whileHover={{
+                            boxShadow: "0 0 15px rgba(84,140,172,0.8), 0 0 25px rgba(6,182,212,0.4)",
+                            scaleY: 1.5,
+                          }}
+                        />
+                      </motion.div>
                     </motion.div>
                   </Link>
                 </motion.div>
@@ -188,6 +225,68 @@ export default function NavBar() {
         </div>
 
         <AnimatePresence>
+          {isAIM2026ModalOpen && (
+            <div className="max-w-5xl mx-auto px-4 lg:px-8">
+              <motion.div
+                initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 30,
+                  duration: 0.3,
+                }}
+                className="mt-2"
+              >
+                <div className="bg-black/98 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl overflow-hidden relative z-50">
+                  <button
+                    onClick={closeAIM2026Modal}
+                    className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#548cac]"
+                    aria-label="Close modal"
+                  >
+                    <RiCloseLine className="size-5" />
+                  </button>
+
+                  <div className="p-8">
+                    <div className="flex flex-col lg:flex-row items-center lg:items-start space-y-6 lg:space-y-0 lg:space-x-0">
+                      <div className="flex-shrink-0">
+                        <img
+                          src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim_color_2026.png"
+                          alt="AIM 2026 Logo"
+                          className="md:hidden h-20 w-auto invert filter brightness-0 contrast-200"
+                        />
+                      </div>
+
+                      <div className="flex-1 text-center lg:text-left">
+                        <h3 className="text-2xl font-bold text-white mb-2">From the Bench to the Battlefield</h3>
+                        <p className="text-white/80 mb-4 leading-relaxed max-w-xl">
+                          Military Health City USA's premier networking and collaboration conference in support of the
+                          life sciences industry and military medical mission.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-2 sm:space-y-0 sm:space-x-6 mb-6 text-sm text-[#548cac]">
+                          <div className="flex items-center space-x-2">
+                            <span className="font-semibold">📅 May 19, 2026</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <span className="font-semibold">📍 Henry B. González Convention Center</span>
+                          </div>
+                        </div>
+
+                        <button className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 text-white font-semibold px-8 py-3 rounded-lg shadow-xl shadow-blue-500/25 transition-all duration-300 hover:scale-105">
+                          Get Tickets
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
           {isMenuOpen && (
             <div className="max-w-5xl mx-auto px-4 lg:px-8">
               <motion.div
@@ -247,21 +346,24 @@ export default function NavBar() {
             </div>
           )}
         </AnimatePresence>
-      </motion.header>
 
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="lg:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
-            onClick={closeMenu}
-            aria-hidden="true"
-          />
-        )}
-      </AnimatePresence>
+        <AnimatePresence>
+          {(isMenuOpen || isAIM2026ModalOpen) && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="lg:hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
+              onClick={() => {
+                closeMenu()
+                closeAIM2026Modal()
+              }}
+              aria-hidden="true"
+            />
+          )}
+        </AnimatePresence>
+      </motion.header>
     </>
   )
 }

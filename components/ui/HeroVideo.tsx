@@ -65,7 +65,7 @@ export const HeroVideo = React.memo(() => {
 
           {/* Mobile Layout */}
           <div className="lg:hidden text-center">
-            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-6">AIM 2026 ANNOUNCED!</h1>
+            <h1 className="text-3xl font-bold text-white mb-6">AIM 2026 ANNOUNCED!</h1>
             <div className="grid grid-cols-1 gap-4 mb-6 text-white/90">
               <div className="text-center">
                 <p className="text-xs font-medium uppercase tracking-wide">HENRY B. GONZÁLEZ CONVENTION CENTER</p>
