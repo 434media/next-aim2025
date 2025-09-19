@@ -25,7 +25,7 @@ const footerSections = {
   register: {
     title: "AIM 2026",
     items: [
-      { label: "Get Tickets", href: "" },
+      { label: "Get Tickets", href: "https://whova.com/portal/registration/D7sdZXdTCppF1KMzet5O/" },
     ],
   },
 }

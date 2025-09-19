@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react"
 import { motion } from "motion/react"
+import { RiArrowRightUpLine } from "@remixicon/react"
 
 export const HeroVideo = React.memo(() => {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -53,13 +54,28 @@ export const HeroVideo = React.memo(() => {
               </div>
             </div>
             <div className="flex flex-col items-end space-y-4">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="text-lg px-8 py-4 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 shadow-xl shadow-blue-500/25 border-0 text-white font-bold rounded-lg transition-all duration-300"
+              <a
+                href="https://whova.com/portal/registration/D7sdZXdTCppF1KMzet5O/"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                Get Tickets
-              </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="text-lg px-8 py-4 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 shadow-xl shadow-blue-500/25 border-0 text-white font-bold rounded-lg transition-all duration-300"
+                >
+                  Get Tickets <RiArrowRightUpLine className="inline size-4 ml-1" />
+                </motion.button>
+              </a>
+              <div className="text-sm text-white/70 font-medium text-center max-w-[200px]">
+                Interested in sponsoring or exhibiting?{" "}
+                <a
+                  href="/contact-us"
+                  className="text-white/90 hover:text-white underline underline-offset-2 transition-colors"
+                >
+                  Contact us
+                </a>
+              </div>
             </div>
           </div>
 
@@ -72,13 +88,28 @@ export const HeroVideo = React.memo(() => {
                 <p className="text-xs font-medium uppercase tracking-wide mt-2">JOIN US MAY 19, 2026</p>
               </div>
             </div>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-full text-lg px-8 py-4 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 shadow-xl shadow-blue-500/25 border-0 text-white font-bold rounded-lg transition-all duration-300"
+            <a
+              href="https://whova.com/portal/registration/D7sdZXdTCppF1KMzet5O/"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Get Tickets
-            </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full text-lg px-8 py-4 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 shadow-xl shadow-blue-500/25 border-0 text-white font-bold rounded-lg transition-all duration-300"
+              >
+                Get Tickets <RiArrowRightUpLine className="inline size-4 ml-1" />
+              </motion.button>
+            </a>
+            <span className="block text-sm text-white/70 font-medium mt-4">
+              Interested in sponsoring or exhibiting?{" "}
+              <a
+                href="/contact-us"
+                className="text-white/90 hover:text-white underline underline-offset-2 transition-colors"
+              >
+                Contact us
+              </a>
+            </span>
           </div>
         </div>
       </motion.div>

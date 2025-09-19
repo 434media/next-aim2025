@@ -120,9 +120,7 @@ export default function NavBar() {
                       transition={{ delay: 0.2, duration: 0.5 }}
                       className="flex flex-col items-start justify-center"
                     >
-                      <h1 className="text-sm font-semibold text-white/70 leading-none">
-                        Health R&D Summit
-                      </h1>
+                      <h1 className="text-sm font-semibold text-white/70 leading-none">Health R&D Summit</h1>
                       <motion.div
                         className="relative"
                         initial={{ opacity: 0 }}
@@ -273,10 +271,26 @@ export default function NavBar() {
                             <span className="font-semibold">📍 Henry B. González Convention Center</span>
                           </div>
                         </div>
-
-                        <button className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 text-white font-semibold px-8 py-3 rounded-lg shadow-xl shadow-blue-500/25 transition-all duration-300 hover:scale-105">
-                          Get Tickets
-                        </button>
+                        <a
+                          href="https://whova.com/portal/registration/D7sdZXdTCppF1KMzet5O/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <button className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 text-white font-semibold px-8 py-3 rounded-lg shadow-xl shadow-blue-500/25 transition-all duration-300 hover:scale-105">
+                            Get Tickets <RiArrowRightUpLine className="inline size-4 ml-1" />
+                          </button>
+                        </a>
+                        <div className="max-w-[200px] mx-auto md:mx-0 md:text-left mt-3">
+                          <span className="text-sm text-white/70">
+                            Interested in sponsoring or exhibiting?{" "}
+                            <Link
+                              href="/contact-us"
+                              className="text-[#548cac] hover:text-cyan-400 transition-colors duration-200 underline underline-offset-2"
+                            >
+                              Contact us
+                            </Link>
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -301,7 +315,7 @@ export default function NavBar() {
                 }}
                 className="lg:hidden mt-2"
               >
-                <div className="bg-black/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+                <div className="bg-black/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden relative z-60">
                   <div className="px-6 py-4 border-b border-white/10">
                     <h3 className="text-lg font-semibold text-white">Explore</h3>
                     <div className="w-12 h-0.5 bg-gradient-to-r from-[#548cac] to-[#4f4f2c] rounded-full mt-2" />
@@ -354,7 +368,7 @@ export default function NavBar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
+              className="lg:hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-30"
               onClick={() => {
                 closeMenu()
                 closeAIM2026Modal()
