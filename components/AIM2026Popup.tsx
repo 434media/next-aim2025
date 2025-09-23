@@ -160,7 +160,7 @@ export default function AIM2026Popup({ showModal, onClose }: AIM2026PopupProps) 
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.95, opacity: 0, y: 20 }}
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          className="relative w-full max-w-5xl bg-white border-4 border-black shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
+          className="relative w-full max-w-5xl bg-white border-4 border-black shadow-2xl overflow-hidden max-h-[85vh] md:max-h-[90vh] overflow-y-auto"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Close Button */}
@@ -172,7 +172,7 @@ export default function AIM2026Popup({ showModal, onClose }: AIM2026PopupProps) 
             <X className="h-5 w-5" />
           </button>
 
-          <div className="flex flex-col lg:flex-row min-h-[700px]">
+          <div className="flex flex-col lg:flex-row min-h-[600px] md:min-h-[700px]">
             {/* Left Side - Visual Content */}
             <div className="lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-sky-500 to-sky-600">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10 z-10" />
@@ -186,7 +186,7 @@ export default function AIM2026Popup({ showModal, onClose }: AIM2026PopupProps) 
             </div>
 
             {/* Right Side - Newsletter Form */}
-            <div className="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center relative overflow-hidden bg-white">
+            <div className="lg:w-1/2 p-6 md:p-8 lg:p-12 flex flex-col justify-center relative overflow-hidden bg-white">
               <div className="relative z-10">
                 {/* Header */}
                 <div className="text-center mb-8">
