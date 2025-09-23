@@ -8,24 +8,19 @@ export const mainPartners = [
       href: "https://www.sanantonio.gov/",
     },
     {
-      name: "Bexar County",
-      src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/Bexar+Seal+High+Res+B_W+1200.png",
-      href: "https://www.bexar.org/",
-    },
-    {
       name: "VelocityTX",
-      src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/VelocityTX+Logo+BUTTON+RGB.png",
+      src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/VelocityTX+Logo+MAIN+RGB+(1).png",
       href: "https://velocitytx.org/",
     },
     {
-      name: "UTSA",
-      src: "https://ampd-asset.s3.us-east-2.amazonaws.com/utsa-wordmark.svg",
-      href: "https://www.utsa.edu/",
+      name: "UT San Antonio",
+      src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ut-san-antonio.svg",
+      href: "https://uthscsa.edu/",
     },
     {
-      name: "UTHSA",
-      src: "https://ampd-asset.s3.us-east-2.amazonaws.com/UTHSA_logo.svg",
-      href: "https://www.uthscsa.edu/",
+      name: "Bexar County",
+      src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/Bexar+Seal+High+Res+B_W+1200.png",
+      href: "https://www.bexar.org/",
     },
   ]
   

@@ -70,7 +70,7 @@ export const HeroVideo = React.memo(() => {
               <div className="text-sm text-white/70 font-medium text-center max-w-[200px]">
                 Interested in sponsoring or exhibiting?{" "}
                 <a
-                  href="/contact-us"
+                  href="https://support.velocitytx.org/campaign/726139/donate"
                   className="text-white/90 hover:text-white underline underline-offset-2 transition-colors"
                 >
                   Contact us
@@ -104,7 +104,7 @@ export const HeroVideo = React.memo(() => {
             <span className="block text-sm text-white/70 font-medium mt-4">
               Interested in sponsoring or exhibiting?{" "}
               <a
-                href="/contact-us"
+                href="https://support.velocitytx.org/campaign/726139/donate"
                 className="text-white/90 hover:text-white underline underline-offset-2 transition-colors"
               >
                 Contact us

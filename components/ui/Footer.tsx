@@ -26,6 +26,7 @@ const footerSections = {
     title: "AIM 2026",
     items: [
       { label: "Get Tickets", href: "https://whova.com/portal/registration/D7sdZXdTCppF1KMzet5O/" },
+      { label: "Sponsor", href: "https://support.velocitytx.org/campaign/726139/donate" },
     ],
   },
 }

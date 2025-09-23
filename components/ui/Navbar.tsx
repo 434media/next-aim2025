@@ -13,10 +13,17 @@ const navigationItems = [
   { name: "Contact Us", href: "/contact-us" },
 ]
 
+const desktopNavigationItems = [
+  { name: "Symposiums", href: "/pre-conference-symposiums" },
+  { name: "Posters", href: "/posters" },
+  { name: "Contact Us", href: "/contact-us" },
+]
+
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isAIM2026ModalOpen, setIsAIM2026ModalOpen] = useState(false)
+  const [isSASWModalOpen, setIsSASWModalOpen] = useState(false)
 
   const headerRef = useRef<HTMLElement>(null)
   const { scrollY } = useScroll()
@@ -48,15 +55,24 @@ export default function NavBar() {
     setIsAIM2026ModalOpen(false)
   }, [])
 
+  const toggleSASWModal = useCallback(() => {
+    setIsSASWModalOpen((prev) => !prev)
+  }, [])
+
+  const closeSASWModal = useCallback(() => {
+    setIsSASWModalOpen(false)
+  }, [])
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         closeMenu()
         closeAIM2026Modal()
+        closeSASWModal()
       }
     }
 
-    if (isMenuOpen || isAIM2026ModalOpen) {
+    if (isMenuOpen || isAIM2026ModalOpen || isSASWModalOpen) {
       document.addEventListener("keydown", handleKeyDown)
       if (window.innerWidth < 1024) {
         document.body.style.overflow = "hidden"
@@ -70,7 +86,7 @@ export default function NavBar() {
       document.removeEventListener("keydown", handleKeyDown)
       document.body.style.overflow = "unset"
     }
-  }, [isMenuOpen, isAIM2026ModalOpen, closeMenu, closeAIM2026Modal])
+  }, [isMenuOpen, isAIM2026ModalOpen, isSASWModalOpen, closeMenu, closeAIM2026Modal, closeSASWModal])
 
   return (
     <>
@@ -155,12 +171,12 @@ export default function NavBar() {
 
                 <div className="flex items-center space-x-8">
                   <nav className="hidden lg:flex items-center space-x-8">
-                    {navigationItems.map((item, index) => (
+                    {desktopNavigationItems.map((item, index) => (
                       <motion.div
                         key={item.name}
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 + index * 0.05, duration: 0.3 }}
+                        transition={{ delay: 0.15 + index * 0.05, duration: 0.3 }}
                       >
                         <Link
                           href={item.href}
@@ -176,6 +192,23 @@ export default function NavBar() {
                         </Link>
                       </motion.div>
                     ))}
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3, duration: 0.3 }}
+                    >
+                      <button
+                        onClick={toggleSASWModal}
+                        className="relative hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black rounded-lg p-2"
+                        aria-label="San Antonio Startup Week"
+                      >
+                        <img
+                          src="https://ampd-asset.s3.us-east-2.amazonaws.com/powered+by+geekdom+sasw-32+(1).png"
+                          alt="SASW Logo"
+                          className="h-8 w-auto transition-all duration-300 hover:drop-shadow-[0_0_15px_rgba(255,20,147,0.3)]"
+                        />
+                      </button>
+                    </motion.div>
                   </nav>
                 </div>
 
@@ -237,7 +270,7 @@ export default function NavBar() {
                 }}
                 className="mt-2"
               >
-                <div className="bg-black/98 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl overflow-hidden relative z-50">
+                <div className="bg-black/98 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl overflow-hidden relative z-50 max-h-[80vh] overflow-y-auto">
                   <button
                     onClick={closeAIM2026Modal}
                     className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#548cac]"
@@ -250,9 +283,9 @@ export default function NavBar() {
                     <div className="flex flex-col lg:flex-row items-center lg:items-start space-y-6 lg:space-y-0 lg:space-x-0">
                       <div className="flex-shrink-0">
                         <img
-                          src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim_color_2026.png"
+                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/aim-white-2026%281%29-0eO4Zwsi2sVhsQgAqlLuCe9ay5dHQz.png"
                           alt="AIM 2026 Logo"
-                          className="md:hidden h-20 w-auto invert filter brightness-0 contrast-200"
+                          className="h-40 md:h-60 w-auto"
                         />
                       </div>
 
@@ -284,13 +317,136 @@ export default function NavBar() {
                           <span className="text-sm text-white/70">
                             Interested in sponsoring or exhibiting?{" "}
                             <Link
-                              href="/contact-us"
+                              href="https://support.velocitytx.org/campaign/726139/donate"
                               className="text-[#548cac] hover:text-cyan-400 transition-colors duration-200 underline underline-offset-2"
                             >
                               Contact us
                             </Link>
                           </span>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {isSASWModalOpen && (
+            <div className="max-w-5xl mx-auto px-4 lg:px-8">
+              <motion.div
+                initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 30,
+                  duration: 0.3,
+                }}
+                className="mt-2"
+              >
+                <div className="bg-gradient-to-br from-black via-purple-900/50 to-pink-900/90 backdrop-blur-xl border border-pink-500/30 rounded-2xl shadow-2xl overflow-hidden relative z-50 max-h-[80vh] overflow-y-auto">
+                  <button
+                    onClick={closeSASWModal}
+                    className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                    aria-label="Close modal"
+                  >
+                    <RiCloseLine className="size-5" />
+                  </button>
+
+                  <div className="p-8">
+                    <div className="flex items-center justify-center space-x-6 mb-8">
+                      <img
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/SASW_CompactLogo-+pink.png"
+                        alt="SASW Logo"
+                        className="h-16 w-auto"
+                      />
+                      <span className="text-white/60 text-2xl font-bold">×</span>
+                      <img
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-white-2026.png"
+                        alt="AIM 2026 Logo"
+                        className="h-16 w-auto"
+                      />
+                      <span className="text-white/60 text-2xl font-bold">×</span>
+                      <img
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/VelocityTX+Logo+MAIN+RGB+(1).png"
+                        alt="VelocityTX Logo"
+                        className="h-16 w-auto"
+                      />
+                    </div>
+
+                    <div className="text-center mb-8">
+                      <h2 className="text-3xl font-bold text-white mb-4">
+                        Plan Your Week of Innovation
+                      </h2>
+                      <p className="text-xl text-pink-200 font-semibold">
+                        Don't Miss These AIM-Sponsored Events
+                      </p>
+                    </div>
+
+                    <div className="space-y-6">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                        <h3 className="text-xl font-semibold text-white mb-2">
+                          AI in Healthcare: The Good, The Bad, The Unknown
+                        </h3>
+                        <p className="hidden md:block text-pink-200 mb-4">
+                          From Seed to Scale - Capital, Funding, Business Models, and Pitch
+                        </p>
+                        <p className="text-white/70 mb-4">8:00 AM – 10:00 AM | VelocityTX</p>
+                        <a
+                          href="https://www.eventbrite.com/e/ai-in-healthcare-the-good-the-bad-and-the-unknown-registration-1628736216869"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <button className="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200">
+                            Learn More
+                          </button>
+                        </a>
+                      </div>
+
+                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                        <h3 className="text-xl font-semibold text-white mb-2">
+                          Leveraging Federal Funding to Accelerate Dual-Use Solutions
+                        </h3>
+                        <p className="text-white/70 mb-4">
+                          1:30–2:30 p.m.  | Embassy Suites – Majestic Ballroom B
+                        </p>
+                        <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
+                          <button className="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200">
+                            Learn More
+                          </button>
+                        </a>
+                      </div>
+
+                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                        <h3 className="text-xl font-semibold text-white mb-2">
+                          Connecting with Capability: Research Sponsorship and Collaboration
+                        </h3>
+                        <p className="text-white/70 mb-4">
+                          3:30–4:20 p.m.  | Embassy Suites – Majestic Ballroom B
+                        </p>
+                        <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
+                          <button className="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200">
+                            Learn More
+                          </button>
+                        </a>
+                      </div>
+
+                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                        <h3 className="text-xl font-semibold text-white mb-2">
+                          Funding Forward: Equitable, Strategic Capital for Innovators
+                        </h3>
+                        <p className="text-white/70 mb-4">
+                          4:30–5:20 p.m.  | Embassy Suites – Majestic Ballroom A
+                        </p>
+                        <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
+                          <button className="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200">
+                            Learn More
+                          </button>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -316,10 +472,33 @@ export default function NavBar() {
                 className="lg:hidden mt-2"
               >
                 <div className="bg-black/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden relative z-60">
-                  <div className="px-6 py-4 border-b border-white/10">
-                    <h3 className="text-lg font-semibold text-white">Explore</h3>
-                    <div className="w-12 h-0.5 bg-gradient-to-r from-[#548cac] to-[#4f4f2c] rounded-full mt-2" />
-                  </div>
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: 0,
+                      duration: 0.3,
+                      ease: "easeOut",
+                    }}
+                  >
+                    <button
+                      onClick={() => {
+                        toggleSASWModal()
+                        closeMenu()
+                      }}
+                      className="group block w-full px-6 py-6 hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#548cac]/0 via-[#548cac]/5 to-[#548cac]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                      <div className="relative z-10 flex items-center justify-start">
+                        <img
+                          src="https://ampd-asset.s3.us-east-2.amazonaws.com/powered+by+geekdom+sasw-32+(1).png"
+                          alt="SASW Logo"
+                          className="h-12 w-auto transition-all duration-300 group-hover:drop-shadow-[0_0_15px_rgba(255,20,147,0.3)]"
+                        />
+                      </div>
+                    </button>
+                  </motion.div>
 
                   <nav className="py-2">
                     {navigationItems.map((item, index) => (
@@ -328,7 +507,7 @@ export default function NavBar() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{
-                          delay: index * 0.05,
+                          delay: (index + 1) * 0.05,
                           duration: 0.3,
                           ease: "easeOut",
                         }}
@@ -362,7 +541,7 @@ export default function NavBar() {
         </AnimatePresence>
 
         <AnimatePresence>
-          {(isMenuOpen || isAIM2026ModalOpen) && (
+          {(isMenuOpen || isAIM2026ModalOpen || isSASWModalOpen) && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -372,6 +551,7 @@ export default function NavBar() {
               onClick={() => {
                 closeMenu()
                 closeAIM2026Modal()
+                closeSASWModal()
               }}
               aria-hidden="true"
             />
