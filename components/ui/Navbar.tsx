@@ -7,6 +7,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { AIMLogo } from "../../public/AIMLogo"
 
 const navigationItems = [
+  { name: "Events", href: "/events", isNew: true },
   { name: "AIM'25", href: "/aim2025" },
   { name: "Symposiums", href: "/pre-conference-symposiums" },
   { name: "Posters", href: "/posters" },
@@ -14,6 +15,7 @@ const navigationItems = [
 ]
 
 const desktopNavigationItems = [
+  { name: "Events", href: "/events", isNew: true },
   { name: "Symposiums", href: "/pre-conference-symposiums" },
   { name: "Posters", href: "/posters" },
   { name: "Contact Us", href: "/contact-us" },
@@ -23,7 +25,6 @@ export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isAIM2026ModalOpen, setIsAIM2026ModalOpen] = useState(false)
-  const [isSASWModalOpen, setIsSASWModalOpen] = useState(false)
 
   const headerRef = useRef<HTMLElement>(null)
   const { scrollY } = useScroll()
@@ -55,24 +56,15 @@ export default function NavBar() {
     setIsAIM2026ModalOpen(false)
   }, [])
 
-  const toggleSASWModal = useCallback(() => {
-    setIsSASWModalOpen((prev) => !prev)
-  }, [])
-
-  const closeSASWModal = useCallback(() => {
-    setIsSASWModalOpen(false)
-  }, [])
-
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         closeMenu()
         closeAIM2026Modal()
-        closeSASWModal()
       }
     }
 
-    if (isMenuOpen || isAIM2026ModalOpen || isSASWModalOpen) {
+    if (isMenuOpen || isAIM2026ModalOpen) {
       document.addEventListener("keydown", handleKeyDown)
       if (window.innerWidth < 1024) {
         document.body.style.overflow = "hidden"
@@ -86,7 +78,7 @@ export default function NavBar() {
       document.removeEventListener("keydown", handleKeyDown)
       document.body.style.overflow = "unset"
     }
-  }, [isMenuOpen, isAIM2026ModalOpen, isSASWModalOpen, closeMenu, closeAIM2026Modal, closeSASWModal])
+  }, [isMenuOpen, isAIM2026ModalOpen, closeMenu, closeAIM2026Modal])
 
   return (
     <>
@@ -177,12 +169,18 @@ export default function NavBar() {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15 + index * 0.05, duration: 0.3 }}
+                        className="relative"
                       >
                         <Link
                           href={item.href}
                           className="relative text-white hover:text-[#548cac] transition-colors duration-300 font-medium group py-2 px-3 rounded-lg hover:bg-[#548cac]/10 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black"
                         >
                           {item.name}
+                          {item.isNew && (
+                            <span className="absolute -top-2 -right-7 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2 py-0.5 rounded-full border border-white/20 whitespace-nowrap">
+                              NEW
+                            </span>
+                          )}
                           <motion.div
                             className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#548cac] origin-left"
                             initial={{ scaleX: 0 }}
@@ -192,23 +190,6 @@ export default function NavBar() {
                         </Link>
                       </motion.div>
                     ))}
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3, duration: 0.3 }}
-                    >
-                      <button
-                        onClick={toggleSASWModal}
-                        className="relative hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black rounded-lg p-2"
-                        aria-label="San Antonio Startup Week"
-                      >
-                        <img
-                          src="https://ampd-asset.s3.us-east-2.amazonaws.com/powered+by+geekdom+sasw-32+(1).png"
-                          alt="SASW Logo"
-                          className="h-8 w-auto transition-all duration-300 hover:drop-shadow-[0_0_15px_rgba(255,20,147,0.3)]"
-                        />
-                      </button>
-                    </motion.div>
                   </nav>
                 </div>
 
@@ -283,7 +264,7 @@ export default function NavBar() {
                     <div className="flex flex-col lg:flex-row items-center lg:items-start space-y-6 lg:space-y-0 lg:space-x-0">
                       <div className="flex-shrink-0">
                         <img
-                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/aim-white-2026%281%29-0eO4Zwsi2sVhsQgAqlLuCe9ay5dHQz.png"
+                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/aim-white-2026%281%29%282%29-80P72RF1zlvmJDOnvhpfgbV5HlbN67.png"
                           alt="AIM 2026 Logo"
                           className="h-40 md:h-60 w-auto"
                         />
@@ -334,129 +315,6 @@ export default function NavBar() {
         </AnimatePresence>
 
         <AnimatePresence>
-          {isSASWModalOpen && (
-            <div className="max-w-5xl mx-auto px-4 lg:px-8">
-              <motion.div
-                initial={{ opacity: 0, y: -20, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 400,
-                  damping: 30,
-                  duration: 0.3,
-                }}
-                className="mt-2"
-              >
-                <div className="bg-gradient-to-br from-black via-purple-900/50 to-pink-900/90 backdrop-blur-xl border border-pink-500/30 rounded-2xl shadow-2xl overflow-hidden relative z-50 max-h-[80vh] overflow-y-auto">
-                  <button
-                    onClick={closeSASWModal}
-                    className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pink-400"
-                    aria-label="Close modal"
-                  >
-                    <RiCloseLine className="size-5" />
-                  </button>
-
-                  <div className="p-8">
-                    <div className="flex items-center justify-center space-x-6 mb-8">
-                      <img
-                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/SASW_CompactLogo-+pink.png"
-                        alt="SASW Logo"
-                        className="h-16 w-auto"
-                      />
-                      <span className="text-white/60 text-2xl font-bold">×</span>
-                      <img
-                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-white-2026.png"
-                        alt="AIM 2026 Logo"
-                        className="h-16 w-auto"
-                      />
-                      <span className="text-white/60 text-2xl font-bold">×</span>
-                      <img
-                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/VelocityTX+Logo+MAIN+RGB+(1).png"
-                        alt="VelocityTX Logo"
-                        className="h-16 w-auto"
-                      />
-                    </div>
-
-                    <div className="text-center mb-8">
-                      <h2 className="text-3xl font-bold text-white mb-4">
-                        Plan Your Week of Innovation
-                      </h2>
-                      <p className="text-xl text-pink-200 font-semibold">
-                        Don't Miss These AIM-Sponsored Events
-                      </p>
-                    </div>
-
-                    <div className="space-y-6">
-                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                        <h3 className="text-xl font-semibold text-white mb-2">
-                          AI in Healthcare: The Good, The Bad, The Unknown
-                        </h3>
-                        <p className="hidden md:block text-pink-200 mb-4">
-                          From Seed to Scale - Capital, Funding, Business Models, and Pitch
-                        </p>
-                        <p className="text-white/70 mb-4">8:00 AM – 10:00 AM | VelocityTX</p>
-                        <a
-                          href="https://www.eventbrite.com/e/ai-in-healthcare-the-good-the-bad-and-the-unknown-registration-1628736216869"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <button className="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200">
-                            Learn More
-                          </button>
-                        </a>
-                      </div>
-
-                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                        <h3 className="text-xl font-semibold text-white mb-2">
-                          Leveraging Federal Funding to Accelerate Dual-Use Solutions
-                        </h3>
-                        <p className="text-white/70 mb-4">
-                          1:30–2:30 p.m.  | Embassy Suites – Majestic Ballroom B
-                        </p>
-                        <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
-                          <button className="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200">
-                            Learn More
-                          </button>
-                        </a>
-                      </div>
-
-                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                        <h3 className="text-xl font-semibold text-white mb-2">
-                          Connecting with Capability: Research Sponsorship and Collaboration
-                        </h3>
-                        <p className="text-white/70 mb-4">
-                          3:30–4:20 p.m.  | Embassy Suites – Majestic Ballroom B
-                        </p>
-                        <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
-                          <button className="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200">
-                            Learn More
-                          </button>
-                        </a>
-                      </div>
-
-                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                        <h3 className="text-xl font-semibold text-white mb-2">
-                          Funding Forward: Equitable, Strategic Capital for Innovators
-                        </h3>
-                        <p className="text-white/70 mb-4">
-                          4:30–5:20 p.m.  | Embassy Suites – Majestic Ballroom A
-                        </p>
-                        <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
-                          <button className="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200">
-                            Learn More
-                          </button>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence>
           {isMenuOpen && (
             <div className="max-w-5xl mx-auto px-4 lg:px-8">
               <motion.div
@@ -472,34 +330,6 @@ export default function NavBar() {
                 className="lg:hidden mt-2"
               >
                 <div className="bg-black/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden relative z-60">
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      delay: 0,
-                      duration: 0.3,
-                      ease: "easeOut",
-                    }}
-                  >
-                    <button
-                      onClick={() => {
-                        toggleSASWModal()
-                        closeMenu()
-                      }}
-                      className="group block w-full px-6 py-6 hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#548cac]/0 via-[#548cac]/5 to-[#548cac]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                      <div className="relative z-10 flex items-center justify-start">
-                        <img
-                          src="https://ampd-asset.s3.us-east-2.amazonaws.com/powered+by+geekdom+sasw-32+(1).png"
-                          alt="SASW Logo"
-                          className="h-12 w-auto transition-all duration-300 group-hover:drop-shadow-[0_0_15px_rgba(255,20,147,0.3)]"
-                        />
-                      </div>
-                    </button>
-                  </motion.div>
-
                   <nav className="py-2">
                     {navigationItems.map((item, index) => (
                       <motion.div
@@ -507,7 +337,7 @@ export default function NavBar() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{
-                          delay: (index + 1) * 0.05,
+                          delay: index * 0.05,
                           duration: 0.3,
                           ease: "easeOut",
                         }}
@@ -520,9 +350,16 @@ export default function NavBar() {
                           <div className="absolute inset-0 bg-gradient-to-r from-[#548cac]/0 via-[#548cac]/5 to-[#548cac]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                           <div className="relative z-10 flex items-center justify-between">
-                            <span className="text-lg font-medium text-white group-hover:text-[#548cac] transition-colors duration-300">
-                              {item.name}
-                            </span>
+                            <div className="flex items-center space-x-3">
+                              <span className="text-lg font-medium text-white group-hover:text-[#548cac] transition-colors duration-300">
+                                {item.name}
+                              </span>
+                              {item.isNew && (
+                                <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2 py-0.5 rounded-full border border-white/20">
+                                  AIM @ SASW
+                                </span>
+                              )}
+                            </div>
                             <div className="w-2 h-2 rounded-full bg-[#548cac]/40 group-hover:bg-[#548cac] transition-colors duration-300" />
                           </div>
                         </Link>
@@ -541,7 +378,7 @@ export default function NavBar() {
         </AnimatePresence>
 
         <AnimatePresence>
-          {(isMenuOpen || isAIM2026ModalOpen || isSASWModalOpen) && (
+          {(isMenuOpen || isAIM2026ModalOpen) && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -551,7 +388,6 @@ export default function NavBar() {
               onClick={() => {
                 closeMenu()
                 closeAIM2026Modal()
-                closeSASWModal()
               }}
               aria-hidden="true"
             />
