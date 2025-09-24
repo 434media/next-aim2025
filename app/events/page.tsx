@@ -13,24 +13,30 @@ export default function EventsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex items-center justify-center space-x-2 md:space-x-6 mb-8 md:mb-16"
+            className="flex items-center justify-center space-x-2 md:space-x-6 mb-8 md:mb-16 w-full"
           >
             <img
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/powered+by+geekdom+sasw-33+(1).png"
               alt="SASW Logo"
-              className="h-10 md:h-16 w-auto flex-shrink-0"
+              className="h-10 md:h-24 w-auto flex-shrink-0"
             />
             <span className="text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
             <img
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-black-2026.png"
               alt="AIM 2026 Logo"
-              className="h-14 md:h-24 w-auto flex-shrink-0"
+              className="h-12 md:h-32 w-auto flex-shrink-0"
             />
             <span className="text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
             <img
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/VelocityTX+Logo+MAIN+RGB+(1).png"
               alt="VelocityTX Logo"
-              className="h-10 md:h-16 w-auto flex-shrink-0"
+              className="h-10 md:h-24 w-auto flex-shrink-0"
+            />
+            <span className="text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
+            <img
+              src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/Bexar+Seal+High+Res+B_W+1200.png"
+              alt="Bexar Seal Logo"
+              className="h-12 md:h-28 w-auto flex-shrink-0"
             />
           </motion.div>
 
@@ -96,7 +102,7 @@ export default function EventsPage() {
                 rel="noopener noreferrer"
               >
                 <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
-                  Learn More <RiArrowRightUpLine className="inline size-4 ml-1" />
+                  Register Now <RiArrowRightUpLine className="inline size-4 ml-1" />
                 </button>
               </a>
             </div>
@@ -137,7 +143,7 @@ export default function EventsPage() {
               </div>
               <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
                 <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
-                  Learn More <RiArrowRightUpLine className="inline size-4 ml-1" />
+                  Register Now <RiArrowRightUpLine className="inline size-4 ml-1" />
                 </button>
               </a>
             </div>
@@ -178,7 +184,7 @@ export default function EventsPage() {
               </div>
               <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
                 <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
-                  Learn More <RiArrowRightUpLine className="inline size-4 ml-1" />
+                  Register Now <RiArrowRightUpLine className="inline size-4 ml-1" />
                 </button>
               </a>
             </div>
@@ -218,8 +224,8 @@ export default function EventsPage() {
                 </div>
               </div>
               <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
-                <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
-                  Learn More <RiArrowRightUpLine className="inline size-4 ml-1" />
+                <button className="md:mt-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
+                  Register Now <RiArrowRightUpLine className="inline size-4 ml-1" />
                 </button>
               </a>
             </div>
