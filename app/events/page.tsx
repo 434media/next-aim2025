@@ -1,7 +1,7 @@
 "use client"
 
 import { RiArrowRightUpLine } from "@remixicon/react"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 
 export default function EventsPage() {
   return (

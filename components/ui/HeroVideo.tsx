@@ -20,9 +20,14 @@ export const HeroVideo = React.memo(() => {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         poster="https://ampd-asset.s3.us-east-2.amazonaws.com/aimhero-short.png"
         aria-label="AIM Summit promotional video"
+        style={{
+          willChange: "transform",
+          backfaceVisibility: "hidden",
+          perspective: 1000,
+        }}
       >
         <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+Cut+Down+Website.mp4" type="video/mp4" />
         Your browser does not support the video tag.
@@ -49,7 +54,7 @@ export const HeroVideo = React.memo(() => {
                 </div>
                 <div>
                   <p className="text-sm font-medium uppercase tracking-wide">JOIN US</p>
-                  <p className="text-sm font-medium uppercase tracking-wide">MAY 19, 2026</p>
+                  <p className="text-xl font-bold uppercase tracking-wide text-cyan-300 drop-shadow-lg">MAY 19, 2026</p>
                 </div>
               </div>
             </div>
@@ -85,7 +90,9 @@ export const HeroVideo = React.memo(() => {
             <div className="grid grid-cols-1 gap-4 mb-6 text-white/90">
               <div className="text-center">
                 <p className="text-xs font-medium uppercase tracking-wide">HENRY B. GONZÁLEZ CONVENTION CENTER</p>
-                <p className="text-xs font-medium uppercase tracking-wide mt-2">JOIN US MAY 19, 2026</p>
+                <p className="text-lg font-bold uppercase tracking-wide mt-2 text-cyan-300 drop-shadow-lg">
+                  JOIN US MAY 19, 2026
+                </p>
               </div>
             </div>
             <a
