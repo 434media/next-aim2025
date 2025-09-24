@@ -11,16 +11,25 @@ export default function Home() {
   const [showPopup, setShowPopup] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowPopup(true)
-    }, 3000)
+    const hasShownPopup = sessionStorage.getItem("aim2026-popup-shown")
 
-    return () => clearTimeout(timer)
+    if (!hasShownPopup) {
+      const timer = setTimeout(() => {
+        setShowPopup(true)
+      }, 3000)
+
+      return () => clearTimeout(timer)
+    }
   }, [])
+
+  const handleClosePopup = () => {
+    setShowPopup(false)
+    sessionStorage.setItem("aim2026-popup-shown", "true")
+  }
 
   return (
     <main className="relative mx-auto flex flex-col scroll-smooth" id="main-content">
-      <AIM2026Popup showModal={showPopup} onClose={() => setShowPopup(false)} />
+      <AIM2026Popup showModal={showPopup} onClose={handleClosePopup} />
 
       {/* Full Screen Hero Video Section */}
       <section aria-labelledby="hero-video-heading" className="w-full">
