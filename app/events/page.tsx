@@ -1,36 +1,36 @@
 "use client"
 
 import { RiArrowRightUpLine } from "@remixicon/react"
-import { motion } from "motion/react"
+import { motion } from "framer-motion"
 
 export default function EventsPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-hidden">
       {/* Hero Section */}
-      <div className="relative pt-32 pb-16 px-4 lg:px-8">
+      <div className="relative pt-20 md:pt-32 pb-8 md:pb-16 px-4 lg:px-8 mt-16 md:mt-0">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex items-center justify-center space-x-6 mb-16"
+            className="flex items-center justify-center space-x-2 md:space-x-6 mb-8 md:mb-16"
           >
             <img
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/powered%2Bby%2Bgeekdom%2Bsasw-33%2B%281%29-VKZn4HnJcIrzqCv1ouxttrBLpmIfa3.png"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/powered%2Bby%2Bgeekdom%2Bsasw-33%2B%281%29%281%29-S52OYePEFqzHlgYowzQY3Jt54U2Jul.png"
               alt="SASW Logo"
-              className="h-16 w-auto"
+              className="h-10 md:h-16 w-auto flex-shrink-0"
             />
-            <span className="text-gray-400 text-2xl font-bold">×</span>
+            <span className="text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
             <img
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/aim-black-2026%281%29-bLjRGVEhNRzI1cscZ6l0sNDiVXlwZS.png"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/aim-black-2026%281%29-UkMb5coghmgfzcj2Nm1MH2OSmEFgwd.png"
               alt="AIM 2026 Logo"
-              className="h-24 w-auto"
+              className="h-14 md:h-24 w-auto flex-shrink-0"
             />
-            <span className="text-gray-400 text-2xl font-bold">×</span>
+            <span className="text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
             <img
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/VelocityTX%2BLogo%2BMAIN%2BRGB%2B%281%29%282%29-OLMMc7WyoO5hNS0BvkORtA92WEkrvl.png"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/VelocityTX%2BLogo%2BMAIN%2BRGB%2B%281%29%282%29%281%29-YWy5HDEnSCLiX6o9uWSgRWMKIjmbAZ.png"
               alt="VelocityTX Logo"
-              className="h-16 w-auto"
+              className="h-10 md:h-16 w-auto flex-shrink-0"
             />
           </motion.div>
 
@@ -39,13 +39,13 @@ export default function EventsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-center mb-16"
+            className="text-center mb-8 md:mb-16"
           >
             <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight">
               Plan Your Week of Innovation
             </h1>
             <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto mb-6 rounded-full"></div>
-            <p className="text-2xl text-gray-700 font-bold mb-12 leading-relaxed">
+            <p className="text-2xl text-gray-700 font-bold mb-6 md:mb-12 leading-relaxed">
               Don't Miss These AIM-Sponsored Events
               <br />
               at San Antonio Startup Week!
@@ -55,7 +55,7 @@ export default function EventsPage() {
       </div>
 
       {/* Events Grid */}
-      <div className="max-w-6xl mx-auto px-4 lg:px-8 pb-20 -mt-10">
+      <div className="max-w-6xl mx-auto px-4 lg:px-8 pb-12 md:pb-20 -mt-4 md:-mt-10">
         <div className="grid gap-8 md:grid-cols-2">
           {/* Event 1 */}
           <motion.div
@@ -132,7 +132,7 @@ export default function EventsPage() {
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>Embassy Suites – Majestic Ballroom B</span>
+                  <span>Embassy Suites – Majestic Ballroom</span>
                 </div>
               </div>
               <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
@@ -173,7 +173,7 @@ export default function EventsPage() {
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>Embassy Suites – Majestic Ballroom B</span>
+                  <span>Embassy Suites – Majestic Ballroom</span>
                 </div>
               </div>
               <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
@@ -214,7 +214,7 @@ export default function EventsPage() {
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>Embassy Suites – Majestic Ballroom A</span>
+                  <span>Embassy Suites Majestic Ballroom</span>
                 </div>
               </div>
               <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
