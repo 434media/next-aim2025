@@ -162,7 +162,7 @@ export default function EventsPage() {
           >
             <div className="p-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-4 leading-tight">
-                Connecting with Capability: Research Sponsorship and Collaboration in San Antonio
+                Connecting with Capability: Research Sponsorship and Collaboration
               </h3>
               <p className="text-gray-600 mb-6 leading-relaxed font-medium">
                 Get a preview of San Antonio's innovation ecosystem and learn how startups, corporations, and investors
@@ -224,7 +224,7 @@ export default function EventsPage() {
                 </div>
               </div>
               <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
-                <button className="md:mt-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
+                <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
                   Register Now <RiArrowRightUpLine className="inline size-4 ml-1" />
                 </button>
               </a>
