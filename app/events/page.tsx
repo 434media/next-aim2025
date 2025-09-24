@@ -134,7 +134,7 @@ export default function EventsPage() {
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>1:30–2:30 p.m.</span>
+                  <span>1:30 PM – 2:30 PM</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
@@ -175,7 +175,7 @@ export default function EventsPage() {
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>3:30–4:20 p.m.</span>
+                  <span>3:30 PM – 4:20 PM</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
@@ -216,11 +216,11 @@ export default function EventsPage() {
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>4:30–5:20 p.m.</span>
+                  <span>4:30 PM – 5:20 PM</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>Embassy Suites Majestic Ballroom</span>
+                  <span>Embassy Suites - Majestic Ballroom</span>
                 </div>
               </div>
               <a href="https://whova.com/portal/registration/5TQdKEcUtWFwk796klZN/" target="_blank" rel="noopener noreferrer">
