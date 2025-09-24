@@ -91,7 +91,7 @@ export const HeroVideo = React.memo(() => {
               <div className="text-center">
                 <p className="text-xs font-medium uppercase tracking-wide">HENRY B. GONZÁLEZ CONVENTION CENTER</p>
                 <p className="text-lg font-bold uppercase tracking-wide mt-2 text-cyan-300 drop-shadow-lg">
-                  JOIN US MAY 19, 2026
+                  MAY 19, 2026
                 </p>
               </div>
             </div>
