@@ -264,7 +264,7 @@ export default function NavBar() {
                     <div className="flex flex-col lg:flex-row items-center lg:items-start space-y-6 lg:space-y-0 lg:space-x-0">
                       <div className="flex-shrink-0">
                         <img
-                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/aim-white-2026%281%29%282%29-80P72RF1zlvmJDOnvhpfgbV5HlbN67.png"
+                          src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-white-2026.png"
                           alt="AIM 2026 Logo"
                           className="h-40 md:h-60 w-auto"
                         />
