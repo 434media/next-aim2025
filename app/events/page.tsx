@@ -141,7 +141,7 @@ export default function EventsPage() {
                   <span>Embassy Suites – Majestic Ballroom</span>
                 </div>
               </div>
-              <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
+              <a href="https://whova.com/portal/registration/5TQdKEcUtWFwk796klZN/" target="_blank" rel="noopener noreferrer">
                 <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
                   Register Now <RiArrowRightUpLine className="inline size-4 ml-1" />
                 </button>
@@ -182,7 +182,7 @@ export default function EventsPage() {
                   <span>Embassy Suites – Majestic Ballroom</span>
                 </div>
               </div>
-              <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
+              <a href="https://whova.com/portal/registration/5TQdKEcUtWFwk796klZN/" target="_blank" rel="noopener noreferrer">
                 <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
                   Register Now <RiArrowRightUpLine className="inline size-4 ml-1" />
                 </button>
@@ -223,7 +223,7 @@ export default function EventsPage() {
                   <span>Embassy Suites Majestic Ballroom</span>
                 </div>
               </div>
-              <a href="https://sasw.co/homepage-2/" target="_blank" rel="noopener noreferrer">
+              <a href="https://whova.com/portal/registration/5TQdKEcUtWFwk796klZN/" target="_blank" rel="noopener noreferrer">
                 <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
                   Register Now <RiArrowRightUpLine className="inline size-4 ml-1" />
                 </button>
