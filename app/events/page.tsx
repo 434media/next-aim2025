@@ -18,25 +18,25 @@ export default function EventsPage() {
             <img
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/powered+by+geekdom+sasw-33+(1).png"
               alt="SASW Logo"
-              className="h-10 md:h-16 w-auto flex-shrink-0"
+              className="h-7 md:h-16 w-auto flex-shrink-0"
             />
             <span className="hidden md:flex text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
             <img
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-black-2026.png"
               alt="AIM 2026 Logo"
-              className="h-16 md:h-28 w-auto flex-shrink-0"
+              className="h-12 md:h-28 w-auto flex-shrink-0"
             />
             <span className="hidden md:flex text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
             <img
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/VelocityTX+Logo+MAIN+RGB+(1).png"
               alt="VelocityTX Logo"
-              className="h-12 md:h-20 w-auto flex-shrink-0"
+              className="h-9 md:h-20 w-auto flex-shrink-0"
             />
             <span className="hidden md:flex text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
             <img
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/Bexar+Seal+High+Res+B_W+1200.png"
+              src="https://ampd-asset.s3.us-east-2.amazonaws.com/ECD_White_Horizontal.png"
               alt="Bexar Seal Logo"
-              className="h-16 md:h-24 w-auto flex-shrink-0"
+              className="h-6 md:h-16 w-auto flex-shrink-0 invert"
             />
           </motion.div>
           {/* Title Section */}
