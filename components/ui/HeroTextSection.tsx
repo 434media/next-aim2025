@@ -81,7 +81,7 @@ export const HeroTextSection = React.memo(() => {
         </a>
 
         {/* Mobile Layout - slightly shorter than full screen to reduce dead space */}
-        <div className="sticky top-0 h-[75vh] flex flex-col items-center justify-center px-4 z-10">
+        <div className="sticky top-0 h-[85vh] flex flex-col items-center justify-center px-4 z-10">
           <motion.div
             className="text-center w-full max-w-lg mx-auto flex-1 flex flex-col justify-center"
             style={{

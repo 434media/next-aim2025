@@ -104,8 +104,8 @@ export default function NavBar() {
 
             <div className="relative px-6 lg:px-8 py-4">
               <div className="flex items-center justify-between">
-                <motion.div style={{ scale: logoScale }}>
-                  <Link href="/" className="group flex items-center space-x-3" aria-label="AIM Health R&D Summit Home">
+                <motion.div style={{ scale: logoScale }} className="group flex items-center space-x-3">
+                  <Link href="/" className="" aria-label="AIM Health R&D Summit Home">
                     <motion.div
                       className="relative"
                       whileHover={{ scale: 1.05, rotateY: 10 }}
@@ -121,6 +121,7 @@ export default function NavBar() {
                         aria-hidden="true"
                       />
                     </motion.div>
+                  </Link>
 
                     <motion.div
                       initial={{ opacity: 0, x: -10 }}
@@ -158,7 +159,6 @@ export default function NavBar() {
                         />
                       </motion.div>
                     </motion.div>
-                  </Link>
                 </motion.div>
 
                 <div className="flex items-center space-x-8">

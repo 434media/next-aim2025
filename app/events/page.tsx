@@ -7,54 +7,51 @@ export default function EventsPage() {
   return (
     <div className="min-h-screen bg-white overflow-hidden">
       {/* Hero Section */}
-      <div className="relative pt-20 md:pt-32 pb-8 md:pb-16 px-4 lg:px-8 mt-16 md:mt-0">
+      <div className="relative pt-20 md:pt-32 pb-8 md:pb-16 px-4 lg:px-8 mt-16 md:mt-8">
         <div className="max-w-6xl mx-auto">
-          <motion.div
+            <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex items-center justify-center space-x-2 md:space-x-6 mb-8 md:mb-16 w-full"
+            className="flex items-center justify-center space-x-4 md:space-x-12 mb-8 w-full"
           >
             <img
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/powered+by+geekdom+sasw-33+(1).png"
               alt="SASW Logo"
-              className="h-10 md:h-24 w-auto flex-shrink-0"
+              className="h-10 md:h-16 w-auto flex-shrink-0"
             />
-            <span className="text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
+            <span className="hidden md:flex text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
             <img
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-black-2026.png"
               alt="AIM 2026 Logo"
-              className="h-12 md:h-32 w-auto flex-shrink-0"
+              className="h-16 md:h-28 w-auto flex-shrink-0"
             />
-            <span className="text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
+            <span className="hidden md:flex text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
             <img
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/VelocityTX+Logo+MAIN+RGB+(1).png"
               alt="VelocityTX Logo"
-              className="h-10 md:h-24 w-auto flex-shrink-0"
+              className="h-12 md:h-20 w-auto flex-shrink-0"
             />
-            <span className="text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
+            <span className="hidden md:flex text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
             <img
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/Bexar+Seal+High+Res+B_W+1200.png"
               alt="Bexar Seal Logo"
-              className="h-12 md:h-28 w-auto flex-shrink-0"
+              className="h-16 md:h-24 w-auto flex-shrink-0"
             />
           </motion.div>
-
           {/* Title Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-center mb-8 md:mb-16"
+            className="text-center mb-8"
           >
             <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight">
               Plan Your Week of Innovation
             </h1>
             <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto mb-6 rounded-full"></div>
-            <p className="text-2xl text-gray-700 font-bold mb-6 md:mb-12 leading-relaxed">
-              Don't Miss These AIM-Sponsored Events
-              <br />
-              at San Antonio Startup Week!
+            <p className="text-2xl text-gray-700 font-bold mb-6 md:mb-12 leading-relaxed max-w-lg mx-auto">
+              Don't Miss These AIM-Sponsored Events at San Antonio Startup Week!
             </p>
           </motion.div>
         </div>
