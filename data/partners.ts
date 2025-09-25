@@ -18,9 +18,9 @@ export const mainPartners = [
       href: "https://uthscsa.edu/",
     },
     {
-      name: "Bexar County",
-      src: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/Bexar+Seal+High+Res+B_W+1200.png",
-      href: "https://www.bexar.org/",
+      name: "Bexar County Economic and Community Development",
+      src: "https://ampd-asset.s3.us-east-2.amazonaws.com/bexar-ecd.png",
+      href: "https://www.bexar.org/682/Economic-Community-Development",
     },
   ]
   
