@@ -7,12 +7,20 @@ import { RiArrowRightUpLine } from "@remixicon/react"
 import { AIMLogo } from "../../public/AIMLogo"
 
 const footerSections = {
+  register: {
+    title: "AIM 2026",
+    items: [
+      { label: "Get Tickets", href: "https://whova.com/portal/registration/D7sdZXdTCppF1KMzet5O/" },
+      { label: "Sponsor", href: "https://support.velocitytx.org/campaign/726139/donate" },
+      { label: "Events", href: "/events" },
+    ],
+  },
   explore: {
     title: "Explore",
     items: [
-      { label: "AIM'25", href: "/aim2025" },
       { label: "Symposiums", href: "/pre-conference-symposiums" },
       { label: "Posters", href: "/posters" },
+      { label: "AIM'25", href: "/aim2025" },
     ],
   },
   connect: {
@@ -162,7 +170,64 @@ export default function Footer() {
           </motion.div>
 
           {/* Navigation Sections */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12">
+          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-12">
+                        {/* Register Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
+              className="space-y-6"
+              onMouseEnter={() => handleSectionHover("register")}
+              onMouseLeave={() => handleSectionHover(null)}
+            >
+              <motion.h3
+                className="text-xl font-bold text-white uppercase tracking-wider relative"
+                whileHover={{ color: "#548cac", x: 5 }}
+                transition={{ duration: 0.3 }}
+              >
+                {memoizedSections.register.title}
+                <motion.div
+                  className="absolute -bottom-2 left-0 h-0.5 bg-[#548cac] origin-left"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: hoveredSection === "register" ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.h3>
+              <ul className="space-y-4">
+                {memoizedSections.register.items.map((item, index) => (
+                  <motion.li
+                    key={item.label}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                    transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
+                  >
+                    <Link
+                      href={item.href}
+                      className="group flex items-center text-white/80 hover:text-[#548cac] transition-all duration-300 relative py-2"
+                    >
+                      <motion.div
+                        className="flex items-center space-x-3 w-full"
+                        whileHover={{ x: 8 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <motion.div
+                          className="w-1.5 h-1.5 rounded-full bg-[#548cac]/40 group-hover:bg-[#548cac] transition-colors duration-300"
+                          whileHover={{ scale: 1.5 }}
+                        />
+                        <span className="font-medium">{item.label}</span>
+                      </motion.div>
+                      <motion.div
+                        className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        whileHover={{ x: 3 }}
+                      >
+                        <RiArrowRightUpLine className="size-4 text-[#548cac]" />
+                      </motion.div>
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+            
             {/* Explore Section */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
