@@ -1,23 +1,36 @@
 "use client"
 
-import { RiArrowRightUpLine, RiCloseLine, RiMenuLine } from "@remixicon/react"
+import { RiArrowRightUpLine, RiCloseLine, RiMenuLine, RiArrowDownSLine } from "@remixicon/react"
 import { AnimatePresence, motion, useScroll, useTransform } from "motion/react"
 import Link from "next/link"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { AIMLogo } from "../../public/AIMLogo"
 
-const navigationItems = [
+const desktopNavigationItems = [
+  {
+    name: "Explore",
+    isDropdown: true,
+    items: [
+      { name: "AIM'25", href: "/aim2025" },
+      { name: "Symposiums", href: "/pre-conference-symposiums" },
+      { name: "Posters", href: "/posters" },
+    ],
+  },
   { name: "Events", href: "/events", isNew: true },
-  { name: "AIM'25", href: "/aim2025" },
-  { name: "Symposiums", href: "/pre-conference-symposiums" },
-  { name: "Posters", href: "/posters" },
   { name: "Contact Us", href: "/contact-us" },
 ]
 
-const desktopNavigationItems = [
+const mobileNavigationItems = [
+  {
+    name: "Explore",
+    isDropdown: true,
+    items: [
+      { name: "AIM'25", href: "/aim2025" },
+      { name: "Symposiums", href: "/pre-conference-symposiums" },
+      { name: "Posters", href: "/posters" },
+    ],
+  },
   { name: "Events", href: "/events", isNew: true },
-  { name: "Symposiums", href: "/pre-conference-symposiums" },
-  { name: "Posters", href: "/posters" },
   { name: "Contact Us", href: "/contact-us" },
 ]
 
@@ -25,6 +38,8 @@ export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isAIM2026ModalOpen, setIsAIM2026ModalOpen] = useState(false)
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false)
+  const [desktopDropdownOpen, setDesktopDropdownOpen] = useState(false)
 
   const headerRef = useRef<HTMLElement>(null)
   const { scrollY } = useScroll()
@@ -42,10 +57,16 @@ export default function NavBar() {
 
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev)
+    setMobileDropdownOpen(false)
   }, [])
 
   const closeMenu = useCallback(() => {
     setIsMenuOpen(false)
+    setMobileDropdownOpen(false)
+  }, [])
+
+  const toggleMobileDropdown = useCallback(() => {
+    setMobileDropdownOpen((prev) => !prev)
   }, [])
 
   const toggleAIM2026Modal = useCallback(() => {
@@ -61,6 +82,7 @@ export default function NavBar() {
       if (e.key === "Escape") {
         closeMenu()
         closeAIM2026Modal()
+        setDesktopDropdownOpen(false)
       }
     }
 
@@ -123,42 +145,42 @@ export default function NavBar() {
                     </motion.div>
                   </Link>
 
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                    className="flex flex-col items-start justify-center"
+                  >
+                    <h1 className="text-sm font-semibold text-white/70 leading-none">Health R&D Summit</h1>
                     <motion.div
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2, duration: 0.5 }}
-                      className="flex flex-col items-start justify-center"
+                      className="relative"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.4, duration: 0.8 }}
                     >
-                      <h1 className="text-sm font-semibold text-white/70 leading-none">Health R&D Summit</h1>
-                      <motion.div
-                        className="relative"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4, duration: 0.8 }}
+                      <motion.p
+                        className="text-sm font-medium text-white/70 hover:text-[#548cac] transition-all duration-300 cursor-pointer relative pb-1"
+                        onClick={toggleAIM2026Modal}
+                        whileHover={{ x: 0 }}
+                        transition={{ duration: 0.2 }}
                       >
-                        <motion.p
-                          className="text-sm font-medium text-white/70 hover:text-[#548cac] transition-all duration-300 cursor-pointer relative pb-1"
-                          onClick={toggleAIM2026Modal}
-                          whileHover={{ x: 0 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          Join us May 19, 2026
-                          <motion.span className="ml-1" whileHover={{ x: 0 }}>
-                            <RiArrowRightUpLine className="inline size-3 text-[#548cac]" />
-                          </motion.span>
-                        </motion.p>
-                        <motion.div
-                          className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#548cac] via-cyan-400 to-[#548cac] rounded-full shadow-[0_0_8px_rgba(84,140,172,0.6)]"
-                          initial={{ width: 0, opacity: 0 }}
-                          animate={{ width: "100%", opacity: 1 }}
-                          transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
-                          whileHover={{
-                            boxShadow: "0 0 15px rgba(84,140,172,0.8), 0 0 25px rgba(6,182,212,0.4)",
-                            scaleY: 1.5,
-                          }}
-                        />
-                      </motion.div>
+                        Join us May 19, 2026
+                        <motion.span className="ml-1" whileHover={{ x: 0 }}>
+                          <RiArrowRightUpLine className="inline size-3 text-[#548cac]" />
+                        </motion.span>
+                      </motion.p>
+                      <motion.div
+                        className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#548cac] via-cyan-400 to-[#548cac] rounded-full shadow-[0_0_8px_rgba(84,140,172,0.6)]"
+                        initial={{ width: 0, opacity: 0 }}
+                        animate={{ width: "100%", opacity: 1 }}
+                        transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
+                        whileHover={{
+                          boxShadow: "0 0 15px rgba(84,140,172,0.8), 0 0 25px rgba(6,182,212,0.4)",
+                          scaleY: 1.5,
+                        }}
+                      />
                     </motion.div>
+                  </motion.div>
                 </motion.div>
 
                 <div className="flex items-center space-x-8">
@@ -171,23 +193,69 @@ export default function NavBar() {
                         transition={{ delay: 0.15 + index * 0.05, duration: 0.3 }}
                         className="relative"
                       >
-                        <Link
-                          href={item.href}
-                          className="relative text-white hover:text-[#548cac] transition-colors duration-300 font-medium group py-2 px-3 rounded-lg hover:bg-[#548cac]/10 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black"
-                        >
-                          {item.name}
-                          {item.isNew && (
-                            <span className="absolute -top-2 -right-7 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2 py-0.5 rounded-full border border-white/20 whitespace-nowrap">
-                              NEW
-                            </span>
-                          )}
-                          <motion.div
-                            className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#548cac] origin-left"
-                            initial={{ scaleX: 0 }}
-                            whileHover={{ scaleX: 1 }}
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
-                          />
-                        </Link>
+                        {item.isDropdown ? (
+                          <div
+                            className="relative"
+                            onMouseEnter={() => setDesktopDropdownOpen(true)}
+                            onMouseLeave={() => setDesktopDropdownOpen(false)}
+                          >
+                            <button
+                              className="relative text-white hover:text-[#548cac] transition-colors duration-300 font-medium group py-2 px-3 rounded-lg hover:bg-[#548cac]/10 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black flex items-center"
+                              aria-expanded={desktopDropdownOpen}
+                              aria-haspopup="true"
+                            >
+                              {item.name}
+                              <motion.div
+                                animate={{ rotate: desktopDropdownOpen ? 180 : 0 }}
+                                transition={{ duration: 0.2 }}
+                              >
+                                <RiArrowDownSLine className="ml-1 h-4 w-4" aria-hidden="true" />
+                              </motion.div>
+                            </button>
+
+                            <AnimatePresence>
+                              {desktopDropdownOpen && (
+                                <motion.div
+                                  initial={{ opacity: 0, y: -10 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: -10 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="absolute top-full left-0 mt-2 min-w-[200px] bg-black/95 backdrop-blur-xl border border-white/10 rounded-lg shadow-2xl overflow-hidden"
+                                >
+                                  <div className="py-2">
+                                    {item.items?.map((subItem) => (
+                                      <Link
+                                        key={subItem.name}
+                                        href={subItem.href}
+                                        className="block px-4 py-3 text-white hover:text-[#548cac] hover:bg-[#548cac]/10 transition-all duration-200 font-medium"
+                                      >
+                                        {subItem.name}
+                                      </Link>
+                                    ))}
+                                  </div>
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                        ) : (
+                          <Link
+                            href={item.href ?? "#"}
+                            className="relative text-white hover:text-[#548cac] transition-colors duration-300 font-medium group py-2 px-3 rounded-lg hover:bg-[#548cac]/10 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black inline-block"
+                          >
+                            {item.name}
+                            {item.isNew && (
+                              <span className="absolute -top-2 -right-7 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2 py-0.5 rounded-full border border-white/20 whitespace-nowrap">
+                                NEW
+                              </span>
+                            )}
+                            <motion.div
+                              className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#548cac] origin-left"
+                              initial={{ scaleX: 0 }}
+                              whileHover={{ scaleX: 1 }}
+                              transition={{ duration: 0.3, ease: "easeInOut" }}
+                            />
+                          </Link>
+                        )}
                       </motion.div>
                     ))}
                   </nav>
@@ -331,7 +399,7 @@ export default function NavBar() {
               >
                 <div className="bg-black/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden relative z-60">
                   <nav className="py-2">
-                    {navigationItems.map((item, index) => (
+                    {mobileNavigationItems.map((item, index) => (
                       <motion.div
                         key={item.name}
                         initial={{ opacity: 0, x: -20 }}
@@ -342,27 +410,88 @@ export default function NavBar() {
                           ease: "easeOut",
                         }}
                       >
-                        <Link
-                          href={item.href}
-                          className="group block px-6 py-4 hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden"
-                          onClick={closeMenu}
-                        >
-                          <div className="absolute inset-0 bg-gradient-to-r from-[#548cac]/0 via-[#548cac]/5 to-[#548cac]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        {item.isDropdown ? (
+                          <div>
+                            <button
+                              onClick={toggleMobileDropdown}
+                              className="group w-full block px-6 py-4 hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden"
+                            >
+                              <div className="absolute inset-0 bg-gradient-to-r from-[#548cac]/0 via-[#548cac]/5 to-[#548cac]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                          <div className="relative z-10 flex items-center justify-between">
-                            <div className="flex items-center space-x-3">
-                              <span className="text-lg font-medium text-white group-hover:text-[#548cac] transition-colors duration-300">
-                                {item.name}
-                              </span>
-                              {item.isNew && (
-                                <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2 py-0.5 rounded-full border border-white/20">
-                                  AIM @ SASW
-                                </span>
+                              <div className="relative z-10 flex items-center justify-between">
+                                <div className="flex items-center space-x-3">
+                                  <span className="text-lg font-medium text-white group-hover:text-[#548cac] transition-colors duration-300">
+                                    {item.name}
+                                  </span>
+                                </div>
+                                <motion.div
+                                  animate={{ rotate: mobileDropdownOpen ? 180 : 0 }}
+                                  transition={{ duration: 0.2 }}
+                                >
+                                  <RiArrowDownSLine className="size-5 text-[#548cac]" />
+                                </motion.div>
+                              </div>
+                            </button>
+
+                            <AnimatePresence>
+                              {mobileDropdownOpen && (
+                                <motion.div
+                                  initial={{ opacity: 0, height: 0 }}
+                                  animate={{ opacity: 1, height: "auto" }}
+                                  exit={{ opacity: 0, height: 0 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="bg-[#548cac]/5 border-t border-white/5"
+                                >
+                                  {item.items?.map((subItem, subIndex) => (
+                                    <motion.div
+                                      key={subItem.name}
+                                      initial={{ opacity: 0, x: -10 }}
+                                      animate={{ opacity: 1, x: 0 }}
+                                      transition={{ delay: subIndex * 0.05, duration: 0.2 }}
+                                    >
+                                      <Link
+                                        href={subItem.href}
+                                        className="group block px-10 py-3 hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden"
+                                        onClick={closeMenu}
+                                      >
+                                        <div className="absolute inset-0 bg-gradient-to-r from-[#548cac]/0 via-[#548cac]/5 to-[#548cac]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                                        <div className="relative z-10 flex items-center justify-between">
+                                          <span className="text-base font-medium text-white/90 group-hover:text-[#548cac] transition-colors duration-300">
+                                            {subItem.name}
+                                          </span>
+                                          <div className="w-1.5 h-1.5 rounded-full bg-[#548cac]/40 group-hover:bg-[#548cac] transition-colors duration-300" />
+                                        </div>
+                                      </Link>
+                                    </motion.div>
+                                  ))}
+                                </motion.div>
                               )}
-                            </div>
-                            <div className="w-2 h-2 rounded-full bg-[#548cac]/40 group-hover:bg-[#548cac] transition-colors duration-300" />
+                            </AnimatePresence>
                           </div>
-                        </Link>
+                        ) : (
+                          <Link
+                            href={item.href ?? "#"}
+                            className="group block px-6 py-4 hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden"
+                            onClick={closeMenu}
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-r from-[#548cac]/0 via-[#548cac]/5 to-[#548cac]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                            <div className="relative z-10 flex items-center justify-between">
+                              <div className="flex items-center space-x-3">
+                                <span className="text-lg font-medium text-white group-hover:text-[#548cac] transition-colors duration-300">
+                                  {item.name}
+                                </span>
+                                {item.isNew && (
+                                  <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2 py-0.5 rounded-full border border-white/20">
+                                    AIM @ SASW
+                                  </span>
+                                )}
+                              </div>
+                              <div className="w-2 h-2 rounded-full bg-[#548cac]/40 group-hover:bg-[#548cac] transition-colors duration-300" />
+                            </div>
+                          </Link>
+                        )}
                       </motion.div>
                     ))}
                   </nav>

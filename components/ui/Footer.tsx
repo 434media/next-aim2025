@@ -18,9 +18,9 @@ const footerSections = {
   explore: {
     title: "Explore",
     items: [
+      { label: "AIM'25", href: "/aim2025" },
       { label: "Symposiums", href: "/pre-conference-symposiums" },
       { label: "Posters", href: "/posters" },
-      { label: "AIM'25", href: "/aim2025" },
     ],
   },
   connect: {
