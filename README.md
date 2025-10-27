@@ -1,4 +1,4 @@
-# AIM Health R&D Summit Website
+# AIM Health R&D Summit
 
 A modern, responsive website for the AIM Health R&D Summit - the premier event connecting academia, industry, and military to advance medical innovation.
 
