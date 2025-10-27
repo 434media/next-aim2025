@@ -1,234 +1,206 @@
 "use client"
 
-import { RiArrowRightUpLine } from "@remixicon/react"
-import { motion } from "motion/react"
+import { useEffect, useState } from "react"
+import { getEventsAction } from "../../app/actions/events"
+import { CalendarWidget } from "../../components/events/CalendarWidget"
+import { EventCard } from "../../components/events/EventCard"
+import { CalendarSkeleton, EventCardSkeleton } from "../../components/events/LoadingSkeleton"
+import { PastEventsSection } from "../../components/events/PastEventsSection"
+import { Toast } from "../../components/events/Toast"
+import { VideoWidget } from "../../components/events/VideoWidget"
+import { FadeIn } from "../../components/FadeIn"
+import { isEventUpcoming } from "../../lib/event-utils"
+import type { Event } from "../../types/event"
 
 export default function EventsPage() {
+  const [allEvents, setAllEvents] = useState<Event[]>([])
+  const [currentEvents, setCurrentEvents] = useState<Event[]>([])
+  const [pastEvents, setPastEvents] = useState<Event[]>([])
+  const [filteredEvents, setFilteredEvents] = useState<Event[] | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState("")
+  const [mounted, setMounted] = useState(false)
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" | "warning"; isVisible: boolean }>({
+    message: "",
+    type: "success",
+    isVisible: false,
+  })
+
+  // Fix hydration by ensuring component is mounted
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Load events on component mount
+  useEffect(() => {
+    if (mounted) {
+      loadEvents()
+    }
+  }, [mounted])
+
+  // Filter events on client side when allEvents changes
+  useEffect(() => {
+    if (mounted && allEvents.length > 0) {
+      // Client-side filtering using local timezone
+      const upcoming = allEvents.filter((event) => isEventUpcoming(event))
+      const past = allEvents.filter((event) => !isEventUpcoming(event))
+
+      setCurrentEvents(upcoming)
+      setPastEvents(past)
+    }
+  }, [allEvents, mounted])
+
+  const hideToast = () => {
+    setToast((prev) => ({ ...prev, isVisible: false }))
+  }
+
+  const loadEvents = async () => {
+    setIsLoading(true)
+    setError("")
+
+    try {
+      const result = await getEventsAction()
+
+      if (result.success) {
+        setAllEvents(result.events)
+      } else {
+        setError(result.error || "Failed to load events")
+      }
+    } catch (error) {
+      setError("An unexpected error occurred")
+      console.error("[v0] Error loading events:", error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  // Calendar filter handlers
+  const handleDateFilter = (events: Event[]) => {
+    setFilteredEvents(events)
+  }
+
+  const handleClearFilter = () => {
+    setFilteredEvents(null)
+  }
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return null
+  }
+
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
-      {/* Hero Section */}
-      <div className="relative pt-20 md:pt-32 pb-8 md:pb-16 px-4 lg:px-8 mt-16 md:mt-8">
-        <div className="max-w-6xl mx-auto">
-            <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex items-center justify-center space-x-4 md:space-x-12 mb-8 w-full"
-          >
-            <img
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/powered+by+geekdom+sasw-33+(1).png"
-              alt="SASW Logo"
-              className="h-7 md:h-16 w-auto flex-shrink-0"
+    <div className="min-h-screen bg-white">
+      <FadeIn>
+        <div className="relative pt-28 pb-16 md:pt-40 md:pb-20 bg-black text-white overflow-hidden">
+          {/* Subtle Background Pattern */}
+          <div className="absolute inset-0 opacity-[0.05] pointer-events-none" aria-hidden="true">
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `radial-gradient(circle, white 1px, transparent 1px)`,
+                backgroundSize: "24px 24px",
+              }}
             />
-            <span className="hidden md:flex text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
-            <img
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-black-2026.png"
-              alt="AIM 2026 Logo"
-              className="h-12 md:h-28 w-auto flex-shrink-0"
-            />
-            <span className="hidden md:flex text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
-            <img
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/VelocityTX+Logo+MAIN+RGB+(1).png"
-              alt="VelocityTX Logo"
-              className="h-9 md:h-20 w-auto flex-shrink-0"
-            />
-            <span className="hidden md:flex text-gray-400 text-lg md:text-2xl font-bold flex-shrink-0">×</span>
-            <img
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/ECD_White_Horizontal.png"
-              alt="Bexar Seal Logo"
-              className="h-6 md:h-16 w-auto flex-shrink-0 invert"
-            />
-          </motion.div>
-          {/* Title Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-center mb-8"
-          >
-            <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight">
-              Plan Your Week of Innovation
-            </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto mb-6 rounded-full"></div>
-            <p className="text-2xl text-gray-700 font-bold mb-6 md:mb-12 leading-relaxed max-w-lg mx-auto">
-              Don't Miss These AIM-Sponsored Events at San Antonio Startup Week!
-            </p>
-          </motion.div>
-        </div>
-      </div>
+          </div>
 
-      {/* Events Grid */}
-      <div className="max-w-6xl mx-auto px-4 lg:px-8 pb-12 md:pb-20 -mt-4 md:-mt-10">
-        <div className="grid gap-8 md:grid-cols-2">
-          {/* Event 1 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-white rounded-2xl shadow-lg border-2 border-transparent hover:border-gradient-to-r hover:from-purple-600 hover:to-pink-600 transition-all duration-300 overflow-hidden group"
-            style={{
-              background:
-                "linear-gradient(white, white) padding-box, linear-gradient(135deg, #9333ea, #ec4899) border-box",
-            }}
-          >
-            <div className="p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 leading-tight">
-                AI in Healthcare: The Good, The Bad, The Unknown
-              </h3>
-              <p className="text-gray-600 mb-6 leading-relaxed font-medium">
-                In an era where technology is transforming every aspect of our lives, healthcare stands at the forefront
-                of this digital revolution.
-              </p>
-              <div className="flex flex-col space-y-2 text-gray-500 mb-6 font-semibold">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>Thursday, October 16</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>8:00 AM – 10:00 AM</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>VelocityTX</span>
-                </div>
+          {/* Content Container */}
+          <div className="relative z-10 px-4 sm:px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="mb-6 sm:mb-8">
+                <h4 className="text-white font-medium text-sm">
+                  <span>Build connections that matter</span>
+                </h4>
               </div>
-              <a
-                href="https://www.eventbrite.com/e/ai-in-healthcare-the-good-the-bad-and-the-unknown-registration-1628736216869"
-                target="_blank"
-                rel="noopener noreferrer"
+
+              <div className="mb-6 sm:mb-8">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-3 sm:mb-4 text-balance">
+                  <span className="text-white">Where Networks</span>
+                  <br />
+                  <span className="text-white">Meet Action</span>
+                </h1>
+              </div>
+
+              <div className="mb-8 sm:mb-10">
+                <p className="text-xl text-gray-300 leading-relaxed mb-2 text-pretty">
+                  Discover meaningful events that bring communities together.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 bg-white relative">
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm text-center">
+              {error}
+              <button
+                onClick={loadEvents}
+                className="ml-3 text-red-600 underline hover:text-red-800 transition-colors duration-200"
               >
-                <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
-                  Register Now <RiArrowRightUpLine className="inline size-4 ml-1" />
-                </button>
-              </a>
+                Try Again
+              </button>
             </div>
-          </motion.div>
+          )}
 
-          {/* Event 2 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="bg-white rounded-2xl shadow-lg border-2 border-transparent hover:border-gradient-to-r hover:from-purple-600 hover:to-pink-600 transition-all duration-300 overflow-hidden group"
-            style={{
-              background:
-                "linear-gradient(white, white) padding-box, linear-gradient(135deg, #9333ea, #ec4899) border-box",
-            }}
-          >
-            <div className="p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 leading-tight">
-                Leveraging Federal Funding to Accelerate Dual-Use Solutions
-              </h3>
-              <p className="text-gray-600 mb-6 leading-relaxed font-medium">
-                Discover how federal programs like SBIR, STTR, and CDMRP can help entrepreneurs fund, validate, and
-                scale dual-use technologies.
-              </p>
-              <div className="flex flex-col space-y-2 text-gray-500 mb-6 font-semibold">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>Thursday, October 16</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>1:30 PM – 2:30 PM</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>Embassy Suites – Majestic Ballroom</span>
-                </div>
+          <div className="lg:flex lg:gap-6">
+            {/* Left Side - Event List */}
+            <div className="lg:flex-1">
+              <div className="mb-6">
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                  {filteredEvents ? 'Filtered Events' : 'Upcoming Events'}
+                </h2>
+                {filteredEvents && (
+                  <p className="text-sm text-gray-600 mt-1">
+                    Showing {filteredEvents.length} event{filteredEvents.length !== 1 ? 's' : ''} for selected date
+                  </p>
+                )}
               </div>
-              <a href="https://whova.com/portal/registration/5TQdKEcUtWFwk796klZN/" target="_blank" rel="noopener noreferrer">
-                <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
-                  Register Now <RiArrowRightUpLine className="inline size-4 ml-1" />
-                </button>
-              </a>
-            </div>
-          </motion.div>
 
-          {/* Event 3 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="bg-white rounded-2xl shadow-lg border-2 border-transparent hover:border-gradient-to-r hover:from-purple-600 hover:to-pink-600 transition-all duration-300 overflow-hidden group"
-            style={{
-              background:
-                "linear-gradient(white, white) padding-box, linear-gradient(135deg, #9333ea, #ec4899) border-box",
-            }}
-          >
-            <div className="p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 leading-tight">
-                Connecting with Capability: Research Sponsorship and Collaboration
-              </h3>
-              <p className="text-gray-600 mb-6 leading-relaxed font-medium">
-                Get a preview of San Antonio's innovation ecosystem and learn how startups, corporations, and investors
-                can tap into local research and collaboration opportunities.
-              </p>
-              <div className="flex flex-col space-y-2 text-gray-500 mb-6 font-semibold">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>Thursday, October 16</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>3:30 PM – 4:20 PM</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>Embassy Suites – Majestic Ballroom</span>
-                </div>
+              <div className="space-y-4">
+                {isLoading ? (
+                  Array.from({ length: 4 }).map((_, i) => <EventCardSkeleton key={i} />)
+                ) : (() => {
+                  const eventsToShow = filteredEvents || currentEvents
+                  return eventsToShow.length > 0 ? (
+                    eventsToShow
+                      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+                      .map((event, index) => <EventCard key={event.id} event={event} index={index} />)
+                  ) : (
+                    <div className="text-center py-12">
+                      <p className="text-lg text-gray-600">
+                        {filteredEvents ? 'No events found for selected date.' : 'No upcoming events at the moment.'}
+                      </p>
+                      <p className="text-sm text-gray-500 mt-2">
+                        {filteredEvents ? 'Try selecting a different date.' : 'Check back soon for new events!'}
+                      </p>
+                    </div>
+                  )
+                })()}
               </div>
-              <a href="https://whova.com/portal/registration/5TQdKEcUtWFwk796klZN/" target="_blank" rel="noopener noreferrer">
-                <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
-                  Register Now <RiArrowRightUpLine className="inline size-4 ml-1" />
-                </button>
-              </a>
             </div>
-          </motion.div>
 
-          {/* Event 4 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="bg-white rounded-2xl shadow-lg border-2 border-transparent hover:border-gradient-to-r hover:from-purple-600 hover:to-pink-600 transition-all duration-300 overflow-hidden group"
-            style={{
-              background:
-                "linear-gradient(white, white) padding-box, linear-gradient(135deg, #9333ea, #ec4899) border-box",
-            }}
-          >
-            <div className="p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 leading-tight">
-                Funding Forward: Equitable, Strategic Capital for Innovators
-              </h3>
-              <p className="text-gray-600 mb-6 leading-relaxed font-medium">
-                Learn how investors, accelerators, and ecosystem leaders are creating equitable funding pathways to help
-                innovators from all backgrounds grow and scale their startups.
-              </p>
-              <div className="flex flex-col space-y-2 text-gray-500 mb-6 font-semibold">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>Thursday, October 16</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>4:30 PM – 5:20 PM</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex-shrink-0"></div>
-                  <span>Embassy Suites - Majestic Ballroom</span>
-                </div>
-              </div>
-              <a href="https://whova.com/portal/registration/5TQdKEcUtWFwk796klZN/" target="_blank" rel="noopener noreferrer">
-                <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
-                  Register Now <RiArrowRightUpLine className="inline size-4 ml-1" />
-                </button>
-              </a>
+            {/* Right Side - Calendar & Video */}
+            <div className="hidden lg:block lg:w-80 space-y-6 flex-shrink-0 sticky top-24 self-start">
+              {isLoading ? (
+                <CalendarSkeleton />
+              ) : (
+                <>
+                  <CalendarWidget
+                    events={allEvents}
+                    onDateFilter={handleDateFilter}
+                    onClearFilter={handleClearFilter}
+                  />
+                  <VideoWidget />
+                </>
+              )}
             </div>
-          </motion.div>
+          </div>
         </div>
-      </div>
+
+        {!isLoading && pastEvents.length > 0 && <PastEventsSection events={pastEvents} />}
+      </FadeIn>
+
+      <Toast message={toast.message} type={toast.type} isVisible={toast.isVisible} onClose={hideToast} />
     </div>
   )
 }
