@@ -7,7 +7,7 @@ import { EventCard } from "../../components/events/EventCard"
 import { CalendarSkeleton, EventCardSkeleton } from "../../components/events/LoadingSkeleton"
 import { PastEventsSection } from "../../components/events/PastEventsSection"
 import { Toast } from "../../components/events/Toast"
-import { VideoWidget } from "../../components/events/VideoWidget"
+
 import { FadeIn } from "../../components/FadeIn"
 import { isEventUpcoming } from "../../lib/event-utils"
 import type { Event } from "../../types/event"
@@ -83,6 +83,8 @@ export default function EventsPage() {
     setFilteredEvents(null)
   }
 
+
+
   // Prevent hydration mismatch by not rendering until mounted
   if (!mounted) {
     return null
@@ -93,7 +95,7 @@ export default function EventsPage() {
       <FadeIn>
         <div className="relative pt-28 pb-16 md:pt-40 md:pb-20 bg-black text-white overflow-hidden">
           {/* Subtle Background Pattern */}
-          <div className="absolute inset-0 opacity-[0.05] pointer-events-none" aria-hidden="true">
+          <div className="absolute inset-0 opacity-[0.2] pointer-events-none" aria-hidden="true">
             <div
               className="absolute inset-0"
               style={{
@@ -106,12 +108,6 @@ export default function EventsPage() {
           {/* Content Container */}
           <div className="relative z-10 px-4 sm:px-6">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="mb-6 sm:mb-8">
-                <h4 className="text-white font-medium text-sm">
-                  <span>Build connections that matter</span>
-                </h4>
-              </div>
-
               <div className="mb-6 sm:mb-8">
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-3 sm:mb-4 text-balance">
                   <span className="text-white">Where Networks</span>
@@ -142,18 +138,44 @@ export default function EventsPage() {
             </div>
           )}
 
+          {/* Mobile Calendar - Full Width (Above Events) */}
+          <div className="block lg:hidden mb-8">
+            {isLoading ? (
+              <CalendarSkeleton />
+            ) : (
+              <CalendarWidget
+                events={allEvents}
+                onDateFilter={handleDateFilter}
+                onClearFilter={handleClearFilter}
+                isMobile={true}
+              />
+            )}
+          </div>
+
           <div className="lg:flex lg:gap-6">
             {/* Left Side - Event List */}
             <div className="lg:flex-1">
               <div className="mb-6">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                  {filteredEvents ? 'Filtered Events' : 'Upcoming Events'}
-                </h2>
-                {filteredEvents && (
-                  <p className="text-sm text-gray-600 mt-1">
-                    Showing {filteredEvents.length} event{filteredEvents.length !== 1 ? 's' : ''} for selected date
-                  </p>
-                )}
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                      {filteredEvents ? 'Filtered Events' : 'Upcoming Events'}
+                    </h2>
+                    {filteredEvents && (
+                      <p className="text-sm text-gray-600 mt-1">
+                        Showing {filteredEvents.length} event{filteredEvents.length !== 1 ? 's' : ''} for selected date
+                      </p>
+                    )}
+                  </div>
+                  {filteredEvents && (
+                    <button
+                      onClick={handleClearFilter}
+                      className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 active:bg-gray-100 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                    >
+                      Show All Events
+                    </button>
+                  )}
+                </div>
               </div>
 
               <div className="space-y-4">
@@ -179,7 +201,7 @@ export default function EventsPage() {
               </div>
             </div>
 
-            {/* Right Side - Calendar & Video */}
+            {/* Right Side - Calendar (Desktop Only) */}
             <div className="hidden lg:block lg:w-80 space-y-6 flex-shrink-0 sticky top-24 self-start">
               {isLoading ? (
                 <CalendarSkeleton />
@@ -189,8 +211,8 @@ export default function EventsPage() {
                     events={allEvents}
                     onDateFilter={handleDateFilter}
                     onClearFilter={handleClearFilter}
+                    isMobile={false}
                   />
-                  <VideoWidget />
                 </>
               )}
             </div>

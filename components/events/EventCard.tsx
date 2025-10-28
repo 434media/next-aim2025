@@ -9,6 +9,8 @@ import type { Event } from "../../types/event"
 interface EventCardProps {
   event: Event
   index: number
+  isModalOpen?: boolean
+  onModalClose?: () => void
 }
 
 // Format date from YYYY-MM-DD to "Month Day, Year" (timezone-safe)
@@ -34,8 +36,11 @@ function formatEventDate(dateString: string): string {
   }
 }
 
-export function EventCard({ event, index }: EventCardProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+export function EventCard({ event, index, isModalOpen: externalModalOpen, onModalClose }: EventCardProps) {
+  const [internalModalOpen, setInternalModalOpen] = useState(false)
+
+  // Use external modal control if provided, otherwise use internal state
+  const isModalOpen = externalModalOpen !== undefined ? externalModalOpen : internalModalOpen
 
   // Debug logging for EventCard image rendering
   if (process.env.NODE_ENV === 'development' && index === 0) {
@@ -49,96 +54,99 @@ export function EventCard({ event, index }: EventCardProps) {
 
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="bg-white rounded-lg p-6 hover:shadow-lg transition-shadow border border-gray-200 cursor-pointer"
-        onClick={() => setIsModalOpen(true)}
-      >
-        <div className="flex flex-col md:flex-row gap-6">
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 text-gray-600 text-sm mb-3">
-              <RiCalendarLine className="w-4 h-4" />
-              <span className="font-semibold">{formatEventDate(event.date)}</span>
-            </div>
+      {/* Only render card if not using external modal control */}
+      {externalModalOpen === undefined && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
+          className="bg-white rounded-lg p-6 hover:shadow-lg transition-shadow border border-gray-200 cursor-pointer"
+          onClick={() => setInternalModalOpen(true)}
+        >
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex-1 min-w-0">
+              {event.event_url ? (
+                <a
+                  href={event.event_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xl font-bold mb-3 leading-tight text-gray-900 hover:text-blue-600 transition-colors block"
+                >
+                  {event.title}
+                </a>
+              ) : (
+                <h3 className="text-xl font-bold mb-3 leading-tight text-gray-900">{event.title}</h3>
+              )}
 
-            <div className="flex items-center gap-2 text-gray-700 mb-3">
-              <RiTimeLine className="w-4 h-4" />
-              <span className="text-sm">{event.time}</span>
-            </div>
+              {event.description && (
+                <div className="mb-4">
+                  <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed"
+                    style={{ maxWidth: '65ch' }}>
+                    {event.description}
+                  </p>
+                </div>
+              )}
 
-            {event.event_url ? (
-              <a
-                href={event.event_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xl font-bold mb-3 leading-tight text-gray-900 hover:text-blue-600 transition-colors block"
-              >
-                {event.title}
-              </a>
-            ) : (
-              <h3 className="text-xl font-bold mb-3 leading-tight text-gray-900">{event.title}</h3>
-            )}
-
-            {event.description && (
-              <div className="mb-3">
-                <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed"
-                  style={{ maxWidth: '65ch' }}>
-                  {event.description}
-                </p>
+              <div className="flex items-center gap-2 text-gray-600 text-sm mb-2">
+                <RiCalendarLine className="w-4 h-4" />
+                <span className="font-semibold">{formatEventDate(event.date)}</span>
               </div>
-            )}
 
-            <div className="flex items-center gap-2 text-gray-600 text-sm mb-2">
-              <div className="w-5 h-5 rounded-full bg-gray-200 flex items-center justify-center">
-                <span className="text-xs">👥</span>
+              <div className="flex items-center gap-2 text-gray-700 mb-3">
+                <RiTimeLine className="w-4 h-4" />
+                <span className="text-sm">{event.time}</span>
               </div>
-              <span>By {event.organizer}</span>
+
+              <div className="flex items-center gap-2 text-gray-600 text-sm mb-2">
+                <div className="w-5 h-5 rounded-full bg-gray-200 flex items-center justify-center">
+                  <span className="text-xs">👥</span>
+                </div>
+                <span>By {event.organizer}</span>
+              </div>
+
+              <div className="flex items-center gap-2 text-gray-600 text-sm mb-4">
+                <RiMapPinLine className="w-4 h-4" />
+                <span>{event.location}</span>
+              </div>
+
+              {event.tags && event.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {event.tags.map((tag) => (
+                    <span key={tag} className={`px-2 py-1 rounded text-xs font-medium border ${getTagColor(tag)}`}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
 
-            <div className="flex items-center gap-2 text-gray-600 text-sm mb-4">
-              <RiMapPinLine className="w-4 h-4" />
-              <span>{event.location}</span>
+            <div className="md:w-[460px] w-full h-auto md:aspect-[16/9] rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
+              {event.image_url ? (
+                <img
+                  src={event.image_url}
+                  alt={event.title}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    console.log(`[EventCard] Image failed to load:`, event.image_url);
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    // Show placeholder instead of hiding container
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 text-xs';
+                    placeholder.textContent = 'Image not available';
+                    target.parentElement!.appendChild(placeholder);
+                  }}
+                  loading="lazy"
+                />
+              ) : (
+                <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 text-xs">
+                  No image
+                </div>
+              )}
             </div>
-
-            {event.tags && event.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {event.tags.map((tag) => (
-                  <span key={tag} className={`px-2 py-1 rounded text-xs font-medium border ${getTagColor(tag)}`}>
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
           </div>
-
-          <div className="md:w-[460px] w-full h-auto md:aspect-[16/9] rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
-            {event.image_url ? (
-              <img
-                src={event.image_url}
-                alt={event.title}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  console.log(`[EventCard] Image failed to load:`, event.image_url);
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  // Show placeholder instead of hiding container
-                  const placeholder = document.createElement('div');
-                  placeholder.className = 'w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 text-xs';
-                  placeholder.textContent = 'Image not available';
-                  target.parentElement!.appendChild(placeholder);
-                }}
-                loading="lazy"
-              />
-            ) : (
-              <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 text-xs">
-                No image
-              </div>
-            )}
-          </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      )}
 
       {/* Event Details Modal */}
       <AnimatePresence>
@@ -149,7 +157,13 @@ export function EventCard({ event, index }: EventCardProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setIsModalOpen(false)}
+              onClick={() => {
+                if (onModalClose) {
+                  onModalClose()
+                } else {
+                  setInternalModalOpen(false)
+                }
+              }}
               className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
             >
               {/* Modal Content */}
@@ -164,7 +178,13 @@ export function EventCard({ event, index }: EventCardProps) {
                 <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between rounded-t-xl">
                   <h2 className="text-2xl font-bold text-gray-900">{event.title}</h2>
                   <button
-                    onClick={() => setIsModalOpen(false)}
+                    onClick={() => {
+                      if (onModalClose) {
+                        onModalClose()
+                      } else {
+                        setInternalModalOpen(false)
+                      }
+                    }}
                     className="p-2 hover:bg-gray-100 rounded-full transition-colors"
                     aria-label="Close modal"
                   >
@@ -251,7 +271,13 @@ export function EventCard({ event, index }: EventCardProps) {
                       </a>
                     )}
                     <button
-                      onClick={() => setIsModalOpen(false)}
+                      onClick={() => {
+                        if (onModalClose) {
+                          onModalClose()
+                        } else {
+                          setInternalModalOpen(false)
+                        }
+                      }}
                       className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-semibold"
                     >
                       Close

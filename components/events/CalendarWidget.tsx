@@ -1,19 +1,180 @@
 "use client"
 
-import { RiArrowLeftSLine, RiArrowRightSLine, RiCalendarEventLine } from "@remixicon/react"
-import { AnimatePresence, motion } from "motion/react"
-import { useState } from "react"
+import { CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react"
+import { useEffect, useState } from "react"
+import { cn } from "../../lib/utils"
+import { AIMLogo } from "../../public/AIMLogo"
 import type { Event } from "../../types/event"
+import { EventCard } from "./EventCard"
+
+interface CalendarDay {
+  date: Date
+  events: Event[]
+  isCurrentMonth: boolean
+  isToday: boolean
+}
 
 interface CalendarWidgetProps {
   events?: Event[]
   onDateFilter?: (events: Event[]) => void
   onClearFilter?: () => void
+  isMobile?: boolean
 }
 
-export function CalendarWidget({ events = [], onDateFilter, onClearFilter }: CalendarWidgetProps) {
-  const [currentMonth, setCurrentMonth] = useState(new Date())
-  const [selectedDate, setSelectedDate] = useState<string | null>(null)
+// Helper functions for calendar operations
+const generateCalendarDays = (year: number, month: number): CalendarDay[] => {
+  const firstDay = new Date(year, month, 1)
+  const lastDay = new Date(year, month + 1, 0)
+  const daysInMonth = lastDay.getDate()
+  const startingDayOfWeek = firstDay.getDay() // 0 = Sunday, 1 = Monday, etc.
+
+  const days: CalendarDay[] = []
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  // Add days from previous month to fill the beginning of the calendar
+  // Only add if the month doesn't start on Sunday (startingDayOfWeek !== 0)
+  if (startingDayOfWeek > 0) {
+    // Get the last day of the previous month correctly
+    const prevMonthLastDate = new Date(year, month, 0) // This gives us the last day of previous month
+    const prevMonthDays = prevMonthLastDate.getDate()
+
+    // Calculate how many days we need from previous month
+    const daysNeeded = startingDayOfWeek
+
+    // Add the days from previous month
+    for (let i = daysNeeded; i > 0; i--) {
+      const dayNumber = prevMonthDays - i + 1
+      const date = new Date(year, month - 1, dayNumber)
+      days.push({
+        date,
+        events: [],
+        isCurrentMonth: false,
+        isToday: date.getTime() === today.getTime(),
+      })
+    }
+  }
+
+  // Add days from current month
+  for (let day = 1; day <= daysInMonth; day++) {
+    const date = new Date(year, month, day)
+    days.push({
+      date,
+      events: [],
+      isCurrentMonth: true,
+      isToday: date.getTime() === today.getTime(),
+    })
+  }
+
+  // Add days from next month to complete the grid (always 42 cells = 6 weeks)
+  const totalCells = 42
+  let nextMonthDay = 1
+  while (days.length < totalCells) {
+    const date = new Date(year, month + 1, nextMonthDay)
+    days.push({
+      date,
+      events: [],
+      isCurrentMonth: false,
+      isToday: date.getTime() === today.getTime(),
+    })
+    nextMonthDay++
+  }
+
+  return days
+}
+
+const isEventUpcoming = (event: Event): boolean => {
+  try {
+    const eventDate = new Date(event.date)
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    return eventDate >= today
+  } catch {
+    return false
+  }
+}
+
+const safeParseDate = (dateStr: string): Date | null => {
+  try {
+    const date = new Date(dateStr)
+    return isNaN(date.getTime()) ? null : date
+  } catch {
+    return null
+  }
+}
+
+export function CalendarWidget({ events = [], onDateFilter, onClearFilter, isMobile = false }: CalendarWidgetProps) {
+  const [currentDate, setCurrentDate] = useState(new Date())
+  const [calendarSelectedDate, setCalendarSelectedDate] = useState<Date | null>(null)
+  const [calendarDays, setCalendarDays] = useState<CalendarDay[]>([])
+  const [isClient, setIsClient] = useState(false)
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
+  const [isEventModalOpen, setIsEventModalOpen] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isClient) return
+
+    const days = generateCalendarDays(currentDate.getFullYear(), currentDate.getMonth())
+
+    // Populate each day with its events using client-side timezone
+    const daysWithEvents = days.map((day) => {
+      const dayString = day.date.toISOString().split("T")[0]
+
+      // Filter events for this specific day that are upcoming (client-side check)
+      const dayEvents = events.filter((event) => {
+        if (!event.date) return false
+
+        // Normalize the event date to compare with day (client-side)
+        const eventDate = safeParseDate(event.date)
+        if (!eventDate) return false
+
+        const eventDateString = eventDate.toISOString().split("T")[0]
+        return eventDateString === dayString && isEventUpcoming(event)
+      })
+
+      return {
+        ...day,
+        events: dayEvents,
+      }
+    })
+
+    setCalendarDays(daysWithEvents)
+  }, [currentDate, events, isClient])
+
+  const navigateMonth = (direction: "prev" | "next") => {
+    setCurrentDate((prev) => {
+      const newDate = new Date(prev)
+      if (direction === "prev") {
+        newDate.setMonth(prev.getMonth() - 1)
+      } else {
+        newDate.setMonth(prev.getMonth() + 1)
+      }
+      return newDate
+    })
+  }
+
+  const goToToday = () => {
+    setCurrentDate(new Date())
+  }
+
+
+
+  const handleEventIndicatorClick = (day: CalendarDay) => {
+    if (day.events.length > 0) {
+      if (isMobile && day.events.length === 1) {
+        // On mobile, open modal directly if only one event
+        setSelectedEvent(day.events[0])
+        setIsEventModalOpen(true)
+      } else if (onDateFilter) {
+        // Use filter for multiple events or desktop
+        onDateFilter(day.events)
+      }
+    }
+  }
 
   const monthNames = [
     "January",
@@ -30,251 +191,218 @@ export function CalendarWidget({ events = [], onDateFilter, onClearFilter }: Cal
     "December",
   ]
 
-  const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate()
-  const firstDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay()
+  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
-  const previousMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))
+  // Count events for current month (client-side)
+  const currentMonthEvents = isClient
+    ? calendarDays.reduce((count, day) => {
+      return count + (day.isCurrentMonth ? day.events.length : 0)
+    }, 0)
+    : 0
+
+
+
+  // Don't render until client-side to avoid hydration issues
+  if (!isClient) {
+    return (
+      <div className="w-full animate-pulse">
+        <div className="h-64 bg-neutral-200 rounded-lg"></div>
+      </div>
+    )
   }
-
-  const nextMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))
-  }
-
-  // Helper function to format date for comparison (timezone-safe)
-  const formatDateString = (day: number) => {
-    return `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-  }
-
-  // Helper function to check if a specific date has events (timezone-safe)
-  const getEventsForDay = (day: number) => {
-    const dateStr = formatDateString(day)
-    // Direct string comparison to avoid timezone issues
-    return events.filter(event => {
-      // Ensure we're comparing the same date format (YYYY-MM-DD)
-      const eventDateStr = event.date.split('T')[0] // Remove time portion if present
-      return eventDateStr === dateStr
-    })
-  }
-
-  // Handle date click for filtering
-  const handleDateClick = (day: number) => {
-    const dateStr = formatDateString(day)
-    const dayEvents = getEventsForDay(day)
-
-    if (dayEvents.length > 0) {
-      if (selectedDate === dateStr) {
-        // Deselect and clear filter
-        setSelectedDate(null)
-        onClearFilter?.()
-      } else {
-        // Select new date and filter events
-        setSelectedDate(dateStr)
-        onDateFilter?.(dayEvents)
-      }
-    }
-  }
-
-  const today = new Date()
-  const isCurrentMonth = currentMonth.getMonth() === today.getMonth() && currentMonth.getFullYear() === today.getFullYear()
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="bg-gradient-to-br from-white via-blue-50/30 to-white rounded-2xl p-6 border border-gray-200/50 shadow-lg backdrop-blur-sm"
-      style={{
-        background: 'linear-gradient(135deg, #ffffff 0%, #f8faff 50%, #ffffff 100%)',
-        boxShadow: '0 8px 32px rgba(59, 130, 246, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05)'
-      }}
-    >
-      {/* Header with month navigation */}
-      <motion.div
-        className="flex items-center justify-between mb-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4 }}
-      >
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
-            <RiCalendarEventLine className="w-4 h-4 text-white" />
-          </div>
-          <h3 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-            {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
-          </h3>
-        </div>
-
-        <div className="flex items-center gap-1 bg-white/70 rounded-full p-1 backdrop-blur-sm border border-gray-200/50">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={previousMonth}
-            className="p-2 hover:bg-blue-50 rounded-full transition-all duration-200"
-            aria-label="Previous month"
-          >
-            <RiArrowLeftSLine className="w-4 h-4 text-gray-600" />
-          </motion.button>
-          <div className="w-1 h-1 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 mx-1" />
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={nextMonth}
-            className="p-2 hover:bg-blue-50 rounded-full transition-all duration-200"
-            aria-label="Next month"
-          >
-            <RiArrowRightSLine className="w-4 h-4 text-gray-600" />
-          </motion.button>
-        </div>
-      </motion.div>
-
-      {/* Decorative line */}
-      <div className="mb-6">
-        <div className="h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent" />
-      </div>
-
-      {/* Calendar grid */}
-      <div className="grid grid-cols-7 gap-3">
-        {/* Day headers */}
-        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day, i) => (
-          <motion.div
-            key={i}
-            className="text-center text-xs font-semibold text-gray-500 pb-2"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 + (i * 0.05) }}
-          >
-            {day}
-          </motion.div>
-        ))}
-
-        {/* Empty cells for days before month starts */}
-        {[...Array(firstDayOfMonth)].map((_, i) => (
-          <div key={`empty-${i}`} className="aspect-square" />
-        ))}
-
-        {/* Calendar days */}
-        {[...Array(daysInMonth)].map((_, i) => {
-          const day = i + 1
-          const dateStr = formatDateString(day)
-          const isToday = isCurrentMonth && day === today.getDate()
-          const dayEvents = getEventsForDay(day)
-          const hasEvent = dayEvents.length > 0
-          const isSelected = selectedDate === dateStr
-
-          return (
-            <motion.div
-              key={day}
-              className="relative"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                delay: 0.6 + ((i % 7) * 0.05) + (Math.floor(i / 7) * 0.1),
-                type: "spring",
-                stiffness: 200,
-                damping: 20
-              }}
-            >
-              <motion.button
-                whileHover={{ scale: hasEvent ? 1.08 : 1.02, y: -1 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => handleDateClick(day)}
-                disabled={!hasEvent}
-                className={`
-                  w-full aspect-square flex items-center justify-center text-sm font-medium rounded-xl
-                  transition-all duration-300 ease-out relative overflow-hidden
-                  ${isToday
-                    ? "bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30"
-                    : isSelected
-                      ? "bg-gradient-to-br from-blue-400 to-blue-500 text-white shadow-md"
-                      : hasEvent
-                        ? "bg-white text-gray-900 border border-blue-200/60 hover:border-blue-300 hover:bg-blue-50/50 shadow-sm cursor-pointer"
-                        : "text-gray-400 hover:text-gray-600 hover:bg-gray-50/50"
-                  }
-                `}
-                title={hasEvent ? `${dayEvents.length} event${dayEvents.length > 1 ? 's' : ''} - Click to filter` : undefined}
-              >
-                {/* Subtle gradient overlay for interactive days */}
-                {hasEvent && !isToday && !isSelected && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-                )}
-
-                <span className="relative z-10">{day}</span>
-              </motion.button>
-
-              {/* Event indicator dot - centered below the date */}
-              <AnimatePresence>
-                {hasEvent && !isToday && (
-                  <motion.div
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0, opacity: 0 }}
-                    transition={{ delay: 0.8 + (i * 0.02), type: "spring", stiffness: 400 }}
-                    className={`
-                      absolute bottom-1 left-1/2 transform -translate-x-1/2
-                      w-1.5 h-1.5 rounded-full
-                      ${isSelected
-                        ? "bg-white shadow-sm"
-                        : "bg-gradient-to-r from-blue-500 to-blue-600"
-                      }
-                    `}
-                  />
-                )}
-              </AnimatePresence>
-
-              {/* Multi-event indicator */}
-              {dayEvents.length > 1 && !isToday && (
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 1 + (i * 0.02) }}
-                  className="absolute bottom-1 right-1 w-1 h-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-500"
-                />
+    <div className="w-full relative">
+      {/* Connected Calendar - Single Black and White Design */}
+      <div className={cn(
+        "bg-white border-2 border-black shadow-xl overflow-hidden",
+        isMobile ? "rounded-lg" : ""
+      )}>
+        {/* Calendar Header with Navigation - Black and White */}
+        <div className="p-4 bg-black text-white border-b-2 border-black">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex-1">
+              <h2 className="text-lg md:text-xl font-bold text-white flex items-center gap-2 mb-2 tracking-tighter">
+                <CalendarIcon className="h-4 w-4 md:h-5 md:w-5 text-white" />
+                <span>{monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}</span>
+              </h2>
+              {isMobile && (
+                <p className="text-xs text-gray-300 mb-2">
+                  Tap on dates with events to view details • Scroll down for full event list
+                </p>
               )}
-            </motion.div>
-          )
-        })}
+              <div className="text-xs md:text-sm text-gray-300 flex items-center gap-2 mb-3">
+                <div className="w-2 h-2 bg-white rounded-full" />
+                {currentMonthEvents} event{currentMonthEvents !== 1 ? "s" : ""} this month
+                {calendarSelectedDate && (
+                  <span className="text-gray-400">
+                    • Filtered by {calendarSelectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center space-x-2 flex-wrap gap-y-2">
+                <button
+                  onClick={goToToday}
+                  className="text-xs px-3 py-1 bg-white text-black rounded-md hover:bg-gray-100 active:bg-gray-200 transition-all duration-200 font-medium touch-manipulation"
+                >
+                  Today
+                </button>
+                {calendarSelectedDate && (
+                  <button
+                    onClick={() => {
+                      setCalendarSelectedDate(null)
+                      if (onClearFilter) {
+                        onClearFilter()
+                      }
+                    }}
+                    className="text-xs px-3 py-1 bg-gray-600 text-white rounded-md hover:bg-gray-500 active:bg-gray-700 transition-all duration-200 font-medium touch-manipulation"
+                  >
+                    Clear Filter
+                  </button>
+                )}
+                <div className="flex items-center space-x-1">
+                  <button
+                    onClick={() => navigateMonth("prev")}
+                    className="h-8 w-8 border border-white rounded-md hover:bg-white hover:text-black active:bg-gray-200 active:text-black flex items-center justify-center transition-all duration-200 touch-manipulation"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => navigateMonth("next")}
+                    className="h-8 w-8 border border-white rounded-md hover:bg-white hover:text-black active:bg-gray-200 active:text-black flex items-center justify-center transition-all duration-200 touch-manipulation"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* AIM Logo - Hide on mobile to save space */}
+            <div className={cn("relative z-10 ml-4", isMobile && "flex")}>
+              <AIMLogo variant="white" className="h-20 md:h-16 w-auto" />
+            </div>
+          </div>
+        </div>
+
+        {/* Day Names Header */}
+        <div className="grid grid-cols-7 bg-gray-900 text-white border-b border-black">
+          {dayNames.map((day) => (
+            <div key={day} className="p-2 md:p-3 text-center text-xs md:text-sm font-bold border-r border-gray-700 last:border-r-0">
+              {day}
+            </div>
+          ))}
+        </div>
+
+        {/* Calendar Days */}
+        <div className="grid grid-cols-7">
+          {calendarDays.map((day, index) => {
+            const hasEvents = day.events.length > 0
+            const isSelected = calendarSelectedDate && day.date.toDateString() === calendarSelectedDate.toDateString()
+
+            return (
+              <div
+                key={index}
+                className={cn(
+                  "p-2 border-r border-b border-black cursor-pointer transition-all duration-200 relative bg-white",
+                  isMobile ? "min-h-[60px]" : "min-h-[50px]", // Larger touch targets on mobile
+                  "hover:bg-gray-50 active:bg-gray-100", // Consistent hover states
+                  !day.isCurrentMonth && "bg-gray-50 text-gray-400",
+                  day.isToday && "bg-black text-white font-bold",
+                  isSelected && "bg-gray-800 text-white",
+                )}
+                onClick={() => {
+                  if (isSelected) {
+                    // Clear selection if clicking on already selected date
+                    setCalendarSelectedDate(null)
+                    if (onClearFilter) {
+                      onClearFilter()
+                    }
+                  } else {
+                    setCalendarSelectedDate(day.date)
+                    if (hasEvents) {
+                      if (isMobile && day.events.length === 1) {
+                        // On mobile, open modal directly if only one event
+                        setSelectedEvent(day.events[0])
+                        setIsEventModalOpen(true)
+                      } else if (isMobile && day.events.length > 1) {
+                        // On mobile with multiple events, still use filter but could show picker
+                        if (onDateFilter) {
+                          onDateFilter(day.events)
+                        }
+                      } else {
+                        // Desktop behavior - always use filter
+                        if (onDateFilter) {
+                          onDateFilter(day.events)
+                        }
+                      }
+                    }
+                  }
+                }}
+              >
+                {/* Day Number */}
+                <div className="flex justify-start mb-1">
+                  <span
+                    className={cn(
+                      "text-sm font-medium",
+                      day.isToday && "text-white font-bold",
+                      !day.isCurrentMonth && "text-gray-400",
+                      hasEvents && day.isCurrentMonth && "text-black font-bold",
+                    )}
+                  >
+                    {day.date.getDate()}
+                  </span>
+                </div>
+
+                {/* Event Indicator - Black and White */}
+                {hasEvents && (
+                  <div className="flex justify-center mb-1">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleEventIndicatorClick(day)
+                      }}
+                      className={cn(
+                        "group relative touch-manipulation", // Better touch handling
+                        isMobile && "animate-pulse" // Subtle pulse on mobile to indicate tappability
+                      )}
+                    >
+                      {day.events.length === 1 ? (
+                        // Single event - black dot (larger on mobile)
+                        <div className={cn(
+                          "bg-black rounded-full transition-all duration-200 group-hover:scale-125 group-active:scale-110",
+                          isMobile ? "w-3 h-3" : "w-2 h-2"
+                        )}>
+                        </div>
+                      ) : (
+                        // Multiple events - black number badge (larger on mobile)
+                        <div className={cn(
+                          "bg-black text-white text-xs px-1.5 py-1 rounded-md transition-all duration-200 group-hover:scale-110 group-active:scale-95 font-bold text-center",
+                          isMobile ? "min-w-[20px]" : "md:px-1 md:py-0.5 md:rounded-sm min-w-[16px]"
+                        )}>
+                          {day.events.length}
+                        </div>
+                      )}
+                    </button>
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </div>
       </div>
 
-      {/* Filter indicator */}
-      <AnimatePresence>
-        {selectedDate && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="mt-6 pt-4 border-t border-gradient-to-r from-transparent via-blue-200 to-transparent"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-600" />
-                <span className="text-sm text-gray-600 font-medium">
-                  Showing events for {(() => {
-                    // Parse date safely without timezone issues
-                    const [year, month, day] = selectedDate.split('-').map(Number)
-                    const date = new Date(year, month - 1, day) // Create date in local timezone
-                    return date.toLocaleDateString('en-US', {
-                      month: 'short',
-                      day: 'numeric'
-                    })
-                  })()}
-                </span>
-              </div>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => {
-                  setSelectedDate(null)
-                  onClearFilter?.()
-                }}
-                className="text-xs text-blue-600 hover:text-blue-700 font-medium px-2 py-1 rounded-md hover:bg-blue-50 transition-colors"
-              >
-                Clear filter
-              </motion.button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+      {/* Mobile Event Modal - Only render modal, not the card */}
+      {isMobile && selectedEvent && isEventModalOpen && (
+        <EventCard
+          event={selectedEvent}
+          index={0}
+          isModalOpen={true}
+          onModalClose={() => {
+            setIsEventModalOpen(false)
+            setSelectedEvent(null)
+          }}
+        />
+      )}
+    </div>
   )
 }
