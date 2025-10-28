@@ -484,7 +484,7 @@ export default function NavBar() {
                                 </span>
                                 {item.isNew && (
                                   <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2 py-0.5 rounded-full border border-white/20">
-                                    AIM @ SASW
+                                    NEW
                                   </span>
                                 )}
                               </div>
