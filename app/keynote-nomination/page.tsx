@@ -112,6 +112,20 @@ export default function KeynoteNomination() {
     }
   }, [turnstileWidget])
 
+  // Render Turnstile when step changes to nomination
+  useEffect(() => {
+    if (!isDevelopment && currentStep === 'nomination' && window.turnstile && turnstileRef.current && !turnstileWidget) {
+      console.log('Rendering Turnstile on step change to nomination')
+      const widgetId = window.turnstile.render(turnstileRef.current, {
+        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+        callback: (token: string) => {
+          console.log("Turnstile token:", token)
+        },
+      })
+      setTurnstileWidget(widgetId)
+    }
+  }, [currentStep, turnstileWidget])
+
   const handlePOCSelection = (pocId: string) => {
     if (pocId === "other") {
       setIsOtherSelected(true)
