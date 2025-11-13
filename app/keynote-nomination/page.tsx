@@ -62,6 +62,7 @@ export default function KeynoteNomination() {
   const [isSuccess, setIsSuccess] = useState(false)
   const turnstileRef = useRef<HTMLDivElement>(null)
   const [turnstileWidget, setTurnstileWidget] = useState<string | null>(null)
+  const [turnstileCompleted, setTurnstileCompleted] = useState(isDevelopment) // Auto-complete in dev mode
 
   // Load Speaker POCs on mount
   useEffect(() => {
@@ -83,18 +84,19 @@ export default function KeynoteNomination() {
     loadSpeakerPOCs()
   }, [])
 
-  // Initialize Turnstile - simplified approach matching contact form
+  // Initialize Turnstile on component mount for step 1
   useEffect(() => {
     if (!isDevelopment) {
       // Add a delay to ensure the script loads properly
       const initializeTurnstile = () => {
-        if (window.turnstile && turnstileRef.current && !turnstileWidget && currentStep === 'nomination') {
-          console.log('Attempting to render Turnstile widget')
+        if (window.turnstile && turnstileRef.current && !turnstileWidget) {
+          console.log('Attempting to render Turnstile widget on step 1')
           try {
             const widgetId = window.turnstile.render(turnstileRef.current, {
               sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
               callback: (token: string) => {
                 console.log("Turnstile token received:", token)
+                setTurnstileCompleted(true)
               },
             })
             setTurnstileWidget(widgetId)
@@ -134,7 +136,7 @@ export default function KeynoteNomination() {
         initializeTurnstile()
       }
     }
-  }, [currentStep, turnstileWidget])
+  }, [turnstileWidget])
 
   // Remove the second useEffect as we're handling everything in one
   // useEffect(() => {
@@ -189,6 +191,9 @@ export default function KeynoteNomination() {
   }
 
   const canProceedToPOC = () => {
+    if (!turnstileCompleted) {
+      return false
+    }
     if (isOtherSelected) {
       return customPOCName.trim().length > 0
     }
@@ -214,27 +219,24 @@ export default function KeynoteNomination() {
       let turnstileResponse = undefined
 
       if (!isDevelopment) {
-        console.log('Checking Turnstile initialization...')
-        console.log('window.turnstile exists:', !!window.turnstile)
+        console.log('Checking Turnstile completion...')
+        console.log('turnstileCompleted:', turnstileCompleted)
         console.log('turnstileWidget ID:', turnstileWidget)
 
-        if (!window.turnstile) {
-          console.error('Turnstile script not loaded')
-          throw new Error("Turnstile script is not loaded. Please refresh the page and try again.")
+        if (!turnstileCompleted) {
+          throw new Error("Security verification not completed. Please go back to step 1 and complete the verification.")
         }
 
-        if (!turnstileWidget) {
-          console.error('Turnstile widget not initialized')
-          throw new Error("Turnstile widget is not initialized. Please refresh the page and try again.")
+        if (!window.turnstile || !turnstileWidget) {
+          throw new Error("Security verification system error. Please refresh the page and try again.")
         }
 
         try {
           turnstileResponse = window.turnstile.getResponse(turnstileWidget)
-          console.log('Turnstile response received:', turnstileResponse ? 'valid' : 'empty')
+          console.log('Turnstile response retrieved:', turnstileResponse ? 'valid' : 'empty')
 
           if (!turnstileResponse) {
-            console.error('Failed to get Turnstile response')
-            throw new Error("Please complete the security verification and try again.")
+            throw new Error("Security verification expired. Please go back to step 1 and complete the verification again.")
           }
         } catch (turnstileError) {
           console.error('Error getting Turnstile response:', turnstileError)
@@ -397,8 +399,17 @@ export default function KeynoteNomination() {
                       <p className="mt-2 text-gray-600">Loading authorized nominators...</p>
                     </div>
                   ) : (
-                    <div className="space-y-4">
-                      <div>
+                    <div className="space-y-6">
+                      {!isDevelopment && (
+                        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                          <p className="text-sm text-gray-600 mb-3">
+                            Please complete the security verification below before proceeding:
+                          </p>
+                          <div ref={turnstileRef} data-size="flexible" className="w-full" />
+                        </div>
+                      )}
+
+                      <div className={!isDevelopment && !turnstileCompleted ? "opacity-50 pointer-events-none" : ""}>
                         <label htmlFor="speaker-poc-select" className="block text-sm font-semibold text-[#548cac] mb-2">
                           Select your name
                         </label>
@@ -408,6 +419,7 @@ export default function KeynoteNomination() {
                           onChange={(e) => handlePOCSelection(e.target.value)}
                           className="block w-full rounded-md bg-gray-50 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-[#548cac] sm:text-sm sm:leading-6"
                           required
+                          disabled={!isDevelopment && !turnstileCompleted}
                         >
                           <option value="">-- Select your name --</option>
                           <option value="other">Other / Not Listed</option>
@@ -437,6 +449,7 @@ export default function KeynoteNomination() {
                             onChange={handleCustomPOCChange}
                             className="block w-full rounded-md bg-gray-50 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-[#548cac] sm:text-sm sm:leading-6"
                             required
+                            disabled={!isDevelopment && !turnstileCompleted}
                           />
                         </motion.div>
                       )}
@@ -450,7 +463,7 @@ export default function KeynoteNomination() {
                       className="w-full inline-flex items-center justify-center gap-2"
                       disabled={!canProceedToPOC() || loadingSpeakers}
                     >
-                      Continue to Nomination
+                      {!isDevelopment && !turnstileCompleted ? "Complete Security Verification" : "Continue to Nomination"}
                     </Button>
                   </div>
                 </motion.div>
@@ -554,12 +567,6 @@ export default function KeynoteNomination() {
                         placeholder="Briefly explain why this person would be an excellent keynote speaker for AIM 2026. Include their expertise, impact, and relevance to military health R&D."
                       />
                     </div>
-
-                    {!isDevelopment && (
-                      <div>
-                        <div ref={turnstileRef} data-size="flexible" className="w-full" />
-                      </div>
-                    )}
 
                     <div className="flex gap-4">
                       <Button
