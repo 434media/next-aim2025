@@ -395,7 +395,6 @@ export default function KeynoteNomination() {
                       disabled={!canProceedToPOC() || loadingSpeakers}
                     >
                       Continue to Nomination
-                      <RiArrowRightLine className="h-4 w-4" />
                     </Button>
                   </div>
                 </motion.div>
