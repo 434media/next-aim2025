@@ -85,7 +85,7 @@ export default function KeynoteNomination() {
 
   // Initialize Turnstile
   useEffect(() => {
-    if (!isDevelopment && !window.turnstile && currentStep === 'nomination') {
+    if (!isDevelopment && !window.turnstile) {
       const script = document.createElement("script")
       script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
       script.async = true
@@ -110,7 +110,7 @@ export default function KeynoteNomination() {
         }
       }
     }
-  }, [turnstileWidget, currentStep])
+  }, [turnstileWidget])
 
   const handlePOCSelection = (pocId: string) => {
     if (pocId === "other") {
