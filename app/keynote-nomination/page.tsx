@@ -388,35 +388,8 @@ export default function KeynoteNomination() {
                       <p className="mt-2 text-gray-600">Loading authorized nominators...</p>
                     </div>
                   ) : (
-                    <div className="space-y-6">
-                      {!isDevelopment && (
-                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
-                          <div className="flex items-center gap-3 mb-4">
-                            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                            </div>
-                            <h3 className="text-lg font-semibold text-gray-900">Security Verification</h3>
-                          </div>
-                          <p className="text-sm text-gray-600 mb-4">
-                            Please complete the security verification to continue with your keynote speaker nomination.
-                          </p>
-                          <div ref={turnstileRef} data-size="flexible" className="w-full" />
-                          {turnstileCompleted && (
-                            <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-                              <div className="flex items-center gap-2 text-green-700 text-sm font-medium">
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                </svg>
-                                Security verification completed
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )}
-
-                      <div className={!isDevelopment && !turnstileCompleted ? "opacity-50 pointer-events-none" : ""}>
+                    <div className="space-y-4">
+                      <div>
                         <label htmlFor="speaker-poc-select" className="block text-sm font-semibold text-[#548cac] mb-2">
                           Select your name
                         </label>
@@ -463,7 +436,7 @@ export default function KeynoteNomination() {
                     </div>
                   )}
 
-                  <div className="mt-8">
+                  <div className="mt-8 space-y-4">
                     <Button
                       onClick={proceedToNomination}
                       variant="primary"
@@ -472,8 +445,15 @@ export default function KeynoteNomination() {
                     >
                       {!isDevelopment && !turnstileCompleted ? "Complete Security Verification" : "Continue to Nomination"}
                     </Button>
+
+                    {!isDevelopment && (
+                      <div className="flex justify-center">
+                        <div ref={turnstileRef} data-size="flexible" className="w-full" />
+                      </div>
+                    )}
+
                     {!isDevelopment && !turnstileCompleted && (
-                      <p className="mt-2 text-sm text-gray-500 text-center">
+                      <p className="text-sm text-gray-500 text-center">
                         Please complete the security verification above to proceed
                       </p>
                     )}
