@@ -83,48 +83,72 @@ export default function KeynoteNomination() {
     loadSpeakerPOCs()
   }, [])
 
-  // Initialize Turnstile
+  // Initialize Turnstile - simplified approach matching contact form
   useEffect(() => {
-    if (!isDevelopment && !window.turnstile) {
-      const script = document.createElement("script")
-      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
-      script.async = true
-      script.defer = true
-      document.body.appendChild(script)
-
-      script.onload = () => {
-        if (window.turnstile && turnstileRef.current && !turnstileWidget) {
-          const widgetId = window.turnstile.render(turnstileRef.current, {
-            sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
-            callback: (token: string) => {
-              console.log("Turnstile token:", token)
-            },
-          })
-          setTurnstileWidget(widgetId)
+    if (!isDevelopment) {
+      // Add a delay to ensure the script loads properly
+      const initializeTurnstile = () => {
+        if (window.turnstile && turnstileRef.current && !turnstileWidget && currentStep === 'nomination') {
+          console.log('Attempting to render Turnstile widget')
+          try {
+            const widgetId = window.turnstile.render(turnstileRef.current, {
+              sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+              callback: (token: string) => {
+                console.log("Turnstile token received:", token)
+              },
+            })
+            setTurnstileWidget(widgetId)
+            console.log('Turnstile widget created with ID:', widgetId)
+          } catch (error) {
+            console.error('Error creating Turnstile widget:', error)
+          }
         }
       }
 
-      return () => {
-        if (document.body.contains(script)) {
-          document.body.removeChild(script)
-        }
-      }
-    }
-  }, [turnstileWidget])
+      if (!window.turnstile) {
+        console.log('Loading Turnstile script...')
+        const script = document.createElement("script")
+        script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
+        script.async = true
+        script.defer = true
 
-  // Render Turnstile when step changes to nomination
-  useEffect(() => {
-    if (!isDevelopment && currentStep === 'nomination' && window.turnstile && turnstileRef.current && !turnstileWidget) {
-      console.log('Rendering Turnstile on step change to nomination')
-      const widgetId = window.turnstile.render(turnstileRef.current, {
-        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
-        callback: (token: string) => {
-          console.log("Turnstile token:", token)
-        },
-      })
-      setTurnstileWidget(widgetId)
+        script.onload = () => {
+          console.log('Turnstile script loaded successfully')
+          // Wait a bit for the script to fully initialize
+          setTimeout(initializeTurnstile, 100)
+        }
+
+        script.onerror = (error) => {
+          console.error('Error loading Turnstile script:', error)
+        }
+
+        document.body.appendChild(script)
+
+        return () => {
+          if (document.body.contains(script)) {
+            document.body.removeChild(script)
+          }
+        }
+      } else {
+        // Script already loaded, try to initialize
+        initializeTurnstile()
+      }
     }
   }, [currentStep, turnstileWidget])
+
+  // Remove the second useEffect as we're handling everything in one
+  // useEffect(() => {
+  //   if (!isDevelopment && currentStep === 'nomination' && window.turnstile && turnstileRef.current && !turnstileWidget) {
+  //     console.log('Rendering Turnstile on step change to nomination')
+  //     const widgetId = window.turnstile.render(turnstileRef.current, {
+  //       sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+  //       callback: (token: string) => {
+  //         console.log("Turnstile token:", token)
+  //       },
+  //     })
+  //     setTurnstileWidget(widgetId)
+  //   }
+  // }, [currentStep, turnstileWidget])
 
   const handlePOCSelection = (pocId: string) => {
     if (pocId === "other") {
@@ -190,13 +214,31 @@ export default function KeynoteNomination() {
       let turnstileResponse = undefined
 
       if (!isDevelopment) {
-        if (!window.turnstile || !turnstileWidget) {
-          throw new Error("Turnstile is not initialized")
+        console.log('Checking Turnstile initialization...')
+        console.log('window.turnstile exists:', !!window.turnstile)
+        console.log('turnstileWidget ID:', turnstileWidget)
+
+        if (!window.turnstile) {
+          console.error('Turnstile script not loaded')
+          throw new Error("Turnstile script is not loaded. Please refresh the page and try again.")
         }
 
-        turnstileResponse = window.turnstile.getResponse(turnstileWidget)
-        if (!turnstileResponse) {
-          throw new Error("Failed to get Turnstile response")
+        if (!turnstileWidget) {
+          console.error('Turnstile widget not initialized')
+          throw new Error("Turnstile widget is not initialized. Please refresh the page and try again.")
+        }
+
+        try {
+          turnstileResponse = window.turnstile.getResponse(turnstileWidget)
+          console.log('Turnstile response received:', turnstileResponse ? 'valid' : 'empty')
+
+          if (!turnstileResponse) {
+            console.error('Failed to get Turnstile response')
+            throw new Error("Please complete the security verification and try again.")
+          }
+        } catch (turnstileError) {
+          console.error('Error getting Turnstile response:', turnstileError)
+          throw new Error("Security verification failed. Please refresh the page and try again.")
         }
       }
 
