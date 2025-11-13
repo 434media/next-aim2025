@@ -84,40 +84,45 @@ export default function KeynoteNomination() {
     loadSpeakerPOCs()
   }, [])
 
-  // Initialize Turnstile on component mount for step 1
+  // Initialize Turnstile on component mount for step 1 security gate
   useEffect(() => {
     if (!isDevelopment) {
-      // Add a delay to ensure the script loads properly
       const initializeTurnstile = () => {
         if (window.turnstile && turnstileRef.current && !turnstileWidget) {
-          console.log('Attempting to render Turnstile widget on step 1')
+          console.log('Rendering Turnstile widget for step 1 gate')
           try {
             const widgetId = window.turnstile.render(turnstileRef.current, {
               sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
               callback: (token: string) => {
-                console.log("Turnstile token received:", token)
+                console.log("Turnstile verification completed:", token ? 'success' : 'failed')
                 setTurnstileCompleted(true)
+              },
+              'error-callback': () => {
+                console.error('Turnstile error occurred')
+                setTurnstileCompleted(false)
               },
             })
             setTurnstileWidget(widgetId)
-            console.log('Turnstile widget created with ID:', widgetId)
+            console.log('Turnstile widget created successfully with ID:', widgetId)
           } catch (error) {
             console.error('Error creating Turnstile widget:', error)
           }
         }
       }
 
-      if (!window.turnstile) {
+      // Check if script already exists
+      if (!document.getElementById('turnstile-script')) {
         console.log('Loading Turnstile script...')
         const script = document.createElement("script")
+        script.id = 'turnstile-script'
         script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
         script.async = true
         script.defer = true
 
         script.onload = () => {
           console.log('Turnstile script loaded successfully')
-          // Wait a bit for the script to fully initialize
-          setTimeout(initializeTurnstile, 100)
+          // Give it a moment to initialize
+          setTimeout(initializeTurnstile, 200)
         }
 
         script.onerror = (error) => {
@@ -125,18 +130,12 @@ export default function KeynoteNomination() {
         }
 
         document.body.appendChild(script)
-
-        return () => {
-          if (document.body.contains(script)) {
-            document.body.removeChild(script)
-          }
-        }
-      } else {
-        // Script already loaded, try to initialize
+      } else if (window.turnstile) {
+        // Script already loaded, initialize immediately
         initializeTurnstile()
       }
     }
-  }, [turnstileWidget])
+  }, [])
 
   // Remove the second useEffect as we're handling everything in one
   // useEffect(() => {
@@ -191,7 +190,8 @@ export default function KeynoteNomination() {
   }
 
   const canProceedToPOC = () => {
-    if (!turnstileCompleted) {
+    // In production, require Turnstile completion
+    if (!isDevelopment && !turnstileCompleted) {
       return false
     }
     if (isOtherSelected) {
@@ -219,28 +219,17 @@ export default function KeynoteNomination() {
       let turnstileResponse = undefined
 
       if (!isDevelopment) {
-        console.log('Checking Turnstile completion...')
-        console.log('turnstileCompleted:', turnstileCompleted)
-        console.log('turnstileWidget ID:', turnstileWidget)
-
         if (!turnstileCompleted) {
-          throw new Error("Security verification not completed. Please go back to step 1 and complete the verification.")
+          throw new Error("Security verification not completed. Please complete the verification in step 1.")
         }
 
         if (!window.turnstile || !turnstileWidget) {
           throw new Error("Security verification system error. Please refresh the page and try again.")
         }
 
-        try {
-          turnstileResponse = window.turnstile.getResponse(turnstileWidget)
-          console.log('Turnstile response retrieved:', turnstileResponse ? 'valid' : 'empty')
-
-          if (!turnstileResponse) {
-            throw new Error("Security verification expired. Please go back to step 1 and complete the verification again.")
-          }
-        } catch (turnstileError) {
-          console.error('Error getting Turnstile response:', turnstileError)
-          throw new Error("Security verification failed. Please refresh the page and try again.")
+        turnstileResponse = window.turnstile.getResponse(turnstileWidget)
+        if (!turnstileResponse) {
+          throw new Error("Security verification expired. Please go back to step 1 and complete the verification again.")
         }
       }
 
@@ -401,11 +390,29 @@ export default function KeynoteNomination() {
                   ) : (
                     <div className="space-y-6">
                       {!isDevelopment && (
-                        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                          <p className="text-sm text-gray-600 mb-3">
-                            Please complete the security verification below before proceeding:
+                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                            </div>
+                            <h3 className="text-lg font-semibold text-gray-900">Security Verification</h3>
+                          </div>
+                          <p className="text-sm text-gray-600 mb-4">
+                            Please complete the security verification to continue with your keynote speaker nomination.
                           </p>
                           <div ref={turnstileRef} data-size="flexible" className="w-full" />
+                          {turnstileCompleted && (
+                            <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                              <div className="flex items-center gap-2 text-green-700 text-sm font-medium">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                Security verification completed
+                              </div>
+                            </div>
+                          )}
                         </div>
                       )}
 
@@ -465,6 +472,11 @@ export default function KeynoteNomination() {
                     >
                       {!isDevelopment && !turnstileCompleted ? "Complete Security Verification" : "Continue to Nomination"}
                     </Button>
+                    {!isDevelopment && !turnstileCompleted && (
+                      <p className="mt-2 text-sm text-gray-500 text-center">
+                        Please complete the security verification above to proceed
+                      </p>
+                    )}
                   </div>
                 </motion.div>
               )}
