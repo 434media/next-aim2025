@@ -291,7 +291,7 @@ export default function ContactUs() {
                       <Button
                         type="submit"
                         variant="primary"
-                        className="w-full inline-flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#548cac] disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full inline-flex items-center justify-center gap-4 rounded-lg px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#548cac] disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={isSubmitting}
                       >
                         {isSubmitting ? (
@@ -301,7 +301,7 @@ export default function ContactUs() {
                           </>
                         ) : (
                           <>
-                            <Send className="h-4 w-4" />
+                            <Send className="inline-flex mx-2 h-4 w-4" />
                             Send message
                           </>
                         )}
