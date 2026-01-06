@@ -3,7 +3,6 @@
 import { CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react"
 import { useEffect, useState } from "react"
 import { cn } from "../../lib/utils"
-import { AIMLogo } from "../../public/AIMLogo"
 import type { Event } from "../../types/event"
 import { EventCard } from "./EventCard"
 
@@ -206,44 +205,44 @@ export function CalendarWidget({ events = [], onDateFilter, onClearFilter, isMob
   if (!isClient) {
     return (
       <div className="w-full animate-pulse">
-        <div className="h-64 bg-neutral-200 rounded-lg"></div>
+        <div className="h-64 bg-gray-100 rounded-2xl"></div>
       </div>
     )
   }
 
   return (
     <div className="w-full relative">
-      {/* Connected Calendar - Single Black and White Design */}
+      {/* Modern Calendar Design */}
       <div className={cn(
-        "bg-white border-2 border-black shadow-xl overflow-hidden",
-        isMobile ? "rounded-lg" : ""
+        "bg-white border border-gray-200 shadow-lg overflow-hidden",
+        isMobile ? "rounded-2xl" : "rounded-2xl"
       )}>
-        {/* Calendar Header with Navigation - Black and White */}
-        <div className="p-4 bg-black text-white border-b-2 border-black">
-          <div className="flex items-center justify-between mb-4">
+        {/* Calendar Header with Navigation */}
+        <div className="p-5 bg-gray-950 text-white">
+          <div className="flex items-center justify-between">
             <div className="flex-1">
-              <h2 className="text-lg md:text-xl font-bold text-white flex items-center gap-2 mb-2 tracking-tighter">
-                <CalendarIcon className="h-4 w-4 md:h-5 md:w-5 text-white" />
-                <span>{monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}</span>
-              </h2>
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2 bg-white/10 rounded-lg">
+                  <CalendarIcon className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-semibold text-white tracking-tight">
+                    {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+                  </h2>
+                  <p className="text-sm text-gray-400">
+                    {currentMonthEvents} event{currentMonthEvents !== 1 ? "s" : ""} this month
+                  </p>
+                </div>
+              </div>
               {isMobile && (
-                <p className="text-xs text-gray-300 mb-2">
-                  Tap on dates with events to view details • Scroll down for full event list
+                <p className="text-xs text-gray-400 mb-3 leading-5">
+                  Tap on dates with events to view details
                 </p>
               )}
-              <div className="text-xs md:text-sm text-gray-300 flex items-center gap-2 mb-3">
-                <div className="w-2 h-2 bg-white rounded-full" />
-                {currentMonthEvents} event{currentMonthEvents !== 1 ? "s" : ""} this month
-                {calendarSelectedDate && (
-                  <span className="text-gray-400">
-                    • Filtered by {calendarSelectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                  </span>
-                )}
-              </div>
-              <div className="flex items-center space-x-2 flex-wrap gap-y-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <button
                   onClick={goToToday}
-                  className="text-xs px-3 py-1 bg-white text-black rounded-md hover:bg-gray-100 active:bg-gray-200 transition-all duration-200 font-medium touch-manipulation"
+                  className="text-sm px-4 py-2 bg-white text-gray-900 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-all duration-200 font-medium touch-manipulation"
                 >
                   Today
                 </button>
@@ -255,21 +254,21 @@ export function CalendarWidget({ events = [], onDateFilter, onClearFilter, isMob
                         onClearFilter()
                       }
                     }}
-                    className="text-xs px-3 py-1 bg-gray-600 text-white rounded-md hover:bg-gray-500 active:bg-gray-700 transition-all duration-200 font-medium touch-manipulation"
+                    className="text-sm px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 active:bg-gray-800 transition-all duration-200 font-medium touch-manipulation"
                   >
                     Clear Filter
                   </button>
                 )}
-                <div className="flex items-center space-x-1">
+                <div className="flex items-center gap-1 ml-auto">
                   <button
                     onClick={() => navigateMonth("prev")}
-                    className="h-8 w-8 border border-white rounded-md hover:bg-white hover:text-black active:bg-gray-200 active:text-black flex items-center justify-center transition-all duration-200 touch-manipulation"
+                    className="h-9 w-9 bg-white/10 rounded-lg hover:bg-white/20 active:bg-white/30 flex items-center justify-center transition-all duration-200 touch-manipulation"
                   >
                     <ChevronLeft className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => navigateMonth("next")}
-                    className="h-8 w-8 border border-white rounded-md hover:bg-white hover:text-black active:bg-gray-200 active:text-black flex items-center justify-center transition-all duration-200 touch-manipulation"
+                    className="h-9 w-9 bg-white/10 rounded-lg hover:bg-white/20 active:bg-white/30 flex items-center justify-center transition-all duration-200 touch-manipulation"
                   >
                     <ChevronRight className="h-4 w-4" />
                   </button>
@@ -277,24 +276,21 @@ export function CalendarWidget({ events = [], onDateFilter, onClearFilter, isMob
               </div>
             </div>
 
-            {/* AIM Logo - Hide on mobile to save space */}
-            <div className={cn("relative z-10 ml-4", isMobile && "flex")}>
-              <AIMLogo variant="white" className="h-20 md:h-16 w-auto" />
-            </div>
+
           </div>
         </div>
 
         {/* Day Names Header */}
-        <div className="grid grid-cols-7 bg-gray-900 text-white border-b border-black">
+        <div className="grid grid-cols-7 bg-gray-100 border-b border-gray-200">
           {dayNames.map((day) => (
-            <div key={day} className="p-2 md:p-3 text-center text-xs md:text-sm font-bold border-r border-gray-700 last:border-r-0">
+            <div key={day} className="py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wide">
               {day}
             </div>
           ))}
         </div>
 
         {/* Calendar Days */}
-        <div className="grid grid-cols-7">
+        <div className="grid grid-cols-7 bg-white">
           {calendarDays.map((day, index) => {
             const hasEvents = day.events.length > 0
             const isSelected = calendarSelectedDate && day.date.toDateString() === calendarSelectedDate.toDateString()
@@ -303,16 +299,15 @@ export function CalendarWidget({ events = [], onDateFilter, onClearFilter, isMob
               <div
                 key={index}
                 className={cn(
-                  "p-2 border-r border-b border-black cursor-pointer transition-all duration-200 relative bg-white",
-                  isMobile ? "min-h-[60px]" : "min-h-[50px]", // Larger touch targets on mobile
-                  "hover:bg-gray-50 active:bg-gray-100", // Consistent hover states
-                  !day.isCurrentMonth && "bg-gray-50 text-gray-400",
-                  day.isToday && "bg-black text-white font-bold",
-                  isSelected && "bg-gray-800 text-white",
+                  "p-2 border-r border-b border-gray-100 cursor-pointer transition-all duration-200 relative",
+                  isMobile ? "min-h-[64px]" : "min-h-[56px]",
+                  "hover:bg-gray-50 active:bg-gray-100",
+                  !day.isCurrentMonth && "bg-gray-50/50",
+                  day.isToday && "bg-gray-900 text-white",
+                  isSelected && !day.isToday && "bg-blue-50 ring-2 ring-blue-500 ring-inset",
                 )}
                 onClick={() => {
                   if (isSelected) {
-                    // Clear selection if clicking on already selected date
                     setCalendarSelectedDate(null)
                     if (onClearFilter) {
                       onClearFilter()
@@ -321,16 +316,13 @@ export function CalendarWidget({ events = [], onDateFilter, onClearFilter, isMob
                     setCalendarSelectedDate(day.date)
                     if (hasEvents) {
                       if (isMobile && day.events.length === 1) {
-                        // On mobile, open modal directly if only one event
                         setSelectedEvent(day.events[0])
                         setIsEventModalOpen(true)
                       } else if (isMobile && day.events.length > 1) {
-                        // On mobile with multiple events, still use filter but could show picker
                         if (onDateFilter) {
                           onDateFilter(day.events)
                         }
                       } else {
-                        // Desktop behavior - always use filter
                         if (onDateFilter) {
                           onDateFilter(day.events)
                         }
@@ -344,40 +336,36 @@ export function CalendarWidget({ events = [], onDateFilter, onClearFilter, isMob
                   <span
                     className={cn(
                       "text-sm font-medium",
-                      day.isToday && "text-white font-bold",
-                      !day.isCurrentMonth && "text-gray-400",
-                      hasEvents && day.isCurrentMonth && "text-black font-bold",
+                      day.isToday && "text-white font-semibold",
+                      !day.isCurrentMonth && "text-gray-300",
+                      hasEvents && day.isCurrentMonth && !day.isToday && "text-gray-900 font-semibold",
+                      !hasEvents && day.isCurrentMonth && !day.isToday && "text-gray-700",
                     )}
                   >
                     {day.date.getDate()}
                   </span>
                 </div>
 
-                {/* Event Indicator - Black and White */}
+                {/* Event Indicator */}
                 {hasEvents && (
-                  <div className="flex justify-center mb-1">
+                  <div className="flex justify-center">
                     <button
                       onClick={(e) => {
                         e.stopPropagation()
                         handleEventIndicatorClick(day)
                       }}
-                      className={cn(
-                        "group relative touch-manipulation", // Better touch handling
-                        isMobile && "animate-pulse" // Subtle pulse on mobile to indicate tappability
-                      )}
+                      className="group relative touch-manipulation"
                     >
                       {day.events.length === 1 ? (
-                        // Single event - black dot (larger on mobile)
                         <div className={cn(
-                          "bg-black rounded-full transition-all duration-200 group-hover:scale-125 group-active:scale-110",
-                          isMobile ? "w-3 h-3" : "w-2 h-2"
-                        )}>
-                        </div>
+                          "rounded-full transition-all duration-200 group-hover:scale-125 group-active:scale-110",
+                          day.isToday ? "bg-white" : "bg-blue-600",
+                          isMobile ? "w-2.5 h-2.5" : "w-2 h-2"
+                        )} />
                       ) : (
-                        // Multiple events - black number badge (larger on mobile)
                         <div className={cn(
-                          "bg-black text-white text-xs px-1.5 py-1 rounded-md transition-all duration-200 group-hover:scale-110 group-active:scale-95 font-bold text-center",
-                          isMobile ? "min-w-[20px]" : "md:px-1 md:py-0.5 md:rounded-sm min-w-[16px]"
+                          "text-xs px-1.5 py-0.5 rounded-full transition-all duration-200 group-hover:scale-110 group-active:scale-95 font-semibold text-center min-w-[20px]",
+                          day.isToday ? "bg-white text-gray-900" : "bg-blue-600 text-white"
                         )}>
                           {day.events.length}
                         </div>

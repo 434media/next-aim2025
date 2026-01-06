@@ -1,16 +1,10 @@
 "use client"
 
+import { CheckCircle2, Loader2, Mail, MapPin, Send } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 import type React from "react"
-import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "motion/react"
-import { RiMailLine, RiMapPin2Line, RiCheckLine } from "@remixicon/react"
+import { useState } from "react"
 import { Button } from "../../components/Button"
-
-const isDevelopment = process.env.NODE_ENV === "development"
-
-const CustomIcon = ({ icon: Icon, ...props }: { icon: React.ElementType } & React.SVGProps<SVGSVGElement>) => (
-  <Icon {...props} />
-)
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -37,62 +31,20 @@ export default function ContactUs() {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
-  const turnstileRef = useRef<HTMLDivElement>(null)
-  const [turnstileWidget, setTurnstileWidget] = useState<string | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prevData) => ({ ...prevData, [name]: value }))
   }
 
-  useEffect(() => {
-    if (!isDevelopment && !window.turnstile) {
-      const script = document.createElement("script")
-      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
-      script.async = true
-      script.defer = true
-      document.body.appendChild(script)
-
-      script.onload = () => {
-        if (window.turnstile && turnstileRef.current && !turnstileWidget) {
-          const widgetId = window.turnstile.render(turnstileRef.current, {
-            sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
-            callback: (token: string) => {
-              console.log("Turnstile token:", token)
-            },
-          })
-          setTurnstileWidget(widgetId)
-        }
-      }
-
-      return () => {
-        document.body.removeChild(script)
-      }
-    }
-  }, [turnstileWidget])
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     try {
-      let turnstileResponse = undefined
-
-      if (!isDevelopment) {
-        if (!window.turnstile || !turnstileWidget) {
-          throw new Error("Turnstile is not initialized")
-        }
-
-        turnstileResponse = window.turnstile.getResponse(turnstileWidget)
-        if (!turnstileResponse) {
-          throw new Error("Failed to get Turnstile response")
-        }
-      }
-
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          ...(turnstileResponse && { "cf-turnstile-response": turnstileResponse }),
         },
         body: JSON.stringify(formData),
       })
@@ -102,10 +54,7 @@ export default function ContactUs() {
       if (response.ok) {
         setFormData({ firstName: "", lastName: "", email: "", phoneNumber: "", message: "" })
         setIsSuccess(true)
-        setTimeout(() => setIsSuccess(false), 5000) // Reset success state after 5 seconds
-        if (!isDevelopment && turnstileWidget) {
-          window.turnstile.reset(turnstileWidget)
-        }
+        setTimeout(() => setIsSuccess(false), 5000)
       } else {
         throw new Error(responseData.error || "Form submission failed")
       }
@@ -123,12 +72,12 @@ export default function ContactUs() {
     <div className="relative isolate bg-white">
       <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
         <motion.div
-          className="relative px-6 pt-24 pb-6 sm:pt-32 lg:static lg:px-8 lg:py-48"
+          className="relative px-6 pt-28 pb-12 sm:pt-36 lg:static lg:px-8 lg:py-48"
           initial="initial"
           animate="animate"
           variants={staggerChildren}
         >
-          <div className="mx-auto max-w-xl mt-6 lg:mt-0 lg:mx-0 lg:max-w-lg">
+          <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
             <div className="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden ring-1 ring-gray-100 lg:w-1/2">
               <div
                 aria-hidden="true"
@@ -143,41 +92,60 @@ export default function ContactUs() {
                 />
               </div>
             </div>
-            <motion.h2
-              className="text-4xl font-semibold tracking-tight text-pretty text-[#548cac] sm:text-5xl"
+
+            <motion.div variants={fadeInUp}>
+              <span className="inline-flex items-center rounded-full bg-[#548cac]/10 px-3 py-1 text-sm font-medium text-[#548cac] ring-1 ring-inset ring-[#548cac]/20">
+                Contact Us
+              </span>
+            </motion.div>
+
+            <motion.h1
+              className="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl"
               variants={fadeInUp}
             >
               Get in touch
-            </motion.h2>
-            <motion.p className="mt-8 text-base sm:text-lg/8 text-gray-700" variants={fadeInUp}>
-              Have questions about the AIM Health R&D Summit? We&apos;re here to help. Reach out to us using the form or
-              contact information below.
+            </motion.h1>
+
+            <motion.p
+              className="mt-6 text-lg leading-8 text-gray-600"
+              variants={fadeInUp}
+            >
+              Have questions about the AIM Health R&D Summit? We&apos;re here to help. Reach out to us using the form or contact information below.
             </motion.p>
+
             <motion.dl
-              className="mt-12 space-y-4 text-base/7 text-gray-700"
+              className="mt-10 space-y-6"
               variants={fadeInUp}
               aria-label="Contact information"
             >
-              <div className="flex gap-x-4">
+              <div className="flex gap-x-4 rounded-xl bg-gray-50 p-4 ring-1 ring-gray-100">
                 <dt className="flex-none">
                   <span className="sr-only">Address</span>
-                  <CustomIcon icon={RiMapPin2Line} aria-hidden="true" className="h-7 w-6 text-[#548cac]" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#548cac]">
+                    <MapPin className="h-5 w-5 text-white" aria-hidden="true" />
+                  </div>
                 </dt>
-                <dd>
-                  VelocityTX
-                  <br />
-                  1305 E. Houston St
-                  <br />
-                  San Antonio, TX 78205
+                <dd className="flex flex-col justify-center">
+                  <p className="text-sm font-semibold text-gray-900">VelocityTX</p>
+                  <p className="mt-0.5 text-sm leading-6 text-gray-600">
+                    1305 E. Houston St, San Antonio, TX 78205
+                  </p>
                 </dd>
               </div>
-              <div className="flex gap-x-4">
+
+              <div className="flex gap-x-4 rounded-xl bg-gray-50 p-4 ring-1 ring-gray-100">
                 <dt className="flex-none">
                   <span className="sr-only">Email</span>
-                  <CustomIcon icon={RiMailLine} aria-hidden="true" className="h-7 w-6 text-[#548cac]" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#548cac]">
+                    <Mail className="h-5 w-5 text-white" aria-hidden="true" />
+                  </div>
                 </dt>
-                <dd>
-                  <a href="mailto:barb@434media.com" className="text-gray-700 hover:text-[#548cac]">
+                <dd className="flex flex-col justify-center">
+                  <p className="text-sm font-semibold text-gray-900">Email us</p>
+                  <a
+                    href="mailto:build@434media.com"
+                    className="mt-0.5 text-sm leading-6 text-[#548cac] hover:text-[#3d6a82] transition-colors"
+                  >
                     build@434media.com
                   </a>
                 </dd>
@@ -185,137 +153,163 @@ export default function ContactUs() {
             </motion.dl>
           </div>
         </motion.div>
+
         <motion.form
           onSubmit={handleSubmit}
-          className="px-6 pt-20 pb-24 sm:pb-32 lg:px-8 lg:py-48"
+          className="px-6 pt-12 pb-24 sm:pb-32 lg:px-8 lg:py-48"
           initial="initial"
           animate="animate"
           variants={staggerChildren}
           aria-label="Contact form"
         >
           <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
-            <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-              <motion.div variants={fadeInUp}>
-                <label htmlFor="first-name" className="block text-sm/6 font-semibold text-[#548cac]">
-                  First name
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    id="first-name"
-                    name="firstName"
-                    type="text"
-                    autoComplete="given-name"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    required
-                    className="block w-full rounded-md bg-gray-50 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-[#548cac] sm:text-sm sm:leading-6"
-                  />
+            <motion.div
+              className="rounded-2xl bg-white p-8 ring-1 ring-gray-200 shadow-sm"
+              variants={fadeInUp}
+            >
+              <h2 className="text-xl font-semibold text-gray-900">Send us a message</h2>
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                Fill out the form below and we&apos;ll get back to you as soon as possible.
+              </p>
+
+              <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                    First name <span className="text-red-500">*</span>
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      id="first-name"
+                      name="firstName"
+                      type="text"
+                      autoComplete="given-name"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      required
+                      placeholder="John"
+                      className="block w-full rounded-lg border-0 bg-gray-50 px-4 py-3 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#548cac] text-sm leading-6 transition-shadow"
+                    />
+                  </div>
                 </div>
-              </motion.div>
-              <motion.div variants={fadeInUp}>
-                <label htmlFor="last-name" className="block text-sm/6 font-semibold text-[#548cac]">
-                  Last name
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    id="last-name"
-                    name="lastName"
-                    type="text"
-                    autoComplete="family-name"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    required
-                    className="block w-full rounded-md bg-gray-50 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-[#548cac] sm:text-sm sm:leading-6"
-                  />
+
+                <div>
+                  <label htmlFor="last-name" className="block text-sm font-medium leading-6 text-gray-900">
+                    Last name <span className="text-red-500">*</span>
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      id="last-name"
+                      name="lastName"
+                      type="text"
+                      autoComplete="family-name"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      required
+                      placeholder="Doe"
+                      className="block w-full rounded-lg border-0 bg-gray-50 px-4 py-3 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#548cac] text-sm leading-6 transition-shadow"
+                    />
+                  </div>
                 </div>
-              </motion.div>
-              <motion.div className="sm:col-span-2" variants={fadeInUp}>
-                <label htmlFor="email" className="block text-sm/6 font-semibold text-[#548cac]">
-                  Email
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="block w-full rounded-md bg-gray-50 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-[#548cac] sm:text-sm sm:leading-6"
-                  />
+
+                <div className="sm:col-span-2">
+                  <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                    Email <span className="text-red-500">*</span>
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      placeholder="john@example.com"
+                      className="block w-full rounded-lg border-0 bg-gray-50 px-4 py-3 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#548cac] text-sm leading-6 transition-shadow"
+                    />
+                  </div>
                 </div>
-              </motion.div>
-              <motion.div className="sm:col-span-2" variants={fadeInUp}>
-                <label htmlFor="phone-number" className="block text-sm/6 font-semibold text-[#548cac]">
-                  Phone number
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    id="phone-number"
-                    name="phoneNumber"
-                    type="tel"
-                    autoComplete="tel"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                    className="block w-full rounded-md bg-gray-50 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-[#548cac] sm:text-sm sm:leading-6"
-                  />
+
+                <div className="sm:col-span-2">
+                  <label htmlFor="phone-number" className="block text-sm font-medium leading-6 text-gray-900">
+                    Phone number <span className="text-gray-400 font-normal">(optional)</span>
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      id="phone-number"
+                      name="phoneNumber"
+                      type="tel"
+                      autoComplete="tel"
+                      value={formData.phoneNumber}
+                      onChange={handleChange}
+                      placeholder="+1 (555) 000-0000"
+                      className="block w-full rounded-lg border-0 bg-gray-50 px-4 py-3 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#548cac] text-sm leading-6 transition-shadow"
+                    />
+                  </div>
                 </div>
-              </motion.div>
-              <motion.div className="sm:col-span-2" variants={fadeInUp}>
-                <label htmlFor="message" className="block text-sm/6 font-semibold text-[#548cac]">
-                  Message
-                </label>
-                <div className="mt-2.5">
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    className="block w-full rounded-md bg-gray-50 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-[#548cac] sm:text-sm sm:leading-6"
-                  />
+
+                <div className="sm:col-span-2">
+                  <label htmlFor="message" className="block text-sm font-medium leading-6 text-gray-900">
+                    Message <span className="text-red-500">*</span>
+                  </label>
+                  <div className="mt-2">
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={4}
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      placeholder="How can we help you?"
+                      className="block w-full rounded-lg border-0 bg-gray-50 px-4 py-3 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#548cac] text-sm leading-6 transition-shadow resize-none"
+                    />
+                  </div>
                 </div>
-              </motion.div>
-              {!isDevelopment && (
-                <motion.div className="sm:col-span-2" variants={fadeInUp}>
-                  <div ref={turnstileRef} data-size="flexible" className="w-full" />
-                </motion.div>
-              )}
-            </div>
-            <motion.div className="sm:col-span-2 mt-2.5" variants={fadeInUp}>
-              <AnimatePresence mode="wait">
-                {isSuccess ? (
-                  <motion.div
-                    key="success"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    className="flex items-center justify-center w-full space-x-2 text-green-500"
-                  >
-                    <RiCheckLine className="h-5 w-5" />
-                    <span>Message sent successfully!</span>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="button"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    className="w-full"
-                  >
-                    <Button
-                      type="submit"
-                      variant="primary"
-                      className="w-full rounded-md px-3.5 py-2.5 text-center text-sm font-semibold shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#548cac] text-white"
-                      disabled={isSubmitting}
+              </div>
+
+              <div className="mt-8">
+                <AnimatePresence mode="wait">
+                  {isSuccess ? (
+                    <motion.div
+                      key="success"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      className="flex items-center justify-center gap-2 rounded-lg bg-green-50 px-4 py-3 text-green-700 ring-1 ring-green-200"
                     >
-                      {isSubmitting ? "Sending..." : "Send message"}
-                    </Button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                      <CheckCircle2 className="h-5 w-5" />
+                      <span className="text-sm font-medium">Message sent successfully!</span>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="button"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      className="w-full"
+                    >
+                      <Button
+                        type="submit"
+                        variant="primary"
+                        className="w-full inline-flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#548cac] disabled:opacity-50 disabled:cursor-not-allowed"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            <Send className="h-4 w-4" />
+                            Send message
+                          </>
+                        )}
+                      </Button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </motion.div>
           </div>
         </motion.form>

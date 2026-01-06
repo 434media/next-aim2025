@@ -16,7 +16,7 @@ const desktopNavigationItems = [
       { name: "Posters", href: "/posters" },
     ],
   },
-  { name: "Events", href: "/events", isNew: true },
+  { name: "Events", href: "/events", isNew: false },
   { name: "Contact Us", href: "/contact-us" },
 ]
 
@@ -30,7 +30,7 @@ const mobileNavigationItems = [
       { name: "Posters", href: "/posters" },
     ],
   },
-  { name: "Events", href: "/events", isNew: true },
+  { name: "Events", href: "/events", isNew: false },
   { name: "Contact Us", href: "/contact-us" },
 ]
 

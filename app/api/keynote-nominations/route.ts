@@ -1,12 +1,11 @@
 import Airtable from "airtable"
-import axios from "axios"
+import { checkBotId } from "botid/server"
 import { NextResponse } from "next/server"
 
 const isDevelopment = process.env.NODE_ENV === "development"
 
 const airtableBaseId = process.env.AIRTABLE_PROJECT_MANAGEMENT_BASE_ID
 const airtableApiKey = process.env.AIRTABLE_API_KEY
-const turnstileSecretKey = process.env.TURNSTILE_SECRET_KEY
 
 // Debug logging for development
 if (isDevelopment) {
@@ -31,6 +30,12 @@ const base = new Airtable({
 
 export async function POST(request: Request) {
   try {
+    // Bot protection using Vercel BotID
+    const verification = await checkBotId()
+    if (verification.isBot) {
+      return NextResponse.json({ error: "Bot detected. Access denied." }, { status: 403 })
+    }
+
     const {
       speakerPocId,
       speakerPocName,
@@ -56,45 +61,10 @@ export async function POST(request: Request) {
         shortJustification: shortJustification ? `${shortJustification.substring(0, 50)}...` : "empty"
       })
     }
-    
-    const turnstileToken = request.headers.get("cf-turnstile-response")
-    const remoteIp = request.headers.get("CF-Connecting-IP")
 
     if (!airtableBaseId || !airtableApiKey) {
       console.error("Airtable configuration is missing")
       return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
-    }
-
-    // Verify Turnstile token in production
-    if (!isDevelopment) {
-      if (!turnstileSecretKey) {
-        console.error("Turnstile secret key is not defined")
-        return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
-      }
-
-      if (turnstileToken) {
-        const idempotencyKey = crypto.randomUUID()
-        const turnstileVerification = await axios.post(
-          "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-          new URLSearchParams({
-            secret: turnstileSecretKey,
-            response: turnstileToken,
-            remoteip: remoteIp || "",
-            idempotency_key: idempotencyKey,
-          }),
-          {
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          },
-        )
-
-        if (!turnstileVerification.data.success) {
-          const errorCodes = turnstileVerification.data["error-codes"] || []
-          console.error("Turnstile verification failed:", errorCodes)
-          return NextResponse.json({ error: "Turnstile verification failed", errorCodes }, { status: 400 })
-        }
-      } else {
-        return NextResponse.json({ error: "Turnstile token is missing" }, { status: 400 })
-      }
     }
 
     // Prepare the fields for Airtable
