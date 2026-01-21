@@ -15,20 +15,19 @@ if (isDevelopment) {
   console.log("Environment variables available:", Object.keys(process.env).filter(key => key.includes('AIRTABLE')))
 }
 
-if (!airtableBaseId || !airtableApiKey) {
-  console.error("Missing Airtable configuration:", { 
-    hasBaseId: !!airtableBaseId, 
-    hasApiKey: !!airtableApiKey 
-  })
-  throw new Error("Airtable configuration is missing")
-}
-
-const base = new Airtable({ 
-  apiKey: airtableApiKey,
-  endpointUrl: 'https://api.airtable.com',
-}).base(airtableBaseId)
+// Conditionally initialize Airtable only if credentials exist
+const base = airtableBaseId && airtableApiKey 
+  ? new Airtable({ 
+      apiKey: airtableApiKey,
+      endpointUrl: 'https://api.airtable.com',
+    }).base(airtableBaseId)
+  : null
 
 export async function POST(request: Request) {
+  if (!base) {
+    return NextResponse.json({ error: "Airtable not configured" }, { status: 503 })
+  }
+  
   try {
     // Bot protection using Vercel BotID
     const verification = await checkBotId()
@@ -60,11 +59,6 @@ export async function POST(request: Request) {
         linkedinProfile: linkedinProfile ? "provided" : "empty",
         shortJustification: shortJustification ? `${shortJustification.substring(0, 50)}...` : "empty"
       })
-    }
-
-    if (!airtableBaseId || !airtableApiKey) {
-      console.error("Airtable configuration is missing")
-      return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
     }
 
     // Prepare the fields for Airtable
@@ -139,6 +133,10 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
+  if (!base) {
+    return NextResponse.json({ error: "Airtable not configured" }, { status: 503 })
+  }
+  
   try {
     const records = await base("Speakers")
       .select({

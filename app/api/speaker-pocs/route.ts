@@ -4,16 +4,19 @@ import { NextResponse } from "next/server"
 const airtableBaseId = process.env.AIRTABLE_PROJECT_MANAGEMENT_BASE_ID
 const airtableApiKey = process.env.AIRTABLE_API_KEY
 
-if (!airtableBaseId || !airtableApiKey) {
-  throw new Error("Airtable configuration is missing")
-}
-
-const base = new Airtable({ 
-  apiKey: airtableApiKey,
-  endpointUrl: 'https://api.airtable.com',
-}).base(airtableBaseId)
+// Conditionally initialize Airtable only if credentials exist
+const base = airtableBaseId && airtableApiKey 
+  ? new Airtable({ 
+      apiKey: airtableApiKey,
+      endpointUrl: 'https://api.airtable.com',
+    }).base(airtableBaseId)
+  : null
 
 export async function GET() {
+  if (!base) {
+    return NextResponse.json({ error: "Airtable not configured" }, { status: 503 })
+  }
+  
   try {
     const records = await base("Contacts")
       .select({

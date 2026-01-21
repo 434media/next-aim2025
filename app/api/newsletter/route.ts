@@ -2,18 +2,15 @@ import axios from "axios"
 import { checkBotId } from "botid/server"
 import crypto from "crypto"
 import { NextResponse } from "next/server"
-
-// 434 Media Firestore API Configuration
-const MEDIA_434_API_URL = process.env.EMAIL_SIGNUP_API_URL || "https://434media.com/api/public/email-signup"
-const MEDIA_434_API_KEY = process.env.EMAIL_SIGNUP_API_KEY
+import { getAdminDb } from "../../../lib/firebase-admin"
 
 // Mailchimp Configuration
 const mailchimpApiKey = process.env.MAILCHIMP_API_KEY
 const mailchimpListId = process.env.MAILCHIMP_AUDIENCE_ID
 const mailchimpDatacenter = mailchimpApiKey ? mailchimpApiKey.split("-").pop() : null
 
-// Website identifier for 434 Media centralized tracking
-const SITE_SOURCE = "AIM"
+// Website identifier for tracking
+const SITE_SOURCE = "aim"
 const SITE_TAGS = ["web-aimsummit", "newsletter-signup"]
 
 export async function POST(request: Request) {
@@ -43,24 +40,24 @@ export async function POST(request: Request) {
     const promises: Promise<any>[] = []
     const errors: string[] = []
 
-    // 1. Save to 434 Media Firestore (centralized)
-    const firestorePromise = axios.post(
-      MEDIA_434_API_URL,
-      {
-        email: email.toLowerCase().trim(),
-        source: SITE_SOURCE,
-        tags: SITE_TAGS,
-        pageUrl: request.headers.get("referer") || undefined,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": MEDIA_434_API_KEY || "",
-        },
-        validateStatus: (status) => status < 500,
-      },
-    )
-    promises.push(firestorePromise)
+    // 1. Save directly to AIM's Firestore database (aimsatx)
+    const saveToFirestore = async () => {
+      try {
+        const adminDb = getAdminDb()
+        await adminDb.collection("email_signups").add({
+          email: email.toLowerCase().trim(),
+          source: SITE_SOURCE,
+          tags: SITE_TAGS,
+          pageUrl: request.headers.get("referer") || null,
+          created_at: new Date().toISOString(),
+        })
+        return { success: true }
+      } catch (error) {
+        console.error("[Newsletter] Firestore save error:", error)
+        throw error
+      }
+    }
+    promises.push(saveToFirestore())
 
     // 2. Add to Mailchimp (with tagging)
     if (mailchimpEnabled) {
@@ -96,14 +93,8 @@ export async function POST(request: Request) {
     // Handle Firestore result
     const firestoreResult = results[0]
     if (firestoreResult.status === "rejected") {
-      console.error("434 Media API error:", firestoreResult.reason)
-      errors.push("Centralized storage failed")
-    } else if (firestoreResult.status === "fulfilled") {
-      const response = firestoreResult.value
-      if (response.status >= 400) {
-        console.error("434 Media API error:", response.data)
-        errors.push(response.data?.error || "Centralized storage failed")
-      }
+      console.error("[Newsletter] Firestore save error:", firestoreResult.reason)
+      errors.push("Database storage failed")
     }
 
     // Handle Mailchimp result
