@@ -11,11 +11,23 @@ function initializeFirebaseAdmin() {
   
   const projectId = process.env.FIREBASE_PROJECT_ID
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL
-  const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n")
+  let privateKey = process.env.FIREBASE_PRIVATE_KEY
+
+  // Handle different formats of the private key
+  // Vercel may store it with literal \n or actual newlines
+  if (privateKey) {
+    // Replace literal \n with actual newlines
+    privateKey = privateKey.replace(/\\n/g, "\n")
+    // Remove any surrounding quotes that might have been added
+    privateKey = privateKey.replace(/^["']|["']$/g, "")
+  }
 
   // Check if all required env vars are present
   if (!projectId || !clientEmail || !privateKey) {
     console.warn("[Firebase Admin] Missing configuration - some admin features may not work")
+    console.warn("[Firebase Admin] Project ID:", projectId ? "✓" : "✗")
+    console.warn("[Firebase Admin] Client Email:", clientEmail ? "✓" : "✗")
+    console.warn("[Firebase Admin] Private Key:", privateKey ? "✓" : "✗")
     return { adminAuth: null, adminDb: null }
   }
 
@@ -24,6 +36,12 @@ function initializeFirebaseAdmin() {
       projectId,
       clientEmail,
       privateKey,
+    }
+
+    // Validate private key format
+    if (!privateKey.includes("-----BEGIN PRIVATE KEY-----") || !privateKey.includes("-----END PRIVATE KEY-----")) {
+      console.error("[Firebase Admin] Private key format is invalid - missing BEGIN/END markers")
+      return { adminAuth: null, adminDb: null }
     }
 
     // Initialize Firebase Admin
@@ -44,6 +62,13 @@ function initializeFirebaseAdmin() {
     return { adminAuth, adminDb }
   } catch (error) {
     console.error("[Firebase Admin] Initialization error:", error)
+    // Log more details for debugging
+    if (error instanceof Error) {
+      console.error("[Firebase Admin] Error message:", error.message)
+      if (error.message.includes("DECODER") || error.message.includes("unsupported")) {
+        console.error("[Firebase Admin] This is likely a private key format issue. Ensure the key has proper newlines.")
+      }
+    }
     return { adminAuth: null, adminDb: null }
   }
 }
