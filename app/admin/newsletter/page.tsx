@@ -199,8 +199,8 @@ export default function NewsletterAdminPage() {
                         <button
                             onClick={() => setShowFilters(!showFilters)}
                             className={`flex items-center gap-2 px-4 py-3 border rounded-xl text-sm font-semibold transition-colors ${hasActiveFilters
-                                    ? "bg-[#548cac]/10 border-[#548cac] text-[#548cac]"
-                                    : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50"
+                                ? "bg-[#548cac]/10 border-[#548cac] text-[#548cac]"
+                                : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50"
                                 }`}
                         >
                             <Filter className="h-4 w-4" />
