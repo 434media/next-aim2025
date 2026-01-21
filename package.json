@@ -17,6 +17,7 @@
     "@remixicon/react": "^4.6.0",
     "@supabase/ssr": "^0.7.0",
     "@vercel/analytics": "^1.5.0",
+    "@vercel/blob": "^2.0.0",
     "airtable": "^0.12.2",
     "axios": "^1.8.1",
     "botid": "^1.5.10",

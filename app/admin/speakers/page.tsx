@@ -14,6 +14,7 @@ import { AnimatePresence, motion } from "motion/react"
 import Image from "next/image"
 import { useCallback, useEffect, useState } from "react"
 import { AdminShell } from "../../../components/admin/AdminShell"
+import { ImageUpload } from "../../../components/admin/ImageUpload"
 
 interface Speaker {
     id: string
@@ -49,7 +50,6 @@ export default function AdminSpeakersPage() {
     const [editingSpeaker, setEditingSpeaker] = useState<Omit<Speaker, "id" | "createdAt" | "updatedAt"> & { id?: string }>(defaultSpeaker)
     const [saving, setSaving] = useState(false)
     const [deletingId, setDeletingId] = useState<string | null>(null)
-    const [previewImage, setPreviewImage] = useState<string | null>(null)
 
     const fetchSpeakers = useCallback(async () => {
         try {
@@ -136,23 +136,12 @@ export default function AdminSpeakersPage() {
 
     const openAddModal = () => {
         setEditingSpeaker({ ...defaultSpeaker, order: speakers.length })
-        setPreviewImage(null)
         setShowModal(true)
     }
 
     const openEditModal = (speaker: Speaker) => {
         setEditingSpeaker({ ...speaker })
-        setPreviewImage(speaker.imageUrl)
         setShowModal(true)
-    }
-
-    const handleImageUrlChange = (url: string) => {
-        setEditingSpeaker({ ...editingSpeaker, imageUrl: url })
-        if (url && url.startsWith("http")) {
-            setPreviewImage(url)
-        } else {
-            setPreviewImage(null)
-        }
     }
 
     return (
@@ -314,17 +303,15 @@ export default function AdminSpeakersPage() {
                             </div>
 
                             <div className="p-6 space-y-4">
-                                {/* Image Preview */}
-                                {previewImage && (
-                                    <div className="relative h-32 w-32 mx-auto rounded-xl bg-gray-100 overflow-hidden">
-                                        <Image
-                                            src={previewImage}
-                                            alt="Preview"
-                                            fill
-                                            className="object-cover"
-                                        />
-                                    </div>
-                                )}
+                                <ImageUpload
+                                    value={editingSpeaker.imageUrl}
+                                    onChange={(url) =>
+                                        setEditingSpeaker({ ...editingSpeaker, imageUrl: url })
+                                    }
+                                    label="Speaker Photo"
+                                    placeholder="https://example.com/speaker.jpg"
+                                    aspectRatio="square"
+                                />
 
                                 <div>
                                     <label className="block text-sm font-semibold text-gray-700 mb-1">
@@ -383,19 +370,6 @@ export default function AdminSpeakersPage() {
                                         }
                                         className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:border-transparent resize-none"
                                         placeholder="Brief speaker biography..."
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-1">
-                                        Image URL
-                                    </label>
-                                    <input
-                                        type="url"
-                                        value={editingSpeaker.imageUrl}
-                                        onChange={(e) => handleImageUrlChange(e.target.value)}
-                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:border-transparent"
-                                        placeholder="https://example.com/speaker.jpg"
                                     />
                                 </div>
 

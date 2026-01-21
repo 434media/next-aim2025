@@ -18,6 +18,7 @@ import { AnimatePresence, motion } from "motion/react"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { AdminShell } from "../../../components/admin/AdminShell"
+import { ImageUpload } from "../../../components/admin/ImageUpload"
 
 interface Sponsor {
     id: string
@@ -47,7 +48,6 @@ export default function SponsorsAdminPage() {
     const [editingSponsor, setEditingSponsor] = useState<Partial<Sponsor> | null>(null)
     const [isSaving, setIsSaving] = useState(false)
     const [deletingId, setDeletingId] = useState<string | null>(null)
-    const [previewImage, setPreviewImage] = useState<string | null>(null)
     const [isSeeding, setIsSeeding] = useState(false)
 
     useEffect(() => {
@@ -116,7 +116,6 @@ export default function SponsorsAdminPage() {
                 }
                 setShowModal(false)
                 setEditingSponsor(null)
-                setPreviewImage(null)
             } else {
                 alert(data.error || "Failed to save sponsor")
             }
@@ -180,23 +179,12 @@ export default function SponsorsAdminPage() {
 
     const openAddModal = () => {
         setEditingSponsor({ ...defaultSponsor })
-        setPreviewImage(null)
         setShowModal(true)
     }
 
     const openEditModal = (sponsor: Sponsor) => {
         setEditingSponsor({ ...sponsor })
-        setPreviewImage(sponsor.src)
         setShowModal(true)
-    }
-
-    const handleImageUrlChange = (url: string) => {
-        setEditingSponsor({ ...editingSponsor, src: url })
-        if (url && url.startsWith("http")) {
-            setPreviewImage(url)
-        } else {
-            setPreviewImage(null)
-        }
     }
 
     return (
@@ -413,25 +401,6 @@ export default function SponsorsAdminPage() {
                             {/* Modal Body */}
                             <div className="flex-1 overflow-y-auto p-6">
                                 <div className="space-y-4">
-                                    {/* Logo Preview */}
-                                    <div className="relative h-24 w-full bg-gray-50 rounded-xl overflow-hidden border-2 border-dashed border-gray-200">
-                                        {previewImage ? (
-                                            <Image
-                                                src={previewImage}
-                                                alt="Preview"
-                                                fill
-                                                className="object-contain p-4"
-                                                sizes="100vw"
-                                                onError={() => setPreviewImage(null)}
-                                            />
-                                        ) : (
-                                            <div className="flex flex-col items-center justify-center h-full text-gray-400">
-                                                <ImageIcon className="h-8 w-8 mb-1" />
-                                                <span className="text-xs font-medium">Logo Preview</span>
-                                            </div>
-                                        )}
-                                    </div>
-
                                     <div>
                                         <label className="block text-sm font-semibold text-gray-700 mb-2">
                                             Sponsor Name *
@@ -447,19 +416,16 @@ export default function SponsorsAdminPage() {
                                         />
                                     </div>
 
-                                    <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                            <ImageIcon className="inline h-4 w-4 mr-1" />
-                                            Logo URL *
-                                        </label>
-                                        <input
-                                            type="url"
-                                            value={editingSponsor.src || ""}
-                                            onChange={(e) => handleImageUrlChange(e.target.value)}
-                                            className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:border-transparent"
-                                            placeholder="https://example.com/logo.png"
-                                        />
-                                    </div>
+                                    <ImageUpload
+                                        value={editingSponsor.src || ""}
+                                        onChange={(url) =>
+                                            setEditingSponsor({ ...editingSponsor, src: url })
+                                        }
+                                        label="Logo"
+                                        placeholder="https://example.com/logo.png"
+                                        aspectRatio="logo"
+                                        required
+                                    />
 
                                     <div>
                                         <label className="block text-sm font-semibold text-gray-700 mb-2">

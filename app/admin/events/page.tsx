@@ -21,6 +21,7 @@ import {
 import { AnimatePresence, motion } from "motion/react"
 import { useEffect, useState } from "react"
 import { AdminShell } from "../../../components/admin/AdminShell"
+import { ImageUpload } from "../../../components/admin/ImageUpload"
 
 interface Event {
     id: string
@@ -607,17 +608,14 @@ export default function EventsAdminPage() {
                                     </div>
 
                                     <div className="md:col-span-2">
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                            Image URL
-                                        </label>
-                                        <input
-                                            type="url"
+                                        <ImageUpload
                                             value={editingEvent.image || ""}
-                                            onChange={(e) =>
-                                                setEditingEvent({ ...editingEvent, image: e.target.value })
+                                            onChange={(url) =>
+                                                setEditingEvent({ ...editingEvent, image: url })
                                             }
-                                            className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:border-transparent"
-                                            placeholder="https://..."
+                                            label="Event Image"
+                                            placeholder="https://example.com/event-image.jpg"
+                                            aspectRatio="landscape"
                                         />
                                     </div>
 
