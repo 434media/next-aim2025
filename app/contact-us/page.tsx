@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react"
 import type React from "react"
 import { useState } from "react"
 import { Button } from "../../components/Button"
+import { EditableText } from "../../components/admin/EditableText"
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -103,14 +104,27 @@ export default function ContactUs() {
               className="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl"
               variants={fadeInUp}
             >
-              Get in touch
+              <EditableText
+                textId="contact-page-title"
+                page="contact"
+                section="hero"
+              >
+                Get in touch
+              </EditableText>
             </motion.h1>
 
             <motion.p
               className="mt-6 text-lg leading-8 text-gray-600"
               variants={fadeInUp}
             >
-              Have questions about the AIM Health R&D Summit? We&apos;re here to help. Reach out to us using the form or contact information below.
+              <EditableText
+                textId="contact-page-description"
+                page="contact"
+                section="hero"
+                multiline
+              >
+                Have questions about the AIM Health R&D Summit? We&apos;re here to help. Reach out to us using the form or contact information below.
+              </EditableText>
             </motion.p>
 
             <motion.dl

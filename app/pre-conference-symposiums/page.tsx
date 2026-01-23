@@ -1,16 +1,18 @@
 "use client"
 
-import { motion } from "motion/react"
 import {
-  RiMapPinLine,
   RiArrowRightLine,
-  RiFileTextLine,
-  RiVideoLine,
   RiExternalLinkLine,
+  RiFileTextLine,
+  RiMapPinLine,
+  RiVideoLine,
 } from "@remixicon/react"
-import { Button } from "../../components/Button"
+import { motion } from "motion/react"
 import Image from "next/image"
+import { Button } from "../../components/Button"
 import MMIDCallout from "../../components/MMIDCallout"
+import { EditableText } from "../../components/admin/EditableText"
+import { Accordion, AccordionItemWrapper } from "../../components/ui/Accordion"
 
 // Define the Speaker interface
 interface Speaker {
@@ -116,9 +118,11 @@ export default function PreConferenceSymposiums() {
                   className="text-5xl lg:text-6xl xl:text-7xl font-black text-neutral-900 leading-[0.9] tracking-tight"
                   id="page-heading"
                 >
-                  Conference Symposiums
+                  <EditableText textId="symposiums-hero-title">
+                    Conference Symposiums
+                  </EditableText>
                 </motion.h1>
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -126,13 +130,15 @@ export default function PreConferenceSymposiums() {
                   className="space-y-4"
                 >
                   <p className="text-lg sm:text-xl text-neutral-600 leading-relaxed">
-                    These focused sessions provide deep insights into military healthcare innovation, funding opportunities, 
-                    and collaboration pathways.
+                    <EditableText textId="symposiums-hero-description-1">
+                      These focused sessions provide deep insights into military healthcare innovation, funding opportunities, and collaboration pathways.
+                    </EditableText>
                   </p>
-                  
+
                   <p className="text-lg sm:text-xl text-neutral-600 leading-relaxed">
-                    Connect with experts, explore breakthrough technologies, and gain the knowledge needed to maximize 
-                    your summit experience. 
+                    <EditableText textId="symposiums-hero-description-2">
+                      Connect with experts, explore breakthrough technologies, and gain the knowledge needed to maximize your summit experience.
+                    </EditableText>
                   </p>
                 </motion.div>
               </div>
@@ -149,9 +155,9 @@ export default function PreConferenceSymposiums() {
                   aria-label="View archived symposiums"
                 >
                   Explore Sessions
-                  <RiArrowRightLine 
-                    className="inline-flex ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" 
-                    aria-hidden="true" 
+                  <RiArrowRightLine
+                    className="inline-flex ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+                    aria-hidden="true"
                   />
                 </Button>
               </motion.div>
@@ -174,7 +180,7 @@ export default function PreConferenceSymposiums() {
                   priority
                 />
               </div>
-              
+
               {/* Decorative elements */}
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-sky-500/10 rounded-full blur-xl" />
               <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-sky-600/10 rounded-full blur-xl" />
@@ -187,7 +193,7 @@ export default function PreConferenceSymposiums() {
       <MMIDCallout />
 
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-        {/* Archived Symposiums Section - Updated Layout */}
+        {/* Archived Symposiums Section - Accordion Layout */}
         {archivedSymposiums.length > 0 && (
           <motion.section
             className="mt-0 lg:mt-16 space-y-6 pb-20"
@@ -200,49 +206,40 @@ export default function PreConferenceSymposiums() {
                 id="archived-heading"
                 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-neutral-900"
               >
-                Archived Symposiums
+                <EditableText textId="symposiums-archived-title">Archived Symposiums</EditableText>
               </h2>
             </div>
-            
-            <div className="space-y-4">
+
+            <Accordion type="single">
               {archivedSymposiums.map((symposium, index) => (
-                <motion.article
+                <AccordionItemWrapper
                   key={index}
-                  className="bg-white rounded-2xl border border-neutral-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
-                  variants={fadeInUp}
-                  custom={index}
-                  transition={{ delay: index * 0.1, duration: 0.5, ease: "easeInOut" }}
+                  id={`symposium-${index}`}
+                  title={symposium.title}
+                  badge={
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                      {new Date(symposium.date).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                      })}
+                    </span>
+                  }
                 >
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-                    {/* Time and Date Column */}
-                    <div className="lg:col-span-3 p-6 lg:p-8 bg-neutral-50/50 border-b lg:border-b-0 lg:border-r border-neutral-200">
-                      <div className="space-y-2">
-                        <div className="text-sm font-medium text-neutral-500 uppercase tracking-wide">
-                          {new Date(symposium.date).toLocaleDateString('en-US', { 
-                            month: 'short', 
-                            day: 'numeric',
-                            year: 'numeric'
-                          })}
-                        </div>
+                  <div className="pt-4 space-y-6">
+                    {/* Location and Description */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-3">
                         <div className="flex items-center text-neutral-600">
                           <RiMapPinLine className="h-4 w-4 mr-2 text-sky-600" aria-hidden="true" />
                           <span className="text-sm">{symposium.location}</span>
                         </div>
-                        <div className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                          Completed
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Content Column */}
-                    <div className="lg:col-span-6 p-6 lg:p-8">
-                      <div className="space-y-4">
-                        <h3 className="text-xl lg:text-2xl font-semibold text-neutral-900 leading-tight">
-                          {symposium.title}
-                        </h3>
-                        
+                        <p className="text-neutral-600 leading-relaxed">
+                          {symposium.description}
+                        </p>
                         {symposium.speakers && symposium.speakers.length > 0 && (
-                          <div className="space-y-2">
+                          <div className="space-y-2 pt-2">
+                            <h4 className="text-sm font-semibold text-neutral-800">Speakers:</h4>
                             {symposium.speakers.map((speaker, idx) => (
                               <div key={idx} className="text-sm text-neutral-600">
                                 <span className="font-medium text-neutral-800">{speaker.name}</span>
@@ -251,8 +248,10 @@ export default function PreConferenceSymposiums() {
                             ))}
                           </div>
                         )}
+                      </div>
 
-                        {/* Tags/Categories */}
+                      {/* Tags/Categories */}
+                      <div className="space-y-4">
                         <div className="flex flex-wrap gap-2">
                           <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-sky-100 text-sky-800">
                             Medical Innovation
@@ -264,57 +263,48 @@ export default function PreConferenceSymposiums() {
                             Commercialization
                           </span>
                         </div>
-                      </div>
-                    </div>
 
-                    {/* Description and Actions Column */}
-                    <div className="lg:col-span-3 p-6 lg:p-8 bg-neutral-50/30 border-t lg:border-t-0 lg:border-l border-neutral-200">
-                      <div className="space-y-4">
-                        <p className="text-sm text-neutral-600 leading-relaxed line-clamp-4">
-                          {symposium.description}
-                        </p>
-                        
                         {/* Action Buttons */}
-                        <div className="space-y-2">
+                        <div className="flex flex-wrap gap-3">
                           {symposium.slideDeckUrl && (
                             <a
                               href={symposium.slideDeckUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center w-full px-3 py-2 text-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-md hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-colors"
+                              className="inline-flex items-center px-4 py-2 text-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-lg hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-colors"
                               aria-label={`View slide deck for ${symposium.title}`}
                             >
                               <RiFileTextLine className="h-4 w-4 mr-2" aria-hidden="true" />
                               <span>Slide Deck</span>
-                              <RiExternalLinkLine className="h-3 w-3 ml-auto opacity-70" aria-hidden="true" />
+                              <RiExternalLinkLine className="h-3 w-3 ml-2 opacity-70" aria-hidden="true" />
                             </a>
                           )}
-                          
+
                           {symposium.recordingUrl && (
                             <a
                               href={`/video-player?url=${encodeURIComponent(symposium.recordingUrl)}&title=${encodeURIComponent(symposium.title)}`}
-                              className="inline-flex items-center w-full px-3 py-2 text-sm font-medium text-white bg-sky-600 border border-transparent rounded-md hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-colors"
+                              className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-sky-600 border border-transparent rounded-lg hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-colors"
                               aria-label={`Watch recording of ${symposium.title}`}
                             >
                               <RiVideoLine className="h-4 w-4 mr-2" aria-hidden="true" />
                               <span>Watch Recording</span>
                               {symposium.videoDuration && (
-                                <span className="ml-auto text-xs bg-sky-500 px-1.5 py-0.5 rounded">
+                                <span className="ml-2 text-xs bg-sky-500 px-1.5 py-0.5 rounded">
                                   {symposium.videoDuration}
                                 </span>
                               )}
                             </a>
                           )}
-                          
+
                           {symposium.videoComingSoon && symposium.videoUrl && (
                             <a
                               href={symposium.videoUrl}
-                              className="inline-flex items-center w-full px-3 py-2 text-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-md hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-colors"
+                              className="inline-flex items-center px-4 py-2 text-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-lg hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-colors"
                               aria-label={`Watch coming soon video for ${symposium.title}`}
                             >
                               <RiVideoLine className="h-4 w-4 mr-2" aria-hidden="true" />
                               <span>Recording</span>
-                              <span className="ml-auto text-xs bg-neutral-200 px-1.5 py-0.5 rounded">
+                              <span className="ml-2 text-xs bg-neutral-200 px-1.5 py-0.5 rounded">
                                 Coming Soon
                               </span>
                             </a>
@@ -323,9 +313,9 @@ export default function PreConferenceSymposiums() {
                       </div>
                     </div>
                   </div>
-                </motion.article>
+                </AccordionItemWrapper>
               ))}
-            </div>
+            </Accordion>
           </motion.section>
         )}
       </div>

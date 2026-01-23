@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react"
 import { useInView } from "react-intersection-observer"
+import { EditableText } from "./admin/EditableText"
 import { MissionAccomplishedBadge } from "./MissionAccomplishedBadge"
 import { BackgroundGradientAnimation } from "./ui/background-gradient-animation"
 
@@ -97,7 +98,7 @@ export function SummitMissionPast() {
           aria-labelledby="summit-mission-heading"
         >
           {/* Mission Accomplished Badge */}
-          <motion.div 
+          <motion.div
             className="pt-8 pb-4 flex justify-center"
             variants={itemVariants}
           >
@@ -105,7 +106,7 @@ export function SummitMissionPast() {
           </motion.div>
 
           {/* Hero Title Section */}
-          <motion.div 
+          <motion.div
             className="flex-1 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 pb-8"
             variants={heroTextVariants}
           >
@@ -117,21 +118,21 @@ export function SummitMissionPast() {
                 whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               >
-                <motion.div 
+                <motion.div
                   className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[12rem]"
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, delay: 0.4 }}
                 >
-                  FROM THE
+                  <EditableText textId="aim2025-hero-title-1">FROM THE</EditableText>
                 </motion.div>
-                <motion.div 
+                <motion.div
                   className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[12rem] text-[#0369A1]"
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, delay: 0.6 }}
                 >
-                  BENCH
+                  <EditableText textId="aim2025-hero-title-2">BENCH</EditableText>
                 </motion.div>
               </motion.h1>
 
@@ -142,7 +143,7 @@ export function SummitMissionPast() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
               >
-                TO THE BATTLEFIELD
+                <EditableText textId="aim2025-hero-subtitle">TO THE BATTLEFIELD</EditableText>
               </motion.p>
 
               {/* Decorative line */}
@@ -168,7 +169,7 @@ export function SummitMissionPast() {
               transition={{ duration: 0.8, delay: 0.8 }}
               style={{ transformOrigin: "bottom" }}
             />
-            
+
             <div className="relative z-10 px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24">
               <div className="max-w-5xl mx-auto">
                 <motion.div

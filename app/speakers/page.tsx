@@ -1,7 +1,7 @@
-import { RiStarLine } from "@remixicon/react"
 import type { Metadata } from "next"
 import { Suspense } from "react"
-import { FadeContainer, FadeDiv } from "../../components/Fade"
+import { FadeContainer } from "../../components/Fade"
+import { SpeakersHero } from "../../components/SpeakersHero"
 import WhovaSpeakersEmbed from "../../components/WhovaSpeakersEmbed"
 
 export const metadata: Metadata = {
@@ -23,27 +23,8 @@ export default function SpeakersPage() {
       {/* Hero Section with Light Background */}
       <div className="w-full min-h-screen flex flex-col items-center justify-start relative pt-32 md:pt-40 bg-gradient-to-br from-neutral-50 via-sky-50 to-white">
         <FadeContainer className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 pb-16 sm:pb-24">
-          {/* Enhanced Hero Header */}
-          <div className="mx-auto max-w-5xl text-center mb-16 md:mb-20">
-            <div className="mb-8 flex justify-center">
-              <div className="inline-flex items-center rounded-full bg-sky-100 px-6 py-2 text-sm font-semibold text-sky-700 ring-1 ring-sky-200 backdrop-blur-sm">
-                <RiStarLine className="mr-2 h-4 w-4" />
-                AIM&apos;25 Speaker Lineup
-              </div>
-            </div>
-
-            <h1 className="mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-neutral-900 leading-tight tracking-tight">
-              <span className="bg-gradient-to-r from-neutral-900 via-neutral-800 to-sky-700 bg-clip-text text-transparent">
-                Leaders
-              </span>
-              <span className="text-neutral-800"> Shaping Tomorrow</span>
-            </h1>
-            <FadeDiv className="mx-auto mb-12 max-w-3xl text-lg sm:text-xl md:text-2xl text-neutral-700 leading-relaxed">
-              <p>
-                Our speakers represent the forefront of medical advancement across military defense and civilian sectors.
-              </p>
-            </FadeDiv>
-          </div>
+          {/* Enhanced Hero Header - Now Client Component for Editing */}
+          <SpeakersHero />
 
           {/* Enhanced Speakers Embed Container */}
           <div className="mx-auto max-w-5xl">

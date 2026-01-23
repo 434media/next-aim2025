@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react"
 import { useMediaQuery } from "../../hooks/useMediaQuery"
 import { useReducedMotion } from "../../hooks/useReducedMotion"
 import { Button } from "../Button"
+import { EditableText } from "../admin/EditableText"
 
 export const HeroTextSection = React.memo(() => {
   const isMobile = useMediaQuery("(max-width: 768px)")
@@ -139,7 +140,14 @@ export const HeroTextSection = React.memo(() => {
               }}
             >
               <p className="mt-4 text-lg sm:text-xl font-light text-gray-200 leading-relaxed max-w-md mx-auto tracking-tight">
-                Join military and civilian leaders, researchers, and innovators to explore breakthrough technologies, share cutting-edge research, and forge partnerships that will transform healthcare for our service members and beyond.
+                <EditableText
+                  textId="hero-main-description"
+                  page="home"
+                  section="hero"
+                  multiline
+                >
+                  Join military and civilian leaders, researchers, and innovators to explore breakthrough technologies, share cutting-edge research, and forge partnerships that will transform healthcare for our service members and beyond.
+                </EditableText>
               </p>
 
               <div>
@@ -261,15 +269,24 @@ export const HeroTextSection = React.memo(() => {
         <div className="bg-gradient-to-b from-transparent via-slate-900/70 to-slate-900">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-16">
             <div className="text-center max-w-4xl mx-auto">
-              {/* Paragraph Text */}
-              <motion.p
-                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-200 leading-relaxed mb-12 sm:mb-16 tracking-tighter"
+              {/* Paragraph Text - Now Editable by Admins */}
+              <motion.div
+                className="mb-12 sm:mb-16"
                 initial={{ opacity: 0, y: 30 }}
                 animate={showContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{ duration: 1, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
               >
-                Join military and civilian leaders, researchers, and innovators to explore breakthrough technologies, share cutting-edge research, and forge partnerships that will transform healthcare for our service members and beyond.
-              </motion.p>
+                <EditableText
+                  textId="hero-main-description"
+                  as="p"
+                  page="home"
+                  section="hero"
+                  multiline
+                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-200 leading-relaxed tracking-tighter"
+                >
+                  Join military and civilian leaders, researchers, and innovators to explore breakthrough technologies, share cutting-edge research, and forge partnerships that will transform healthcare for our service members and beyond.
+                </EditableText>
+              </motion.div>
 
               {/* Get Involved Button */}
               <motion.div

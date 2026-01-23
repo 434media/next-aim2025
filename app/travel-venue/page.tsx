@@ -1,11 +1,12 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
-import { motion, AnimatePresence } from "motion/react"
-import Link from "next/link"
+import { RiArrowRightUpLine, RiArrowUpLine, RiPauseFill, RiPlayFill } from "@remixicon/react"
+import { AnimatePresence, motion } from "motion/react"
 import Image from "next/image"
-import { RiArrowRightUpLine, RiPlayFill, RiPauseFill, RiArrowUpLine } from "@remixicon/react"
+import Link from "next/link"
+import { useEffect, useRef, useState } from "react"
 import { Button } from "../../components/Button"
+import { EditableText } from "../../components/admin/EditableText"
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -67,10 +68,23 @@ export default function TravelVenue() {
             className="text-5xl lg:text-7xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-[#548cac] to-[#4f4f2c]"
             variants={fadeInUp}
           >
-            Explore San Antonio
+            <EditableText
+              textId="travel-page-title"
+              page="travel"
+              section="hero"
+            >
+              Explore San Antonio
+            </EditableText>
           </motion.h1>
           <motion.p className="text-lg sm:text-xl text-white mb-12 max-w-2xl" variants={fadeInUp}>
-            Discover the perfect blend of history, culture, and modern amenities in the heart of Texas.
+            <EditableText
+              textId="travel-page-subtitle"
+              page="travel"
+              section="hero"
+              multiline
+            >
+              Discover the perfect blend of history, culture, and modern amenities in the heart of Texas.
+            </EditableText>
           </motion.p>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -88,10 +102,25 @@ export default function TravelVenue() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                  <h2 className="text-3xl sm:text-4xl font-bold mb-4">Henry B. González Convention Center</h2>
+                  <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+                    <EditableText
+                      textId="travel-venue-name"
+                      page="travel"
+                      section="venue"
+                    >
+                      Henry B. González Convention Center
+                    </EditableText>
+                  </h2>
                   <p className="text-base sm:text-lg text-white/90 mb-6 max-w-md">
-                    Experience world-class facilities in the heart of downtown San Antonio, featuring over 514,000 sq ft
-                    of space along the famous River Walk.
+                    <EditableText
+                      textId="travel-venue-description"
+                      page="travel"
+                      section="venue"
+                      multiline
+                    >
+                      Experience world-class facilities in the heart of downtown San Antonio, featuring over 514,000 sq ft
+                      of space along the famous River Walk.
+                    </EditableText>
                   </p>
                   <Button
                     variant="primary"

@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "motion/react"
+import { EditableText } from "../../components/admin/EditableText"
 
 export default function SurfHero2025() {
   return (
@@ -12,9 +13,9 @@ export default function SurfHero2025() {
 
       <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         <div className="flex flex-col items-center justify-center min-h-[75vh] text-center">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }} 
-            animate={{ opacity: 1, y: 0 }} 
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="max-w-6xl mx-auto"
           >
@@ -38,27 +39,31 @@ export default function SurfHero2025() {
                   backgroundSize: "200% 200%",
                 }}
               >
-                Poster
+                <EditableText textId="posters-hero-title-1">Poster</EditableText>
               </motion.span>{" "}
-              
+
               <br />
-              <span className="text-[#000]">Presenters</span>
+              <span className="text-[#000]">
+                <EditableText textId="posters-hero-title-2">Presenters</EditableText>
+              </span>
             </motion.h1>
-            
+
             <motion.div
               className="h-1 w-20 sm:w-24 md:w-32 lg:w-40 bg-gradient-to-r from-[#548cac] to-[#8ECAE6] mb-8 sm:mb-10 md:mb-12 lg:mb-16 mx-auto"
               initial={{ width: 0 }}
               animate={{ width: "100%" }}
               transition={{ duration: 0.8, delay: 0.4 }}
             />
-            
+
             <motion.p
               className="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-neutral-700 mb-12 sm:mb-14 md:mb-16 lg:mb-20 leading-relaxed sm:leading-relaxed md:leading-[1.4] lg:leading-[1.5] max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto font-light px-4 sm:px-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              San Antonio Military Health and Universities Research Forum <strong>(SURF)</strong> brings together military and civilian researchers, clinicians, and students to showcase cutting-edge research in military medicine and healthcare innovation.
+              <EditableText textId="posters-hero-description">
+                San Antonio Military Health and Universities Research Forum (SURF) brings together military and civilian researchers, clinicians, and students to showcase cutting-edge research in military medicine and healthcare innovation.
+              </EditableText>
             </motion.p>
 
             {/* Call to action */}

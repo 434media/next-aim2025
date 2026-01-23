@@ -8,6 +8,7 @@ import "./globals.css"
 import { Analytics } from "@vercel/analytics/next"
 import { siteConfig } from "../app/siteConfig"
 import { LayoutWrapper } from "../components/LayoutWrapper"
+import { Providers } from "../components/Providers"
 import Footer from "../components/ui/Footer"
 import NavBar from "../components/ui/Navbar"
 
@@ -72,15 +73,17 @@ export default function RootLayout({
       <body
         className={`${GeistSans.className} min-h-screen overflow-x-hidden scroll-auto bg-white text-gray-900 antialiased selection:bg-cyan-200 selection:text-gray-900`}
       >
-        <Suspense fallback={<div>Loading...</div>}>
-          <LayoutWrapper
-            navbar={<NavBar />}
-            footer={<Footer />}
-          >
-            {children}
-          </LayoutWrapper>
-          <Analytics />
-        </Suspense>
+        <Providers>
+          <Suspense fallback={<div>Loading...</div>}>
+            <LayoutWrapper
+              navbar={<NavBar />}
+              footer={<Footer />}
+            >
+              {children}
+            </LayoutWrapper>
+            <Analytics />
+          </Suspense>
+        </Providers>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-CE7GWPDQXQ"
           strategy="afterInteractive"

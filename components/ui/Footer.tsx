@@ -1,10 +1,11 @@
 "use client"
 
-import Link from "next/link"
-import { motion, useInView } from "motion/react"
-import { useState, useEffect, useCallback, useMemo, useRef } from "react"
 import { RiArrowRightUpLine } from "@remixicon/react"
+import { motion, useInView } from "motion/react"
+import Link from "next/link"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { AIMLogo } from "../../public/AIMLogo"
+import { EditableText } from "../admin/EditableText"
 
 const footerSections = {
   register: {
@@ -160,18 +161,31 @@ export default function Footer() {
               transition={{ delay: 0.3, duration: 0.6 }}
             >
               <p className="text-lg text-[#548cac] font-medium leading-relaxed">
-                Accelerating Innovation in Military Medicine
+                <EditableText
+                  textId="footer-tagline"
+                  page="global"
+                  section="footer"
+                >
+                  Accelerating Innovation in Military Medicine
+                </EditableText>
               </p>
               <p className="text-white/80 leading-relaxed max-w-md">
-                Fostering collaboration between academia, industry, and military researchers to develop life-saving
-                innovations that advance military medical capabilities.
+                <EditableText
+                  textId="footer-mission"
+                  page="global"
+                  section="footer"
+                  multiline
+                >
+                  Fostering collaboration between academia, industry, and military researchers to develop life-saving
+                  innovations that advance military medical capabilities.
+                </EditableText>
               </p>
             </motion.div>
           </motion.div>
 
           {/* Navigation Sections */}
           <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-12">
-                        {/* Register Section */}
+            {/* Register Section */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -227,7 +241,7 @@ export default function Footer() {
                 ))}
               </ul>
             </motion.div>
-            
+
             {/* Explore Section */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}

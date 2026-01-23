@@ -1,10 +1,11 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "motion/react"
-import { Button } from "./Button"
-import { RiPlayFill, RiPauseFill, RiArrowRightUpLine } from "@remixicon/react"
+import { RiArrowRightUpLine, RiPauseFill, RiPlayFill } from "@remixicon/react"
+import { AnimatePresence, motion } from "motion/react"
 import Image from "next/image"
+import { useEffect, useRef, useState } from "react"
+import { EditableText } from "./admin/EditableText"
+import { Button } from "./Button"
 
 const stats = [
   { label: "Convention Center Size", value: "514,000 sq ft" },
@@ -69,11 +70,24 @@ export default function VenueCTA() {
         >
           <motion.div variants={fadeInUp}>
             <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#548cac] to-[#4f4f2c]">
-              Experience San Antonio
+              <EditableText
+                textId="venue-cta-title"
+                page="global"
+                section="venue-cta"
+              >
+                Experience San Antonio
+              </EditableText>
             </h2>
             <p className="text-lg sm:text-xl text-[#548cac] mb-8">
-              Discover the perfect blend of history, culture, and modern amenities at the Henry B. González Convention
-              Center, nestled in the heart of vibrant San Antonio.
+              <EditableText
+                textId="venue-cta-description"
+                page="global"
+                section="venue-cta"
+                multiline
+              >
+                Discover the perfect blend of history, culture, and modern amenities at the Henry B. González Convention
+                Center, nestled in the heart of vibrant San Antonio.
+              </EditableText>
             </p>
             <Button variant="primary" href="/travel-venue" className="group text-lg py-3 px-6">
               Explore Venue & City

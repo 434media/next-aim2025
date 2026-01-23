@@ -1,9 +1,10 @@
 "use client"
 
-import { useState, useMemo, useEffect } from "react"
+import { RiArrowRightLine, RiFileDownloadLine, RiFilterLine, RiSearchLine, RiTeamLine } from "@remixicon/react"
 import { motion } from "motion/react"
-import { RiSearchLine, RiFilterLine, RiTeamLine, RiFileDownloadLine, RiArrowRightLine } from "@remixicon/react"
-import { presentersData, categories, getInstitutionBadgeColor, getCategoryColor } from "../../data/surf-presenters"
+import { useEffect, useMemo, useState } from "react"
+import { EditableText } from "../../components/admin/EditableText"
+import { categories, getCategoryColor, getInstitutionBadgeColor, presentersData } from "../../data/surf-presenters"
 
 export default function SurfPresentersSection() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -46,12 +47,13 @@ export default function SurfPresentersSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mb-6 tracking-tight leading-[0.9]">
-            AIM'25 Presenters
+            <EditableText textId="posters-section-title">AIM&apos;25 Presenters</EditableText>
           </h2>
           <div className="h-1.5 w-32 md:w-40 bg-gradient-to-r from-[#366A79] to-[#8ECAE6] mx-auto mb-8"></div>
           <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-light text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Discover groundbreaking research from leading military and civilian institutions advancing healthcare
-            innovation
+            <EditableText textId="posters-section-description">
+              Discover groundbreaking research from leading military and civilian institutions advancing healthcare innovation
+            </EditableText>
           </p>
         </motion.div>
 
@@ -113,9 +115,8 @@ export default function SurfPresentersSection() {
                     {categories.map((category) => (
                       <button
                         key={category}
-                        className={`block w-full text-left px-4 py-3 hover:bg-gray-50 text-gray-700 transition-colors font-normal ${
-                          selectedCategory === category ? "bg-[#548cac]/10 text-[#366A79] font-medium" : ""
-                        }`}
+                        className={`block w-full text-left px-4 py-3 hover:bg-gray-50 text-gray-700 transition-colors font-normal ${selectedCategory === category ? "bg-[#548cac]/10 text-[#366A79] font-medium" : ""
+                          }`}
                         onClick={() => {
                           setSelectedCategory(category)
                           setIsFilterOpen(false)

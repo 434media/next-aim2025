@@ -9,6 +9,7 @@ import {
 import { AnimatePresence, motion } from "motion/react"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
+import { EditableText } from "../../components/admin/EditableText"
 
 // Sponsor data structure
 interface Sponsor {
@@ -363,7 +364,13 @@ export default function SponsorsExhibitorsClientPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              AIM&apos;25 SPONSORS
+              <EditableText
+                textId="sponsors-page-title"
+                page="sponsors"
+                section="hero"
+              >
+                AIM&apos;25 SPONSORS
+              </EditableText>
             </motion.h1>
 
             {/* Event info section with improved spacing and responsive layout */}
@@ -374,7 +381,14 @@ export default function SponsorsExhibitorsClientPage() {
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             >
               <p>
-                Our sponsors and exhibitors are essential partners in our mission to accelerate military medical innovation through cross-sector collaboration.
+                <EditableText
+                  textId="sponsors-page-description"
+                  page="sponsors"
+                  section="hero"
+                  multiline
+                >
+                  Our sponsors and exhibitors are essential partners in our mission to accelerate military medical innovation through cross-sector collaboration.
+                </EditableText>
               </p>
             </motion.div>
           </div>
