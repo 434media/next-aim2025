@@ -3,6 +3,7 @@
 import { ArrowRight, PlayCircle } from "lucide-react"
 import { motion } from "motion/react"
 import Image from "next/image"
+import { EditableText } from "./admin/EditableText"
 
 export default function MMIDCallout() {
   return (
@@ -41,34 +42,27 @@ export default function MMIDCallout() {
             className="space-y-8 order-1 lg:order-2"
           >
             <div className="space-y-6">
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
+              <h2
                 className="text-5xl lg:text-6xl xl:text-7xl font-black text-neutral-900 leading-[0.9] tracking-tight"
               >
-                Preparatory Webinars
-              </motion.h2>
+                <EditableText textId="mmid-callout-title" page="pre-conference-symposiums" section="mmid">
+                  Preparatory Webinars
+                </EditableText>
+              </h2>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                viewport={{ once: true }}
-                className="space-y-4"
-              >
+              <div className="space-y-4">
                 <p className="text-lg sm:text-xl text-neutral-600 leading-relaxed">
-                  Watch instructional and informational videos of previous AIM Health R&D Summit and
-                  <span className="text-green-600 font-semibold mx-1">Military Medical Industry Days (MMID)</span>
-                  webinar sessions.
+                  <EditableText textId="mmid-callout-description-1" page="pre-conference-symposiums" section="mmid" multiline>
+                    Watch instructional and informational videos of previous AIM Health R&D Summit and Military Medical Industry Days (MMID) webinar sessions.
+                  </EditableText>
                 </p>
 
                 <p className="text-lg sm:text-xl text-neutral-600 leading-relaxed">
-                  All sessions were designed to help you optimize your experience at the AIM Health R&D Summit
-                  and provide essential information about military medical innovation and research.
+                  <EditableText textId="mmid-callout-description-2" page="pre-conference-symposiums" section="mmid" multiline>
+                    All sessions were designed to help you optimize your experience at the AIM Health R&D Summit and provide essential information about military medical innovation and research.
+                  </EditableText>
                 </p>
-              </motion.div>
+              </div>
             </div>
 
             <motion.div

@@ -10,6 +10,7 @@ import {
     type KeyboardEvent,
     type ReactNode,
 } from "react"
+import { createPortal } from "react-dom"
 import { useEditMode } from "../../contexts/EditModeContext"
 import { updateTextCache, useSiteText } from "../../hooks/useSiteText"
 
@@ -145,136 +146,156 @@ export function EditableText({
         return <Component className={className}>{displayValue || children}</Component>
     }
 
+    // Modal content rendered via portal to avoid DOM nesting issues (div inside p)
+    const modalContent = isEditing && typeof document !== 'undefined' ? createPortal(
+        <AnimatePresence>
+            <motion.div
+                key="editing-modal"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+                className="fixed inset-0 z-[100] flex items-center justify-center"
+                onClick={(e) => {
+                    if (e.target === e.currentTarget) {
+                        handleSave()
+                    }
+                }}
+            >
+                {/* Backdrop - separate from modal to prevent blur affecting content */}
+                <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
+
+                {/* Modal container - isolated layer for crisp rendering */}
+                <div
+                    className="relative w-full max-w-2xl mx-4 bg-white rounded-xl shadow-2xl overflow-hidden"
+                    style={{
+                        willChange: 'transform',
+                        isolation: 'isolate',
+                        backfaceVisibility: 'hidden'
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    {/* Header */}
+                    <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+                        <span className="flex items-center gap-2 text-sm font-medium">
+                            <Pencil className="w-4 h-4" />
+                            Editing Text
+                        </span>
+                        <span className="text-xs opacity-75">
+                            {multiline ? "Cmd+Enter to save" : "Enter to save"} • Esc to cancel
+                        </span>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-4">
+                        {multiline ? (
+                            <textarea
+                                ref={inputRef as React.RefObject<HTMLTextAreaElement>}
+                                value={localValue}
+                                onChange={(e) => setLocalValue(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                                placeholder={placeholder}
+                                className="w-full min-h-[200px] p-4 rounded-lg border-2 border-gray-200 bg-white text-gray-900 text-base leading-relaxed focus:outline-none focus:border-blue-400 resize-y"
+                                rows={calculateRows(localValue)}
+                                style={{ maxHeight: '60vh' }}
+                            />
+                        ) : (
+                            <input
+                                ref={inputRef as React.RefObject<HTMLInputElement>}
+                                type="text"
+                                value={localValue}
+                                onChange={(e) => setLocalValue(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                                placeholder={placeholder}
+                                className="w-full p-4 rounded-lg border-2 border-gray-200 bg-white text-gray-900 text-lg focus:outline-none focus:border-blue-400"
+                            />
+                        )}
+                    </div>
+
+                    {/* Footer with actions */}
+                    <div className="flex items-center justify-between px-4 py-3 bg-gray-50 border-t border-gray-200">
+                        <div className="text-xs text-gray-500">
+                            {localValue.length} characters
+                            {hasChanges && (
+                                <span className="ml-2 text-orange-500">• Unsaved changes</span>
+                            )}
+                        </div>
+                        <div className="flex gap-2">
+                            {hasChanges && (
+                                <button
+                                    onClick={handleReset}
+                                    className="px-3 py-1.5 rounded-lg bg-orange-100 text-orange-700 hover:bg-orange-200 text-sm font-medium transition-colors flex items-center gap-1.5"
+                                    title="Reset to original"
+                                >
+                                    <RotateCcw className="w-3.5 h-3.5" />
+                                    Reset
+                                </button>
+                            )}
+                            <button
+                                onClick={handleCancel}
+                                className="px-3 py-1.5 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 text-sm font-medium transition-colors flex items-center gap-1.5"
+                                title="Cancel (Esc)"
+                            >
+                                <X className="w-3.5 h-3.5" />
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleSave}
+                                className="px-3 py-1.5 rounded-lg bg-blue-500 text-white hover:bg-blue-600 text-sm font-medium transition-colors flex items-center gap-1.5"
+                                title={multiline ? "Save (Cmd+Enter)" : "Save (Enter)"}
+                            >
+                                <Check className="w-3.5 h-3.5" />
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
+        </AnimatePresence>,
+        document.body
+    ) : null
+
     // Edit mode is on - show editable interface
     return (
         <span ref={containerRef} className="relative inline group">
-            <AnimatePresence mode="wait">
-                {isEditing ? (
-                    <motion.span
-                        key="editing"
-                        initial={{ opacity: 0, scale: 0.98 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.98 }}
-                        transition={{ duration: 0.15 }}
-                        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm"
-                        onClick={(e) => {
-                            // Only close if clicking the backdrop itself
-                            if (e.target === e.currentTarget) {
-                                handleSave()
-                            }
-                        }}
-                    >
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 20 }}
-                            transition={{ duration: 0.2, delay: 0.05 }}
-                            className="relative w-full max-w-2xl mx-4 bg-white rounded-xl shadow-2xl overflow-hidden"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            {/* Header */}
-                            <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white">
-                                <span className="flex items-center gap-2 text-sm font-medium">
-                                    <Pencil className="w-4 h-4" />
-                                    Editing Text
-                                </span>
-                                <span className="text-xs opacity-75">
-                                    {multiline ? "Cmd+Enter to save" : "Enter to save"} • Esc to cancel
-                                </span>
-                            </div>
+            {/* Portal renders modal at document.body level */}
+            {modalContent}
 
-                            {/* Content */}
-                            <div className="p-4">
-                                {multiline ? (
-                                    <textarea
-                                        ref={inputRef as React.RefObject<HTMLTextAreaElement>}
-                                        value={localValue}
-                                        onChange={(e) => setLocalValue(e.target.value)}
-                                        onKeyDown={handleKeyDown}
-                                        placeholder={placeholder}
-                                        className="w-full min-h-[200px] p-4 rounded-lg border-2 border-gray-200 bg-gray-50 text-gray-900 text-base leading-relaxed focus:outline-none focus:border-blue-400 focus:bg-white resize-y font-sans"
-                                        rows={calculateRows(localValue)}
-                                        style={{ maxHeight: '60vh' }}
-                                    />
-                                ) : (
-                                    <input
-                                        ref={inputRef as React.RefObject<HTMLInputElement>}
-                                        type="text"
-                                        value={localValue}
-                                        onChange={(e) => setLocalValue(e.target.value)}
-                                        onKeyDown={handleKeyDown}
-                                        placeholder={placeholder}
-                                        className="w-full p-4 rounded-lg border-2 border-gray-200 bg-gray-50 text-gray-900 text-lg focus:outline-none focus:border-blue-400 focus:bg-white font-sans"
-                                    />
-                                )}
-                            </div>
+            {/* Clickable text display */}
+            {!isEditing && (
+                <motion.span
+                    key="display"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.15 }}
+                    onClick={handleStartEdit}
+                    className={`relative cursor-pointer rounded transition-all duration-200 ${hasChanges
+                        ? "ring-2 ring-orange-400 ring-offset-1"
+                        : "hover:ring-2 hover:ring-blue-400 hover:ring-offset-1"
+                        }`}
+                >
+                    <Component className={className}>
+                        {displayValue || children}
+                    </Component>
 
-                            {/* Footer with actions */}
-                            <div className="flex items-center justify-between px-4 py-3 bg-gray-50 border-t border-gray-200">
-                                <div className="text-xs text-gray-500">
-                                    {localValue.length} characters
-                                    {hasChanges && (
-                                        <span className="ml-2 text-orange-500">• Unsaved changes</span>
-                                    )}
-                                </div>
-                                <div className="flex gap-2">
-                                    {hasChanges && (
-                                        <button
-                                            onClick={handleReset}
-                                            className="px-3 py-1.5 rounded-lg bg-orange-100 text-orange-700 hover:bg-orange-200 text-sm font-medium transition-colors flex items-center gap-1.5"
-                                            title="Reset to original"
-                                        >
-                                            <RotateCcw className="w-3.5 h-3.5" />
-                                            Reset
-                                        </button>
-                                    )}
-                                    <button
-                                        onClick={handleCancel}
-                                        className="px-3 py-1.5 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 text-sm font-medium transition-colors flex items-center gap-1.5"
-                                        title="Cancel (Esc)"
-                                    >
-                                        <X className="w-3.5 h-3.5" />
-                                        Cancel
-                                    </button>
-                                    <button
-                                        onClick={handleSave}
-                                        className="px-3 py-1.5 rounded-lg bg-blue-500 text-white hover:bg-blue-600 text-sm font-medium transition-colors flex items-center gap-1.5"
-                                        title={multiline ? "Save (Cmd+Enter)" : "Save (Enter)"}
-                                    >
-                                        <Check className="w-3.5 h-3.5" />
-                                        Save
-                                    </button>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </motion.span>
-                ) : (
-                    <motion.span
-                        key="display"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.15 }}
-                        onClick={handleStartEdit}
-                        className={`relative cursor-pointer rounded transition-all duration-200 ${hasChanges
-                            ? "ring-2 ring-orange-400 ring-offset-1"
-                            : "hover:ring-2 hover:ring-blue-400 hover:ring-offset-1"
-                            }`}
-                    >
-                        <Component className={className}>
-                            {displayValue || children}
-                        </Component>
+                    {/* Edit indicator */}
+                    <span className={`absolute -top-2 -right-2 p-1 rounded-full shadow-md transition-all duration-200 ${hasChanges
+                        ? "bg-orange-500 opacity-100"
+                        : "bg-blue-500 opacity-0 group-hover:opacity-100"
+                        }`}>
+                        <Pencil className="w-3 h-3 text-white" />
+                    </span>
+                </motion.span>
+            )}
 
-                        {/* Edit indicator */}
-                        <span className={`absolute -top-2 -right-2 p-1 rounded-full shadow-md transition-all duration-200 ${hasChanges
-                            ? "bg-orange-500 opacity-100"
-                            : "bg-blue-500 opacity-0 group-hover:opacity-100"
-                            }`}>
-                            <Pencil className="w-3 h-3 text-white" />
-                        </span>
-                    </motion.span>
-                )}
-            </AnimatePresence>
+            {/* Show text even when editing so the layout doesn't shift */}
+            {isEditing && (
+                <span className="opacity-50">
+                    <Component className={className}>
+                        {displayValue || children}
+                    </Component>
+                </span>
+            )}
         </span>
     )
 }

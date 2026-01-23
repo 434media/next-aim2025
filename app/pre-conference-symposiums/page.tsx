@@ -111,17 +111,14 @@ export default function PreConferenceSymposiums() {
               className="space-y-8"
             >
               <div className="space-y-6">
-                <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
+                <h1
                   className="text-5xl lg:text-6xl xl:text-7xl font-black text-neutral-900 leading-[0.9] tracking-tight"
                   id="page-heading"
                 >
                   <EditableText textId="symposiums-hero-title">
                     Conference Symposiums
                   </EditableText>
-                </motion.h1>
+                </h1>
 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react"
 import Image from "next/image"
 import type React from "react"
 import { useRef, useState } from "react"
+import { EditableText } from "./admin/EditableText"
 
 interface AIM2026PopupProps {
   showModal: boolean
@@ -150,7 +151,9 @@ export default function AIM2026Popup({ showModal, onClose }: AIM2026PopupProps) 
                     className="mb-4"
                   >
                     <h2 className="text-2xl lg:text-3xl font-semibold text-gray-900 leading-snug tracking-tight text-center lg:text-left">
-                      Stay Connected with the AIM Health R&D Summit
+                      <EditableText textId="aim2026-popup-heading" page="home" section="popup" multiline>
+                        Stay Connected with the AIM Health R&D Summit
+                      </EditableText>
                     </h2>
                   </motion.div>
 
@@ -169,7 +172,9 @@ export default function AIM2026Popup({ showModal, onClose }: AIM2026PopupProps) 
                           className="text-base text-gray-600 leading-7 text-center lg:text-left"
                           style={{ maxWidth: '45ch' }}
                         >
-                          Get exclusive updates, speaker announcements, and early access to breakthrough innovations in military health research.
+                          <EditableText textId="aim2026-popup-description" page="home" section="popup" multiline>
+                            Get exclusive updates, speaker announcements, and early access to breakthrough innovations in military health research.
+                          </EditableText>
                         </motion.p>
                       ) : (
                         <motion.div
