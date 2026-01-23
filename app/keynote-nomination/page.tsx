@@ -1,6 +1,6 @@
 "use client"
 
-import { RiCheckLine, RiSpeakLine } from "@remixicon/react"
+import { Check, Speech } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import type React from "react"
 import { useEffect, useRef, useState } from "react"
@@ -336,7 +336,7 @@ export default function KeynoteNomination() {
             {/* Additional content below image */}
             <motion.div className="space-y-6" variants={fadeInUp}>
               <div className="flex items-start gap-4">
-                <RiSpeakLine className="h-8 w-8 text-[#548cac] mt-1 flex-shrink-0" />
+                <Speech className="h-8 w-8 text-[#548cac] mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="font-semibold text-gray-900 text-lg">Shape the Future</h3>
                   <p className="text-gray-600 mt-1">
@@ -346,7 +346,7 @@ export default function KeynoteNomination() {
               </div>
 
               <div className="flex items-start gap-4">
-                <RiCheckLine className="h-8 w-8 text-[#548cac] mt-1 flex-shrink-0" />
+                <Check className="h-8 w-8 text-[#548cac] mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="font-semibold text-gray-900 text-lg">Two-Step Process</h3>
                   <p className="text-gray-600 mt-1">
@@ -579,7 +579,7 @@ export default function KeynoteNomination() {
                             exit={{ opacity: 0, scale: 0.8 }}
                             className="flex-1 flex items-center justify-center space-x-2 text-green-500 bg-green-50 rounded-md px-3.5 py-2.5"
                           >
-                            <RiCheckLine className="h-5 w-5" />
+                            <Check className="h-5 w-5" />
                             <span>Nomination submitted successfully!</span>
                           </motion.div>
                         ) : (

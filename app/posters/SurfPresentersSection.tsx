@@ -1,6 +1,6 @@
 "use client"
 
-import { RiArrowRightLine, RiFileDownloadLine, RiFilterLine, RiSearchLine, RiTeamLine } from "@remixicon/react"
+import { ArrowRight, Download, Filter, Search, Users } from "lucide-react"
 import { motion } from "motion/react"
 import { useEffect, useMemo, useState } from "react"
 import { EditableText } from "../../components/admin/EditableText"
@@ -85,7 +85,7 @@ export default function SurfPresentersSection() {
                   onChange={(e) => setSearchTerm(e.target.value)}
                   aria-label="Search presenters or topics"
                 />
-                <RiSearchLine
+                <Search
                   className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5"
                   aria-hidden="true"
                 />
@@ -98,10 +98,10 @@ export default function SurfPresentersSection() {
                   aria-controls="category-filter"
                 >
                   <div className="flex items-center">
-                    <RiFilterLine className="mr-2" aria-hidden="true" />
+                    <Filter className="mr-2" aria-hidden="true" />
                     {selectedCategory === "All Categories" ? "All Categories" : selectedCategory}
                   </div>
-                  <RiArrowRightLine className={`transform transition-transform ${isFilterOpen ? "rotate-90" : ""}`} />
+                  <ArrowRight className={`transform transition-transform ${isFilterOpen ? "rotate-90" : ""}`} />
                 </button>
 
                 {isFilterOpen && (
@@ -146,7 +146,7 @@ export default function SurfPresentersSection() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <RiFileDownloadLine className="mr-2 transition-transform group-hover:-translate-y-1" />
+                <Download className="mr-2 transition-transform group-hover:-translate-y-1" />
                 Download Full List
               </a>
             </div>
@@ -179,7 +179,7 @@ export default function SurfPresentersSection() {
                         {presenter.title}
                       </h4>
                       <div className="flex items-start mt-3">
-                        <RiTeamLine className="h-4 w-4 mr-2 mt-1 text-gray-400 flex-shrink-0" />
+                        <Users className="h-4 w-4 mr-2 mt-1 text-gray-400 flex-shrink-0" />
                         <p className="text-sm text-gray-600 line-clamp-2 font-light">{presenter.authors}</p>
                       </div>
 

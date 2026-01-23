@@ -1,8 +1,8 @@
 "use client"
 
-import React, { useRef } from "react"
+import { ArrowUpRight } from "lucide-react"
 import { motion } from "motion/react"
-import { RiArrowRightUpLine } from "@remixicon/react"
+import React, { useRef } from "react"
 
 export const HeroVideo = React.memo(() => {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -69,7 +69,7 @@ export const HeroVideo = React.memo(() => {
                   whileTap={{ scale: 0.95 }}
                   className="text-lg px-8 py-4 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 shadow-xl shadow-blue-500/25 border-0 text-white font-bold rounded-lg transition-all duration-300"
                 >
-                  Get Tickets <RiArrowRightUpLine className="inline size-4 ml-1" />
+                  Get Tickets <ArrowUpRight className="inline size-4 ml-1" />
                 </motion.button>
               </a>
               <div className="text-sm text-white/70 font-medium text-center max-w-[200px]">
@@ -105,7 +105,7 @@ export const HeroVideo = React.memo(() => {
                 whileTap={{ scale: 0.95 }}
                 className="w-full text-lg px-8 py-4 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 shadow-xl shadow-blue-500/25 border-0 text-white font-bold rounded-lg transition-all duration-300"
               >
-                Get Tickets <RiArrowRightUpLine className="inline size-4 ml-1" />
+                Get Tickets <ArrowUpRight className="inline size-4 ml-1" />
               </motion.button>
             </a>
             <span className="block text-sm text-white/70 font-medium mt-4">

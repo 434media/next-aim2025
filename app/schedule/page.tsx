@@ -1,3 +1,4 @@
+import { Calendar, Clock, Users } from "lucide-react"
 import type { Metadata } from "next"
 import Image from "next/image"
 import { Suspense } from "react"
@@ -84,7 +85,7 @@ export default function AgendaPage() {
                     Schedule is subject to change. Download the app for real-time updates.
                   </p>
                   <div className="inline-flex items-center rounded-full bg-yellow-500/10 px-4 py-2 text-sm text-yellow-400 border border-yellow-500/20">
-                    <RiTimeLine className="mr-2 h-4 w-4" />
+                    <Clock className="mr-2 h-4 w-4" />
                     Live updates available in the mobile app
                   </div>
                 </div>
@@ -122,7 +123,7 @@ export default function AgendaPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                 <div className="text-center">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-[#548cac]/10 rounded-full mb-4">
-                    <RiCalendarLine className="h-8 w-8 text-[#548cac]" />
+                    <Calendar className="h-8 w-8 text-[#548cac]" />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">Personal Agenda</h3>
                   <p className="text-gray-600">Build your custom schedule and get reminders</p>
@@ -130,7 +131,7 @@ export default function AgendaPage() {
 
                 <div className="text-center">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-[#548cac]/10 rounded-full mb-4">
-                    <RiGroupLine className="h-8 w-8 text-[#548cac]" />
+                    <Users className="h-8 w-8 text-[#548cac]" />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">Live Networking</h3>
                   <p className="text-gray-600">Connect with speakers and attendees instantly</p>
@@ -138,7 +139,7 @@ export default function AgendaPage() {
 
                 <div className="text-center">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-[#548cac]/10 rounded-full mb-4">
-                    <RiTimeLine className="h-8 w-8 text-[#548cac]" />
+                    <Clock className="h-8 w-8 text-[#548cac]" />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">Real-time Updates</h3>
                   <p className="text-gray-600">Get instant notifications about schedule changes</p>

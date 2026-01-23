@@ -1,6 +1,6 @@
 "use client"
 
-import { RiArrowRightUpLine, RiPauseFill, RiPlayFill } from "@remixicon/react"
+import { ArrowUpRight, Pause, Play } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
@@ -91,7 +91,7 @@ export default function VenueCTA() {
             </p>
             <Button variant="primary" href="/travel-venue" className="group text-lg py-3 px-6">
               Explore Venue & City
-              <RiArrowRightUpLine className="ml-2 inline-flex size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+              <ArrowUpRight className="ml-2 inline-flex size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Button>
           </motion.div>
 
@@ -122,7 +122,7 @@ export default function VenueCTA() {
                 onClick={togglePlay}
                 aria-label={isPlaying ? "Pause video" : "Play video"}
               >
-                {isPlaying ? <RiPauseFill size={24} /> : <RiPlayFill size={24} />}
+                {isPlaying ? <Pause size={24} /> : <Play size={24} />}
               </button>
             </div>
           </motion.div>

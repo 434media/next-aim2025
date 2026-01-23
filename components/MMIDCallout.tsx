@@ -1,7 +1,7 @@
 "use client"
 
+import { ArrowRight, PlayCircle } from "lucide-react"
 import { motion } from "motion/react"
-import { RiPlayCircleLine, RiArrowRightLine } from "@remixicon/react"
 import Image from "next/image"
 
 export default function MMIDCallout() {
@@ -26,7 +26,7 @@ export default function MMIDCallout() {
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
-            
+
             {/* Decorative elements */}
             <div className="absolute -top-4 -left-4 w-24 h-24 bg-green-500/10 rounded-full blur-xl" />
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-green-600/10 rounded-full blur-xl" />
@@ -50,7 +50,7 @@ export default function MMIDCallout() {
               >
                 Preparatory Webinars
               </motion.h2>
-              
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -59,13 +59,13 @@ export default function MMIDCallout() {
                 className="space-y-4"
               >
                 <p className="text-lg sm:text-xl text-neutral-600 leading-relaxed">
-                  Watch instructional and informational videos of previous AIM Health R&D Summit and 
-                  <span className="text-green-600 font-semibold mx-1">Military Medical Industry Days (MMID)</span> 
+                  Watch instructional and informational videos of previous AIM Health R&D Summit and
+                  <span className="text-green-600 font-semibold mx-1">Military Medical Industry Days (MMID)</span>
                   webinar sessions.
                 </p>
-                
+
                 <p className="text-lg sm:text-xl text-neutral-600 leading-relaxed">
-                  All sessions were designed to help you optimize your experience at the AIM Health R&D Summit 
+                  All sessions were designed to help you optimize your experience at the AIM Health R&D Summit
                   and provide essential information about military medical innovation and research.
                 </p>
               </motion.div>
@@ -86,11 +86,11 @@ export default function MMIDCallout() {
                 whileTap={{ scale: 0.98 }}
                 aria-label="Watch MMID preparatory webinar playlist on YouTube"
               >
-                <RiPlayCircleLine className="h-6 w-6 group-hover:animate-pulse" aria-hidden="true" />
+                <PlayCircle className="h-6 w-6 group-hover:animate-pulse" aria-hidden="true" />
                 Watch Full Playlist
-                <RiArrowRightLine 
-                  className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" 
-                  aria-hidden="true" 
+                <ArrowRight
+                  className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+                  aria-hidden="true"
                 />
               </motion.a>
             </motion.div>

@@ -1,12 +1,12 @@
 "use client"
 
 import {
-  RiArrowRightLine,
-  RiExternalLinkLine,
-  RiFileTextLine,
-  RiMapPinLine,
-  RiVideoLine,
-} from "@remixicon/react"
+  ArrowRight,
+  ExternalLink,
+  FileText,
+  MapPin,
+  Video,
+} from "lucide-react"
 import { motion } from "motion/react"
 import Image from "next/image"
 import { Button } from "../../components/Button"
@@ -155,7 +155,7 @@ export default function PreConferenceSymposiums() {
                   aria-label="View archived symposiums"
                 >
                   Explore Sessions
-                  <RiArrowRightLine
+                  <ArrowRight
                     className="inline-flex ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
                     aria-hidden="true"
                   />
@@ -231,7 +231,7 @@ export default function PreConferenceSymposiums() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-3">
                         <div className="flex items-center text-neutral-600">
-                          <RiMapPinLine className="h-4 w-4 mr-2 text-sky-600" aria-hidden="true" />
+                          <MapPin className="h-4 w-4 mr-2 text-sky-600" aria-hidden="true" />
                           <span className="text-sm">{symposium.location}</span>
                         </div>
                         <p className="text-neutral-600 leading-relaxed">
@@ -274,9 +274,9 @@ export default function PreConferenceSymposiums() {
                               className="inline-flex items-center px-4 py-2 text-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-lg hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-colors"
                               aria-label={`View slide deck for ${symposium.title}`}
                             >
-                              <RiFileTextLine className="h-4 w-4 mr-2" aria-hidden="true" />
+                              <FileText className="h-4 w-4 mr-2" aria-hidden="true" />
                               <span>Slide Deck</span>
-                              <RiExternalLinkLine className="h-3 w-3 ml-2 opacity-70" aria-hidden="true" />
+                              <ExternalLink className="h-3 w-3 ml-2 opacity-70" aria-hidden="true" />
                             </a>
                           )}
 
@@ -286,7 +286,7 @@ export default function PreConferenceSymposiums() {
                               className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-sky-600 border border-transparent rounded-lg hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-colors"
                               aria-label={`Watch recording of ${symposium.title}`}
                             >
-                              <RiVideoLine className="h-4 w-4 mr-2" aria-hidden="true" />
+                              <Video className="h-4 w-4 mr-2" aria-hidden="true" />
                               <span>Watch Recording</span>
                               {symposium.videoDuration && (
                                 <span className="ml-2 text-xs bg-sky-500 px-1.5 py-0.5 rounded">
@@ -302,7 +302,7 @@ export default function PreConferenceSymposiums() {
                               className="inline-flex items-center px-4 py-2 text-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-lg hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-colors"
                               aria-label={`Watch coming soon video for ${symposium.title}`}
                             >
-                              <RiVideoLine className="h-4 w-4 mr-2" aria-hidden="true" />
+                              <Video className="h-4 w-4 mr-2" aria-hidden="true" />
                               <span>Recording</span>
                               <span className="ml-2 text-xs bg-neutral-200 px-1.5 py-0.5 rounded">
                                 Coming Soon

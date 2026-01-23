@@ -1,7 +1,7 @@
 "use client"
 
+import { Heart, Sparkles } from "lucide-react"
 import { motion } from "motion/react"
-import { RiSparklingLine, RiHeartLine } from "@remixicon/react"
 
 export function MissionAccomplishedBadge() {
   return (
@@ -13,9 +13,9 @@ export function MissionAccomplishedBadge() {
         transition={{ duration: 0.8, delay: 0.2 }}
       >
         <span className="inline-flex items-center px-6 py-4 sm:px-8 sm:py-5 text-black text-lg sm:text-xl font-bold transition-all duration-300">
-          <RiSparklingLine className="mr-2 md:mr-3 size-5 sm:size-6 text-cyan-600" />
+          <Sparkles className="mr-2 md:mr-3 size-5 sm:size-6 text-cyan-600" />
           AIM 2025 • Mission Accomplished
-          <RiHeartLine className="ml-2 md:ml-3 size-5 sm:size-6 text-rose-500" />
+          <Heart className="ml-2 md:ml-3 size-5 sm:size-6 text-rose-500" />
         </span>
       </motion.div>
     </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { RiArrowRightLine, RiExternalLinkLine } from "@remixicon/react"
+import { ArrowRight, ExternalLink } from "lucide-react"
 import { motion, useInView } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
@@ -163,7 +163,7 @@ function TestimonialCard({ testimonial, pairIndex, index }: { testimonial: Testi
             aria-label={`Visit ${testimonial.sponsorName} website (opens in new tab)`}
           >
             <span>Visit {testimonial.sponsorName}</span>
-            <RiExternalLinkLine
+            <ExternalLink
               className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5"
               aria-hidden="true"
             />
@@ -242,7 +242,7 @@ function MobileTestimonialCard({ testimonial, isInView, index }: { testimonial: 
               aria-label={`Visit ${testimonial.sponsorName} website (opens in new tab)`}
             >
               <span>Visit {testimonial.sponsorName}</span>
-              <RiExternalLinkLine
+              <ExternalLink
                 className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5"
                 aria-hidden="true"
               />
@@ -310,7 +310,7 @@ export default function SponsorSpotlight() {
               className="inline-flex items-center px-6 py-3 text-base font-semibold text-white bg-neutral-900 border border-transparent rounded-lg hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 transition-all duration-200"
             >
               View AIM&apos;25 Sponsors
-              <RiArrowRightLine className="ml-2 size-4" />
+              <ArrowRight className="ml-2 size-4" />
             </Link>
           </motion.div>
         </motion.div>

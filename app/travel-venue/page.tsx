@@ -1,6 +1,6 @@
 "use client"
 
-import { RiArrowRightUpLine, RiArrowUpLine, RiPauseFill, RiPlayFill } from "@remixicon/react"
+import { ArrowUp, ArrowUpRight, Pause, Play } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
@@ -130,7 +130,7 @@ export default function TravelVenue() {
                     className="group"
                   >
                     Visit Website
-                    <RiArrowRightUpLine className="ml-2 inline-flex size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <ArrowUpRight className="ml-2 inline-flex size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </Button>
                 </div>
                 <button
@@ -138,7 +138,7 @@ export default function TravelVenue() {
                   onClick={togglePlayPause}
                   aria-label={isPlaying ? "Pause video" : "Play video"}
                 >
-                  {isPlaying ? <RiPauseFill size={24} /> : <RiPlayFill size={24} />}
+                  {isPlaying ? <Pause size={24} /> : <Play size={24} />}
                 </button>
               </div>
             </motion.div>
@@ -166,7 +166,7 @@ export default function TravelVenue() {
                   </p>
                   <span className="inline-flex items-center text-[#548cac] font-semibold group-hover:text-white transition-colors">
                     Learn More
-                    <RiArrowRightUpLine className="ml-2 size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <ArrowUpRight className="ml-2 size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </span>
                 </div>
               </Link>
@@ -195,7 +195,7 @@ export default function TravelVenue() {
                   </p>
                   <span className="inline-flex items-center text-[#548cac] font-semibold group-hover:text-white transition-colors">
                     Plan Your Visit
-                    <RiArrowRightUpLine className="ml-2 size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <ArrowUpRight className="ml-2 size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </span>
                 </div>
               </Link>
@@ -237,7 +237,7 @@ export default function TravelVenue() {
                 <p className="text-sm text-white/70 mb-4">{item.description}</p>
                 <span className="inline-flex items-center text-[#548cac] font-medium">
                   View Details
-                  <RiArrowRightUpLine className="ml-2 size-5 transition-transform group-hover:translate-x-1" />
+                  <ArrowUpRight className="ml-2 size-5 transition-transform group-hover:translate-x-1" />
                 </span>
               </Link>
             ))}
@@ -256,7 +256,7 @@ export default function TravelVenue() {
             onClick={scrollToTop}
             aria-label="Back to top"
           >
-            <RiArrowUpLine size={24} />
+            <ArrowUp size={24} />
           </motion.button>
         )}
       </AnimatePresence>

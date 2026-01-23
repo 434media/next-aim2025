@@ -1,6 +1,6 @@
 "use client"
 
-import { RiStarLine } from "@remixicon/react"
+import { Star } from "lucide-react"
 import { EditableText } from "./admin/EditableText"
 
 export function SpeakersHero() {
@@ -8,7 +8,7 @@ export function SpeakersHero() {
         <div className="mx-auto max-w-5xl text-center mb-16 md:mb-20">
             <div className="mb-8 flex justify-center">
                 <div className="inline-flex items-center rounded-full bg-sky-100 px-6 py-2 text-sm font-semibold text-sky-700 ring-1 ring-sky-200 backdrop-blur-sm">
-                    <RiStarLine className="mr-2 h-4 w-4" />
+                    <Star className="mr-2 h-4 w-4" />
                     <EditableText
                         textId="speakers-badge"
                         page="speakers"

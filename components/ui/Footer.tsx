@@ -1,6 +1,6 @@
 "use client"
 
-import { RiArrowRightUpLine } from "@remixicon/react"
+import { ArrowUpRight } from "lucide-react"
 import { motion, useInView } from "motion/react"
 import Link from "next/link"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
@@ -234,7 +234,7 @@ export default function Footer() {
                         className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         whileHover={{ x: 3 }}
                       >
-                        <RiArrowRightUpLine className="size-4 text-[#548cac]" />
+                        <ArrowUpRight className="size-4 text-[#548cac]" />
                       </motion.div>
                     </Link>
                   </motion.li>
@@ -291,7 +291,7 @@ export default function Footer() {
                         className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         whileHover={{ x: 3 }}
                       >
-                        <RiArrowRightUpLine className="size-4 text-[#548cac]" />
+                        <ArrowUpRight className="size-4 text-[#548cac]" />
                       </motion.div>
                     </Link>
                   </motion.li>
@@ -348,7 +348,7 @@ export default function Footer() {
                         className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         whileHover={{ x: 3 }}
                       >
-                        <RiArrowRightUpLine className="size-4 text-[#548cac]" />
+                        <ArrowUpRight className="size-4 text-[#548cac]" />
                       </motion.div>
                     </Link>
                   </motion.li>

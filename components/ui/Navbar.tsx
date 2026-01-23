@@ -1,6 +1,6 @@
 "use client"
 
-import { RiArrowRightUpLine, RiCloseLine, RiMenuLine, RiArrowDownSLine } from "@remixicon/react"
+import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react"
 import { AnimatePresence, motion, useScroll, useTransform } from "motion/react"
 import Link from "next/link"
 import { useCallback, useEffect, useRef, useState } from "react"
@@ -113,11 +113,10 @@ export default function NavBar() {
       >
         <div className="max-w-5xl mx-auto px-4 lg:px-8">
           <motion.div
-            className={`relative rounded-2xl transition-all duration-500 ${
-              isScrolled
+            className={`relative rounded-2xl transition-all duration-500 ${isScrolled
                 ? "bg-black/95 backdrop-blur-xl border border-white/10 shadow-2xl"
                 : "bg-black/85 backdrop-blur-md border border-white/5"
-            }`}
+              }`}
             style={{
               backdropFilter: `blur(${headerBlur}px)`,
             }}
@@ -166,7 +165,7 @@ export default function NavBar() {
                       >
                         Join us May 19, 2026
                         <motion.span className="ml-1" whileHover={{ x: 0 }}>
-                          <RiArrowRightUpLine className="inline size-3 text-[#548cac]" />
+                          <ArrowUpRight className="inline size-3 text-[#548cac]" />
                         </motion.span>
                       </motion.p>
                       <motion.div
@@ -209,7 +208,7 @@ export default function NavBar() {
                                 animate={{ rotate: desktopDropdownOpen ? 180 : 0 }}
                                 transition={{ duration: 0.2 }}
                               >
-                                <RiArrowDownSLine className="ml-1 h-4 w-4" aria-hidden="true" />
+                                <ChevronDown className="ml-1 h-4 w-4" aria-hidden="true" />
                               </motion.div>
                             </button>
 
@@ -263,9 +262,8 @@ export default function NavBar() {
 
                 <button
                   onClick={toggleMenu}
-                  className={`lg:hidden relative p-3 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black ${
-                    isMenuOpen ? "bg-[#548cac]/20 text-[#548cac]" : "text-white hover:text-[#548cac]"
-                  }`}
+                  className={`lg:hidden relative p-3 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black ${isMenuOpen ? "bg-[#548cac]/20 text-[#548cac]" : "text-white hover:text-[#548cac]"
+                    }`}
                   aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                   aria-expanded={isMenuOpen}
                 >
@@ -283,7 +281,7 @@ export default function NavBar() {
                           exit={{ opacity: 0, rotate: 90 }}
                           transition={{ duration: 0.2 }}
                         >
-                          <RiCloseLine className="size-6" />
+                          <X className="size-6" />
                         </motion.div>
                       ) : (
                         <motion.div
@@ -293,7 +291,7 @@ export default function NavBar() {
                           exit={{ opacity: 0, rotate: -90 }}
                           transition={{ duration: 0.2 }}
                         >
-                          <RiMenuLine className="size-6" />
+                          <Menu className="size-6" />
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -325,7 +323,7 @@ export default function NavBar() {
                     className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#548cac]"
                     aria-label="Close modal"
                   >
-                    <RiCloseLine className="size-5" />
+                    <X className="size-5" />
                   </button>
 
                   <div className="p-8">
@@ -359,7 +357,7 @@ export default function NavBar() {
                           rel="noopener noreferrer"
                         >
                           <button className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 text-white font-semibold px-8 py-3 rounded-lg shadow-xl shadow-blue-500/25 transition-all duration-300 hover:scale-105">
-                            Get Tickets <RiArrowRightUpLine className="inline size-4 ml-1" />
+                            Get Tickets <ArrowUpRight className="inline size-4 ml-1" />
                           </button>
                         </a>
                         <div className="max-w-[200px] mx-auto md:mx-0 md:text-left mt-3">
@@ -428,7 +426,7 @@ export default function NavBar() {
                                   animate={{ rotate: mobileDropdownOpen ? 180 : 0 }}
                                   transition={{ duration: 0.2 }}
                                 >
-                                  <RiArrowDownSLine className="size-5 text-[#548cac]" />
+                                  <ChevronDown className="size-5 text-[#548cac]" />
                                 </motion.div>
                               </div>
                             </button>

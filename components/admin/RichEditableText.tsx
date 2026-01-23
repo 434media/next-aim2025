@@ -1,28 +1,28 @@
 "use client"
 
-import {
-    RiArrowGoBackLine,
-    RiArrowGoForwardLine,
-    RiBold,
-    RiCheckLine,
-    RiCloseLine,
-    RiCodeLine,
-    RiDoubleQuotesL,
-    RiH1,
-    RiH2,
-    RiH3,
-    RiItalic,
-    RiListOrdered,
-    RiListUnordered,
-    RiPencilLine,
-    RiSeparator,
-    RiStrikethrough,
-    RiUnderline,
-} from "@remixicon/react"
 import Placeholder from "@tiptap/extension-placeholder"
 import Underline from "@tiptap/extension-underline"
 import { EditorContent, useEditor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
+import {
+    Bold,
+    Check,
+    Code,
+    Heading1,
+    Heading2,
+    Heading3,
+    Italic,
+    List,
+    ListOrdered,
+    Minus,
+    Pencil,
+    Quote,
+    Redo,
+    Strikethrough,
+    Underline as UnderlineIcon,
+    Undo,
+    X,
+} from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import React, { useCallback, useEffect, useState } from "react"
 import { useEditMode } from "../../contexts/EditModeContext"
@@ -219,14 +219,14 @@ export default function RichEditableText({
                                 disabled={!editor.can().undo()}
                                 title="Undo"
                             >
-                                <RiArrowGoBackLine className="w-4 h-4" />
+                                <Undo className="w-4 h-4" />
                             </ToolbarButton>
                             <ToolbarButton
                                 onClick={() => editor.chain().focus().redo().run()}
                                 disabled={!editor.can().redo()}
                                 title="Redo"
                             >
-                                <RiArrowGoForwardLine className="w-4 h-4" />
+                                <Redo className="w-4 h-4" />
                             </ToolbarButton>
 
                             <ToolbarDivider />
@@ -237,28 +237,28 @@ export default function RichEditableText({
                                 isActive={editor.isActive("bold")}
                                 title="Bold"
                             >
-                                <RiBold className="w-4 h-4" />
+                                <Bold className="w-4 h-4" />
                             </ToolbarButton>
                             <ToolbarButton
                                 onClick={() => editor.chain().focus().toggleItalic().run()}
                                 isActive={editor.isActive("italic")}
                                 title="Italic"
                             >
-                                <RiItalic className="w-4 h-4" />
+                                <Italic className="w-4 h-4" />
                             </ToolbarButton>
                             <ToolbarButton
                                 onClick={() => editor.chain().focus().toggleUnderline().run()}
                                 isActive={editor.isActive("underline")}
                                 title="Underline"
                             >
-                                <RiUnderline className="w-4 h-4" />
+                                <UnderlineIcon className="w-4 h-4" />
                             </ToolbarButton>
                             <ToolbarButton
                                 onClick={() => editor.chain().focus().toggleStrike().run()}
                                 isActive={editor.isActive("strike")}
                                 title="Strikethrough"
                             >
-                                <RiStrikethrough className="w-4 h-4" />
+                                <Strikethrough className="w-4 h-4" />
                             </ToolbarButton>
 
                             <ToolbarDivider />
@@ -269,21 +269,21 @@ export default function RichEditableText({
                                 isActive={editor.isActive("heading", { level: 1 })}
                                 title="Heading 1"
                             >
-                                <RiH1 className="w-4 h-4" />
+                                <Heading1 className="w-4 h-4" />
                             </ToolbarButton>
                             <ToolbarButton
                                 onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
                                 isActive={editor.isActive("heading", { level: 2 })}
                                 title="Heading 2"
                             >
-                                <RiH2 className="w-4 h-4" />
+                                <Heading2 className="w-4 h-4" />
                             </ToolbarButton>
                             <ToolbarButton
                                 onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
                                 isActive={editor.isActive("heading", { level: 3 })}
                                 title="Heading 3"
                             >
-                                <RiH3 className="w-4 h-4" />
+                                <Heading3 className="w-4 h-4" />
                             </ToolbarButton>
 
                             <ToolbarDivider />
@@ -294,14 +294,14 @@ export default function RichEditableText({
                                 isActive={editor.isActive("bulletList")}
                                 title="Bullet List"
                             >
-                                <RiListUnordered className="w-4 h-4" />
+                                <List className="w-4 h-4" />
                             </ToolbarButton>
                             <ToolbarButton
                                 onClick={() => editor.chain().focus().toggleOrderedList().run()}
                                 isActive={editor.isActive("orderedList")}
                                 title="Numbered List"
                             >
-                                <RiListOrdered className="w-4 h-4" />
+                                <ListOrdered className="w-4 h-4" />
                             </ToolbarButton>
 
                             <ToolbarDivider />
@@ -312,20 +312,20 @@ export default function RichEditableText({
                                 isActive={editor.isActive("blockquote")}
                                 title="Quote"
                             >
-                                <RiDoubleQuotesL className="w-4 h-4" />
+                                <Quote className="w-4 h-4" />
                             </ToolbarButton>
                             <ToolbarButton
                                 onClick={() => editor.chain().focus().toggleCodeBlock().run()}
                                 isActive={editor.isActive("codeBlock")}
                                 title="Code Block"
                             >
-                                <RiCodeLine className="w-4 h-4" />
+                                <Code className="w-4 h-4" />
                             </ToolbarButton>
                             <ToolbarButton
                                 onClick={() => editor.chain().focus().setHorizontalRule().run()}
                                 title="Horizontal Rule"
                             >
-                                <RiSeparator className="w-4 h-4" />
+                                <Minus className="w-4 h-4" />
                             </ToolbarButton>
 
                             {/* Save/Cancel buttons */}
@@ -334,7 +334,7 @@ export default function RichEditableText({
                                     onClick={handleCancel}
                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 rounded-md transition-colors"
                                 >
-                                    <RiCloseLine className="w-4 h-4" />
+                                    <X className="w-4 h-4" />
                                     Cancel
                                 </button>
                                 <button
@@ -342,7 +342,7 @@ export default function RichEditableText({
                                     disabled={isSaving}
                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 rounded-md transition-colors disabled:opacity-50"
                                 >
-                                    <RiCheckLine className="w-4 h-4" />
+                                    <Check className="w-4 h-4" />
                                     {isSaving ? "Saving..." : "Save"}
                                 </button>
                             </div>
@@ -372,7 +372,7 @@ export default function RichEditableText({
                             whileTap={{ scale: 0.95 }}
                             title="Edit rich text"
                         >
-                            <RiPencilLine className="w-3.5 h-3.5" />
+                            <Pencil className="w-3.5 h-3.5" />
                         </motion.button>
 
                         <EditorContent editor={editor} />

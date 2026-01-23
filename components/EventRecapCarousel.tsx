@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useEffect, forwardRef } from "react"
-import { motion, AnimatePresence, wrap } from "motion/react"
-import { RiPlayFill, RiCloseLine, RiArrowRightLine, RiArrowLeftLine } from "@remixicon/react"
+import { ArrowLeft, ArrowRight, Play, X } from "lucide-react"
+import { AnimatePresence, motion, wrap } from "motion/react"
+import { forwardRef, useEffect, useState } from "react"
 import { useMediaQuery } from "../hooks/useMediaQuery"
 import { cn } from "../lib/utils"
 
@@ -56,8 +56,8 @@ const SlideImage = forwardRef<HTMLImageElement, { src: string; alt: string; dire
         ref={ref}
         src={src}
         alt={alt}
-        initial={{ 
-          opacity: 0, 
+        initial={{
+          opacity: 0,
           x: direction * 50,
           scale: 1.05
         }}
@@ -70,8 +70,8 @@ const SlideImage = forwardRef<HTMLImageElement, { src: string; alt: string; dire
             ease: [0.25, 0.46, 0.45, 0.94]
           },
         }}
-        exit={{ 
-          opacity: 0, 
+        exit={{
+          opacity: 0,
           x: direction * -50,
           scale: 0.95,
           transition: {
@@ -100,7 +100,7 @@ const SlideContent = forwardRef<HTMLDivElement, {
   buttonVariants: any
   direction: number
 }>(function SlideContent({ image, onCTAClick, isMobile, isTablet, textRevealVariants, buttonVariants, direction }, ref) {
-  
+
   const handleButtonClick = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
@@ -110,8 +110,8 @@ const SlideContent = forwardRef<HTMLDivElement, {
   return (
     <motion.div
       ref={ref}
-      initial={{ 
-        opacity: 0, 
+      initial={{
+        opacity: 0,
         x: direction * 30,
         y: 15
       }}
@@ -125,8 +125,8 @@ const SlideContent = forwardRef<HTMLDivElement, {
           ease: [0.25, 0.46, 0.45, 0.94]
         },
       }}
-      exit={{ 
-        opacity: 0, 
+      exit={{
+        opacity: 0,
         x: direction * -30,
         y: -15,
         transition: {
@@ -147,18 +147,17 @@ const SlideContent = forwardRef<HTMLDivElement, {
 
         <div className="relative px-4 py-3 sm:px-6 sm:py-4">
           <motion.h2
-            className={`leading-tight tracking-tight text-white ${
-              isMobile
+            className={`leading-tight tracking-tight text-white ${isMobile
                 ? "text-2xl font-black mb-1"
                 : isTablet
                   ? "text-3xl font-bold mb-2"
                   : "text-4xl font-bold mb-2"
-            }`}
+              }`}
             style={{
               textShadow: "0 2px 8px rgba(0,0,0,0.9)",
             }}
           >
-            <motion.span 
+            <motion.span
               className="block text-white"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -167,15 +166,14 @@ const SlideContent = forwardRef<HTMLDivElement, {
               {image.title}
             </motion.span>
           </motion.h2>
-          
+
           <motion.p
-            className={`text-sky-100 leading-snug tracking-tighter ${
-              isMobile
+            className={`text-sky-100 leading-snug tracking-tighter ${isMobile
                 ? "text-sm font-medium"
                 : isTablet
                   ? "text-base font-medium"
                   : "text-lg font-medium"
-            }`}
+              }`}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.3 }}
@@ -197,22 +195,21 @@ const SlideContent = forwardRef<HTMLDivElement, {
         {image.action === "link" && image.link ? (
           <motion.button
             onClick={handleButtonClick}
-            whileHover={{ 
+            whileHover={{
               scale: 1.05,
               y: -2,
               transition: { duration: 0.2, ease: "easeOut" }
             }}
-            whileTap={{ 
+            whileTap={{
               scale: 0.95,
               transition: { duration: 0.1 }
             }}
-            className={`relative transition-all duration-300 shadow-xl bg-white hover:bg-gray-50 text-black border border-white hover:border-gray-100 cursor-pointer select-none ${
-              isMobile
+            className={`relative transition-all duration-300 shadow-xl bg-white hover:bg-gray-50 text-black border border-white hover:border-gray-100 cursor-pointer select-none ${isMobile
                 ? "text-sm font-bold py-3 px-6 rounded-lg"
                 : isTablet
                   ? "text-base font-semibold py-3 px-6 rounded-lg"
                   : "text-lg font-semibold py-4 px-8 rounded-lg"
-            }`}
+              }`}
             style={{
               boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
               pointerEvents: "auto",
@@ -221,28 +218,27 @@ const SlideContent = forwardRef<HTMLDivElement, {
           >
             <span className="flex items-center justify-center relative z-10 pointer-events-none">
               {image.buttonText}
-              <RiArrowRightLine className={`${isMobile ? "ml-2 size-4" : "ml-2 size-5"}`} />
+              <ArrowRight className={`${isMobile ? "ml-2 size-4" : "ml-2 size-5"}`} />
             </span>
           </motion.button>
         ) : (
           <motion.button
             onClick={handleButtonClick}
-            whileHover={{ 
+            whileHover={{
               scale: 1.05,
               y: -2,
               transition: { duration: 0.2, ease: "easeOut" }
             }}
-            whileTap={{ 
+            whileTap={{
               scale: 0.95,
               transition: { duration: 0.1 }
             }}
-            className={`relative transition-all duration-300 shadow-xl bg-white hover:bg-gray-50 text-black border border-white hover:border-gray-100 cursor-pointer select-none ${
-              isMobile
+            className={`relative transition-all duration-300 shadow-xl bg-white hover:bg-gray-50 text-black border border-white hover:border-gray-100 cursor-pointer select-none ${isMobile
                 ? "text-sm font-bold py-3 px-6 rounded-lg"
                 : isTablet
                   ? "text-base font-semibold py-3 px-6 rounded-lg"
                   : "text-lg font-semibold py-4 px-8 rounded-lg"
-            }`}
+              }`}
             style={{
               boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
               pointerEvents: "auto",
@@ -251,7 +247,7 @@ const SlideContent = forwardRef<HTMLDivElement, {
           >
             <span className="flex items-center justify-center relative z-10 pointer-events-none">
               {image.buttonText}
-              <RiPlayFill className={`${isMobile ? "ml-2 size-4" : "ml-2 size-5"}`} />
+              <Play className={`${isMobile ? "ml-2 size-4" : "ml-2 size-5"}`} />
             </span>
           </motion.button>
         )}
@@ -286,27 +282,27 @@ export function EventRecapCarousel() {
 
     setLoading(true)
     setImageErrors([])
-    
+
     try {
       const loadPromises = images.map((imageSrc, index) => {
         return new Promise<{ src: string; index: number; success: boolean }>((resolve) => {
           const img = new Image()
-          
+
           const timeout = setTimeout(() => {
             resolve({ src: imageSrc, index, success: false })
           }, 10000)
-          
+
           img.onload = () => {
             clearTimeout(timeout)
             resolve({ src: imageSrc, index, success: true })
           }
-          
+
           img.onerror = () => {
             clearTimeout(timeout)
             setImageErrors(prev => [...prev, imageSrc])
             resolve({ src: imageSrc, index, success: false })
           }
-          
+
           img.src = imageSrc
         })
       })
@@ -315,9 +311,9 @@ export function EventRecapCarousel() {
       const successfulImages = results
         .filter(result => result.success)
         .map(result => result.src)
-      
+
       setLoadedImages(successfulImages)
-      
+
     } catch (error) {
       setLoadedImages([])
     } finally {
@@ -369,13 +365,13 @@ export function EventRecapCarousel() {
   const safeCurrentIndex = Math.max(0, Math.min(currentImageIndex, loadedImages.length - 1))
 
   const textRevealVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 20,
       scale: 0.98
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       scale: 1,
       transition: {
@@ -395,13 +391,13 @@ export function EventRecapCarousel() {
   }
 
   const buttonVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       scale: 0.95,
       y: 15
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       scale: 1,
       y: 0,
       transition: {
@@ -430,7 +426,7 @@ export function EventRecapCarousel() {
         <div className="mx-auto max-w-7xl relative">
           <motion.button
             initial={false}
-            animate={{ 
+            animate={{
               backgroundColor: "rgba(255, 255, 255, 0.9)",
               backdropFilter: "blur(10px)"
             }}
@@ -441,12 +437,12 @@ export function EventRecapCarousel() {
             whileTap={{ scale: 0.9 }}
             whileHover={{ scale: 1.05 }}
           >
-            <RiArrowLeftLine className="w-6 h-6" />
+            <ArrowLeft className="w-6 h-6" />
           </motion.button>
 
           <motion.button
             initial={false}
-            animate={{ 
+            animate={{
               backgroundColor: "rgba(255, 255, 255, 0.9)",
               backdropFilter: "blur(10px)"
             }}
@@ -457,12 +453,12 @@ export function EventRecapCarousel() {
             whileTap={{ scale: 0.9 }}
             whileHover={{ scale: 1.05 }}
           >
-            <RiArrowRightLine className="w-6 h-6" />
+            <ArrowRight className="w-6 h-6" />
           </motion.button>
 
           <div className="overflow-hidden w-full relative flex items-center justify-center isolate bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900" style={{ aspectRatio: isMobile ? '4/5' : '16/9', minHeight: isMobile ? '100vh' : '100vh' }}>
             <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-            
+
             <div className="absolute inset-0 z-10 opacity-20">
               <div className="w-full h-full bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-indigo-500/30"></div>
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]"></div>
@@ -481,7 +477,7 @@ export function EventRecapCarousel() {
               />
             </AnimatePresence>
 
-            <motion.div 
+            <motion.div
               className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-50"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -490,11 +486,10 @@ export function EventRecapCarousel() {
               {eventImages.map((_, index) => (
                 <motion.button
                   key={index}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 border-2 ${
-                    index === currentImageIndex 
-                      ? 'bg-white border-white shadow-lg' 
+                  className={`w-3 h-3 rounded-full transition-all duration-300 border-2 ${index === currentImageIndex
+                      ? 'bg-white border-white shadow-lg'
                       : 'bg-white/30 border-white/50 hover:bg-white/60 hover:border-white/80'
-                  }`}
+                    }`}
                   onClick={() => handleSlideChange(index)}
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.9 }}
@@ -520,7 +515,7 @@ export function EventRecapCarousel() {
         <div className="mx-auto max-w-7xl relative">
           <motion.button
             initial={false}
-            animate={{ 
+            animate={{
               backgroundColor: "rgba(255, 255, 255, 0.9)",
               backdropFilter: "blur(10px)"
             }}
@@ -531,12 +526,12 @@ export function EventRecapCarousel() {
             whileTap={{ scale: 0.9 }}
             whileHover={{ scale: 1.05 }}
           >
-            <RiArrowLeftLine className="w-6 h-6" />
+            <ArrowLeft className="w-6 h-6" />
           </motion.button>
 
           <motion.button
             initial={false}
-            animate={{ 
+            animate={{
               backgroundColor: "rgba(255, 255, 255, 0.9)",
               backdropFilter: "blur(10px)"
             }}
@@ -547,7 +542,7 @@ export function EventRecapCarousel() {
             whileTap={{ scale: 0.9 }}
             whileHover={{ scale: 1.05 }}
           >
-            <RiArrowRightLine className="w-6 h-6" />
+            <ArrowRight className="w-6 h-6" />
           </motion.button>
 
           <div className={cn("overflow-hidden w-full relative flex items-center justify-center isolate bg-black")} style={{ aspectRatio: isMobile ? '4/5' : '16/9', minHeight: isMobile ? '100vh' : '100vh' }}>
@@ -573,7 +568,7 @@ export function EventRecapCarousel() {
               />
             </AnimatePresence>
 
-            <motion.div 
+            <motion.div
               className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-50"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -582,11 +577,10 @@ export function EventRecapCarousel() {
               {eventImages.map((_, index) => (
                 <motion.button
                   key={index}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 border-2 ${
-                    index === currentImageIndex 
-                      ? 'bg-white border-white shadow-lg' 
+                  className={`w-3 h-3 rounded-full transition-all duration-300 border-2 ${index === currentImageIndex
+                      ? 'bg-white border-white shadow-lg'
                       : 'bg-white/30 border-white/50 hover:bg-white/60 hover:border-white/80'
-                  }`}
+                    }`}
                   onClick={() => handleSlideChange(index)}
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.9 }}
@@ -617,15 +611,14 @@ export function EventRecapCarousel() {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ 
-                type: "spring", 
-                stiffness: 300, 
+              transition={{
+                type: "spring",
+                stiffness: 300,
                 damping: 30,
                 duration: 0.4
               }}
-              className={`relative w-full bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/10 ${
-                isMobile ? 'max-w-sm' : 'max-w-6xl'
-              }`}
+              className={`relative w-full bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/10 ${isMobile ? 'max-w-sm' : 'max-w-6xl'
+                }`}
               onClick={(e) => e.stopPropagation()}
             >
               <motion.button
@@ -635,12 +628,12 @@ export function EventRecapCarousel() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <RiCloseLine className="size-5" />
+                <X className="size-5" />
               </motion.button>
 
-              <div 
-                className="relative w-full bg-black rounded-3xl overflow-hidden" 
-                style={{ 
+              <div
+                className="relative w-full bg-black rounded-3xl overflow-hidden"
+                style={{
                   paddingBottom: isMobile ? "125%" : "56.25%" // 4:5 for mobile, 16:9 for desktop
                 }}
               >
@@ -648,20 +641,19 @@ export function EventRecapCarousel() {
                   <div className="absolute inset-0 flex items-center justify-center text-white p-6 text-center">
                     <div>
                       <div className="text-red-400 mb-4">
-                        <RiPlayFill className="size-12 mx-auto mb-3 opacity-50" />
+                        <Play className="size-12 mx-auto mb-3 opacity-50" />
                       </div>
                       <h3 className={`font-semibold mb-2 ${isMobile ? 'text-lg' : 'text-xl'}`}>Video Unavailable</h3>
                       <p className={`text-gray-300 mb-4 ${isMobile ? 'text-sm' : 'text-base'}`}>{videoError}</p>
-                      <a 
-                        href={currentVideoUrl} 
-                        className={`inline-flex items-center bg-white/10 hover:bg-white/20 rounded-lg text-white transition-colors duration-200 ${
-                          isMobile ? 'px-3 py-2 text-sm' : 'px-4 py-2 text-base'
-                        }`}
+                      <a
+                        href={currentVideoUrl}
+                        className={`inline-flex items-center bg-white/10 hover:bg-white/20 rounded-lg text-white transition-colors duration-200 ${isMobile ? 'px-3 py-2 text-sm' : 'px-4 py-2 text-base'
+                          }`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         Try Direct Link
-                        <RiArrowRightLine className="ml-2 size-4" />
+                        <ArrowRight className="ml-2 size-4" />
                       </a>
                     </div>
                   </div>
@@ -676,7 +668,7 @@ export function EventRecapCarousel() {
                   >
                     <source src={currentVideoUrl} type="video/mp4" />
                     <p className="text-white p-4">
-                      Your browser doesn't support HTML5 video. 
+                      Your browser doesn't support HTML5 video.
                       <a href={currentVideoUrl} className="text-blue-400 hover:text-blue-300 underline ml-1">
                         Download the video instead
                       </a>

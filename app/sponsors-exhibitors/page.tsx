@@ -1,11 +1,11 @@
 "use client"
 
 import {
-  RiCloseLine,
-  RiExternalLinkLine,
-  RiInformationLine,
-  RiStarLine,
-} from "@remixicon/react"
+  ExternalLink,
+  Info,
+  Star,
+  X,
+} from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
@@ -407,7 +407,7 @@ export default function SponsorsExhibitorsClientPage() {
                 <div className="flex items-center justify-center mb-8">
                   <div className="h-px bg-gradient-to-r from-transparent via-[#2A3990] to-transparent w-full max-w-xs"></div>
                   <h2 className="text-2xl md:text-3xl font-bold text-[#101310] px-6 whitespace-nowrap flex items-center">
-                    <RiStarLine className="mr-2 text-[#2A3990]" />
+                    <Star className="mr-2 text-[#2A3990]" />
                     Ecosystem Partner
                   </h2>
                   <div className="h-px bg-gradient-to-r from-[#2A3990] via-transparent to-transparent w-full max-w-xs"></div>
@@ -461,7 +461,7 @@ export default function SponsorsExhibitorsClientPage() {
                               whileTap={{ scale: 0.98 }}
                             >
                               Visit Website
-                              <RiExternalLinkLine className="h-5 w-5" />
+                              <ExternalLink className="h-5 w-5" />
                             </motion.a>
                           </div>
                         </div>
@@ -678,7 +678,7 @@ function SponsorCard({ sponsor, onClick, tier }: SponsorCardProps) {
       {/* Info indicator - adjusted position to account for exhibitor strip */}
       <div className="absolute bottom-8 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
         <div className="bg-neutral-100 rounded-full p-1 shadow-sm">
-          <RiInformationLine className="h-5 w-5 text-[#548cac]" aria-hidden="true" />
+          <Info className="h-5 w-5 text-[#548cac]" aria-hidden="true" />
         </div>
       </div>
 
@@ -831,7 +831,7 @@ function SponsorInfoModal({ sponsor, onClose }: SponsorInfoModalProps) {
             onClick={onClose}
             aria-label="Close modal"
           >
-            <RiCloseLine className="h-5 w-5" />
+            <X className="h-5 w-5" />
           </button>
         </div>
 
@@ -870,7 +870,7 @@ function SponsorInfoModal({ sponsor, onClose }: SponsorInfoModalProps) {
               whileTap={{ scale: 0.98 }}
             >
               Visit Website
-              <RiExternalLinkLine className="ml-2 h-5 w-5" />
+              <ExternalLink className="ml-2 h-5 w-5" />
             </motion.a>
           </div>
         </div>

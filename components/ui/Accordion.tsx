@@ -1,6 +1,6 @@
 "use client"
 
-import { RiArrowDownSLine } from "@remixicon/react"
+import { ChevronDown } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import * as React from "react"
 import { cn } from "../../lib/utils"
@@ -46,7 +46,7 @@ export function AccordionItem({
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     className="flex-shrink-0 ml-4"
                 >
-                    <RiArrowDownSLine
+                    <ChevronDown
                         className={cn(
                             "w-6 h-6 transition-colors",
                             isOpen ? "text-sky-600" : "text-neutral-400"
