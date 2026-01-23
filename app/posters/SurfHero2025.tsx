@@ -26,7 +26,7 @@ export default function SurfHero2025() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <motion.span
-                className="bg-gradient-to-r from-[#548cac] via-[#8ECAE6] to-[#219EBC] bg-clip-text text-transparent"
+                className="inline-block"
                 animate={{
                   backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                 }}
@@ -39,7 +39,12 @@ export default function SurfHero2025() {
                   backgroundSize: "200% 200%",
                 }}
               >
-                <EditableText textId="posters-hero-title-1">Poster</EditableText>
+                <EditableText
+                  textId="posters-hero-title-1"
+                  className="bg-gradient-to-r from-[#548cac] via-[#8ECAE6] to-[#219EBC] bg-clip-text text-transparent"
+                >
+                  Poster
+                </EditableText>
               </motion.span>{" "}
 
               <br />
@@ -85,7 +90,9 @@ export default function SurfHero2025() {
                   presentersSection?.scrollIntoView({ behavior: "smooth" })
                 }}
               >
-                Explore Presenters
+                <EditableText textId="posters-hero-button" page="posters" section="hero">
+                  Explore Presenters
+                </EditableText>
               </motion.button>
             </motion.div>
           </motion.div>

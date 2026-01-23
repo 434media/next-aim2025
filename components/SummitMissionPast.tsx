@@ -205,17 +205,15 @@ export function SummitMissionPast() {
                       >
                         <div className="w-2 h-16 sm:h-20 bg-gradient-to-b from-[#0EA5E9] to-[#0369A1] rounded-full" />
                       </motion.div>
-                      <motion.p
+                      <motion.div
                         className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white leading-relaxed font-light"
                         whileHover={prefersReducedMotion ? {} : { x: 2 }}
                         transition={{ duration: 0.3 }}
                       >
-                        Designed to advance emerging technologies from the bench to the battlefield, the{" "}
-                        <span className="text-[#0EA5E9] font-semibold">AIM Health R&D Summit</span> brought together
-                        academia, industry, and the military in a unified forum to promote cross-sector partnership in
-                        the development of{" "}
-                        <span className="text-white font-semibold">life-saving medical innovations</span>.
-                      </motion.p>
+                        <EditableText textId="aim2025-mission-1" page="aim2025" section="mission" multiline>
+                          Designed to advance emerging technologies from the bench to the battlefield, the AIM Health R&D Summit brought together academia, industry, and the military in a unified forum to promote cross-sector partnership in the development of life-saving medical innovations.
+                        </EditableText>
+                      </motion.div>
                     </div>
                   </motion.div>
 
@@ -239,18 +237,15 @@ export function SummitMissionPast() {
                       >
                         <div className="w-2 h-16 sm:h-20 bg-gradient-to-b from-[#0EA5E9] to-[#0369A1] rounded-full" />
                       </motion.div>
-                      <motion.p
+                      <motion.div
                         className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white leading-relaxed font-light"
                         whileHover={prefersReducedMotion ? {} : { x: 2 }}
                         transition={{ duration: 0.3 }}
                       >
-                        By connecting top innovators across sectors,{" "}
-                        <span className="text-[#0EA5E9] font-semibold">AIM</span> created pathways to discovery and
-                        commercialization while addressing common critical challenges in military and civilian
-                        healthcare, encouraging the{" "}
-                        <span className="text-white font-semibold">cross-pollination of ideas and expertise</span> to
-                        drive forward the next generation of breakthroughs.
-                      </motion.p>
+                        <EditableText textId="aim2025-mission-2" page="aim2025" section="mission" multiline>
+                          By connecting top innovators across sectors, AIM created pathways to discovery and commercialization while addressing common critical challenges in military and civilian healthcare, encouraging the cross-pollination of ideas and expertise to drive forward the next generation of breakthroughs.
+                        </EditableText>
+                      </motion.div>
                     </div>
                   </motion.div>
 
@@ -274,19 +269,15 @@ export function SummitMissionPast() {
                       >
                         <div className="w-2 h-16 sm:h-20 bg-gradient-to-b from-[#0EA5E9] to-[#0369A1] rounded-full" />
                       </motion.div>
-                      <motion.p
+                      <motion.div
                         className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white leading-relaxed font-light"
                         whileHover={prefersReducedMotion ? {} : { x: 2 }}
                         transition={{ duration: 0.3 }}
                       >
-                        The collaboration between researchers, innovators, and military leaders served as a{" "}
-                        <span className="text-white font-semibold">catalyst for medical advancements</span> that not
-                        only enhanced military readiness but also had the potential to{" "}
-                        <span className="text-[#0EA5E9] font-semibold">
-                          improve healthcare outcomes on a global scale
-                        </span>
-                        .
-                      </motion.p>
+                        <EditableText textId="aim2025-mission-3" page="aim2025" section="mission" multiline>
+                          The collaboration between researchers, innovators, and military leaders served as a catalyst for medical advancements that not only enhanced military readiness but also had the potential to improve healthcare outcomes on a global scale.
+                        </EditableText>
+                      </motion.div>
                     </div>
                   </motion.div>
                 </motion.div>

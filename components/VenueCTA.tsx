@@ -90,7 +90,9 @@ export default function VenueCTA() {
               </EditableText>
             </p>
             <Button variant="primary" href="/travel-venue" className="group text-lg py-3 px-6">
-              Explore Venue & City
+              <EditableText textId="venue-cta-button" page="global" section="venue-cta">
+                Explore Venue & City
+              </EditableText>
               <ArrowUpRight className="ml-2 inline-flex size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Button>
           </motion.div>
@@ -129,12 +131,42 @@ export default function VenueCTA() {
         </motion.div>
 
         <motion.div variants={fadeInUp} className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8">
-          {stats.map((stat, index) => (
-            <motion.div key={stat.label} variants={fadeInUp} custom={index} className="text-center">
-              <div className="text-3xl sm:text-4xl font-bold text-[#548cac] mb-2">{stat.value}</div>
-              <div className="text-sm sm:text-base text-white/80">{stat.label}</div>
-            </motion.div>
-          ))}
+          <motion.div variants={fadeInUp} custom={0} className="text-center">
+            <div className="text-3xl sm:text-4xl font-bold text-[#548cac] mb-2">
+              <EditableText textId="venue-stat-1-value" page="global" section="venue-cta">
+                514,000 sq ft
+              </EditableText>
+            </div>
+            <div className="text-sm sm:text-base text-white/80">
+              <EditableText textId="venue-stat-1-label" page="global" section="venue-cta">
+                Convention Center Size
+              </EditableText>
+            </div>
+          </motion.div>
+          <motion.div variants={fadeInUp} custom={1} className="text-center">
+            <div className="text-3xl sm:text-4xl font-bold text-[#548cac] mb-2">
+              <EditableText textId="venue-stat-2-value" page="global" section="venue-cta">
+                15 miles
+              </EditableText>
+            </div>
+            <div className="text-sm sm:text-base text-white/80">
+              <EditableText textId="venue-stat-2-label" page="global" section="venue-cta">
+                River Walk Length
+              </EditableText>
+            </div>
+          </motion.div>
+          <motion.div variants={fadeInUp} custom={2} className="text-center">
+            <div className="text-3xl sm:text-4xl font-bold text-[#548cac] mb-2">
+              <EditableText textId="venue-stat-3-value" page="global" section="venue-cta">
+                39 million
+              </EditableText>
+            </div>
+            <div className="text-sm sm:text-base text-white/80">
+              <EditableText textId="venue-stat-3-label" page="global" section="venue-cta">
+                Annual Visitors
+              </EditableText>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

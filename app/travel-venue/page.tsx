@@ -160,12 +160,20 @@ export default function TravelVenue() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h2 className="text-2xl sm:text-3xl font-bold mb-3">The River Walk</h2>
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-3">
+                    <EditableText textId="travel-riverwalk-title" page="travel" section="locations">
+                      The River Walk
+                    </EditableText>
+                  </h2>
                   <p className="text-sm sm:text-base max-w-sm text-white/90 mb-4">
-                    Explore the world-famous waterway, lined with restaurants, shops, and historic sites.
+                    <EditableText textId="travel-riverwalk-description" page="travel" section="locations" multiline>
+                      Explore the world-famous waterway, lined with restaurants, shops, and historic sites.
+                    </EditableText>
                   </p>
                   <span className="inline-flex items-center text-[#548cac] font-semibold group-hover:text-white transition-colors">
-                    Learn More
+                    <EditableText textId="travel-riverwalk-link" page="travel" section="locations">
+                      Learn More
+                    </EditableText>
                     <ArrowUpRight className="ml-2 size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </span>
                 </div>
@@ -189,12 +197,20 @@ export default function TravelVenue() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h2 className="text-2xl sm:text-3xl font-bold mb-3">Discover San Antonio</h2>
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-3">
+                    <EditableText textId="travel-discover-title" page="travel" section="locations">
+                      Discover San Antonio
+                    </EditableText>
+                  </h2>
                   <p className="text-sm sm:text-base max-w-sm text-white/90 mb-4">
-                    From the Alamo to Pearl District, experience the best of what the city has to offer.
+                    <EditableText textId="travel-discover-description" page="travel" section="locations" multiline>
+                      From the Alamo to Pearl District, experience the best of what the city has to offer.
+                    </EditableText>
                   </p>
                   <span className="inline-flex items-center text-[#548cac] font-semibold group-hover:text-white transition-colors">
-                    Plan Your Visit
+                    <EditableText textId="travel-discover-link" page="travel" section="locations">
+                      Plan Your Visit
+                    </EditableText>
                     <ArrowUpRight className="ml-2 size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </span>
                 </div>

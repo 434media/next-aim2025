@@ -140,9 +140,15 @@ export default function ContactUs() {
                   </div>
                 </dt>
                 <dd className="flex flex-col justify-center">
-                  <p className="text-sm font-semibold text-gray-900">VelocityTX</p>
+                  <p className="text-sm font-semibold text-gray-900">
+                    <EditableText textId="contact-address-title" page="contact" section="info">
+                      VelocityTX
+                    </EditableText>
+                  </p>
                   <p className="mt-0.5 text-sm leading-6 text-gray-600">
-                    1305 E. Houston St, San Antonio, TX 78205
+                    <EditableText textId="contact-address" page="contact" section="info">
+                      1305 E. Houston St, San Antonio, TX 78205
+                    </EditableText>
                   </p>
                 </dd>
               </div>
@@ -155,12 +161,18 @@ export default function ContactUs() {
                   </div>
                 </dt>
                 <dd className="flex flex-col justify-center">
-                  <p className="text-sm font-semibold text-gray-900">Email us</p>
+                  <p className="text-sm font-semibold text-gray-900">
+                    <EditableText textId="contact-email-title" page="contact" section="info">
+                      Email us
+                    </EditableText>
+                  </p>
                   <a
                     href="mailto:build@434media.com"
                     className="mt-0.5 text-sm leading-6 text-[#548cac] hover:text-[#3d6a82] transition-colors"
                   >
-                    build@434media.com
+                    <EditableText textId="contact-email" page="contact" section="info">
+                      build@434media.com
+                    </EditableText>
                   </a>
                 </dd>
               </div>
@@ -181,9 +193,15 @@ export default function ContactUs() {
               className="rounded-2xl bg-white p-8 ring-1 ring-gray-200 shadow-sm"
               variants={fadeInUp}
             >
-              <h2 className="text-xl font-semibold text-gray-900">Send us a message</h2>
+              <h2 className="text-xl font-semibold text-gray-900">
+                <EditableText textId="contact-form-title" page="contact" section="form">
+                  Send us a message
+                </EditableText>
+              </h2>
               <p className="mt-2 text-sm leading-6 text-gray-600">
-                Fill out the form below and we&apos;ll get back to you as soon as possible.
+                <EditableText textId="contact-form-description" page="contact" section="form">
+                  Fill out the form below and we&apos;ll get back to you as soon as possible.
+                </EditableText>
               </p>
 
               <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">

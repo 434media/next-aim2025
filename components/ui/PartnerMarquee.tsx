@@ -2,12 +2,13 @@
 
 import type React from "react"
 
-import { useRef, useState, useEffect, useCallback } from "react"
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { motion, useAnimation, useReducedMotion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { useMediaQuery } from "../../hooks/use-mobile"
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { EditableText } from "../admin/EditableText"
 
 export interface Partner {
   name: string
@@ -118,14 +119,24 @@ export function PartnerMarquee({
         {showHeader && (
           <div className="text-center mt-12 px-4">
             <h3 className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-gray-900 mb-6 leading-[0.85] tracking-tight">
-              Powered by{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600">
+              <EditableText textId="partners-title-prefix" page="home" section="partners">
+                Powered by
+              </EditableText>
+              {" "}
+              <EditableText
+                textId="partners-title-highlight"
+                page="home"
+                section="partners"
+                className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600"
+              >
                 Innovation
-              </span>
+              </EditableText>
             </h3>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed tracking-tight">
-              Our success is built on the foundation of strategic partnerships with industry leaders, research
-              institutions, and government organizations committed to advancing military medicine.
+              <EditableText textId="partners-description" page="home" section="partners" multiline>
+                Our success is built on the foundation of strategic partnerships with industry leaders, research
+                institutions, and government organizations committed to advancing military medicine.
+              </EditableText>
             </p>
           </div>
         )}
@@ -223,14 +234,24 @@ export function PartnerMarquee({
       {showHeader && (
         <div className="text-center mb-12">
           <h3 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-gray-900 mb-6 leading-[0.85] tracking-tight">
-            Powered by{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600">
+            <EditableText textId="partners-title-prefix" page="home" section="partners">
+              Powered by
+            </EditableText>
+            {" "}
+            <EditableText
+              textId="partners-title-highlight"
+              page="home"
+              section="partners"
+              className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600"
+            >
               Innovation
-            </span>
+            </EditableText>
           </h3>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Our success is built on the foundation of strategic partnerships with industry leaders, research
-            institutions, and government organizations committed to advancing military medicine.
+            <EditableText textId="partners-description" page="home" section="partners" multiline>
+              Our success is built on the foundation of strategic partnerships with industry leaders, research
+              institutions, and government organizations committed to advancing military medicine.
+            </EditableText>
           </p>
         </div>
       )}

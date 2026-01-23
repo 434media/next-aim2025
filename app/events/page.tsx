@@ -8,6 +8,7 @@ import { CalendarSkeleton, EventCardSkeleton } from "../../components/events/Loa
 import { PastEventsSection } from "../../components/events/PastEventsSection"
 import { Toast } from "../../components/events/Toast"
 
+import { EditableText } from "../../components/admin/EditableText"
 import { FadeIn } from "../../components/FadeIn"
 import { isEventUpcoming } from "../../lib/event-utils"
 import type { Event } from "../../types/event"
@@ -111,13 +112,26 @@ export default function EventsPage() {
 
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-balance">
-                <span className="text-white">Where Networks</span>
+                <span className="text-white">
+                  <EditableText textId="events-hero-title-1" page="events" section="hero">
+                    Where Networks
+                  </EditableText>
+                </span>
                 <br />
-                <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Meet Action</span>
+                <EditableText
+                  textId="events-hero-title-2"
+                  page="events"
+                  section="hero"
+                  className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"
+                >
+                  Meet Action
+                </EditableText>
               </h1>
 
               <p className="text-lg sm:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                Discover meaningful events that bring communities together and drive innovation in healthcare.
+                <EditableText textId="events-hero-description" page="events" section="hero" multiline>
+                  Discover meaningful events that bring communities together and drive innovation in healthcare.
+                </EditableText>
               </p>
             </div>
           </div>

@@ -3,6 +3,7 @@ import { Suspense } from "react"
 import { FadeContainer } from "../../components/Fade"
 import { SpeakersHero } from "../../components/SpeakersHero"
 import WhovaSpeakersEmbed from "../../components/WhovaSpeakersEmbed"
+import { EditableText } from "../../components/admin/EditableText"
 
 export const metadata: Metadata = {
   title: "Speakers | AIM Health R&D Summit",
@@ -36,9 +37,15 @@ export default function SpeakersPage() {
               {/* Main container */}
               <div className="relative bg-white/90 backdrop-blur-xl border border-neutral-200 rounded-2xl p-6 md:p-10 shadow-xl hover:shadow-2xl transition-all duration-500 hover:border-sky-200">
                 <div className="mb-6 text-center">
-                  <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-2">Explore AIM&apos;25</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-2">
+                    <EditableText textId="speakers-explore-title" page="speakers" section="embed">
+                      Explore AIM&apos;25
+                    </EditableText>
+                  </h2>
                   <p className="text-neutral-700 max-w-2xl mx-auto font-medium">
-                    Speaker and session details
+                    <EditableText textId="speakers-explore-subtitle" page="speakers" section="embed">
+                      Speaker and session details
+                    </EditableText>
                   </p>
                 </div>
 

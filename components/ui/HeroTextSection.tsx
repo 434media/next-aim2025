@@ -99,11 +99,23 @@ export const HeroTextSection = React.memo(() => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
               >
-                The Future of{" "}
-                <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent whitespace-nowrap tracking-tighter">
+                <EditableText textId="hero-title-prefix" page="home" section="hero">
+                  The Future of
+                </EditableText>
+                {" "}
+                <EditableText
+                  textId="hero-title-highlight"
+                  page="home"
+                  section="hero"
+                  className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent whitespace-nowrap tracking-tighter"
+                >
                   Military Medicine
-                </span>
-                {" "}Starts{" "}
+                </EditableText>
+                {" "}
+                <EditableText textId="hero-title-starts" page="home" section="hero">
+                  Starts
+                </EditableText>
+                {" "}
                 <AnimatePresence mode="wait">
                   {!showWordSwitch ? (
                     <motion.span
@@ -111,9 +123,15 @@ export const HeroTextSection = React.memo(() => {
                       initial={{ opacity: 1 }}
                       exit={{ opacity: 0, rotateX: -90 }}
                       transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                      className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent"
                     >
-                      Here
+                      <EditableText
+                        textId="hero-title-here"
+                        page="home"
+                        section="hero"
+                        className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent"
+                      >
+                        Here
+                      </EditableText>
                     </motion.span>
                   ) : (
                     <motion.span
@@ -121,9 +139,15 @@ export const HeroTextSection = React.memo(() => {
                       initial={{ opacity: 0, rotateX: 90 }}
                       animate={{ opacity: 1, rotateX: 0 }}
                       transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                      className="bg-gradient-to-r from-red-400 via-orange-400 to-amber-400 bg-clip-text text-transparent"
                     >
-                      Now
+                      <EditableText
+                        textId="hero-title-now"
+                        page="home"
+                        section="hero"
+                        className="bg-gradient-to-r from-red-400 via-orange-400 to-amber-400 bg-clip-text text-transparent"
+                      >
+                        Now
+                      </EditableText>
                     </motion.span>
                   )}
                 </AnimatePresence>
@@ -209,15 +233,24 @@ export const HeroTextSection = React.memo(() => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
               >
-                The Future of
+                <EditableText textId="hero-title-prefix" page="home" section="hero">
+                  The Future of
+                </EditableText>
               </motion.span>
               <motion.span
-                className="block mb-2 sm:mb-4 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent"
+                className="block mb-2 sm:mb-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
               >
-                Military Medicine
+                <EditableText
+                  textId="hero-title-highlight"
+                  page="home"
+                  section="hero"
+                  className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent"
+                >
+                  Military Medicine
+                </EditableText>
               </motion.span>
               <motion.span
                 className="block text-white"
@@ -225,7 +258,9 @@ export const HeroTextSection = React.memo(() => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
               >
-                Starts
+                <EditableText textId="hero-title-starts" page="home" section="hero">
+                  Starts
+                </EditableText>
                 <AnimatePresence mode="wait">
                   {!showWordSwitch ? (
                     <motion.span
@@ -233,10 +268,17 @@ export const HeroTextSection = React.memo(() => {
                       initial={{ opacity: 1, y: 0, rotateX: 0 }}
                       exit={{ opacity: 0, y: -30, rotateX: -90 }}
                       transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                      className="inline-block ml-4 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent"
+                      className="inline-block ml-4"
                       style={{ transformOrigin: "center bottom" }}
                     >
-                      Here
+                      <EditableText
+                        textId="hero-title-here"
+                        page="home"
+                        section="hero"
+                        className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent"
+                      >
+                        Here
+                      </EditableText>
                     </motion.span>
                   ) : (
                     <motion.span
@@ -244,10 +286,17 @@ export const HeroTextSection = React.memo(() => {
                       initial={{ opacity: 0, y: 30, rotateX: 90 }}
                       animate={{ opacity: 1, y: 0, rotateX: 0 }}
                       transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                      className="inline-block ml-4 bg-gradient-to-r from-red-400 via-orange-400 to-amber-400 bg-clip-text text-transparent"
+                      className="inline-block ml-4"
                       style={{ transformOrigin: "center bottom" }}
                     >
-                      Now
+                      <EditableText
+                        textId="hero-title-now"
+                        page="home"
+                        section="hero"
+                        className="bg-gradient-to-r from-red-400 via-orange-400 to-amber-400 bg-clip-text text-transparent"
+                      >
+                        Now
+                      </EditableText>
                     </motion.span>
                   )}
                 </AnimatePresence>

@@ -67,9 +67,15 @@ export default function SurfPresentersSection() {
         >
           {/* Header */}
           <div className="p-6 bg-gradient-to-r from-[#366A79] to-[#548cac] text-white">
-            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 tracking-tight">Explore Research</h3>
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 tracking-tight">
+              <EditableText textId="posters-search-title" page="posters" section="search">
+                Explore Research
+              </EditableText>
+            </h3>
             <p className="text-sm sm:text-base opacity-90 font-light">
-              Search through {presentersData.length} presentations across {categories.length - 1} research categories
+              <EditableText textId="posters-search-description" page="posters" section="search">
+                Search through {presentersData.length} presentations across {categories.length - 1} research categories
+              </EditableText>
             </p>
           </div>
 

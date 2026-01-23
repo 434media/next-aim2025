@@ -379,7 +379,11 @@ export default function Footer() {
             animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
             transition={{ delay: 1, duration: 0.6 }}
           >
-            <span>Actions Speak Louder</span>
+            <span>
+              <EditableText textId="footer-tagline-bottom" page="global" section="footer">
+                Actions Speak Louder
+              </EditableText>
+            </span>
             <motion.div
               className="w-2 h-2 rounded-full bg-[#548cac]"
               animate={{

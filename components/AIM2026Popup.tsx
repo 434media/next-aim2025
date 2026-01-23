@@ -195,10 +195,14 @@ export default function AIM2026Popup({ showModal, onClose }: AIM2026PopupProps) 
                             </motion.div>
                           </div>
                           <h3 className="text-xl font-semibold text-gray-900 mb-2 tracking-tight">
-                            You're on the list!
+                            <EditableText textId="aim2026-popup-success-title" page="home" section="popup">
+                              You're on the list!
+                            </EditableText>
                           </h3>
                           <p className="text-sm text-gray-600 leading-6">
-                            Watch your inbox for exclusive updates about AIM 2026.
+                            <EditableText textId="aim2026-popup-success-message" page="home" section="popup">
+                              Watch your inbox for exclusive updates about AIM 2026.
+                            </EditableText>
                           </p>
                         </motion.div>
                       )}
@@ -247,11 +251,17 @@ export default function AIM2026Popup({ showModal, onClose }: AIM2026PopupProps) 
                         className="w-full bg-gray-900 hover:bg-gray-800 text-white py-3.5 px-6 font-medium text-base transition-all duration-200 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 rounded-xl"
                         aria-label="Stay connected with AIM newsletter"
                       >
-                        {isSubmitting ? "Subscribing..." : "Subscribe to Newsletter"}
+                        {isSubmitting ? "Subscribing..." : (
+                          <EditableText textId="aim2026-popup-button" page="home" section="popup">
+                            Subscribe to Newsletter
+                          </EditableText>
+                        )}
                       </motion.button>
 
                       <p className="text-xs text-gray-500 text-center leading-5 pt-2">
-                        By subscribing, you agree to receive emails from AIM. You can unsubscribe at any time.
+                        <EditableText textId="aim2026-popup-disclaimer" page="home" section="popup">
+                          By subscribing, you agree to receive emails from AIM. You can unsubscribe at any time.
+                        </EditableText>
                       </p>
 
                       {error && (
