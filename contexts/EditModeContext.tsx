@@ -205,6 +205,7 @@ export function EditModeProvider({ children }: { children: ReactNode }) {
             const response = await fetch("/api/admin/site-text", {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
+                credentials: "include",
                 body: JSON.stringify({ updates }),
             })
 

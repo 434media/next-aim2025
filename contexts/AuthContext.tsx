@@ -28,6 +28,36 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
+// Helper to create server-side session cookie
+async function createServerSession(user: User) {
+    try {
+        const idToken = await user.getIdToken()
+        const response = await fetch("/api/admin/session", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ idToken }),
+        })
+        if (!response.ok) {
+            console.warn("[Auth] Failed to create server session")
+        }
+    } catch (error) {
+        console.error("[Auth] Error creating server session:", error)
+    }
+}
+
+// Helper to clear server-side session cookie
+async function clearServerSession() {
+    try {
+        await fetch("/api/admin/session", {
+            method: "DELETE",
+            credentials: "include",
+        })
+    } catch (error) {
+        console.error("[Auth] Error clearing server session:", error)
+    }
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null)
     const [loading, setLoading] = useState(true)
@@ -41,9 +71,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             return
         }
 
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             setUser(user)
             setLoading(false)
+
+            // Create server session when user logs in
+            if (user && user.email?.endsWith("@434media.com")) {
+                await createServerSession(user)
+            }
         })
 
         return () => unsubscribe()
@@ -94,6 +129,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
         setError(null)
         try {
+            // Clear server session first
+            await clearServerSession()
             await firebaseSignOut(auth)
         } catch (err) {
             const message = err instanceof Error ? err.message : "Failed to sign out"
