@@ -48,7 +48,8 @@ export function EditModeToolbar() {
         try {
             setError(null)
             await saveAllChanges()
-            clearTextCache()
+            // Don't clear the text cache - it already has the saved values
+            // The cache was updated when the user made edits via updateTextCache
             setShowSuccess(true)
             setTimeout(() => setShowSuccess(false), 2000)
         } catch (err) {
