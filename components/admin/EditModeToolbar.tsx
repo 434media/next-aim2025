@@ -80,7 +80,11 @@ export function EditModeToolbar() {
     return (
         <>
             {/* Floating Admin Button */}
-            <div className="fixed bottom-4 right-4 z-[9999]" ref={dropdownRef}>
+            <div
+                className={`fixed right-4 z-[9999] transition-all duration-300 ${hasPendingChanges ? "bottom-20 sm:bottom-4" : "bottom-4"
+                    }`}
+                ref={dropdownRef}
+            >
                 <AnimatePresence>
                     {isDropdownOpen && (
                         <motion.div
@@ -88,7 +92,7 @@ export function EditModeToolbar() {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 10, scale: 0.95 }}
                             transition={{ duration: 0.15 }}
-                            className="absolute bottom-16 right-0 w-72 bg-white rounded-2xl shadow-2xl border border-neutral-200 overflow-hidden"
+                            className="absolute bottom-16 right-0 w-72 max-h-[80vh] overflow-y-auto bg-white rounded-2xl shadow-2xl border border-neutral-200"
                         >
                             {/* User Info Header */}
                             <div className="px-5 py-4 border-b border-neutral-100">
@@ -191,9 +195,9 @@ export function EditModeToolbar() {
                         animate={{ y: 0, opacity: 1 }}
                         exit={{ y: 100, opacity: 0 }}
                         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                        className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[9998]"
+                        className="fixed bottom-4 left-4 right-20 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 z-[9998]"
                     >
-                        <div className="flex items-center gap-3 px-4 py-2.5 bg-gray-900/95 backdrop-blur-md rounded-full shadow-2xl border border-gray-700">
+                        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-2.5 bg-gray-900/95 backdrop-blur-md rounded-2xl sm:rounded-full shadow-2xl border border-gray-700">
                             {/* Undo/Redo Buttons */}
                             <div className="flex items-center gap-1">
                                 <button
@@ -214,18 +218,19 @@ export function EditModeToolbar() {
                                 </button>
                             </div>
 
-                            <div className="w-px h-5 bg-gray-700" />
+                            <div className="hidden sm:block w-px h-5 bg-gray-700" />
 
                             {/* Changes count */}
-                            <span className="text-sm text-orange-400 font-medium">
-                                {pendingChanges.size} unsaved change{pendingChanges.size !== 1 ? "s" : ""}
+                            <span className="text-xs sm:text-sm text-orange-400 font-medium">
+                                <span className="hidden sm:inline">{pendingChanges.size} unsaved change{pendingChanges.size !== 1 ? "s" : ""}</span>
+                                <span className="sm:hidden">{pendingChanges.size}</span>
                             </span>
 
                             {/* Discard Button */}
                             <button
                                 onClick={handleDiscardAll}
                                 disabled={isSaving}
-                                className="p-1.5 rounded-full bg-gray-700 text-gray-300 hover:bg-red-600 hover:text-white transition-colors disabled:opacity-50"
+                                className="p-2 sm:p-1.5 rounded-full bg-gray-700 text-gray-300 hover:bg-red-600 hover:text-white active:bg-red-500 transition-colors disabled:opacity-50 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 flex items-center justify-center"
                                 title="Discard all changes"
                             >
                                 <X className="w-4 h-4" />
@@ -235,7 +240,7 @@ export function EditModeToolbar() {
                             <button
                                 onClick={handleSaveAll}
                                 disabled={isSaving}
-                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-600 text-white hover:bg-green-500 transition-colors disabled:opacity-50 text-sm font-medium"
+                                className="flex items-center gap-1.5 px-3 sm:px-3 py-2 sm:py-1.5 rounded-full bg-green-600 text-white hover:bg-green-500 active:bg-green-400 transition-colors disabled:opacity-50 text-sm font-medium min-h-[44px] sm:min-h-0"
                                 title="Save all changes"
                             >
                                 {isSaving ? (
