@@ -53,8 +53,9 @@ export function EditModeProvider({ children }: { children: ReactNode }) {
     const [undoHistory, setUndoHistory] = useState<HistoryEntry[]>([])
     const [redoHistory, setRedoHistory] = useState<HistoryEntry[]>([])
 
-    // Check if user is an admin (authenticated with 434media.com domain)
-    const isAdmin = !!user?.email?.endsWith("@434media.com")
+    // Check if user is an admin
+    // Allow both @434media.com Google users and email/password authenticated users
+    const isAdmin = !!user?.email
 
     // Disable edit mode when user logs out or is not admin
     useEffect(() => {

@@ -76,7 +76,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setLoading(false)
 
             // Create server session when user logs in
-            if (user && user.email?.endsWith("@434media.com")) {
+            // Allow both @434media.com Google users and email/password authenticated users
+            if (user) {
                 await createServerSession(user)
             }
         })

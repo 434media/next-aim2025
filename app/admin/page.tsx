@@ -185,7 +185,7 @@ export default function AdminDashboard() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center gap-3"
         >
-          <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0" />
+          <AlertCircle className="h-5 w-5 text-red-500 shrink-0" />
           <p className="text-sm font-medium text-red-700 flex-1">{error}</p>
           <button
             onClick={fetchData}
@@ -211,7 +211,7 @@ export default function AdminDashboard() {
               className="group block bg-white rounded-2xl p-5 border border-slate-200 hover:border-slate-300 hover:shadow-lg hover:shadow-slate-200/50 transition-all duration-200"
             >
               <div className="flex items-start justify-between mb-4">
-                <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${stat.color} text-white shadow-lg shadow-slate-200`}>
+                <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br ${stat.color} text-white shadow-lg shadow-slate-200`}>
                   <stat.icon className="h-5 w-5" />
                 </div>
                 {stat.badge && (
@@ -284,7 +284,7 @@ export default function AdminDashboard() {
                   href="/admin/contacts"
                   className="flex items-start gap-4 px-6 py-4 hover:bg-slate-50 transition-colors"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 flex-shrink-0">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 shrink-0">
                     <User className="h-5 w-5" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -305,7 +305,7 @@ export default function AdminDashboard() {
                       {contact.message}
                     </p>
                   </div>
-                  <span className="text-xs font-medium text-slate-400 flex-shrink-0">
+                  <span className="text-xs font-medium text-slate-400 shrink-0">
                     {formatRelativeTime(contact.created_at)}
                   </span>
                 </Link>
@@ -420,14 +420,14 @@ export default function AdminDashboard() {
                   className="flex items-center justify-between px-6 py-3"
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600 flex-shrink-0">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600 shrink-0">
                       <Mail className="h-4 w-4" />
                     </div>
                     <span className="text-sm font-medium text-slate-700 truncate">
                       {subscriber.email}
                     </span>
                   </div>
-                  <span className="text-xs font-medium text-slate-400 flex-shrink-0 ml-2">
+                  <span className="text-xs font-medium text-slate-400 shrink-0 ml-2">
                     {formatRelativeTime(subscriber.created_at)}
                   </span>
                 </div>
@@ -519,7 +519,7 @@ export default function AdminDashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="mt-8 p-6 bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl"
+        className="mt-8 p-6 bg-linear-to-br from-slate-900 to-slate-800 rounded-2xl"
       >
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
@@ -533,7 +533,7 @@ export default function AdminDashboard() {
           <Link
             href="/"
             target="_blank"
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-slate-900 rounded-xl text-sm font-semibold hover:bg-slate-100 transition-colors flex-shrink-0"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-slate-900 rounded-xl text-sm font-semibold hover:bg-slate-100 transition-colors shrink-0"
           >
             View Live Site
             <ExternalLink className="h-4 w-4" />
