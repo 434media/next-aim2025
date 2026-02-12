@@ -11,12 +11,13 @@ const desktopNavigationItems = [
     name: "Explore",
     isDropdown: true,
     items: [
-      { name: "AIM'25", href: "/aim2025" },
+      { name: "ProPEL", href: "/propel" },
       { name: "Symposiums", href: "/pre-conference-symposiums" },
-      { name: "Posters", href: "/posters" },
+      { name: "Call for Abstracts", href: "https://utsaresearch.infoready4.com/#freeformCompetitionDetail/2003650" },
     ],
   },
   { name: "Events", href: "/events", isNew: false },
+  { name: "Sponsors", href: "https://support.velocitytx.org/campaign/726139/donate" },
   { name: "Contact Us", href: "/contact-us" },
 ]
 
@@ -25,19 +26,20 @@ const mobileNavigationItems = [
     name: "Explore",
     isDropdown: true,
     items: [
-      { name: "AIM'25", href: "/aim2025" },
+      { name: "ProPEL", href: "/propel" },
       { name: "Symposiums", href: "/pre-conference-symposiums" },
-      { name: "Posters", href: "/posters" },
+      { name: "Call for Abstracts", href: "https://utsaresearch.infoready4.com/#freeformCompetitionDetail/2003650" },
     ],
   },
   { name: "Events", href: "/events", isNew: false },
+  { name: "Sponsors", href: "https://support.velocitytx.org/campaign/726139/donate" },
   { name: "Contact Us", href: "/contact-us" },
 ]
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isAIM2026ModalOpen, setIsAIM2026ModalOpen] = useState(false)
+  const [isPropelModalOpen, setIsPropelModalOpen] = useState(false)
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false)
   const [desktopDropdownOpen, setDesktopDropdownOpen] = useState(false)
 
@@ -69,24 +71,24 @@ export default function NavBar() {
     setMobileDropdownOpen((prev) => !prev)
   }, [])
 
-  const toggleAIM2026Modal = useCallback(() => {
-    setIsAIM2026ModalOpen((prev) => !prev)
+  const togglePropelModal = useCallback(() => {
+    setIsPropelModalOpen((prev) => !prev)
   }, [])
 
-  const closeAIM2026Modal = useCallback(() => {
-    setIsAIM2026ModalOpen(false)
+  const closePropelModal = useCallback(() => {
+    setIsPropelModalOpen(false)
   }, [])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         closeMenu()
-        closeAIM2026Modal()
+        closePropelModal()
         setDesktopDropdownOpen(false)
       }
     }
 
-    if (isMenuOpen || isAIM2026ModalOpen) {
+    if (isMenuOpen || isPropelModalOpen) {
       document.addEventListener("keydown", handleKeyDown)
       if (window.innerWidth < 1024) {
         document.body.style.overflow = "hidden"
@@ -100,7 +102,7 @@ export default function NavBar() {
       document.removeEventListener("keydown", handleKeyDown)
       document.body.style.overflow = "unset"
     }
-  }, [isMenuOpen, isAIM2026ModalOpen, closeMenu, closeAIM2026Modal])
+  }, [isMenuOpen, isPropelModalOpen, closeMenu, closePropelModal])
 
   return (
     <>
@@ -114,8 +116,8 @@ export default function NavBar() {
         <div className="max-w-5xl mx-auto px-4 lg:px-8">
           <motion.div
             className={`relative rounded-2xl transition-all duration-500 ${isScrolled
-                ? "bg-black/95 backdrop-blur-xl border border-white/10 shadow-2xl"
-                : "bg-black/85 backdrop-blur-md border border-white/5"
+              ? "bg-black/95 backdrop-blur-xl border border-white/10 shadow-2xl"
+              : "bg-black/85 backdrop-blur-md border border-white/5"
               }`}
             style={{
               backdropFilter: `blur(${headerBlur}px)`,
@@ -159,7 +161,7 @@ export default function NavBar() {
                     >
                       <motion.p
                         className="text-sm font-medium text-white/70 hover:text-[#548cac] transition-all duration-300 cursor-pointer relative pb-1"
-                        onClick={toggleAIM2026Modal}
+                        onClick={togglePropelModal}
                         whileHover={{ x: 0 }}
                         transition={{ duration: 0.2 }}
                       >
@@ -226,6 +228,7 @@ export default function NavBar() {
                                       <Link
                                         key={subItem.name}
                                         href={subItem.href}
+                                        {...(subItem.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                                         className="block px-4 py-3 text-white hover:text-[#548cac] hover:bg-[#548cac]/10 transition-all duration-200 font-medium"
                                       >
                                         {subItem.name}
@@ -239,6 +242,7 @@ export default function NavBar() {
                         ) : (
                           <Link
                             href={item.href ?? "#"}
+                            {...(item.href?.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                             className="relative text-white hover:text-[#548cac] transition-colors duration-300 font-medium group py-2 px-3 rounded-lg hover:bg-[#548cac]/10 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black inline-block"
                           >
                             {item.name}
@@ -303,7 +307,7 @@ export default function NavBar() {
         </div>
 
         <AnimatePresence>
-          {isAIM2026ModalOpen && (
+          {isPropelModalOpen && (
             <div className="max-w-5xl mx-auto px-4 lg:px-8">
               <motion.div
                 initial={{ opacity: 0, y: -20, scale: 0.95 }}
@@ -319,7 +323,7 @@ export default function NavBar() {
               >
                 <div className="bg-black/98 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl overflow-hidden relative z-50 max-h-[80vh] overflow-y-auto">
                   <button
-                    onClick={closeAIM2026Modal}
+                    onClick={closePropelModal}
                     className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#548cac]"
                     aria-label="Close modal"
                   >
@@ -365,6 +369,8 @@ export default function NavBar() {
                             Interested in sponsoring or exhibiting?{" "}
                             <Link
                               href="https://support.velocitytx.org/campaign/726139/donate"
+                              target="_blank"
+                              rel="noopener noreferrer"
                               className="text-[#548cac] hover:text-cyan-400 transition-colors duration-200 underline underline-offset-2"
                             >
                               Contact us
@@ -449,6 +455,7 @@ export default function NavBar() {
                                     >
                                       <Link
                                         href={subItem.href}
+                                        {...(subItem.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                                         className="group block px-10 py-3 hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden"
                                         onClick={closeMenu}
                                       >
@@ -470,6 +477,7 @@ export default function NavBar() {
                         ) : (
                           <Link
                             href={item.href ?? "#"}
+                            {...(item.href?.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                             className="group block px-6 py-4 hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden"
                             onClick={closeMenu}
                           >
@@ -505,7 +513,7 @@ export default function NavBar() {
         </AnimatePresence>
 
         <AnimatePresence>
-          {(isMenuOpen || isAIM2026ModalOpen) && (
+          {(isMenuOpen || isPropelModalOpen) && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -514,7 +522,7 @@ export default function NavBar() {
               className="lg:hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-30"
               onClick={() => {
                 closeMenu()
-                closeAIM2026Modal()
+                closePropelModal()
               }}
               aria-hidden="true"
             />

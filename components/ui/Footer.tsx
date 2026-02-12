@@ -12,16 +12,16 @@ const footerSections = {
     title: "AIM 2026",
     items: [
       { label: "Get Tickets", href: "https://whova.com/portal/registration/D7sdZXdTCppF1KMzet5O/" },
-      { label: "Sponsor", href: "https://support.velocitytx.org/campaign/726139/donate" },
+      { label: "Sponsors", href: "https://support.velocitytx.org/campaign/726139/donate" },
       { label: "Events", href: "/events" },
     ],
   },
   explore: {
     title: "Explore",
     items: [
-      { label: "AIM'25", href: "/aim2025" },
+      { label: "ProPEL", href: "/propel" },
       { label: "Symposiums", href: "/pre-conference-symposiums" },
-      { label: "Posters", href: "/posters" },
+      { label: "Call for Abstracts", href: "https://utsaresearch.infoready4.com/#freeformCompetitionDetail/2003650" },
     ],
   },
   connect: {
@@ -217,6 +217,7 @@ export default function Footer() {
                   >
                     <Link
                       href={item.href}
+                      {...(item.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                       className="group flex items-center text-white/80 hover:text-[#548cac] transition-all duration-300 relative py-2"
                     >
                       <motion.div
@@ -274,6 +275,7 @@ export default function Footer() {
                   >
                     <Link
                       href={item.href}
+                      {...(item.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                       className="group flex items-center text-white/80 hover:text-[#548cac] transition-all duration-300 relative py-2"
                     >
                       <motion.div
@@ -331,6 +333,7 @@ export default function Footer() {
                   >
                     <Link
                       href={item.href}
+                      {...(item.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                       className="group flex items-center text-white/80 hover:text-[#548cac] transition-all duration-300 relative py-2"
                     >
                       <motion.div

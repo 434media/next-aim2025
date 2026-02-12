@@ -10,7 +10,7 @@ export default function AIM2025Page() {
         <SummitMissionPast />
       </section>
 
-      <section className="py-16">
+      <section className="">
         <EventRecapCarousel />
       </section>
 

@@ -1,11 +1,12 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
+import AIM2026Popup from "../components/AIM2026Popup"
+import { EventRecapCarousel } from "../components/EventRecapCarousel"
+import { HeroTextSection } from "../components/ui/HeroTextSection"
+import { HeroVideo } from "../components/ui/HeroVideo"
 import { PartnerMarquee } from "../components/ui/PartnerMarquee"
 import { additionalPartners, mainPartners } from "../data/partners"
-import { HeroVideo } from "../components/ui/HeroVideo"
-import { HeroTextSection } from "../components/ui/HeroTextSection"
-import AIM2026Popup from "../components/AIM2026Popup"
 
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false)
@@ -64,6 +65,14 @@ export default function Home() {
             />
           </div>
         </div>
+      </section>
+
+      {/* Event Recap Carousel */}
+      <section aria-labelledby="recap-heading" className="w-full pb-16">
+        <h2 id="recap-heading" className="sr-only">
+          AIM 2025 Event Recap
+        </h2>
+        <EventRecapCarousel />
       </section>
     </main>
   )

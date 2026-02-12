@@ -176,10 +176,13 @@ export const HeroTextSection = React.memo(() => {
 
               <div>
                 <Button
+                  href={"https://whova.com/portal/registration/D7sdZXdTCppF1KMzet5O/"}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   variant="primary"
                   className="text-lg px-8 py-4 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 shadow-xl shadow-blue-500/25 border-0"
                 >
-                  Get Involved
+                  Register Now
                   <svg className="ml-2 w-5 h-5 inline-flex" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -344,11 +347,13 @@ export const HeroTextSection = React.memo(() => {
                 transition={{ duration: 1, delay: 0.5, ease: [0.4, 0, 0.2, 1] }}
               >
                 <Button
-                  href={"/contact-us"}
+                  href={"https://whova.com/portal/registration/D7sdZXdTCppF1KMzet5O/"}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   variant="primary"
                   className="text-xl sm:text-2xl px-12 py-6 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 shadow-2xl shadow-blue-500/25 border-0 hover:shadow-blue-500/40 transition-all duration-300"
                 >
-                  Get Involved
+                  Register Now
                   <motion.svg
                     className="ml-3 w-6 h-6 inline-flex"
                     fill="none"
