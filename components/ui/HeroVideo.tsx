@@ -49,7 +49,8 @@ export const HeroVideo = React.memo(() => {
             <div className="flex-1">
               <h1 className="text-4xl xl:text-5xl font-bold text-white mb-4">
                 <EditableText textId="hero-video-title" page="home" section="hero-video">
-                  AIM 2026 ANNOUNCED!
+                  AIM 2026 
+                  <span className="block text-cyan-300">REGISTRATION LIVE!</span>
                 </EditableText>
               </h1>
               <div className="flex items-center space-x-8 text-white/90">

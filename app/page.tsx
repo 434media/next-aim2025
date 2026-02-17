@@ -48,6 +48,14 @@ export default function Home() {
         <HeroTextSection />
       </section>
 
+      {/* Event Recap Carousel */}
+      <section aria-labelledby="recap-heading" className="w-full py-16">
+        <h2 id="recap-heading" className="sr-only">
+          AIM 2025 Event Recap
+        </h2>
+        <EventRecapCarousel />
+      </section>
+
       {/* Partners Section */}
       <section aria-labelledby="partners-heading" className="w-full bg-white py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-4 xl:px-0">
@@ -65,14 +73,6 @@ export default function Home() {
             />
           </div>
         </div>
-      </section>
-
-      {/* Event Recap Carousel */}
-      <section aria-labelledby="recap-heading" className="w-full pb-16">
-        <h2 id="recap-heading" className="sr-only">
-          AIM 2025 Event Recap
-        </h2>
-        <EventRecapCarousel />
       </section>
     </main>
   )
