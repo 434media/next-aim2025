@@ -45,13 +45,19 @@ export const HeroVideo = React.memo(() => {
       >
         <div className="max-w-5xl mx-auto">
           {/* Desktop Layout */}
-          <div className="hidden lg:flex items-center justify-between">
-            <div className="flex-1">
-              <h1 className="text-4xl xl:text-5xl font-bold text-white mb-4">
-                <EditableText textId="hero-video-title" page="home" section="hero-video">
-                  AIM 2026 
-                  <span className="block text-cyan-300">REGISTRATION LIVE!</span>
-                </EditableText>
+          <div className="hidden lg:flex items-end justify-between gap-12">
+            <div className="flex-1 min-w-0 max-w-2xl">
+              <h1 className="text-4xl xl:text-5xl font-extrabold leading-[1.1] tracking-tight text-white mb-4">
+                <span className="block">
+                  <EditableText textId="hero-video-title-line1" page="home" section="hero-video">
+                    AIM 2026
+                  </EditableText>
+                </span>
+                <span className="block">
+                  <EditableText textId="hero-video-title-line2" page="home" section="hero-video">
+                    REGISTRATION LIVE!
+                  </EditableText>
+                </span>
               </h1>
               <div className="flex items-center space-x-8 text-white/90">
                 <div>
@@ -80,7 +86,7 @@ export const HeroVideo = React.memo(() => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col items-end space-y-4">
+            <div className="flex flex-col items-end space-y-4 shrink-0">
               <a
                 href="https://whova.com/portal/registration/D7sdZXdTCppF1KMzet5O/"
                 target="_blank"
@@ -116,10 +122,17 @@ export const HeroVideo = React.memo(() => {
 
           {/* Mobile Layout */}
           <div className="lg:hidden text-center">
-            <h1 className="text-3xl font-bold text-white mb-6">
-              <EditableText textId="hero-video-title" page="home" section="hero-video">
-                AIM 2026 ANNOUNCED!
-              </EditableText>
+            <h1 className="text-3xl font-extrabold leading-[1.1] tracking-tight text-white mb-6">
+              <span className="block">
+                <EditableText textId="hero-video-title-line1" page="home" section="hero-video">
+                  AIM 2026
+                </EditableText>
+              </span>
+              <span className="block">
+                <EditableText textId="hero-video-title-line2" page="home" section="hero-video">
+                  REGISTRATION LIVE!
+                </EditableText>
+              </span>
             </h1>
             <div className="grid grid-cols-1 gap-4 mb-6 text-white/90">
               <div className="text-center">
