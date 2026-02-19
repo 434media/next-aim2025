@@ -61,10 +61,7 @@ export async function POST(request: Request) {
 
     // 2. Add to Mailchimp (with tagging)
     if (mailchimpEnabled) {
-      console.log(
-        "[Newsletter] Mailchimp API URL:",
-        `https://${mailchimpDatacenter}.api.mailchimp.com/3.0/lists/${mailchimpListId}/members`,
-      )
+      console.log("[Newsletter] Mailchimp request: subscribing user to audience")
 
       const mailchimpPromise = axios.post(
         `https://${mailchimpDatacenter}.api.mailchimp.com/3.0/lists/${mailchimpListId}/members`,
