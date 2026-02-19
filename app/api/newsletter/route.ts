@@ -27,8 +27,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 })
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
+    // Use a ReDoS-safe email regex: [^\s@.]+ prevents overlap between domain parts
+    const emailRegex = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/
+    if (email.length > 254 || !emailRegex.test(email)) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
     }
 

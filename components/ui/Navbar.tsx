@@ -13,11 +13,11 @@ const desktopNavigationItems = [
     items: [
       { name: "ProPEL", href: "/propel" },
       { name: "Symposiums", href: "/pre-conference-symposiums" },
-      { name: "Call for Abstracts", href: "https://utsaresearch.infoready4.com/#freeformCompetitionDetail/2003650" },
     ],
   },
   { name: "Events", href: "/events", isNew: false },
   { name: "Sponsors", href: "https://support.velocitytx.org/campaign/726139/donate" },
+  { name: "Call for Abstracts", href: "https://utsaresearch.infoready4.com/#freeformCompetitionDetail/2003650" },
   { name: "Contact Us", href: "/contact-us" },
 ]
 
@@ -28,11 +28,11 @@ const mobileNavigationItems = [
     items: [
       { name: "ProPEL", href: "/propel" },
       { name: "Symposiums", href: "/pre-conference-symposiums" },
-      { name: "Call for Abstracts", href: "https://utsaresearch.infoready4.com/#freeformCompetitionDetail/2003650" },
     ],
   },
   { name: "Events", href: "/events", isNew: false },
   { name: "Sponsors", href: "https://support.velocitytx.org/campaign/726139/donate" },
+  { name: "Call for Abstracts", href: "https://utsaresearch.infoready4.com/#freeformCompetitionDetail/2003650" },
   { name: "Contact Us", href: "/contact-us" },
 ]
 
@@ -184,8 +184,8 @@ export default function NavBar() {
                   </motion.div>
                 </motion.div>
 
-                <div className="flex items-center space-x-8">
-                  <nav className="hidden lg:flex items-center space-x-8">
+                <div className="flex items-center">
+                  <nav className="hidden lg:flex items-center space-x-1">
                     {desktopNavigationItems.map((item, index) => (
                       <motion.div
                         key={item.name}
@@ -201,7 +201,7 @@ export default function NavBar() {
                             onMouseLeave={() => setDesktopDropdownOpen(false)}
                           >
                             <button
-                              className="relative text-white hover:text-[#548cac] transition-colors duration-300 font-medium group py-2 px-3 rounded-lg hover:bg-[#548cac]/10 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black flex items-center"
+                              className="relative text-sm leading-tight text-white hover:text-[#548cac] transition-colors duration-300 font-normal group py-1.5 px-2.5 rounded-lg hover:bg-[#548cac]/10 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black flex items-center"
                               aria-expanded={desktopDropdownOpen}
                               aria-haspopup="true"
                             >
@@ -243,7 +243,7 @@ export default function NavBar() {
                           <Link
                             href={item.href ?? "#"}
                             {...(item.href?.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                            className="relative text-white hover:text-[#548cac] transition-colors duration-300 font-medium group py-2 px-3 rounded-lg hover:bg-[#548cac]/10 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black inline-block"
+                            className="relative text-sm leading-tight text-white hover:text-[#548cac] transition-colors duration-300 font-normal group py-1.5 px-2.5 rounded-lg hover:bg-[#548cac]/10 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2 focus:ring-offset-black inline-block"
                           >
                             {item.name}
                             {item.isNew && (

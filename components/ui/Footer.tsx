@@ -13,7 +13,7 @@ const footerSections = {
     items: [
       { label: "Get Tickets", href: "https://whova.com/portal/registration/D7sdZXdTCppF1KMzet5O/" },
       { label: "Sponsors", href: "https://support.velocitytx.org/campaign/726139/donate" },
-      { label: "Events", href: "/events" },
+      { label: "Call for Abstracts", href: "https://utsaresearch.infoready4.com/#freeformCompetitionDetail/2003650" },
     ],
   },
   explore: {
@@ -21,7 +21,7 @@ const footerSections = {
     items: [
       { label: "ProPEL", href: "/propel" },
       { label: "Symposiums", href: "/pre-conference-symposiums" },
-      { label: "Call for Abstracts", href: "https://utsaresearch.infoready4.com/#freeformCompetitionDetail/2003650" },
+      { label: "Events", href: "/events" },
     ],
   },
   connect: {

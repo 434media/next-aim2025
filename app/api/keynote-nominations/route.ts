@@ -10,9 +10,8 @@ const airtableApiKey = process.env.AIRTABLE_API_KEY
 // Debug logging for development
 if (isDevelopment) {
   console.log("=== Airtable Configuration Debug ===")
-  console.log("Base ID:", airtableBaseId ? `${airtableBaseId.substring(0, 8)}...` : "MISSING")
-  console.log("API Key:", airtableApiKey ? `${airtableApiKey.substring(0, 8)}...` : "MISSING")
-  console.log("Environment variables available:", Object.keys(process.env).filter(key => key.includes('AIRTABLE')))
+  console.log("Base ID configured:", !!airtableBaseId)
+  console.log("API Key configured:", !!airtableApiKey)
 }
 
 // Conditionally initialize Airtable only if credentials exist
@@ -49,15 +48,15 @@ export async function POST(request: Request) {
     // Debug logging for development
     if (isDevelopment) {
       console.log("=== Form Submission Debug ===")
-      console.log("Received data:", {
-        speakerPocId,
-        speakerPocName,
-        speakerPocCustomName,
-        speakerName,
-        roleTitle,
-        company,
-        linkedinProfile: linkedinProfile ? "provided" : "empty",
-        shortJustification: shortJustification ? `${shortJustification.substring(0, 50)}...` : "empty"
+      console.log("Received fields present:", {
+        speakerPocId: !!speakerPocId,
+        speakerPocName: !!speakerPocName,
+        speakerPocCustomName: !!speakerPocCustomName,
+        speakerName: !!speakerName,
+        roleTitle: !!roleTitle,
+        company: !!company,
+        linkedinProfile: !!linkedinProfile,
+        shortJustification: !!shortJustification
       })
     }
 
@@ -97,7 +96,7 @@ export async function POST(request: Request) {
     // Debug logging for development
     if (isDevelopment) {
       console.log("=== Airtable Fields Debug ===")
-      console.log("Fields to be saved:", fields)
+      console.log("Field keys to be saved:", Object.keys(fields))
       console.log("Target table: Speakers")
     }
 
@@ -115,7 +114,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ message: "Keynote nomination submitted successfully" }, { status: 200 })
   } catch (error: any) {
-    console.error("Error submitting keynote nomination:", error)
+    console.error("Error submitting keynote nomination:", error?.error || error?.message || "Unknown error")
     
     // Handle specific Airtable errors
     if (error?.error === 'NOT_AUTHORIZED' || error?.statusCode === 403) {
@@ -158,7 +157,7 @@ export async function GET() {
 
     return NextResponse.json(nominations, { status: 200 })
   } catch (error: any) {
-    console.error("Error fetching keynote nominations:", error)
+    console.error("Error fetching keynote nominations:", error?.error || error?.message || "Unknown error")
     return NextResponse.json({ error: "Failed to fetch keynote nominations" }, { status: 500 })
   }
 }
