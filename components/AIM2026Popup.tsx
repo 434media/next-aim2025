@@ -114,7 +114,7 @@ export default function AIM2026Popup({ showModal, onClose }: AIM2026PopupProps) 
             <div className="lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-sky-500 to-sky-600">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10 z-10" />
               <Image
-                src="https://ampd-asset.s3.us-east-2.amazonaws.com/collab3.jpeg"
+                src="https://ampd-asset.s3.us-east-2.amazonaws.com/posters.jpg"
                 alt="AIM Health R&D Summit Collaboration"
                 fill
                 className="object-cover"
@@ -135,11 +135,11 @@ export default function AIM2026Popup({ showModal, onClose }: AIM2026PopupProps) 
                   >
                     <div className="flex justify-center lg:justify-start mb-6">
                       <Image
-                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim_color_2026.png"
+                        src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-white-2026.png"
                         alt="AIM 2026 Logo"
                         width={160}
                         height={64}
-                        className="object-contain"
+                        className="object-contain invert mx-auto"
                       />
                     </div>
                   </motion.div>
