@@ -233,7 +233,7 @@ export default function ProPELPage() {
   return (
     <main className="min-dvh bg-white text-neutral-900">
       {/* ── HERO ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-white pt-24 sm:pt-28 pb-12 md:pb-16 min-h-[calc(100dvh-4rem)] flex items-center">
+      <section className="relative overflow-hidden bg-white pt-28 pb-12 md:pb-16 min-h-[calc(100dvh-4rem)] flex items-center">
         <div className="relative z-10 mx-auto max-w-3xl px-6 lg:px-8 w-full">
           <div className="flex flex-col items-center text-center gap-6 md:gap-7">
             {/* Logo */}
@@ -259,13 +259,13 @@ export default function ProPELPage() {
               transition={{ duration: 0.8, delay: 0.15, ease: [0.4, 0, 0.2, 1] }}
               className="space-y-3"
             >
-              <h1 className="text-balance text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[0.92] text-neutral-900">
+              <h1 className="text-balance text-5xl md:text-6xl font-black tracking-tight leading-[0.92] text-neutral-900">
                 Maximize Your{" "}
                 <span className="text-[#548cac]">AIM</span>{" "}
                 Experience!
               </h1>
 
-              <p className="text-balance text-base sm:text-lg text-neutral-500 leading-relaxed max-w-xl mx-auto font-medium">
+              <p className="text-balance text-lg text-neutral-500 leading-relaxed max-w-xl mx-auto font-medium">
                 Come Early for ProPEL 2026 and Stick Around for Our AIM Welcome
                 Reception
               </p>
@@ -276,7 +276,7 @@ export default function ProPELPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.35 }}
-              className="text-xs sm:text-sm text-[#548cac] font-bold tracking-[0.15em] uppercase"
+              className="text-balance text-sm text-[#548cac] font-bold tracking-[0.15em] uppercase"
             >
               Presented by DHA Research &amp; Engineering
             </motion.p>
@@ -300,7 +300,7 @@ export default function ProPELPage() {
                 </span>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-5 text-xs sm:text-sm text-neutral-400 font-medium">
+              <div className="flex flex-col items-center justify-center gap-1 text-sm text-neutral-400 font-medium">
                 <span className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#548cac]" />
                   1:00 – 4:30 P.M. CT &nbsp;|&nbsp; ProPEL Research Symposium
@@ -325,7 +325,7 @@ export default function ProPELPage() {
       </section>
 
       {/* ── MODULE 1 — Introduction ──────────────────────────── */}
-      <section ref={introRef} className="py-10 md:py-32 bg-white">
+      <section ref={introRef} className="py-10 md:py-24 bg-white">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={introInView ? { opacity: 1, y: 0 } : {}}
@@ -395,7 +395,7 @@ export default function ProPELPage() {
       {/* ── MODULE 2 — Why Attend ────────────────────────────── */}
       <section
         ref={whyRef}
-        className="py-10 md:py-32 bg-gradient-to-b from-neutral-50 to-white"
+        className="py-10 md:py-24 bg-gradient-to-b from-neutral-50 to-white"
       >
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -490,7 +490,7 @@ export default function ProPELPage() {
       </section>
 
       {/* ── MODULE 3 — Areas of Focus ────────────────────────── */}
-      <section ref={focusRef} className="py-10 md:py-32 bg-white">
+      <section ref={focusRef} className="py-10 md:py-24 bg-white">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={focusInView ? { opacity: 1, y: 0 } : {}}
