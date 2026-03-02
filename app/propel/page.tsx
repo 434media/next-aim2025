@@ -121,7 +121,7 @@ function CTAButtons() {
           <ArrowUpRight className="size-4" />
         </motion.button>
       </Link>
-      <Link href="/posters">
+      <Link href="https://utsaresearch.infoready4.com/#freeformCompetitionDetail/2003650">
         <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
@@ -233,11 +233,9 @@ export default function ProPELPage() {
   return (
     <main className="min-dvh bg-white text-neutral-900">
       {/* ── HERO ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-white pt-28 sm:pt-36 pb-20 md:pb-28">
-        {/* Subtle background glow */}
-
-        <div className="relative z-10 mx-auto max-w-4xl px-6 lg:px-8">
-          <div className="flex flex-col items-center text-center space-y-8">
+      <section className="relative overflow-hidden bg-white pt-24 sm:pt-28 pb-12 md:pb-16 min-h-[calc(100dvh-4rem)] flex items-center">
+        <div className="relative z-10 mx-auto max-w-3xl px-6 lg:px-8 w-full">
+          <div className="flex flex-col items-center text-center gap-6 md:gap-7">
             {/* Logo */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -247,68 +245,67 @@ export default function ProPELPage() {
               <Image
                 src={images.logo}
                 alt="ProPEL 2026 – Promoting Professional Engagement Among Military Laboratories"
-                width={200}
-                height={200}
+                width={140}
+                height={140}
                 className="mx-auto"
                 priority
               />
             </motion.div>
 
-            {/* Title */}
+            {/* Title block */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: [0.4, 0, 0.2, 1] }}
-              className="space-y-5"
+              className="space-y-3"
             >
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[0.9] text-neutral-900">
+              <h1 className="text-balance text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[0.92] text-neutral-900">
                 Maximize Your{" "}
                 <span className="text-[#548cac]">AIM</span>{" "}
                 Experience!
               </h1>
 
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 1, delay: 0.5, ease: [0.4, 0, 0.2, 1] }}
-                className="w-24 h-px bg-gradient-to-r from-transparent via-[#548cac] to-transparent mx-auto"
-              />
-
-              <p className="text-lg md:text-xl text-neutral-600 leading-relaxed max-w-2xl mx-auto">
+              <p className="text-balance text-base sm:text-lg text-neutral-500 leading-relaxed max-w-xl mx-auto font-medium">
                 Come Early for ProPEL 2026 and Stick Around for Our AIM Welcome
                 Reception
               </p>
-
-              <p className="text-sm md:text-base text-[#548cac] font-semibold tracking-wide">
-                Presented by DHA Research &amp; Engineering
-              </p>
             </motion.div>
 
-            {/* Event meta */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="space-y-3"
+            {/* Presented by */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.35 }}
+              className="text-xs sm:text-sm text-[#548cac] font-bold tracking-[0.15em] uppercase"
             >
-              <div className="inline-flex flex-col sm:flex-row items-center gap-3 sm:gap-6 text-sm text-neutral-500 font-medium tracking-wide">
-                <span className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-[#548cac]" />
+              Presented by DHA Research &amp; Engineering
+            </motion.p>
+
+            {/* Event meta — compact pills */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="space-y-2"
+            >
+              <div className="inline-flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm text-neutral-500 font-medium">
+                <span className="flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-[#548cac]" />
                   VelocityTX
                 </span>
-                <span className="hidden sm:block w-px h-4 bg-neutral-300" />
-                <span className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-[#548cac]" />
+                <span className="w-px h-3.5 bg-neutral-300 hidden sm:block" />
+                <span className="flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-[#548cac]" />
                   May 18, 2026
                 </span>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 text-sm text-neutral-400 font-medium">
-                <span className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-5 text-xs sm:text-sm text-neutral-400 font-medium">
+                <span className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#548cac]" />
                   1:00 – 4:30 P.M. CT &nbsp;|&nbsp; ProPEL Research Symposium
                 </span>
-                <span className="flex items-center gap-2">
+                <span className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
                   4:30 – 6:00 P.M. CT &nbsp;|&nbsp; AIM Welcome Reception
                 </span>
@@ -317,9 +314,9 @@ export default function ProPELPage() {
 
             {/* CTA */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.6 }}
+              transition={{ duration: 0.6, delay: 0.55 }}
             >
               <CTAButtons />
             </motion.div>
@@ -328,7 +325,7 @@ export default function ProPELPage() {
       </section>
 
       {/* ── MODULE 1 — Introduction ──────────────────────────── */}
-      <section ref={introRef} className="py-24 md:py-32 bg-white">
+      <section ref={introRef} className="py-10 md:py-32 bg-white">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={introInView ? { opacity: 1, y: 0 } : {}}
@@ -398,7 +395,7 @@ export default function ProPELPage() {
       {/* ── MODULE 2 — Why Attend ────────────────────────────── */}
       <section
         ref={whyRef}
-        className="py-24 md:py-32 bg-gradient-to-b from-neutral-50 to-white"
+        className="py-10 md:py-32 bg-gradient-to-b from-neutral-50 to-white"
       >
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -493,7 +490,7 @@ export default function ProPELPage() {
       </section>
 
       {/* ── MODULE 3 — Areas of Focus ────────────────────────── */}
-      <section ref={focusRef} className="py-24 md:py-32 bg-white">
+      <section ref={focusRef} className="py-10 md:py-32 bg-white">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={focusInView ? { opacity: 1, y: 0 } : {}}
@@ -541,7 +538,7 @@ export default function ProPELPage() {
       {/* ── FOOTER — Hosted by DHA ────────────────────────────── */}
       <section
         ref={footerRef}
-        className="py-20 md:py-28 bg-gradient-to-b from-white to-neutral-50"
+        className="pb-20 bg-gradient-to-b from-white to-neutral-50"
       >
         <motion.div
           initial={{ opacity: 0 }}
