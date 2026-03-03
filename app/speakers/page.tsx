@@ -6,15 +6,20 @@ import WhovaSpeakersEmbed from "../../components/WhovaSpeakersEmbed"
 import { EditableText } from "../../components/admin/EditableText"
 
 export const metadata: Metadata = {
-  title: "Speakers | AIM Health R&D Summit",
-  description: "Meet the thought leaders, innovators, and experts who will be speaking at the AIM Health R&D Summit.",
+  title: "Speakers",
+  description:
+    "Meet the thought leaders, innovators, and experts driving military health R&D forward at the AIM Health R&D Summit in San Antonio.",
   openGraph: {
-    title: "Speakers | AIM Health R&D Summit",
-    description: "Meet the thought leaders, innovators, and experts who will be speaking at the AIM Health R&D Summit.",
+    title: "Summit Speakers | AIM Health R&D Summit",
+    description:
+      "Meet the thought leaders, innovators, and experts driving military health R&D forward.",
     url: "/speakers",
     type: "website",
     siteName: "AIM Health R&D Summit",
     locale: "en_US",
+  },
+  alternates: {
+    canonical: "/speakers",
   },
 }
 

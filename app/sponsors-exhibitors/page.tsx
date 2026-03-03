@@ -29,7 +29,7 @@ const sponsors: Sponsor[] = [
     id: "mtec",
     name: "Medical Technology Enterprise Consortium (MTEC)",
     tier: "ecosystem",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/mtec.svg",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/mtec.svg",
     description:
       "The Medical Technology Enterprise Consortium (MTEC) is a 501(c)(3) biomedical technology consortium that accelerates the development of medical solutions that prevent and treat injuries and restore America's military and civilians to full health. MTEC serves as a collaborative partner with the Department of Defense to address military medical needs and enhance medical capabilities.",
     website: "https://mtec-sc.org/",
@@ -42,7 +42,7 @@ const sponsors: Sponsor[] = [
     id: "swri",
     name: "Southwest Research Institute",
     tier: "innovator",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/Southwest_Research_Institute_SwRi.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Sponsor%20Logos/Southwest_Research_Institute_SwRi.png",
     description:
       "Southwest Research Institute (SwRI) is an independent, nonprofit applied research and development organization. The staff of nearly 3,000 specializes in the creation and transfer of technology in engineering and the physical sciences.",
     website: "https://www.swri.org/",
@@ -53,7 +53,7 @@ const sponsors: Sponsor[] = [
     id: "metis",
     name: "The Metis Foundation",
     tier: "innovator",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/High+resolution%2C+no+background+logo.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Sponsor%20Logos/High%20resolution%2C%20no%20background%20logo.png",
     description:
       "The Metis Foundation is dedicated to advancing military medicine through research, education, and innovation. They support critical research initiatives that improve care for service members and veterans.",
     website: "https://metisfoundation.org/",
@@ -64,7 +64,7 @@ const sponsors: Sponsor[] = [
     id: "trc4",
     name: "TRC4",
     tier: "innovator",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/TRC4+UT+System+Logo.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/TRC4%20UT%20System%20Logo.png",
     description:
       "TRC4 (Translational Research Consortium for TBI) is dedicated to advancing research and treatments for traumatic brain injuries through collaborative efforts across institutions.",
     website: "https://trc4.org/",
@@ -75,7 +75,7 @@ const sponsors: Sponsor[] = [
     id: "texasbiomed",
     name: "Texas Biomedical Research Institute",
     tier: "innovator",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/Texas+Texas+Biomedical+without+slogan+541+blue+%2B+124+yellow+logo-2025.jpg",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Sponsor%20Logos/Texas%20Texas%20Biomedical%20without%20slogan%20541%20blue%20%2B%20124%20yellow%20logo-2025.jpg",
     description:
       "Texas Biomedical Research Institute is a nonprofit research institution dedicated to advancing human health through innovative biomedical research. They focus on infectious diseases, genetics, and other critical health challenges.",
     website: "https://www.txbiomed.org/",
@@ -86,7 +86,7 @@ const sponsors: Sponsor[] = [
     id: "universityhealth",
     name: "University Health",
     tier: "innovator",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Foundation+Logo.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Foundation%20Logo.png",
     description:
       "University Health is a leading academic medical center in San Antonio, Texas, providing comprehensive healthcare services and advancing medical education and research.",
     website: "https://www.universityhealth.com/",
@@ -97,7 +97,7 @@ const sponsors: Sponsor[] = [
     id: "samedfoundation",
     name: "San Antonio Medical Foundation",
     tier: "innovator",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/sa-med-foundation-logo.svg",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/sa-med-foundation-logo.svg",
     description:
       "The San Antonio Medical Foundation is a nonprofit organization that supports medical research and education in the San Antonio area. They promote collaboration between academia, industry, and government to advance healthcare innovation.",
     website: "https://www.samedfoundation.org/",
@@ -110,7 +110,7 @@ const sponsors: Sponsor[] = [
     id: "designplex",
     name: "DesignPlex",
     tier: "catalyst",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/designplex.webp",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/designplex.webp",
     description:
       "At DesignPlex, we specialize in the prototyping, design development, and contract manufacturing of medical devices. Whether you have an idea for a new product, redesign of an existing product, or looking for a new CM for your Class 2 or 3 medical device, we are here to help you!",
     website: "https://designplexbio.com/",
@@ -121,7 +121,7 @@ const sponsors: Sponsor[] = [
     id: "satop",
     name: "SATOP",
     tier: "catalyst",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/satop+(1).png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/satop%20(1).png",
     description:
       "SATOP (Space Alliance Technology Outreach Program) provides technical assistance to small businesses by leveraging the expertise and capabilities of the aerospace industry.",
     website: "https://spacetechsolutions.com/",
@@ -132,7 +132,7 @@ const sponsors: Sponsor[] = [
     id: "articulatelabs",
     name: "Articulate Labs",
     tier: "catalyst",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/al-logo.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/al-logo.png",
     description:
       "Articulate Labs is a leading provider of advanced simulation and training solutions for military and healthcare applications. They focus on enhancing skills and performance through innovative technology.",
     website: "https://articulatelabs.com/",
@@ -143,7 +143,7 @@ const sponsors: Sponsor[] = [
     id: "stembiosys",
     name: "StemBioSys",
     tier: "catalyst",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/stembiosys.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/stembiosys.png",
     description:
       "StemBioSys is a biotechnology company focused on developing advanced stem cell technologies for regenerative medicine and drug discovery.",
     website: "https://www.stembiosys.com/",
@@ -154,7 +154,7 @@ const sponsors: Sponsor[] = [
     id: "sbiradvisors",
     name: "SBIR Advisors",
     tier: "catalyst",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/sbiradvisors.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/sbiradvisors.png",
     description: "Helping companies navigate SBIR/STTR funding opportunities",
     website: "https://www.sbiradvisors.com/",
     industry: "Funding & Grants",
@@ -164,7 +164,7 @@ const sponsors: Sponsor[] = [
     id: "audicin",
     name: "Audicin",
     tier: "catalyst",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/HorizontalLogo_Audicin-02.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/HorizontalLogo_Audicin-02.png",
     description:
       "Audicin is a neurowellness technology company delivering audio solutions to enhance focus, recovery, and sleep for active duty service members and veterans. Engineered for operational demands and post-service care for PTSD, Audicin supports cognitive readiness, stress regulation, and long-term resilience through mission-tested sound therapy.",
     website: "https://www.audicin.com/",
@@ -175,7 +175,7 @@ const sponsors: Sponsor[] = [
     id: "documation",
     name: "Documation",
     tier: "catalyst",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/DOCUmation+logo.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/DOCUmation%20logo.png",
     description:
       "From HQ to home office, stay connected with our trusted Unified Communications (UCaaS) solutions, backed by VoIP technology. Bring your phone systems, team chat, video meetings, and transcribed voicemails together in one seamless platform. Whether you're scaling up or supporting remote work, you deserve communication tools you can count on.",
     website: "https://www.mation.com/",
@@ -186,7 +186,7 @@ const sponsors: Sponsor[] = [
     id: "corcept-therapeutics",
     name: "Corcept Therapeutics",
     tier: "catalyst",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Corcept_logo_new_black.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Corcept_logo_new_black.png",
     description: "A global network of dedicated hands and minds focused on unlocking the possibilities of cortisol modulation to revolutionize the treatment of serious diseases. We are the ripples of change in cortisol modulation and we embrace possibility.",
     website: "https://www.corcept.com/",
     industry: "Pharmaceuticals & Biotechnology",
@@ -196,7 +196,7 @@ const sponsors: Sponsor[] = [
     id: "geneva-foundation",
     name: "The Geneva Foundation",
     tier: "catalyst",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/geneva.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/geneva.png",
     description:
       "The Geneva Foundation is a nonprofit organization that supports military medicine research and education. They collaborate with various institutions to advance healthcare solutions for service members and veterans.",
     website: "https://genevausa.org/",
@@ -209,7 +209,7 @@ const sponsors: Sponsor[] = [
     id: "cosa",
     name: "City of San Antonio",
     tier: "partner",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/cosa_quatrefoil_texas_k.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Sponsor%20Logos/cosa_quatrefoil_texas_k.png",
     description:
       "The City of San Antonio is committed to fostering innovation and economic development in the region. They support initiatives that enhance the quality of life for residents and promote business growth.",
     website: "https://www.sanantonio.gov/",
@@ -220,7 +220,7 @@ const sponsors: Sponsor[] = [
     id: "velocitytx",
     name: "VelocityTX",
     tier: "partner",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/VelocityTX+Logo+BUTTON+RGB.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Sponsor%20Logos/VelocityTX%20Logo%20BUTTON%20RGB.png",
     description:
       "VelocityTX is an innovation center that accelerates the growth of bioscience and healthcare companies through mentorship, funding connections, and collaborative workspace.",
     website: "https://velocitytx.org/",
@@ -231,7 +231,7 @@ const sponsors: Sponsor[] = [
     id: "utsa",
     name: "The University of Texas at San Antonio",
     tier: "partner",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/utsa-wordmark.svg",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/utsa-wordmark.svg",
     description:
       "The University of Texas at San Antonio (UTSA) is a leading research university dedicated to advancing knowledge and innovation in various fields, including health and engineering.",
     website: "https://www.utsa.edu/",
@@ -242,7 +242,7 @@ const sponsors: Sponsor[] = [
     id: "uthscsa",
     name: "UT Health San Antonio",
     tier: "partner",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/UTHSA_logo.svg",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/UTHSA_logo.svg",
     description:
       "UT Health San Antonio is a premier academic health center dedicated to improving health through education, research, and patient care. They focus on advancing medical knowledge and healthcare delivery.",
     website: "https://www.uthscsa.edu/",
@@ -253,7 +253,7 @@ const sponsors: Sponsor[] = [
     id: "dha",
     name: "Defense Health Agency",
     tier: "partner",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/dha_logo.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Sponsor%20Logos/dha_logo.png",
     description:
       "The Defense Health Agency (DHA) is responsible for providing high-quality healthcare to military personnel and their families. They focus on improving health outcomes through innovative research and collaboration.",
     website: "https://health.mil/",
@@ -264,7 +264,7 @@ const sponsors: Sponsor[] = [
     id: "usaisr",
     name: "U.S. Army Institute of Surgical Research",
     tier: "partner",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/USAISR_LOGO_HI_RES+blank+background+black+and+white.jpg",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Sponsor%20Logos/USAISR_LOGO_HI_RES%20blank%20background%20black%20and%20white.jpg",
     description:
       "The U.S. Army Institute of Surgical Research (USAISR) is dedicated to advancing surgical care and trauma research for military personnel. They focus on improving outcomes through innovative research and technology.",
     website: "https://usaisr.amedd.army.mil/",
@@ -275,7 +275,7 @@ const sponsors: Sponsor[] = [
     id: "namru",
     name: "Naval Medical Research Unit San Antonio",
     tier: "partner",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/namru.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Sponsor%20Logos/namru.png",
     description:
       "The Naval Medical Research Unit San Antonio (NAMRU-SA) conducts research to enhance the health and readiness of naval forces. They focus on infectious diseases, trauma, and operational medicine.",
     website: "https://www.med.navy.mil/Naval-Medical-Research-Center/",
@@ -286,7 +286,7 @@ const sponsors: Sponsor[] = [
     id: "59th",
     name: "59th Medical Wing",
     tier: "partner",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/59th_Medical_Wing.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Sponsor%20Logos/59th_Medical_Wing.png",
     description:
       "The 59th Medical Wing is the largest medical wing in the Air Force, providing comprehensive healthcare services and advancing medical education and research.",
     website: "https://www.59mdw.af.mil/",
@@ -297,7 +297,7 @@ const sponsors: Sponsor[] = [
     id: "va",
     name: "U.S. Department of Veterans Affairs",
     tier: "partner",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Logotype-on-Light.svg",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Logotype-on-Light.svg",
     description:
       "The U.S. Department of Veterans Affairs (VA) is committed to providing high-quality healthcare and support services to veterans. They focus on improving health outcomes and enhancing the quality of life for veterans.",
     website: "https://www.va.gov/",
@@ -308,7 +308,7 @@ const sponsors: Sponsor[] = [
     id: "bamc",
     name: "Brooke Army Medical Center",
     tier: "partner",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/bamc.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/bamc.png",
     description:
       "Brooke Army Medical Center (BAMC) is the largest military medical center in the U.S., providing comprehensive healthcare services and advancing medical research and education.",
     website: "https://bamc.tricare.mil/",
@@ -319,7 +319,7 @@ const sponsors: Sponsor[] = [
     id: "711th-human-performance-wing",
     name: "711th Human Performance Wing",
     tier: "partner",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/711+(1).png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Sponsor%20Logos/711%20(1).png",
     description:
       "The 711th Human Performance Wing is dedicated to enhancing the performance and readiness of military personnel through research and innovation in human factors, training, and technology.",
     website: "https://www.afrl.af.mil/711HPW/",
@@ -332,7 +332,7 @@ const sponsors: Sponsor[] = [
     id: "434media",
     name: "434 Media",
     tier: "collaborator",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/434media.svg",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/434media.svg",
     description:
       "434 Media partners with venture capital firms, accelerators, startups, and industry leaders to create bold, strategic content that delivers results.",
     website: "https://434media.com/",

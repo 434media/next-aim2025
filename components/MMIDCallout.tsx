@@ -20,7 +20,7 @@ export default function MMIDCallout() {
           >
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
               <Image
-                src="https://ampd-asset.s3.us-east-2.amazonaws.com/5-2-2023_mmid-7.jpg"
+                src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/preaimweb-20.jpg"
                 alt="Military Medical Industry Days (MMID) webinar session participants"
                 fill
                 className="object-cover"

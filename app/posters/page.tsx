@@ -4,8 +4,19 @@ import SurfHero2025 from "./SurfHero2025"
 import SurfPresentersSection from "./SurfPresentersSection"
 
 export const metadata: Metadata = {
-  title: "Posters | AIM Health R&D Summit",
-  description: "San Antonio Military Health and Universities Research Forum (SURF) - 2025 Poster Presenters",
+  title: "SURF Poster Presentations",
+  description:
+    "San Antonio Military Health & Universities Research Forum (SURF) — browse poster presenters, research abstracts, and scientific innovations at the AIM Health R&D Summit.",
+  openGraph: {
+    title: "SURF Poster Presentations | AIM Health R&D Summit",
+    description:
+      "Browse SURF poster presenters and research abstracts from the AIM Health R&D Summit.",
+    url: "/posters",
+    type: "website",
+  },
+  alternates: {
+    canonical: "/posters",
+  },
 }
 
 export default function SurfPage() {

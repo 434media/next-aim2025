@@ -311,7 +311,7 @@ export default function KeynoteNomination() {
             <div className="relative mb-8">
               <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden bg-gray-100">
                 <img
-                  src="https://ampd-asset.s3.us-east-2.amazonaws.com/0P3A0007.jpg"
+                  src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/0P3A0007.jpg"
                   alt="Keynote speaker presenting to audience"
                   className="h-full w-full object-cover"
                 />

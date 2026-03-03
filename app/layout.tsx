@@ -19,7 +19,22 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  keywords: ["Military Health", "Research & Development", "Innovation", "Collaboration"],
+  keywords: [
+    "Military Health",
+    "Research & Development",
+    "Innovation",
+    "Collaboration",
+    "AIM Summit",
+    "San Antonio",
+    "Defense Health",
+    "Medical Innovation",
+    "DOD Research",
+    "VA Health",
+    "Health Technology",
+    "Cross-Sector Collaboration",
+    "Biomedical Research",
+    "Military Medicine",
+  ],
   authors: [
     {
       name: "AIM Health R&D Summit",
@@ -27,6 +42,8 @@ export const metadata: Metadata = {
     },
   ],
   creator: "AIM Health R&D Summit",
+  publisher: "AIM Health R&D Summit",
+  category: "Health & Science",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -52,12 +69,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+  alternates: {
+    canonical: siteConfig.url,
   },
-  manifest: "/site.webmanifest",
 }
 
 export default function RootLayout({

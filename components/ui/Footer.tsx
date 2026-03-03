@@ -116,7 +116,7 @@ export default function Footer() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `url('https://ampd-asset.s3.us-east-2.amazonaws.com/434MediaICONWHITE.png')`,
+            backgroundImage: `url('https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/434MediaICONWHITE.png')`,
             backgroundSize: "100px",
             backgroundRepeat: "repeat",
           }}

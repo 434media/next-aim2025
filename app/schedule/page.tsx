@@ -8,15 +8,18 @@ import { ScheduleHero } from "../../components/ScheduleHero"
 import WhovaEmbed from "../../components/WhovaEmbed"
 
 export const metadata: Metadata = {
-  title: "Schedule | AIM Health R&D Summit",
+  title: "Schedule",
   description:
-    "View the complete schedule for the AIM Health R&D Summit, including keynotes, panels, workshops, and networking events.",
+    "View the complete schedule for the AIM Health R&D Summit, including keynotes, panels, workshops, poster sessions, and networking events in San Antonio.",
   openGraph: {
-    title: "Schedule | AIM Health R&D Summit",
+    title: "Summit Schedule | AIM Health R&D Summit",
     description:
-      "View the complete schedule for the AIM Health R&D Summit, including keynotes, panels, workshops, and networking events.",
-    url: `/schedule`,
+      "Complete agenda: keynotes, panels, workshops, and networking events at the AIM Health R&D Summit.",
+    url: "/schedule",
     type: "website",
+  },
+  alternates: {
+    canonical: "/schedule",
   },
 }
 
@@ -103,7 +106,7 @@ export default function AgendaPage() {
               <div className="mb-8 flex justify-center">
                 <div className="inline-flex items-center rounded-full bg-[#548cac]/10 px-6 py-2 text-sm font-medium text-[#548cac] ring-1 ring-[#548cac]/20">
                   <Image
-                    src="https://ampd-asset.s3.us-east-2.amazonaws.com/whova-logo-white.png"
+                    src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/whova-logo-white.png"
                     alt="Whova"
                     width={80}
                     height={20}

@@ -49,9 +49,12 @@ export function useSiteText(options: UseSiteTextOptions = {}): UseSiteTextResult
                 }
 
                 const response = await fetch(`/api/admin/site-text?${params.toString()}`)
-                
+
                 if (!response.ok) {
-                    throw new Error("Failed to fetch site text")
+                    // If the API is unavailable (e.g. Firebase not configured), silently fall back to defaults
+                    console.warn("[useSiteText] API returned", response.status, "- using fallback text")
+                    cacheInitialized = true
+                    return
                 }
 
                 const data = await response.json()

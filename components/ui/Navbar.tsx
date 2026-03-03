@@ -334,7 +334,7 @@ export default function NavBar() {
                     <div className="flex flex-col lg:flex-row items-center lg:items-start space-y-6 lg:space-y-0 lg:space-x-0">
                       <div className="flex-shrink-0">
                         <img
-                          src="https://ampd-asset.s3.us-east-2.amazonaws.com/aim-white-2026.png"
+                          src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/aim-white-2026.png"
                           alt="AIM 2026 Logo"
                           className="h-40 md:h-60 w-auto"
                         />

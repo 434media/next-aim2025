@@ -56,10 +56,10 @@ const symposiums: Symposium[] = [
     registerLink:
       "https://www.eventbrite.com/e/pathways-to-commercialization-leveraging-federal-private-sector-funding-tickets-1238030736259",
     completed: true,
-    slideDeckUrl: "https://ampd-asset.s3.us-east-2.amazonaws.com/19MAY2025_PCS3_distro.pdf",
+    slideDeckUrl: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/19MAY2025_PCS3_distro.pdf",
     videoComingSoon: false,
     videoUrl: "/video-player?title=Pathways%20to%20Commercialization&comingSoon=true",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+Commercialization.png",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/AIM%20Commercialization.png",
   },
   {
     title: "Pathways to Innovation: Navigating Medical IP with the Federal Government",
@@ -70,11 +70,11 @@ const symposiums: Symposium[] = [
     speakers: [],
     registerLink:
       "https://www.eventbrite.com/e/pathways-to-innovation-navigating-medical-ip-with-the-federal-government-tickets-1237932362019",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+28.png",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/AIM%2028.png",
     completed: true,
-    slideDeckUrl: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM_PreWebinar+%232+Slide+Deck.pdf",
+    slideDeckUrl: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/AIM_PreWebinar%20%232%20Slide%20Deck.pdf",
     recordingUrl:
-      "https://ampd-asset.s3.us-east-2.amazonaws.com/Pre-AIM+webinar+Link-20250421_115509-Meeting+Recording.mp4",
+      "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Pre-AIM%20webinar%20Link-20250421_115509-Meeting%20Recording.mp4",
     videoDuration: "64 minutes",
   },
   {
@@ -86,7 +86,7 @@ const symposiums: Symposium[] = [
     speakers: [],
     registerLink: "https://www.eventbrite.com/e/sneak-preview-aim-2025-sme-encounter-sessions-tickets-1234940392959",
     completed: true,
-    slideDeckUrl: "https://ampd-asset.s3.us-east-2.amazonaws.com/Intro+to+AIM+Encounter+Sessions+(Mar+2025)+ver3.pdf",
+    slideDeckUrl: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Intro%20to%20AIM%20Encounter%20Sessions%20(Mar%202025)%20ver3.pdf",
   },
 ]
 
@@ -169,7 +169,7 @@ export default function PreConferenceSymposiums() {
             >
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  src="https://ampd-asset.s3.us-east-2.amazonaws.com/preaimweb-23.jpg"
+                  src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/preaimweb-23.jpg"
                   alt="Pre-conference symposium participants engaging in collaborative discussion"
                   fill
                   className="object-cover"

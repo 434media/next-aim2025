@@ -54,7 +54,7 @@ export default function VenueCTA() {
       <div className="absolute inset-0">
         <Image
           alt="Medical research background"
-          src="https://ampd-asset.s3.us-east-2.amazonaws.com/milcityusa-2-testimonial.png"
+          src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/milcityusa-2-testimonial.png"
           fill
           sizes="100vw"
           className="object-cover"
@@ -112,12 +112,12 @@ export default function VenueCTA() {
             <div className="relative aspect-video rounded-lg overflow-hidden shadow-lg">
               <video
                 ref={videoRef}
-                src="https://ampd-asset.s3.us-east-2.amazonaws.com/1080p.mp4"
+                src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/1080p.mp4"
                 loop
                 muted
                 playsInline
                 className="object-cover w-full h-full"
-                poster="https://ampd-asset.s3.us-east-2.amazonaws.com/Cantilever-Room2.jpg"
+                poster="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Cantilever-Room2.jpg"
               />
               <button
                 className="absolute bottom-4 right-4 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-colors"

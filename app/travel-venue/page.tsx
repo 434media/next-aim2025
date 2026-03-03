@@ -93,12 +93,12 @@ export default function TravelVenue() {
               <div className="relative aspect-[4/5] lg:aspect-[3/4] w-full">
                 <video
                   ref={videoRef}
-                  src="https://ampd-asset.s3.us-east-2.amazonaws.com/1080p.mp4"
+                  src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/1080p.mp4"
                   loop
                   muted
                   playsInline
                   className="object-cover w-full h-full"
-                  poster="https://ampd-asset.s3.us-east-2.amazonaws.com/convention-poster.png"
+                  poster="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/convention-poster.png"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
@@ -152,7 +152,7 @@ export default function TravelVenue() {
                 className="block relative aspect-video w-full group"
               >
                 <Image
-                  src="https://ampd-asset.s3.us-east-2.amazonaws.com/river.jpg"
+                  src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/river.jpg"
                   alt="San Antonio River Walk"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -189,7 +189,7 @@ export default function TravelVenue() {
                 className="block relative aspect-video w-full group"
               >
                 <Image
-                  src="https://ampd-asset.s3.us-east-2.amazonaws.com/cosa.png"
+                  src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/cosa.png"
                   alt="San Antonio cityscape"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"

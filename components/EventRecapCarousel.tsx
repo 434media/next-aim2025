@@ -8,15 +8,15 @@ import { cn } from "../lib/utils"
 
 const eventImages = [
   {
-    url: "https://ampd-asset.s3.us-east-2.amazonaws.com/recap-poster-group",
+    url: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/recap-poster-group",
     title: "AIM'25 Recap",
     subtitle: "The future of military medicine starts now",
     buttonText: "Watch AIM'25 Video",
     action: "video" as const,
-    videoUrl: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM-V6.mp4"
+    videoUrl: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/AIM2025%20Long%20Form%20Recap_Final%20Approved.mp4"
   },
   {
-    url: "https://ampd-asset.s3.us-east-2.amazonaws.com/keynote.jpeg",
+    url: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/keynote.jpeg",
     title: "Leaders Shaping Tomorrow",
     subtitle: "Across military defense and civilian sectors",
     buttonText: "View AIM'25 Speakers",
@@ -24,7 +24,7 @@ const eventImages = [
     link: "/speakers"
   },
   {
-    url: "https://ampd-asset.s3.us-east-2.amazonaws.com/posters.jpg",
+    url: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/posters.jpg",
     title: "Poster Presenters",
     subtitle: "Bringing together military and civilian researchers",
     buttonText: "Browse AIM'25 Posters",
@@ -32,7 +32,7 @@ const eventImages = [
     link: "/posters"
   },
   {
-    url: "https://ampd-asset.s3.us-east-2.amazonaws.com/preaimweb-20.jpg",
+    url: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/preaimweb-20.jpg",
     title: "Pre-Conference Symposiums",
     subtitle: "Focused sessions with deep insights into military healthcare innovation",
     buttonText: "View AIM'25 Sessions",
@@ -40,7 +40,7 @@ const eventImages = [
     link: "/pre-conference-symposiums"
   },
   {
-    url: "https://ampd-asset.s3.us-east-2.amazonaws.com/collab3.jpeg",
+    url: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/collab3.jpeg",
     title: "Powered by Innovation",
     subtitle: "Our success is built on the foundation of strategic partnerships",
     buttonText: "Get Involved",
@@ -664,7 +664,7 @@ export function EventRecapCarousel() {
                     autoPlay
                     preload="metadata"
                     onError={handleVideoError}
-                    poster="https://ampd-asset.s3.us-east-2.amazonaws.com/recap+poster.png"
+                    poster="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/recap%20poster.png"
                   >
                     <source src={currentVideoUrl} type="video/mp4" />
                     <p className="text-white p-4">

@@ -2,10 +2,10 @@ import { type NextRequest, NextResponse } from "next/server"
 
 // PDF mapping - in production, this could come from a database
 const pdfMappings: Record<string, string> = {
-  "surf-2023": "https://ampd-asset.s3.us-east-2.amazonaws.com/SURF-Program_2023_Final_6.1.23_v1.pdf",
-  "surf-2021": "https://ampd-asset.s3.us-east-2.amazonaws.com/SURF-2021_Program.pdf",
+  "surf-2023": "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/SURF-Program_2023_Final_6.1.23_v1.pdf",
+  "surf-2021": "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/SURF-2021_Program.pdf",
   "surf-2025-presenters":
-    "https://ampd-asset.s3.us-east-2.amazonaws.com/List+of+AIM_SURF+Poster+Presentations.pdf",
+    "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/List%20of%20AIM_SURF%20Poster%20Presentations.pdf",
 }
 
 export async function GET(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {

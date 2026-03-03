@@ -22,7 +22,7 @@ export const HeroVideo = React.memo(() => {
         loop
         playsInline
         preload="metadata"
-        poster="https://ampd-asset.s3.us-east-2.amazonaws.com/aimhero-short.png"
+        poster="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/aimhero-short.png"
         aria-label="AIM Summit promotional video"
         style={{
           willChange: "transform",
@@ -30,7 +30,7 @@ export const HeroVideo = React.memo(() => {
           perspective: 1000,
         }}
       >
-        <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+Cut+Down+Website.mp4" type="video/mp4" />
+        <source src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/AIM%20Cut%20Down%20Website.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
