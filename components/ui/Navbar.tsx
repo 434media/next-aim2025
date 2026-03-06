@@ -11,7 +11,7 @@ const desktopNavigationItems = [
     name: "Explore",
     isDropdown: true,
     items: [
-      { name: "ProPEL", href: "/propel" },
+      { name: "ProPEL Pre-Conference Symposium", href: "/propel" },
       { name: "Symposiums", href: "/pre-conference-symposiums" },
     ],
   },
@@ -26,7 +26,7 @@ const mobileNavigationItems = [
     name: "Explore",
     isDropdown: true,
     items: [
-      { name: "ProPEL", href: "/propel" },
+      { name: "ProPEL Pre-Conference Symposium", href: "/propel" },
       { name: "Symposiums", href: "/pre-conference-symposiums" },
     ],
   },
