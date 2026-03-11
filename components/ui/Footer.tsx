@@ -21,7 +21,6 @@ const footerSections = {
     items: [
       { label: "ProPEL Pre-Conference Symposium", href: "/propel" },
       { label: "Symposiums", href: "/pre-conference-symposiums" },
-      { label: "Events", href: "/events" },
     ],
   },
   connect: {
@@ -29,6 +28,7 @@ const footerSections = {
     items: [
       { label: "Contact Us", href: "/contact-us" },
       { label: "434 MEDIA", href: "https://www.434media.com/" },
+      { label: "Events", href: "/events" },
     ],
   },
 }

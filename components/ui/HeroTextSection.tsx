@@ -69,7 +69,7 @@ export const HeroTextSection = React.memo(() => {
     return (
       <section
         ref={containerRef}
-        className="relative overflow-hidden min-h-[85vh] bg-gradient-to-tr from-slate-900 via-neutral-950 to-black"
+        className="relative overflow-hidden min-h-[85vh] bg-linear-to-tr from-slate-900 via-neutral-950 to-black"
         aria-label="Hero text section"
       >
         {/* Skip Link */}
@@ -92,12 +92,20 @@ export const HeroTextSection = React.memo(() => {
             }}
           >
             {/* Mobile Title - Military Medicine on same line */}
-            <h1 className="text-5xl sm:text-6xl font-black leading-[0.8] tracking-tight mb-3">
+            <h1
+              className="tracking-tight mb-3"
+              style={{
+                fontSize: "clamp(2.75rem, 11vw, 3.75rem)",
+                lineHeight: 0.88,
+                fontWeight: 900,
+                letterSpacing: "-0.025em",
+              }}
+            >
               <motion.span
                 className="text-white"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1 }}
+                transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
                 <EditableText textId="hero-title-prefix" page="home" section="hero">
                   The Future of
@@ -107,7 +115,7 @@ export const HeroTextSection = React.memo(() => {
                   textId="hero-title-highlight"
                   page="home"
                   section="hero"
-                  className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent whitespace-nowrap tracking-tighter"
+                  className="bg-linear-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent whitespace-nowrap tracking-tighter"
                 >
                   Military Medicine
                 </EditableText>
@@ -116,41 +124,45 @@ export const HeroTextSection = React.memo(() => {
                   Starts
                 </EditableText>
                 {" "}
-                <AnimatePresence mode="wait">
-                  {!showWordSwitch ? (
-                    <motion.span
-                      key="here-mobile"
-                      initial={{ opacity: 1 }}
-                      exit={{ opacity: 0, rotateX: -90 }}
-                      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                    >
-                      <EditableText
-                        textId="hero-title-here"
-                        page="home"
-                        section="hero"
-                        className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent"
+                <span className="inline-block overflow-hidden align-bottom" style={{ perspective: "400px" }}>
+                  <AnimatePresence mode="wait">
+                    {!showWordSwitch ? (
+                      <motion.span
+                        key="here-mobile"
+                        className="inline-block"
+                        initial={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: "-110%" }}
+                        transition={{ duration: 0.45, ease: [0.76, 0, 0.24, 1] }}
                       >
-                        Here
-                      </EditableText>
-                    </motion.span>
-                  ) : (
-                    <motion.span
-                      key="now-mobile"
-                      initial={{ opacity: 0, rotateX: 90 }}
-                      animate={{ opacity: 1, rotateX: 0 }}
-                      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                    >
-                      <EditableText
-                        textId="hero-title-now"
-                        page="home"
-                        section="hero"
-                        className="bg-gradient-to-r from-red-400 via-orange-400 to-amber-400 bg-clip-text text-transparent"
+                        <EditableText
+                          textId="hero-title-here"
+                          page="home"
+                          section="hero"
+                          className="bg-linear-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent"
+                        >
+                          Here
+                        </EditableText>
+                      </motion.span>
+                    ) : (
+                      <motion.span
+                        key="now-mobile"
+                        className="inline-block"
+                        initial={{ opacity: 0, y: "110%" }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                       >
-                        Now
-                      </EditableText>
-                    </motion.span>
-                  )}
-                </AnimatePresence>
+                        <EditableText
+                          textId="hero-title-now"
+                          page="home"
+                          section="hero"
+                          className="bg-linear-to-r from-red-400 via-orange-400 to-amber-400 bg-clip-text text-transparent"
+                        >
+                          Now
+                        </EditableText>
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </span>
               </motion.span>
             </h1>
 
@@ -163,7 +175,15 @@ export const HeroTextSection = React.memo(() => {
                 scale: contentScale,
               }}
             >
-              <p className="mt-4 text-lg sm:text-xl font-light text-gray-200 leading-relaxed max-w-md mx-auto tracking-tight">
+              <p
+                className="mt-4 text-gray-200 max-w-md mx-auto"
+                style={{
+                  fontSize: "clamp(1rem, 4vw, 1.25rem)",
+                  lineHeight: 1.5,
+                  fontWeight: 300,
+                  letterSpacing: "-0.01em",
+                }}
+              >
                 <EditableText
                   textId="hero-main-description"
                   page="home"
@@ -180,7 +200,7 @@ export const HeroTextSection = React.memo(() => {
                   target="_blank"
                   rel="noopener noreferrer"
                   variant="primary"
-                  className="text-lg px-8 py-4 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 shadow-xl shadow-blue-500/25 border-0"
+                  className="text-lg px-8 py-4 bg-linear-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 shadow-xl shadow-blue-500/25 border-0"
                 >
                   Register Now
                   <svg className="ml-2 w-5 h-5 inline-flex" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -199,7 +219,7 @@ export const HeroTextSection = React.memo(() => {
   return (
     <section
       ref={containerRef}
-      className="relative overflow-hidden min-h-[100vh]"
+      className="relative overflow-hidden min-h-screen"
       aria-label="Hero text section"
     >
       {/* Skip Link */}
@@ -213,7 +233,7 @@ export const HeroTextSection = React.memo(() => {
 
       {/* Dynamic Background */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-tr from-slate-900 via-neutral-950 to-black"
+        className="absolute inset-0 bg-linear-to-tr from-slate-900 via-neutral-950 to-black"
         style={{ opacity: backgroundOpacity }}
       />
 
@@ -229,80 +249,88 @@ export const HeroTextSection = React.memo(() => {
         >
           {/* Main Title with Word Switch Animation */}
           <div className="relative">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-black leading-[0.85] tracking-tight mb-4">
+            <h1
+              className="tracking-tight mb-4"
+              style={{
+                fontSize: "clamp(3rem, 8.5vw, 10rem)",
+                lineHeight: 0.88,
+                fontWeight: 900,
+                letterSpacing: "-0.03em",
+              }}
+            >
               <motion.span
-                className="block mb-2 sm:mb-4 text-white"
-                initial={{ opacity: 0, y: 20 }}
+                className="block mb-2 sm:mb-3 text-white"
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1 }}
+                transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
                 <EditableText textId="hero-title-prefix" page="home" section="hero">
                   The Future of
                 </EditableText>
               </motion.span>
               <motion.span
-                className="block mb-2 sm:mb-4"
-                initial={{ opacity: 0, y: 20 }}
+                className="block mb-2 sm:mb-3"
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
+                transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
                 <EditableText
                   textId="hero-title-highlight"
                   page="home"
                   section="hero"
-                  className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent"
+                  className="bg-linear-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent"
                 >
                   Military Medicine
                 </EditableText>
               </motion.span>
               <motion.span
                 className="block text-white"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
+                transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
                 <EditableText textId="hero-title-starts" page="home" section="hero">
                   Starts
                 </EditableText>
-                <AnimatePresence mode="wait">
-                  {!showWordSwitch ? (
-                    <motion.span
-                      key="here"
-                      initial={{ opacity: 1, y: 0, rotateX: 0 }}
-                      exit={{ opacity: 0, y: -30, rotateX: -90 }}
-                      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                      className="inline-block ml-4"
-                      style={{ transformOrigin: "center bottom" }}
-                    >
-                      <EditableText
-                        textId="hero-title-here"
-                        page="home"
-                        section="hero"
-                        className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent"
+                <span className="inline-block ml-4 overflow-hidden align-bottom">
+                  <AnimatePresence mode="wait">
+                    {!showWordSwitch ? (
+                      <motion.span
+                        key="here"
+                        className="inline-block"
+                        initial={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: "-110%" }}
+                        transition={{ duration: 0.45, ease: [0.76, 0, 0.24, 1] }}
                       >
-                        Here
-                      </EditableText>
-                    </motion.span>
-                  ) : (
-                    <motion.span
-                      key="now"
-                      initial={{ opacity: 0, y: 30, rotateX: 90 }}
-                      animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                      className="inline-block ml-4"
-                      style={{ transformOrigin: "center bottom" }}
-                    >
-                      <EditableText
-                        textId="hero-title-now"
-                        page="home"
-                        section="hero"
-                        className="bg-gradient-to-r from-red-400 via-orange-400 to-amber-400 bg-clip-text text-transparent"
+                        <EditableText
+                          textId="hero-title-here"
+                          page="home"
+                          section="hero"
+                          className="bg-linear-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent"
+                        >
+                          Here
+                        </EditableText>
+                      </motion.span>
+                    ) : (
+                      <motion.span
+                        key="now"
+                        className="inline-block"
+                        initial={{ opacity: 0, y: "110%" }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                       >
-                        Now
-                      </EditableText>
-                    </motion.span>
-                  )}
-                </AnimatePresence>
+                        <EditableText
+                          textId="hero-title-now"
+                          page="home"
+                          section="hero"
+                          className="bg-linear-to-r from-red-400 via-orange-400 to-amber-400 bg-clip-text text-transparent"
+                        >
+                          Now
+                        </EditableText>
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </span>
               </motion.span>
             </h1>
           </div>
@@ -318,40 +346,49 @@ export const HeroTextSection = React.memo(() => {
           scale: contentScale,
         }}
       >
-        <div className="bg-gradient-to-b from-transparent via-slate-900/70 to-slate-900">
+        <div className="bg-linear-to-b from-transparent via-slate-900/70 to-slate-900">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-16">
             <div className="text-center max-w-4xl mx-auto">
               {/* Paragraph Text - Now Editable by Admins */}
               <motion.div
-                className="mb-12 sm:mb-16"
-                initial={{ opacity: 0, y: 30 }}
-                animate={showContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 1, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                className="mb-10 sm:mb-14"
+                initial={{ opacity: 0, y: 24 }}
+                animate={showContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+                transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
-                <EditableText
-                  textId="hero-main-description"
-                  as="p"
-                  page="home"
-                  section="hero"
-                  multiline
-                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-200 leading-relaxed tracking-tighter"
+                <div
+                  style={{
+                    fontSize: "clamp(1.125rem, 2.5vw, 2.25rem)",
+                    lineHeight: 1.35,
+                    fontWeight: 300,
+                    letterSpacing: "-0.015em",
+                  }}
                 >
-                  Join military and civilian leaders, researchers, and innovators to explore breakthrough technologies, share cutting-edge research, and forge partnerships that will transform healthcare for our service members and beyond.
-                </EditableText>
+                  <EditableText
+                    textId="hero-main-description"
+                    as="p"
+                    page="home"
+                    section="hero"
+                    multiline
+                    className="text-gray-200"
+                  >
+                    Join military and civilian leaders, researchers, and innovators to explore breakthrough technologies, share cutting-edge research, and forge partnerships that will transform healthcare for our service members and beyond.
+                  </EditableText>
+                </div>
               </motion.div>
 
               {/* Get Involved Button */}
               <motion.div
-                initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                animate={showContent ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.9 }}
-                transition={{ duration: 1, delay: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={showContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
                 <Button
                   href={"https://whova.com/portal/registration/D7sdZXdTCppF1KMzet5O/"}
                   target="_blank"
                   rel="noopener noreferrer"
                   variant="primary"
-                  className="text-xl sm:text-2xl px-12 py-6 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 shadow-2xl shadow-blue-500/25 border-0 hover:shadow-blue-500/40 transition-all duration-300"
+                  className="text-xl sm:text-2xl px-12 py-6 bg-linear-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 shadow-2xl shadow-blue-500/25 border-0 hover:shadow-blue-500/40 transition-all duration-300"
                 >
                   Register Now
                   <motion.svg
