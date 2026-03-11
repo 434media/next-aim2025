@@ -181,7 +181,7 @@ export const HeroTextSection = React.memo(() => {
                   fontSize: "clamp(1rem, 4vw, 1.25rem)",
                   lineHeight: 1.5,
                   fontWeight: 300,
-                  letterSpacing: "-0.01em",
+                  letterSpacing: "-0.057em",
                 }}
               >
                 <EditableText
@@ -190,7 +190,7 @@ export const HeroTextSection = React.memo(() => {
                   section="hero"
                   multiline
                 >
-                  Join military and civilian leaders, researchers, and innovators to explore breakthrough technologies, share cutting-edge research, and forge partnerships that will transform healthcare for our service members and beyond.
+                  Join military and civilian leaders, researchers, and innovators to explore breakthrough technologies, share cutting-edge research, and forge partnerships transforming healthcare for service members and beyond.
                 </EditableText>
               </p>
 
@@ -361,7 +361,7 @@ export const HeroTextSection = React.memo(() => {
                     fontSize: "clamp(1.125rem, 2.5vw, 2.25rem)",
                     lineHeight: 1.35,
                     fontWeight: 300,
-                    letterSpacing: "-0.015em",
+                    letterSpacing: "-0.05em",
                   }}
                 >
                   <EditableText
