@@ -2,18 +2,11 @@
 
 import { ArrowRight } from "lucide-react"
 import { motion, useInView } from "motion/react"
-import { Orbitron } from "next/font/google"
 import Image from "next/image"
 import Link from "next/link"
 import { useRef } from "react"
 import { useMediaQuery } from "../hooks/useMediaQuery"
 import { AIMLogo } from "../public/AIMLogo"
-
-const orbitron = Orbitron({
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700", "800", "900"],
-    display: "swap",
-})
 
 export function PropelCTA() {
     const isMobile = useMediaQuery("(max-width: 768px)")
@@ -34,30 +27,31 @@ export function PropelCTA() {
                         variant="white"
                         className="opacity-[0.06]"
                         style={{
-                            width: isMobile ? "80vw" : "50vw",
+                            width: isMobile ? "90vw" : "60vw",
                             height: "auto",
                         }}
                     />
                 </div>
 
-                <div className="relative z-10 px-6 sm:px-10 lg:px-16 py-16 sm:py-24 lg:py-32">
-                    <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 lg:gap-16">
+                <div className="relative z-10 px-4 sm:px-8 lg:px-12 py-8 sm:py-10 lg:py-12">
+                    <div className="mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-around gap-6">
                         {/* Left side: CEGM large typography */}
                         <motion.div
                             initial={{ opacity: 0, y: 40 }}
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-                            className="flex-1"
+                            className="min-w-0"
                         >
                             <h3
-                                className={`${orbitron.className} uppercase tracking-tight`}
+                                className="uppercase"
                                 style={{
-                                    fontSize: isMobile ? "clamp(3.5rem, 18vw, 6rem)" : "clamp(5rem, 10vw, 10rem)",
-                                    lineHeight: 0.85,
+                                    fontFamily: "'Holtzman', sans-serif",
+                                    fontSize: isMobile ? "25vw" : "12vw",
+                                    lineHeight: 0.82,
                                     color: "transparent",
-                                    WebkitTextStroke: isMobile ? "1.5px rgba(255,255,255,0.9)" : "2px rgba(255,255,255,0.9)",
+                                    WebkitTextStroke: isMobile ? "1px rgba(255,255,255,0.85)" : "1.5px rgba(255,255,255,0.85)",
                                     letterSpacing: "-0.02em",
-                                    fontWeight: 900,
+                                    fontWeight: 400,
                                 }}
                             >
                                 Come
@@ -66,7 +60,7 @@ export function PropelCTA() {
                                 <br />
                                 <span
                                     style={{
-                                        WebkitTextStroke: isMobile ? "1.5px white" : "2.5px white",
+                                        WebkitTextStroke: isMobile ? "1.5px white" : "2px white",
                                     }}
                                 >
                                     Get
@@ -76,21 +70,21 @@ export function PropelCTA() {
                             </h3>
                         </motion.div>
 
-                        {/* Right side: Maximize Your AIM Experience */}
+                        {/* Right side: Dark card with ProPEL details */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.5, delay: 0.3 }}
-                            className="flex-1 max-w-xl"
+                            className="lg:max-w-md shrink-0"
                         >
-                            <div className="bg-gray-950/70 backdrop-blur-sm rounded-2xl p-8 sm:p-10">
+                            <div className="bg-gray-950/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8">
                                 {/* ProPEL logo */}
-                                <div className="mb-6">
+                                <div className="mb-5">
                                     <Image
                                         src="/propel/propel-logo-2026.png"
                                         alt="ProPEL 2026 Logo"
-                                        width={isMobile ? 80 : 100}
-                                        height={isMobile ? 80 : 100}
+                                        width={isMobile ? 70 : 90}
+                                        height={isMobile ? 70 : 90}
                                         className="object-contain"
                                     />
                                 </div>
