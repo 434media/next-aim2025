@@ -123,7 +123,7 @@ export default function NavBar() {
               backdropFilter: `blur(${headerBlur}px)`,
             }}
           >
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#548cac]/5 via-transparent to-[#548cac]/5 opacity-0 hover:opacity-100 transition-opacity duration-700" />
+            <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-[#548cac]/5 via-transparent to-[#548cac]/5 opacity-0 hover:opacity-100 transition-opacity duration-700" />
 
             <div className="relative px-6 lg:px-8 py-4">
               <div className="flex items-center justify-between">
@@ -171,7 +171,7 @@ export default function NavBar() {
                         </motion.span>
                       </motion.p>
                       <motion.div
-                        className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#548cac] via-cyan-400 to-[#548cac] rounded-full shadow-[0_0_8px_rgba(84,140,172,0.6)]"
+                        className="absolute bottom-0 left-0 h-0.5 bg-linear-to-r from-[#548cac] via-cyan-400 to-[#548cac] rounded-full shadow-[0_0_8px_rgba(84,140,172,0.6)]"
                         initial={{ width: 0, opacity: 0 }}
                         animate={{ width: "100%", opacity: 1 }}
                         transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
@@ -221,7 +221,7 @@ export default function NavBar() {
                                   animate={{ opacity: 1, y: 0 }}
                                   exit={{ opacity: 0, y: -10 }}
                                   transition={{ duration: 0.2 }}
-                                  className="absolute top-full left-0 mt-2 min-w-[200px] bg-black/95 backdrop-blur-xl border border-white/10 rounded-lg shadow-2xl overflow-hidden"
+                                  className="absolute top-full left-0 mt-2 min-w-50 bg-black/95 backdrop-blur-xl border border-white/10 rounded-lg shadow-2xl overflow-hidden"
                                 >
                                   <div className="py-2">
                                     {item.items?.map((subItem) => (
@@ -247,7 +247,7 @@ export default function NavBar() {
                           >
                             {item.name}
                             {item.isNew && (
-                              <span className="absolute -top-2 -right-7 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2 py-0.5 rounded-full border border-white/20 whitespace-nowrap">
+                              <span className="absolute -top-2 -right-7 bg-linear-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2 py-0.5 rounded-full border border-white/20 whitespace-nowrap">
                                 NEW
                               </span>
                             )}
@@ -332,7 +332,7 @@ export default function NavBar() {
 
                   <div className="p-8">
                     <div className="flex flex-col lg:flex-row items-center lg:items-start space-y-6 lg:space-y-0 lg:space-x-0">
-                      <div className="flex-shrink-0">
+                      <div className="shrink-0">
                         <img
                           src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/aim-white-2026.png"
                           alt="AIM 2026 Logo"
@@ -360,11 +360,11 @@ export default function NavBar() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <button className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 text-white font-semibold px-8 py-3 rounded-lg shadow-xl shadow-blue-500/25 transition-all duration-300 hover:scale-105">
+                          <button className="bg-linear-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 text-white font-semibold px-8 py-3 rounded-lg shadow-xl shadow-blue-500/25 transition-all duration-300 hover:scale-105">
                             Get Tickets <ArrowUpRight className="inline size-4 ml-1" />
                           </button>
                         </a>
-                        <div className="max-w-[200px] mx-auto md:mx-0 md:text-left mt-3">
+                        <div className="max-w-50 mx-auto md:mx-0 md:text-left mt-3">
                           <span className="text-sm text-white/70">
                             Interested in sponsoring or exhibiting?{" "}
                             <Link
@@ -420,7 +420,7 @@ export default function NavBar() {
                               onClick={toggleMobileDropdown}
                               className="group w-full block px-6 py-4 hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden"
                             >
-                              <div className="absolute inset-0 bg-gradient-to-r from-[#548cac]/0 via-[#548cac]/5 to-[#548cac]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                              <div className="absolute inset-0 bg-linear-to-r from-[#548cac]/0 via-[#548cac]/5 to-[#548cac]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                               <div className="relative z-10 flex items-center justify-between">
                                 <div className="flex items-center space-x-3">
@@ -459,7 +459,7 @@ export default function NavBar() {
                                         className="group block px-10 py-3 hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden"
                                         onClick={closeMenu}
                                       >
-                                        <div className="absolute inset-0 bg-gradient-to-r from-[#548cac]/0 via-[#548cac]/5 to-[#548cac]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                        <div className="absolute inset-0 bg-linear-to-r from-[#548cac]/0 via-[#548cac]/5 to-[#548cac]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                                         <div className="relative z-10 flex items-center justify-between">
                                           <span className="text-base font-medium text-white/90 group-hover:text-[#548cac] transition-colors duration-300">
@@ -481,7 +481,7 @@ export default function NavBar() {
                             className="group block px-6 py-4 hover:bg-[#548cac]/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-inset relative overflow-hidden"
                             onClick={closeMenu}
                           >
-                            <div className="absolute inset-0 bg-gradient-to-r from-[#548cac]/0 via-[#548cac]/5 to-[#548cac]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            <div className="absolute inset-0 bg-linear-to-r from-[#548cac]/0 via-[#548cac]/5 to-[#548cac]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                             <div className="relative z-10 flex items-center justify-between">
                               <div className="flex items-center space-x-3">
@@ -489,7 +489,7 @@ export default function NavBar() {
                                   {item.name}
                                 </span>
                                 {item.isNew && (
-                                  <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2 py-0.5 rounded-full border border-white/20">
+                                  <span className="bg-linear-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2 py-0.5 rounded-full border border-white/20">
                                     NEW
                                   </span>
                                 )}

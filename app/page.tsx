@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import AIM2026Popup from "../components/AIM2026Popup"
 import { EventRecapCarousel } from "../components/EventRecapCarousel"
+import { PropelCTA } from "../components/PropelCTA"
 import { HeroTextSection } from "../components/ui/HeroTextSection"
 import { HeroVideo } from "../components/ui/HeroVideo"
 import { PartnerMarquee } from "../components/ui/PartnerMarquee"
@@ -48,14 +49,6 @@ export default function Home() {
         <HeroTextSection />
       </section>
 
-      {/* Event Recap Carousel */}
-      <section aria-labelledby="recap-heading" className="w-full py-16">
-        <h2 id="recap-heading" className="sr-only">
-          AIM 2025 Event Recap
-        </h2>
-        <EventRecapCarousel />
-      </section>
-
       {/* Partners Section */}
       <section aria-labelledby="partners-heading" className="w-full bg-white py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-4 xl:px-0">
@@ -73,6 +66,22 @@ export default function Home() {
             />
           </div>
         </div>
+      </section>
+
+      {/* ProPEL 2026 CTA */}
+      <section aria-labelledby="propel-heading" className="w-full">
+        <h2 id="propel-heading" className="sr-only">
+          ProPEL 2026 Pre-Summit Symposium
+        </h2>
+        <PropelCTA />
+      </section>
+
+      {/* Event Recap Carousel */}
+      <section aria-labelledby="recap-heading" className="w-full">
+        <h2 id="recap-heading" className="sr-only">
+          AIM 2025 Event Recap
+        </h2>
+        <EventRecapCarousel />
       </section>
     </main>
   )

@@ -109,10 +109,10 @@ export default function AIM2026Popup({ showModal, onClose }: AIM2026PopupProps) 
             <X className="h-5 w-5" />
           </button>
 
-          <div className="flex flex-col lg:flex-row min-h-[500px] md:min-h-[560px]">
+          <div className="flex flex-col lg:flex-row min-h-125 md:min-h-140">
             {/* Left Side - Visual Content */}
-            <div className="lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-sky-500 to-sky-600">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10 z-10" />
+            <div className="lg:w-1/2 relative overflow-hidden bg-linear-to-br from-sky-500 to-sky-600">
+              <div className="absolute inset-0 bg-linear-to-r from-transparent to-black/10 z-10" />
               <Image
                 src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/posters.jpg"
                 alt="AIM Health R&D Summit Collaboration"

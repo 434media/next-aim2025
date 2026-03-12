@@ -2,7 +2,6 @@
 
 import type React from "react"
 
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { motion, useAnimation, useReducedMotion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
@@ -113,12 +112,22 @@ export function PartnerMarquee({
 
   // Mobile scrollable rows layout
   if (isMobile) {
+    const mobileSpeed = speed * 0.6 // slightly slower on mobile for readability
+    const duplicatedPartners = [...partners, ...partners]
+
     return (
       <div className={`relative ${className}`}>
         {/* Header Section */}
         {showHeader && (
           <div className="text-center mt-12 px-4">
-            <h3 className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-gray-900 mb-6 leading-[0.85] tracking-tight">
+            <h3
+              className="font-black text-gray-900 mb-4 tracking-tight"
+              style={{
+                fontSize: "clamp(2.75rem, 12vw, 4.5rem)",
+                lineHeight: 0.88,
+                fontWeight: 900,
+              }}
+            >
               <EditableText textId="partners-title-prefix" page="home" section="partners">
                 Powered by
               </EditableText>
@@ -127,12 +136,19 @@ export function PartnerMarquee({
                 textId="partners-title-highlight"
                 page="home"
                 section="partners"
-                className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600"
+                className="text-transparent bg-clip-text bg-linear-to-r from-cyan-600 to-emerald-600"
               >
                 Innovation
               </EditableText>
             </h3>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed tracking-tight">
+            <p
+              className="text-gray-600 max-w-md mx-auto tracking-tight"
+              style={{
+                fontSize: "1rem",
+                lineHeight: 1.45,
+                fontWeight: 400,
+              }}
+            >
               <EditableText textId="partners-description" page="home" section="partners" multiline>
                 Our success is built on the foundation of strategic partnerships with industry leaders, research
                 institutions, and government organizations committed to advancing military medicine.
@@ -141,7 +157,7 @@ export function PartnerMarquee({
           </div>
         )}
 
-        <div className="py-8" aria-label={ariaLabel}>
+        <div className="py-6" aria-label={ariaLabel}>
           {/* Screen reader accessible list of partners */}
           <div className="sr-only">
             <span id="partners-description">List of partners:</span>
@@ -154,74 +170,64 @@ export function PartnerMarquee({
             </ul>
           </div>
 
-          {/* Mobile scrollable row - Single row to avoid duplicates */}
-          <div className="relative w-full">
-            {/* Scroll indicator - left */}
-            <div className="absolute left-2 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
-              <div className="w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center">
-                <ChevronLeft className="w-3 h-3 text-white/60" />
-              </div>
-            </div>
-
-            {/* Scroll indicator - right */}
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
-              <div className="w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center">
-                <ChevronRight className="w-3 h-3 text-white/60" />
-              </div>
-            </div>
+          {/* CSS-only marquee for mobile — GPU-accelerated, no JS overhead */}
+          <div className="relative w-full overflow-hidden">
+            {/* Edge fade gradients */}
+            <div className="absolute left-0 top-0 bottom-0 w-8 z-10 bg-linear-to-r from-white to-transparent pointer-events-none" aria-hidden="true" />
+            <div className="absolute right-0 top-0 bottom-0 w-8 z-10 bg-linear-to-l from-white to-transparent pointer-events-none" aria-hidden="true" />
 
             <div
-              className="overflow-x-auto scrollbar-hide px-8 py-2"
+              className="flex gap-5 items-center"
               style={{
-                scrollBehavior: "smooth",
-                WebkitOverflowScrolling: "touch",
+                width: "max-content",
+                animation: prefersReducedMotion
+                  ? "none"
+                  : `marquee-mobile ${duplicatedPartners.length * (100 / mobileSpeed)}s linear infinite${reverse ? " reverse" : ""}`,
+                willChange: "transform",
               }}
             >
-              <div
-                className="flex gap-4"
-                style={{
-                  width: "max-content",
-                  flexWrap: "nowrap",
-                  minWidth: "100%",
-                }}
-              >
-                {/* Show all partners with duplicates for scroll effect */}
-                {[...partners, ...partners].map((partner, idx) => (
-                  <div
-                    key={`mobile-${partner.name}-${idx}`}
-                    className="flex-shrink-0"
-                    style={{
-                      minWidth: "128px",
-                      width: "128px",
-                    }}
+              {duplicatedPartners.map((partner, idx) => (
+                <div
+                  key={`mobile-${partner.name}-${idx}`}
+                  className="shrink-0"
+                  style={{ width: "110px" }}
+                >
+                  <Link
+                    href={partner.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block h-full w-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#548cac] focus-visible:ring-offset-2 rounded-md"
+                    aria-label={`${partner.name} (opens in new tab)`}
+                    tabIndex={0}
                   >
-                    <Link
-                      href={partner.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group block h-full w-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#548cac] focus-visible:ring-offset-2 rounded-md"
-                      aria-label={`${partner.name} (opens in new tab)`}
-                      tabIndex={0}
-                    >
-                      <div className="relative h-24 w-full overflow-hidden rounded-lg border border-white/10 transform transition-transform duration-300 hover:scale-105">
-                        {/* Partner logo */}
-                        <div className="absolute inset-0 flex items-center justify-center p-3">
-                          <Image
-                            src={partner.src || "/placeholder.svg"}
-                            alt={`${partner.name} logo`}
-                            fill
-                            sizes="128px"
-                            className="object-contain p-2"
-                            loading="lazy"
-                          />
-                        </div>
+                    <div className="relative h-20 w-full overflow-hidden rounded-lg transform transition-transform duration-300 hover:scale-105">
+                      <div className="absolute inset-0 flex items-center justify-center p-2">
+                        <Image
+                          src={partner.src || "/placeholder.svg"}
+                          alt={`${partner.name} logo`}
+                          fill
+                          sizes="110px"
+                          className="object-contain p-1"
+                          loading="lazy"
+                        />
                       </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
+
+          {/* CSS keyframes injected once */}
+          <style jsx>{`
+            @keyframes marquee-mobile {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            @media (prefers-reduced-motion: reduce) {
+              .marquee-mobile { animation: none !important; }
+            }
+          `}</style>
         </div>
       </div>
     )
@@ -242,7 +248,7 @@ export function PartnerMarquee({
               textId="partners-title-highlight"
               page="home"
               section="partners"
-              className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600"
+              className="text-transparent bg-clip-text bg-linear-to-r from-cyan-600 to-emerald-600"
             >
               Innovation
             </EditableText>
@@ -281,13 +287,13 @@ export function PartnerMarquee({
         <div className="relative">
           {/* Left fade gradient */}
           <div
-            className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-white to-transparent pointer-events-none"
+            className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-linear-to-r from-white to-transparent pointer-events-none"
             aria-hidden="true"
           />
 
-          {/* Right fade gradient */}
+          {/* Right fade linear */}
           <div
-            className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-white to-transparent pointer-events-none"
+            className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-linear-to-l from-white to-transparent pointer-events-none"
             aria-hidden="true"
           />
 
@@ -300,7 +306,7 @@ export function PartnerMarquee({
                 href={partner.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex-shrink-0 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#548cac] focus-visible:ring-offset-2 rounded-md"
+                className="group relative shrink-0 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#548cac] focus-visible:ring-offset-2 rounded-md"
                 aria-label={`${partner.name} (opens in new tab)`}
                 onKeyDown={(e) => handleKeyDown(e, idx)}
                 onFocus={() => setFocusedIndex(idx)}

@@ -21,7 +21,6 @@ const footerSections = {
     items: [
       { label: "ProPEL Pre-Conference Symposium", href: "/propel" },
       { label: "Symposiums", href: "/pre-conference-symposiums" },
-      { label: "Events", href: "/events" },
     ],
   },
   connect: {
@@ -29,6 +28,7 @@ const footerSections = {
     items: [
       { label: "Contact Us", href: "/contact-us" },
       { label: "434 MEDIA", href: "https://www.434media.com/" },
+      { label: "Events", href: "/events" },
     ],
   },
 }
@@ -58,7 +58,7 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="bg-[#000] text-white relative overflow-hidden"
+      className="bg-black text-white relative overflow-hidden"
       aria-labelledby="footer-heading"
     >
       <h2 id="footer-heading" className="sr-only">
@@ -68,7 +68,7 @@ export default function Footer() {
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#000] via-[#000] to-[#0a0f0a]" />
+        <div className="absolute inset-0 bg-linear-to-br from-black via-black to-[#0a0f0a]" />
 
         {/* Floating particles */}
         {[...Array(12)].map((_, i) => (
