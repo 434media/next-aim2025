@@ -19,10 +19,11 @@ export async function POST(request: Request) {
         // Verify the ID token
         const decodedToken = await auth.verifyIdToken(idToken)
 
-        // Verify 434media.com domain
-        if (!decodedToken.email?.endsWith("@434media.com")) {
+        // Verify authorized admin email
+        const isAuthorized = decodedToken.email?.endsWith("@434media.com") || decodedToken.email === "brian@velocitytx.org"
+        if (!isAuthorized) {
             return NextResponse.json(
-                { success: false, error: "Access restricted to 434media.com accounts" },
+                { success: false, error: "Access restricted to authorized accounts" },
                 { status: 403 }
             )
         }

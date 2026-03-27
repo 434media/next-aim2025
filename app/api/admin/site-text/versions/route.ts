@@ -24,8 +24,10 @@ async function verifyAdminSession() {
 
         const auth = getAdminAuth()
         const decodedToken = await auth.verifySessionCookie(sessionCookie, true)
-        
-        if (!decodedToken.email?.endsWith("@434media.com")) {
+
+        // Verify authorized admin email
+        const isAuthorized = decodedToken.email?.endsWith("@434media.com") || decodedToken.email === "brian@velocitytx.org"
+        if (!isAuthorized) {
             return null
         }
 
@@ -175,10 +177,10 @@ export async function DELETE(request: Request) {
             .orderBy("versionNumber", "desc")
 
         const snapshot = await versionsRef.get()
-        
+
         // Delete versions beyond the keepCount
         const versionsToDelete = snapshot.docs.slice(keepCount)
-        
+
         if (versionsToDelete.length > 0) {
             const batch = db.batch()
             versionsToDelete.forEach((doc) => batch.delete(doc.ref))

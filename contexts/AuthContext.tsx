@@ -110,11 +110,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setError(null)
         try {
             const result = await signInWithPopup(auth, googleProvider)
-            // Verify the user is from 434media.com domain
+            // Verify the user is an authorized admin
             const email = result.user.email
-            if (email && !email.endsWith("@434media.com")) {
+            const isAuthorized = email?.endsWith("@434media.com") || email === "brian@velocitytx.org"
+            if (email && !isAuthorized) {
                 await firebaseSignOut(auth)
-                throw new Error("Access restricted to 434media.com accounts only")
+                throw new Error("Access restricted to authorized accounts only")
             }
         } catch (err) {
             const message = err instanceof Error ? err.message : "Failed to sign in with Google"

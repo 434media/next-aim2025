@@ -26,9 +26,10 @@ async function verifyAdminSession() {
 
         const auth = getAdminAuth()
         const decodedToken = await auth.verifySessionCookie(sessionCookie, true)
-        
-        // Verify 434media.com domain
-        if (!decodedToken.email?.endsWith("@434media.com")) {
+
+        // Verify authorized admin email
+        const isAuthorized = decodedToken.email?.endsWith("@434media.com") || decodedToken.email === "brian@velocitytx.org"
+        if (!isAuthorized) {
             return null
         }
 
@@ -43,7 +44,7 @@ export async function GET(request: Request) {
     try {
         const db = getAdminDb()
         const { searchParams } = new URL(request.url)
-        
+
         const textId = searchParams.get("textId")
         const page = searchParams.get("page")
 
@@ -146,7 +147,7 @@ export async function PATCH(request: Request) {
         const body = await request.json()
 
         // Support both single update and batch updates
-        const updates: Array<{ textId: string; content: string; page?: string; section?: string }> = 
+        const updates: Array<{ textId: string; content: string; page?: string; section?: string }> =
             body.updates || [body]
 
         const batch = db.batch()
@@ -165,7 +166,7 @@ export async function PATCH(request: Request) {
 
             if (doc.exists) {
                 const existingData = doc.data()
-                
+
                 // Save the current version to history before updating
                 if (existingData?.content && existingData.content !== content) {
                     // Get the current highest version number
@@ -173,12 +174,12 @@ export async function PATCH(request: Request) {
                         .collection("versions")
                         .orderBy("versionNumber", "desc")
                         .limit(1)
-                    
+
                     const versionSnapshot = await versionsRef.get()
-                    const currentVersion = versionSnapshot.empty 
-                        ? 0 
+                    const currentVersion = versionSnapshot.empty
+                        ? 0
                         : (versionSnapshot.docs[0].data().versionNumber || 0)
-                    
+
                     // Create a new version with the old content
                     const versionRef = docRef.collection("versions").doc()
                     batch.set(versionRef, {
