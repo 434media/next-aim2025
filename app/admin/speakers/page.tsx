@@ -3,6 +3,7 @@
 import {
     Edit2,
     ExternalLink,
+    GripVertical,
     Loader2,
     Mic2,
     Plus,
@@ -12,7 +13,7 @@ import {
 } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import Image from "next/image"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { AdminShell } from "../../../components/admin/AdminShell"
 import { ImageUpload } from "../../../components/admin/ImageUpload"
 
@@ -50,6 +51,10 @@ export default function AdminSpeakersPage() {
     const [editingSpeaker, setEditingSpeaker] = useState<Omit<Speaker, "id" | "createdAt" | "updatedAt"> & { id?: string }>(defaultSpeaker)
     const [saving, setSaving] = useState(false)
     const [deletingId, setDeletingId] = useState<string | null>(null)
+    const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
+    const [dragOverIndex, setDragOverIndex] = useState<number | null>(null)
+    const [reordering, setReordering] = useState(false)
+    const dragCounter = useRef(0)
 
     const fetchSpeakers = useCallback(async () => {
         try {
@@ -144,6 +149,70 @@ export default function AdminSpeakersPage() {
         setShowModal(true)
     }
 
+    const handleDragStart = (index: number) => {
+        setDraggedIndex(index)
+    }
+
+    const handleDragEnter = (index: number) => {
+        dragCounter.current++
+        setDragOverIndex(index)
+    }
+
+    const handleDragLeave = () => {
+        dragCounter.current--
+        if (dragCounter.current === 0) {
+            setDragOverIndex(null)
+        }
+    }
+
+    const handleDragOver = (e: React.DragEvent) => {
+        e.preventDefault()
+    }
+
+    const handleDrop = async (dropIndex: number) => {
+        dragCounter.current = 0
+        if (draggedIndex === null || draggedIndex === dropIndex) {
+            setDraggedIndex(null)
+            setDragOverIndex(null)
+            return
+        }
+
+        const reordered = [...filteredSpeakers]
+        const [moved] = reordered.splice(draggedIndex, 1)
+        reordered.splice(dropIndex, 0, moved)
+
+        // Update local state immediately for snappy UX
+        const updated = reordered.map((s, i) => ({ ...s, order: i }))
+        setSpeakers(updated)
+        setDraggedIndex(null)
+        setDragOverIndex(null)
+
+        // Persist new order to API
+        setReordering(true)
+        try {
+            await Promise.all(
+                updated.map((s) =>
+                    fetch("/api/admin/speakers", {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ id: s.id, order: s.order }),
+                    })
+                )
+            )
+        } catch {
+            // Revert on failure
+            fetchSpeakers()
+        } finally {
+            setReordering(false)
+        }
+    }
+
+    const handleDragEnd = () => {
+        dragCounter.current = 0
+        setDraggedIndex(null)
+        setDragOverIndex(null)
+    }
+
     return (
         <AdminShell
             title="Speakers Management"
@@ -194,16 +263,40 @@ export default function AdminSpeakersPage() {
                 </div>
             ) : (
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {reordering && (
+                        <div className="col-span-full flex items-center justify-center gap-2 py-2 text-xs text-[#548cac]">
+                            <Loader2 className="h-3 w-3 animate-spin" />
+                            Saving order…
+                        </div>
+                    )}
                     {filteredSpeakers.map((speaker, index) => (
                         <motion.div
                             key={speaker.id}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.05 }}
-                            className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md transition-shadow"
+                            draggable={!searchQuery}
+                            onDragStart={() => handleDragStart(index)}
+                            onDragEnter={() => handleDragEnter(index)}
+                            onDragLeave={handleDragLeave}
+                            onDragOver={handleDragOver}
+                            onDrop={() => handleDrop(index)}
+                            onDragEnd={handleDragEnd}
+                            className={`bg-white rounded-xl border p-4 hover:shadow-md transition-all overflow-hidden ${draggedIndex === index
+                                ? "opacity-40 border-[#548cac] scale-95"
+                                : dragOverIndex === index
+                                    ? "border-[#548cac] ring-2 ring-[#548cac]/20"
+                                    : "border-gray-200"
+                                } ${!searchQuery ? "cursor-grab active:cursor-grabbing" : ""}`}
                         >
-                            <div className="flex gap-4">
-                                <div className="relative h-20 w-20 flex-shrink-0 rounded-xl bg-gray-100 overflow-hidden">
+                            <div className="flex gap-3">
+                                {/* Drag handle */}
+                                {!searchQuery && (
+                                    <div className="flex items-center shrink-0 text-gray-300 hover:text-gray-500 transition-colors">
+                                        <GripVertical className="h-5 w-5" />
+                                    </div>
+                                )}
+                                <div className="relative h-20 w-20 shrink-0 rounded-xl bg-gray-100 overflow-hidden">
                                     {speaker.imageUrl ? (
                                         <Image
                                             src={speaker.imageUrl}
@@ -217,9 +310,9 @@ export default function AdminSpeakersPage() {
                                         </div>
                                     )}
                                 </div>
-                                <div className="flex-1 min-w-0">
+                                <div className="flex-1 min-w-0 overflow-hidden">
                                     <div className="flex items-start justify-between gap-2">
-                                        <div>
+                                        <div className="min-w-0 flex-1">
                                             <h3 className="text-sm font-bold text-gray-900 truncate">
                                                 {speaker.name}
                                             </h3>
@@ -231,7 +324,7 @@ export default function AdminSpeakersPage() {
                                             </p>
                                         </div>
                                         {speaker.featured && (
-                                            <span className="flex-shrink-0 px-2 py-0.5 text-xs font-semibold bg-amber-100 text-amber-700 rounded-full">
+                                            <span className="shrink-0 px-2 py-0.5 text-xs font-semibold bg-amber-100 text-amber-700 rounded-full whitespace-nowrap">
                                                 Featured
                                             </span>
                                         )}

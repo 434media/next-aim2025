@@ -20,7 +20,7 @@ const footerSections = {
     title: "Explore",
     items: [
       { label: "ProPEL Pre-Conference Symposium", href: "/propel" },
-      { label: "Symposiums", href: "/pre-conference-symposiums" },
+      { label: "Agenda", href: "/agenda" },
     ],
   },
   connect: {

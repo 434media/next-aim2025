@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import AIM2026Popup from "../components/AIM2026Popup"
 import { EventRecapCarousel } from "../components/EventRecapCarousel"
+import { KeynoteRotator } from "../components/KeynoteRotator"
 import { PropelCTA } from "../components/PropelCTA"
 import { HeroTextSection } from "../components/ui/HeroTextSection"
 import { HeroVideo } from "../components/ui/HeroVideo"
@@ -47,6 +48,14 @@ export default function Home() {
           AIM Summit - Advancing Innovation in Military Medicine
         </h2>
         <HeroTextSection />
+      </section>
+
+      {/* Keynote Rotator */}
+      <section aria-labelledby="keynote-rotator-heading" className="w-full">
+        <h2 id="keynote-rotator-heading" className="sr-only">
+          AIM 2026 Keynote Speakers
+        </h2>
+        <KeynoteRotator />
       </section>
 
       {/* Partners Section */}

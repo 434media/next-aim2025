@@ -167,7 +167,7 @@ export default function PreConferenceSymposiums() {
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
               className="relative"
             >
-              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
+              <div className="relative aspect-4/3 rounded-3xl overflow-hidden shadow-2xl">
                 <Image
                   src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/preaimweb-23.jpg"
                   alt="Pre-conference symposium participants engaging in collaborative discussion"

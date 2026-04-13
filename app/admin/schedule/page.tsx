@@ -304,7 +304,7 @@ export default function AdminSchedulePage() {
                                                             className="p-4 border-b border-gray-50 last:border-b-0 hover:bg-gray-50/50 transition-colors"
                                                         >
                                                             <div className="flex items-start gap-4">
-                                                                <div className="flex-shrink-0 text-sm font-medium text-gray-500 w-24">
+                                                                <div className="shrink-0 text-sm font-medium text-gray-500 w-24">
                                                                     <div className="flex items-center gap-1">
                                                                         <Clock className="h-3.5 w-3.5" />
                                                                         {item.startTime}

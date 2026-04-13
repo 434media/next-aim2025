@@ -408,6 +408,9 @@ export const HeroTextSection = React.memo(() => {
           </div>
         </div>
       </motion.div>
+
+      {/* Bottom gradient bleed for smooth transition into next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-b from-transparent to-[#0a1628] z-30 pointer-events-none" />
     </section>
   )
 })

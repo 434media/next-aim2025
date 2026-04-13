@@ -41,8 +41,8 @@ export default function AgendaPage() {
           <div className="mx-auto max-w-7xl">
             <div className="group relative">
               {/* Floating background effects */}
-              <div className="absolute -inset-6 bg-gradient-to-r from-[#548cac]/10 via-transparent to-[#548cac]/10 rounded-3xl blur-3xl group-hover:blur-[40px] transition-all duration-700"></div>
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-2xl"></div>
+              <div className="absolute -inset-6 bg-linear-to-r from-[#548cac]/10 via-transparent to-[#548cac]/10 rounded-3xl blur-3xl group-hover:blur-2xl transition-all duration-700"></div>
+              <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent rounded-2xl"></div>
 
               {/* Main schedule container */}
               <div className="relative bg-white/5 backdrop-blur-xl border border-white/20 rounded-2xl p-6 md:p-10 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:border-white/30">
@@ -56,7 +56,7 @@ export default function AgendaPage() {
                 <div className="relative">
                   <Suspense
                     fallback={
-                      <div className="flex h-[700px] items-center justify-center">
+                      <div className="flex h-175 items-center justify-center">
                         <div className="text-center">
                           <div className="relative mb-6">
                             <div className="h-16 w-16 mx-auto animate-spin rounded-full border-4 border-[#548cac]/30 border-t-[#548cac]"></div>
@@ -99,7 +99,7 @@ export default function AgendaPage() {
       </ParticleBackground>
 
       {/* Enhanced Mobile App Section */}
-      <section className="w-full bg-gradient-to-br from-gray-50 via-white to-gray-100 py-20 sm:py-24">
+      <section className="w-full bg-linear-to-br from-gray-50 via-white to-gray-100 py-20 sm:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
             <FadeContainer>
@@ -156,7 +156,7 @@ export default function AgendaPage() {
                   rel="noopener noreferrer"
                   className="group relative inline-flex items-center justify-center rounded-xl bg-[#548cac] px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:bg-[#3a6b8a] hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2"
                 >
-                  <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 rounded-xl bg-linear-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                   <span className="relative">Download for iOS</span>
                 </a>
 
@@ -166,7 +166,7 @@ export default function AgendaPage() {
                   rel="noopener noreferrer"
                   className="group relative inline-flex items-center justify-center rounded-xl bg-[#548cac] px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:bg-[#3a6b8a] hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:ring-offset-2"
                 >
-                  <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 rounded-xl bg-linear-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                   <span className="relative">Download for Android</span>
                 </a>
               </div>

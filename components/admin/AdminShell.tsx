@@ -3,6 +3,7 @@
 import {
     ArrowLeft,
     Award,
+    BookOpen,
     Calendar,
     CalendarDays,
     ChevronRight,
@@ -22,14 +23,41 @@ import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useAuth } from "../../contexts/AuthContext"
 
-const navigation = [
-    { name: "Dashboard", href: "/admin", icon: Home },
-    { name: "Newsletter Emails", href: "/admin/newsletter", icon: Mail },
-    { name: "Contact Submissions", href: "/admin/contacts", icon: MessageSquare },
-    { name: "Events", href: "/admin/events", icon: Calendar },
-    { name: "Speakers", href: "/admin/speakers", icon: Mic2 },
-    { name: "Schedule", href: "/admin/schedule", icon: CalendarDays },
-    { name: "Sponsors", href: "/admin/sponsors", icon: Award },
+interface NavItem {
+    name: string
+    href: string
+    icon: typeof Home
+}
+
+interface NavGroup {
+    label: string
+    items: NavItem[]
+}
+
+const navigationGroups: NavGroup[] = [
+    {
+        label: "",
+        items: [
+            { name: "Dashboard", href: "/admin", icon: Home },
+        ],
+    },
+    {
+        label: "Content Management",
+        items: [
+            { name: "Events", href: "/admin/events", icon: Calendar },
+            { name: "Newsletter Emails", href: "/admin/newsletter", icon: Mail },
+            { name: "Contact Submissions", href: "/admin/contacts", icon: MessageSquare },
+        ],
+    },
+    {
+        label: "Agenda",
+        items: [
+            { name: "Agenda Overview", href: "/admin/agenda", icon: BookOpen },
+            { name: "Speakers", href: "/admin/speakers", icon: Mic2 },
+            { name: "Schedule", href: "/admin/schedule", icon: CalendarDays },
+            { name: "Sponsors", href: "/admin/sponsors", icon: Award },
+        ],
+    },
 ]
 
 interface AdminShellProps {
@@ -123,27 +151,38 @@ export function AdminShell({ children, title, description }: AdminShellProps) {
                             </div>
 
                             {/* Navigation */}
-                            <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
-                                {navigation.map((item) => {
-                                    const isActive = pathname === item.href
-                                    return (
-                                        <Link
-                                            key={item.name}
-                                            href={item.href}
-                                            onClick={() => setSidebarOpen(false)}
-                                            className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${isActive
-                                                ? "bg-[#548cac] text-white"
-                                                : "text-gray-700 hover:bg-gray-100"
-                                                }`}
-                                        >
-                                            <item.icon className="h-5 w-5" />
-                                            <span>{item.name}</span>
-                                            {isActive && (
-                                                <ChevronRight className="h-4 w-4 ml-auto" />
-                                            )}
-                                        </Link>
-                                    )
-                                })}
+                            <nav className="flex-1 px-4 py-4 overflow-y-auto">
+                                {navigationGroups.map((group) => (
+                                    <div key={group.label || "top"} className="mb-4">
+                                        {group.label && (
+                                            <p className="px-4 mb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                                {group.label}
+                                            </p>
+                                        )}
+                                        <div className="space-y-1">
+                                            {group.items.map((item) => {
+                                                const isActive = pathname === item.href
+                                                return (
+                                                    <Link
+                                                        key={item.name}
+                                                        href={item.href}
+                                                        onClick={() => setSidebarOpen(false)}
+                                                        className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${isActive
+                                                            ? "bg-[#548cac] text-white"
+                                                            : "text-gray-700 hover:bg-gray-100"
+                                                            }`}
+                                                    >
+                                                        <item.icon className="h-5 w-5" />
+                                                        <span>{item.name}</span>
+                                                        {isActive && (
+                                                            <ChevronRight className="h-4 w-4 ml-auto" />
+                                                        )}
+                                                    </Link>
+                                                )
+                                            })}
+                                        </div>
+                                    </div>
+                                ))}
                             </nav>
 
                             {/* User section */}
@@ -202,24 +241,35 @@ export function AdminShell({ children, title, description }: AdminShellProps) {
                     </div>
 
                     {/* Navigation */}
-                    <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
-                        {navigation.map((item) => {
-                            const isActive = pathname === item.href
-                            return (
-                                <Link
-                                    key={item.name}
-                                    href={item.href}
-                                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${isActive
-                                        ? "bg-[#548cac] text-white shadow-sm"
-                                        : "text-gray-700 hover:bg-gray-100"
-                                        }`}
-                                >
-                                    <item.icon className="h-5 w-5" />
-                                    <span>{item.name}</span>
-                                    {isActive && <ChevronRight className="h-4 w-4 ml-auto" />}
-                                </Link>
-                            )
-                        })}
+                    <nav className="flex-1 px-4 py-4 overflow-y-auto">
+                        {navigationGroups.map((group) => (
+                            <div key={group.label || "top"} className="mb-4">
+                                {group.label && (
+                                    <p className="px-4 mb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                        {group.label}
+                                    </p>
+                                )}
+                                <div className="space-y-1">
+                                    {group.items.map((item) => {
+                                        const isActive = pathname === item.href
+                                        return (
+                                            <Link
+                                                key={item.name}
+                                                href={item.href}
+                                                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${isActive
+                                                    ? "bg-[#548cac] text-white shadow-sm"
+                                                    : "text-gray-700 hover:bg-gray-100"
+                                                    }`}
+                                            >
+                                                <item.icon className="h-5 w-5" />
+                                                <span>{item.name}</span>
+                                                {isActive && <ChevronRight className="h-4 w-4 ml-auto" />}
+                                            </Link>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        ))}
                     </nav>
 
                     {/* User section */}
