@@ -12,6 +12,7 @@ interface ScheduleItem {
     location?: string
     speakerIds?: string[]
     track?: string
+    trackNumber?: number
     type?: string
     order?: number
 }
@@ -54,7 +55,7 @@ export async function POST(request: Request) {
         const db = getAdminDb()
         const body = await request.json()
 
-        const { title, description, date, startTime, endTime, location, speakerIds, track, type, order } = body
+        const { title, description, date, startTime, endTime, location, speakerIds, track, trackNumber, type, order } = body
 
         if (!title || !date || !startTime) {
             return NextResponse.json(
@@ -72,6 +73,7 @@ export async function POST(request: Request) {
             location: location || "",
             speakerIds: speakerIds || [],
             track: track || "",
+            trackNumber: trackNumber ?? null,
             type: type || "other",
             order: order || 0,
             createdAt: FieldValue.serverTimestamp(),

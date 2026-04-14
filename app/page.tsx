@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react"
 import AIM2026Popup from "../components/AIM2026Popup"
 import { EventRecapCarousel } from "../components/EventRecapCarousel"
+import { KeynoteRotator } from "../components/KeynoteRotator"
 import { PropelCTA } from "../components/PropelCTA"
+import { WelcomeReception } from "../components/WelcomeReception"
 import { HeroTextSection } from "../components/ui/HeroTextSection"
 import { HeroVideo } from "../components/ui/HeroVideo"
 import { PartnerMarquee } from "../components/ui/PartnerMarquee"
@@ -49,6 +51,14 @@ export default function Home() {
         <HeroTextSection />
       </section>
 
+      {/* Keynote Rotator */}
+      <section aria-labelledby="keynote-rotator-heading" className="w-full">
+        <h2 id="keynote-rotator-heading" className="sr-only">
+          AIM 2026 Keynote Speakers
+        </h2>
+        <KeynoteRotator />
+      </section>
+
       {/* Partners Section */}
       <section aria-labelledby="partners-heading" className="w-full bg-white py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-4 xl:px-0">
@@ -66,6 +76,14 @@ export default function Home() {
             />
           </div>
         </div>
+      </section>
+
+      {/* AIM Welcome Reception */}
+      <section aria-labelledby="reception-heading" className="w-full">
+        <h2 id="reception-heading" className="sr-only">
+          AIM Welcome Reception
+        </h2>
+        <WelcomeReception />
       </section>
 
       {/* ProPEL 2026 CTA */}

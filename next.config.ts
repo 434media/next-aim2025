@@ -17,6 +17,14 @@ const nextConfig: NextConfig = {
         hostname: "firebasestorage.googleapis.com",
         pathname: "/v0/b/groovy-ego-462522-v2.firebasestorage.app/**",
       },
+      {
+        protocol: "https",
+        hostname: "ampd-asset.s3.us-east-2.amazonaws.com",
+      },
+      {
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
+      },
     ],
   },
   turbopack: {

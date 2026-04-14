@@ -319,11 +319,11 @@ export default function SponsorSpotlight() {
         <div className="relative">
           {/* Gradient overlays for scroll indication */}
           <div
-            className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"
+            className="absolute left-0 top-0 bottom-0 w-8 bg-linear-to-r from-white to-transparent z-10 pointer-events-none"
             aria-hidden="true"
           />
           <div
-            className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"
+            className="absolute right-0 top-0 bottom-0 w-8 bg-linear-to-l from-white to-transparent z-10 pointer-events-none"
             aria-hidden="true"
           />
 
@@ -344,7 +344,7 @@ export default function SponsorSpotlight() {
             {testimonialPairs.map((pair, pairIndex) => (
               <motion.div
                 key={`pair-${pairIndex}`}
-                className="flex-none w-full snap-start grid grid-cols-2 gap-0 min-h-[600px]"
+                className="flex-none w-full snap-start grid grid-cols-2 gap-0 min-h-150"
                 initial={{ opacity: 0, x: 50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                 transition={{ duration: 0.6, delay: pairIndex * 0.2 }}

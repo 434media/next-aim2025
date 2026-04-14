@@ -11,6 +11,7 @@ const desktopNavigationItems = [
     name: "Explore",
     isDropdown: true,
     items: [
+      { name: "Agenda", href: "/agenda" },
       { name: "ProPEL Pre-Conference Symposium", href: "/propel" },
       { name: "Symposiums", href: "/pre-conference-symposiums" },
     ],
@@ -26,6 +27,7 @@ const mobileNavigationItems = [
     name: "Explore",
     isDropdown: true,
     items: [
+      { name: "Agenda", href: "/agenda" },
       { name: "ProPEL Pre-Conference Symposium", href: "/propel" },
       { name: "Symposiums", href: "/pre-conference-symposiums" },
     ],
