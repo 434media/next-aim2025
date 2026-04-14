@@ -118,7 +118,7 @@ export function WelcomeReception() {
                                         className="text-white/90"
                                         style={{ fontSize: "0.8125rem", fontWeight: 500, lineHeight: 1.4, letterSpacing: "0.01em" }}
                                     >
-                                        San Antonio, TX
+                                        1305 E Houston St. San Antonio, TX 78205
                                     </p>
                                 </div>
                             </div>
