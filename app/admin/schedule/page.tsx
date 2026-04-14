@@ -27,6 +27,7 @@ interface ScheduleItem {
     location: string
     speakerIds: string[]
     track: string
+    trackNumber: number | null
     type: "keynote" | "panel" | "breakout" | "networking" | "break" | "other"
     order: number
     createdAt: string
@@ -47,9 +48,20 @@ const defaultScheduleItem: Omit<ScheduleItem, "id" | "createdAt" | "updatedAt"> 
     location: "",
     speakerIds: [],
     track: "",
+    trackNumber: null,
     type: "other",
     order: 0,
 }
+
+const trackOptions = [
+    { value: "", label: "None", trackNumber: null },
+    { value: "Translational Approaches in Regenerative Sciences and Modeling", label: "Track 1: Regenerative Sciences & Modeling", trackNumber: 1 },
+    { value: "Enabling Long-Duration Mission Healthcare and Crew Survival", label: "Track 2: Long-Duration Mission Healthcare", trackNumber: 2 },
+    { value: "Integrated Strategies for Peak Performance and Health", label: "Track 3: Peak Performance & Health", trackNumber: 3 },
+    { value: "Modernizing Medical Workforce Development", label: "Track 4: Medical Workforce Development", trackNumber: 4 },
+    { value: "Innovative Technologies in Low-Resource Settings", label: "Track 5: Low-Resource Settings", trackNumber: 5 },
+    { value: "Innovation Capital & Funding Support", label: "Innovation Capital & Funding", trackNumber: null },
+]
 
 const sessionTypes = [
     { value: "keynote", label: "Keynote", color: "bg-purple-100 text-purple-700" },
@@ -208,7 +220,7 @@ export default function AdminSchedulePage() {
     return (
         <AdminShell
             title="Schedule Management"
-            description="Manage AIM 2025 Summit schedule"
+            description="Manage AIM 2026 Summit schedule"
         >
             {/* Search and Add */}
             <div className="mb-6 flex flex-col sm:flex-row gap-4">
@@ -517,15 +529,24 @@ export default function AdminSchedulePage() {
                                     <label className="block text-sm font-semibold text-gray-700 mb-1">
                                         Track
                                     </label>
-                                    <input
-                                        type="text"
+                                    <select
                                         value={editingItem.track}
-                                        onChange={(e) =>
-                                            setEditingItem({ ...editingItem, track: e.target.value })
-                                        }
+                                        onChange={(e) => {
+                                            const selected = trackOptions.find((t) => t.value === e.target.value)
+                                            setEditingItem({
+                                                ...editingItem,
+                                                track: e.target.value,
+                                                trackNumber: selected?.trackNumber ?? null,
+                                            })
+                                        }}
                                         className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#548cac] focus:border-transparent"
-                                        placeholder="Innovation Track"
-                                    />
+                                    >
+                                        {trackOptions.map((opt) => (
+                                            <option key={opt.value} value={opt.value}>
+                                                {opt.label}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
 
                                 {speakers.length > 0 && (

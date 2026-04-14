@@ -59,6 +59,158 @@ const TYPE_FILTERS = [
 ]
 
 /* ------------------------------------------------------------------ */
+/*  Summit Themes & Breakout Seminars                                  */
+/* ------------------------------------------------------------------ */
+
+interface ThemeSpeaker {
+  name: string
+  title: string
+}
+
+interface ThemeSession {
+  title: string
+  speakers: ThemeSpeaker[]
+}
+
+interface SummitTheme {
+  number: number
+  title: string
+  sessions: ThemeSession[]
+}
+
+const SUMMIT_THEMES: SummitTheme[] = [
+  {
+    number: 1,
+    title: "Translational Approaches in Regenerative Sciences and Modeling",
+    sessions: [
+      {
+        title: "From Beer to Blood",
+        speakers: [
+          { name: "Kim Reeves", title: "Co Founder & CEO, Legacy Innovation" },
+        ],
+      },
+      {
+        title: "Transformative Grafts and Next-Generation Maxillofacial Reconstruction",
+        speakers: [
+          { name: "Ayelet Di Segni", title: "Director, Sheba Tissue & Cell Bank" },
+          { name: "Kurt Klitzke", title: "Co-Founder & Chief Technology Officer, AlexiGen Biotech" },
+          { name: "COL Kevin Gillespie", title: "Executive Director, Tri-Service Dental Research Consortium at US Army Institute of Surgical Research" },
+        ],
+      },
+    ],
+  },
+  {
+    number: 2,
+    title: "Enabling Long-Duration Mission Healthcare and Crew Survival",
+    sessions: [
+      {
+        title: "The Ultimate Constraint: Medicine in the Void",
+        speakers: [
+          { name: "Lauren Cornell", title: "Lead Scientist, Diagnostics & Therapeutics, US Air Force 59th Medical Wing" },
+          { name: "William Buras", title: "Senior Director, Life Sciences, Tietronix Software" },
+        ],
+      },
+      {
+        title: "Care Without Proximity: Extending the Lifeline in Austere Environments",
+        speakers: [
+          { name: "LTC Gary Legault", title: "Senior Scientist, US Army Institute of Surgical Research" },
+        ],
+      },
+    ],
+  },
+  {
+    number: 3,
+    title: "Integrated Strategies for Peak Performance and Health",
+    sessions: [
+      {
+        title: "The Invisible Front: Objective Signals in Cognitive Chaos",
+        speakers: [
+          { name: "Amit Mehta", title: "Chief Executive Officer, Amplifier Health" },
+          { name: "David Zakariaie", title: "Founder and Chief Executive Officer, Senseye" },
+          { name: "Don McGeary", title: "Professor, Department of Psychiatry, UT Health San Antonio" },
+        ],
+      },
+      {
+        title: "Leadership from the Face the Fight: Preventing Veteran Suicide During the Critical Transition to Civilian Life",
+        speakers: [
+          { name: "Chris Ford", title: "Lt Col, USAF (Ret); Principal, Face the Fight coalition, USAA" },
+          { name: "Mike Eastman", title: "BG (Ret.), US Army; Executive Director, Onward Ops" },
+          { name: "Joseph C. Geraci, PhD", title: "LTC (Ret.), US Army; Director, VA Transitioning Servicemember/Veteran And Suicide Prevention Center (TASC)" },
+          { name: "Alfred K. Flowers, Sr", title: "Maj Gen, USAF (Ret.); Board Chairman, Reach Resilience" },
+        ],
+      },
+    ],
+  },
+  {
+    number: 4,
+    title: "Modernizing Medical Workforce Development",
+    sessions: [
+      {
+        title: "Session details TBA",
+        speakers: [],
+      },
+    ],
+  },
+  {
+    number: 5,
+    title: "Innovative Technologies in Low-Resource Settings",
+    sessions: [
+      {
+        title: "The 10 Day Solution: AI, Repurposing + Rapid Response",
+        speakers: [
+          { name: "Corey Hallum", title: "Texas Biomedical Research Institute" },
+        ],
+      },
+      {
+        title: "Out of the Lab: Regional Proving Grounds for Resource-Constrained Care",
+        speakers: [
+          { name: "Sean Biggerstaff", title: "Acting Director, Research and Engineering Directorate, Defense Health Agency" },
+          { name: "Jason Moats", title: "Director, USA Center for Rural Public Health Preparedness at Texas A&M University" },
+          { name: "Eric Epley", title: "Executive Director and Chief Executive Officer, Southwest Texas Regional Advisory Council (STRAC)" },
+          { name: "W. Douglas Gissendanner", title: "Program Manager, The Geneva Foundation" },
+        ],
+      },
+    ],
+  },
+]
+
+/* ------------------------------------------------------------------ */
+/*  Innovation Capital & Funding Support                               */
+/* ------------------------------------------------------------------ */
+
+interface CapitalSession {
+  title: string
+  description: string
+  speakers: ThemeSpeaker[]
+}
+
+const INNOVATION_CAPITAL_SESSIONS: CapitalSession[] = [
+  {
+    title: "Cup of Capital",
+    description: "Curated conversations connecting innovators with investors to explore funding pathways and commercialization strategies.",
+    speakers: [
+      { name: "Dr. Luis Martinez", title: "Principal, Capital Factory" },
+    ],
+  },
+  {
+    title: "Architecting Congressional Support: Navigating the Appropriations Maze",
+    description: "Insights into federal funding mechanisms, policy priorities, and how to effectively position programs for support.",
+    speakers: [
+      { name: "Jonathan Miller", title: "Principal, Cornerstone Government Affairs" },
+    ],
+  },
+  {
+    title: "Pitch Scrimmage",
+    description: "Live, feedback-driven pitch sessions where startups and researchers refine their narratives with input from investors and industry leaders.",
+    speakers: [
+      { name: "Emma Gregory", title: "Branch Chief, Science & Technology Portfolio Management, Defense Health Agency" },
+      { name: "Gabi Niederauer", title: "Co-Founder and Chief Executive Officer, Freyya" },
+      { name: "Sebastian Garzon", title: "Managing Partner, Alamo Angels" },
+    ],
+  },
+]
+
+/* ------------------------------------------------------------------ */
 /*  Reusable fade-in wrapper                                           */
 /* ------------------------------------------------------------------ */
 
@@ -117,28 +269,28 @@ function sortKeynotes(a: Speaker, b: Speaker) {
 
 const fallbackKeynotes: Speaker[] = [
   {
-    id: "fallback-biddinger",
-    name: "Dr. Paul Biddinger",
+    id: "fallback-morning-keynote",
+    name: "Morning Keynote",
     keynoteType: "morning",
     keynoteLabel: "Morning Keynote",
-    sessionTitle: "Medicine, Preparedness, and Resilience",
-    title: "Chief Preparedness and Continuity Officer, Mass General Brigham",
-    organization: "Mass General Brigham",
-    bio: "Dr. Paul Biddinger is the Chief Preparedness and Continuity Officer at Mass General Brigham, where he serves at the critical intersection of medicine, preparedness, and resilience.\n\nWith appointments at Harvard Medical School and the Harvard T.H. Chan School of Public Health, Dr. Biddinger is shaping how disaster medicine and emergency systems are researched, taught, and operationalized globally.\n\nFrom Hurricane Katrina and Superstorm Sandy to the Boston Marathon bombings and Nepal earthquakes, he doesn\u2019t just study disasters\u2014he\u2019s responded to them, led teams through them, and helped redesign systems to withstand them.",
-    imageUrl: "https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/aimsatx%2Fpaulbiddinger.png?alt=media",
+    sessionTitle: "To Be Announced",
+    title: "AIM 2026 Summit",
+    organization: "AIM Health R&D Summit",
+    bio: "The AIM 2026 morning keynote speaker will be announced soon. Check back for updates on this featured address opening the summit.",
+    imageUrl: "",
     featured: true,
     order: 1,
   },
   {
-    id: "fallback-hilmers",
-    name: "Dr. David Hilmers",
+    id: "fallback-lunch-keynote",
+    name: "Lunch Keynote",
     keynoteType: "lunch",
     keynoteLabel: "Lunch Keynote",
-    sessionTitle: "Lessons from Space, Leadership for Earth",
-    title: "Former NASA Astronaut, Marine Corps Colonel (Ret.), and Professor at Baylor College of Medicine",
-    organization: "Baylor College of Medicine",
-    bio: "NASA Astronaut, Marine Corps Colonel (Ret.), and Professor at Baylor College of Medicine, Dr. David Hilmers\u2019 career has been defined by exploration, service, and leadership at the highest levels.\n\nA veteran of four space shuttle missions, Dr. Hilmers now serves as a consultant on NASA-sponsored research advancing how astronauts deliver medical care during deep space exploration.\n\nBoard-certified in both internal medicine and pediatrics, he also brings more than two decades of clinical experience and global health leadership, serving as Chief Medical Officer for Hepatitis B Free, a nonprofit organization dedicated to the prevention and treatment of hepatitis in low and middle-income countries.",
-    imageUrl: "https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/aimsatx%2Fdavidhilmers.jpg?alt=media",
+    sessionTitle: "To Be Announced",
+    title: "AIM 2026 Summit",
+    organization: "AIM Health R&D Summit",
+    bio: "The AIM 2026 lunch keynote speaker will be announced soon. Check back for updates on this featured address.",
+    imageUrl: "",
     featured: true,
     order: 2,
   },
@@ -430,9 +582,205 @@ export default function AgendaPage() {
         </div>
       </section>
 
+      {/* ── Summit Themes & Breakout Seminars ──────────────── */}
+      <section className="relative w-full py-16 sm:py-24 overflow-hidden bg-white" id="themes">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <FadeUp>
+            <div className="mb-10 sm:mb-14">
+              <p
+                className="text-[#548cac] mb-3"
+                style={{
+                  fontSize: "0.75rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.2em",
+                  lineHeight: 1.5,
+                  textTransform: "uppercase",
+                }}
+              >
+                — Summit Themes —
+              </p>
+              <h2
+                className="text-neutral-900"
+                style={{
+                  fontSize: isMobile ? "1.75rem" : "2.25rem",
+                  fontWeight: 700,
+                  lineHeight: 1.2,
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                Themes &amp; Breakout Seminars
+              </h2>
+              <p
+                className="text-neutral-600 mt-4"
+                style={{
+                  maxWidth: "42rem",
+                  fontSize: isMobile ? "0.9375rem" : "1rem",
+                  lineHeight: 1.75,
+                  fontWeight: 400,
+                }}
+              >
+                Five tracks exploring the frontiers of military and civilian medical innovation&mdash;from regenerative science to resource-constrained care.
+              </p>
+            </div>
+          </FadeUp>
+
+          <div className="space-y-6">
+            {SUMMIT_THEMES.map((theme, tIdx) => (
+              <FadeUp key={theme.number} delay={tIdx * 0.05}>
+                <div className="rounded-2xl border border-neutral-200 bg-neutral-50 overflow-hidden hover:border-neutral-300 transition-colors duration-300">
+                  {/* Theme header */}
+                  <div className="bg-[#0a1628] px-5 sm:px-6 py-4 flex items-start gap-4">
+                    <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-[#548cac]/20 text-[#548cac] text-sm font-bold shrink-0 mt-0.5">
+                      {theme.number}
+                    </div>
+                    <h3
+                      className="text-white"
+                      style={{
+                        fontSize: isMobile ? "1rem" : "1.125rem",
+                        fontWeight: 700,
+                        lineHeight: 1.35,
+                      }}
+                    >
+                      {theme.title}
+                    </h3>
+                  </div>
+
+                  {/* Sessions under this theme */}
+                  <div className="divide-y divide-neutral-200">
+                    {theme.sessions.map((session, sIdx) => (
+                      <div key={sIdx} className="px-5 sm:px-6 py-4">
+                        <h4
+                          className="text-[#2c5f78] mb-2"
+                          style={{
+                            fontSize: "0.9375rem",
+                            fontWeight: 600,
+                            lineHeight: 1.4,
+                            fontStyle: "italic",
+                          }}
+                        >
+                          &ldquo;{session.title}&rdquo;
+                        </h4>
+                        {session.speakers.length > 0 ? (
+                          <div className="flex flex-wrap gap-2">
+                            {session.speakers.map((speaker, spIdx) => (
+                              <div
+                                key={spIdx}
+                                className="flex items-center gap-2 bg-[#548cac]/8 rounded-full pl-1.5 pr-3 py-1"
+                              >
+                                <div className="w-6 h-6 rounded-full bg-[#548cac]/20 flex items-center justify-center shrink-0">
+                                  <Users className="w-3 h-3 text-[#548cac]" />
+                                </div>
+                                <div>
+                                  <span className="text-xs text-[#2c5f78] font-medium" style={{ lineHeight: 1.4 }}>
+                                    {speaker.name}
+                                  </span>
+                                  <span className="text-[10px] text-neutral-500 block" style={{ lineHeight: 1.3 }}>
+                                    {speaker.title}
+                                  </span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-xs text-neutral-400 italic" style={{ lineHeight: 1.5 }}>
+                            Details to be announced
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Innovation Capital & Funding Support ─────────────── */}
+      <section className="relative w-full py-16 sm:py-24 overflow-hidden bg-neutral-50" id="innovation-capital">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <FadeUp>
+            <div className="mb-10 sm:mb-14">
+              <p
+                className="text-[#548cac] mb-3"
+                style={{
+                  fontSize: "0.75rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.2em",
+                  lineHeight: 1.5,
+                  textTransform: "uppercase",
+                }}
+              >
+                — Funding &amp; Investment —
+              </p>
+              <h2
+                className="text-neutral-900"
+                style={{
+                  fontSize: isMobile ? "1.75rem" : "2.25rem",
+                  fontWeight: 700,
+                  lineHeight: 1.2,
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                Innovation Capital &amp; Funding Support
+              </h2>
+            </div>
+          </FadeUp>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {INNOVATION_CAPITAL_SESSIONS.map((session, idx) => (
+              <FadeUp key={idx} delay={idx * 0.08}>
+                <div className="h-full rounded-2xl border border-neutral-200 bg-white p-5 sm:p-6 hover:border-neutral-300 transition-colors duration-300 flex flex-col">
+                  <h3
+                    className="text-neutral-900 mb-2"
+                    style={{
+                      fontSize: "1.0625rem",
+                      fontWeight: 700,
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {session.title}
+                  </h3>
+                  <p
+                    className="text-neutral-600 mb-4 flex-1"
+                    style={{
+                      fontSize: "0.8125rem",
+                      lineHeight: 1.75,
+                      fontWeight: 400,
+                    }}
+                  >
+                    {session.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mt-auto pt-3 border-t border-neutral-100">
+                    {session.speakers.map((speaker, spIdx) => (
+                      <div
+                        key={spIdx}
+                        className="flex items-center gap-2 bg-[#548cac]/8 rounded-full pl-1.5 pr-3 py-1"
+                      >
+                        <div className="w-5 h-5 rounded-full bg-[#548cac]/20 flex items-center justify-center shrink-0">
+                          <Users className="w-2.5 h-2.5 text-[#548cac]" />
+                        </div>
+                        <div>
+                          <span className="text-xs text-[#2c5f78] font-medium" style={{ lineHeight: 1.4 }}>
+                            {speaker.name}
+                          </span>
+                          <span className="text-[10px] text-neutral-500 block" style={{ lineHeight: 1.3 }}>
+                            {speaker.title}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Day-Of Schedule ─────────────────────────────────────── */}
       {scheduleItems.length > 0 && (
-        <section className="relative w-full py-16 sm:py-24 overflow-hidden bg-neutral-50" id="day-of-schedule">
+        <section className="relative w-full py-16 sm:py-24 overflow-hidden bg-white" id="day-of-schedule">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <FadeUp>
               <div className="mb-10 sm:mb-14">
