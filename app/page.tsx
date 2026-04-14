@@ -5,6 +5,7 @@ import AIM2026Popup from "../components/AIM2026Popup"
 import { EventRecapCarousel } from "../components/EventRecapCarousel"
 import { KeynoteRotator } from "../components/KeynoteRotator"
 import { PropelCTA } from "../components/PropelCTA"
+import { WelcomeReception } from "../components/WelcomeReception"
 import { HeroTextSection } from "../components/ui/HeroTextSection"
 import { HeroVideo } from "../components/ui/HeroVideo"
 import { PartnerMarquee } from "../components/ui/PartnerMarquee"
@@ -75,6 +76,14 @@ export default function Home() {
             />
           </div>
         </div>
+      </section>
+
+      {/* AIM Welcome Reception */}
+      <section aria-labelledby="reception-heading" className="w-full">
+        <h2 id="reception-heading" className="sr-only">
+          AIM Welcome Reception
+        </h2>
+        <WelcomeReception />
       </section>
 
       {/* ProPEL 2026 CTA */}
