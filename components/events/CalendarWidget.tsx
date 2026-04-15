@@ -82,9 +82,16 @@ const generateCalendarDays = (year: number, month: number): CalendarDay[] => {
   return days
 }
 
+// Parse YYYY-MM-DD in local timezone (avoids UTC shift)
+const parseLocalDate = (dateString: string): Date => {
+  const cleanDateStr = dateString.split('T')[0]
+  const [year, month, day] = cleanDateStr.split('-').map(Number)
+  return new Date(year, month - 1, day)
+}
+
 const isEventUpcoming = (event: Event): boolean => {
   try {
-    const eventDate = new Date(event.date)
+    const eventDate = parseLocalDate(event.date)
     const today = new Date()
     today.setHours(0, 0, 0, 0)
     return eventDate >= today
@@ -95,7 +102,7 @@ const isEventUpcoming = (event: Event): boolean => {
 
 const safeParseDate = (dateStr: string): Date | null => {
   try {
-    const date = new Date(dateStr)
+    const date = parseLocalDate(dateStr)
     return isNaN(date.getTime()) ? null : date
   } catch {
     return null
@@ -121,7 +128,11 @@ export function CalendarWidget({ events = [], onDateFilter, onClearFilter, isMob
 
     // Populate each day with its events using client-side timezone
     const daysWithEvents = days.map((day) => {
-      const dayString = day.date.toISOString().split("T")[0]
+      // Format day date as YYYY-MM-DD in local timezone
+      const dayYear = day.date.getFullYear()
+      const dayMonth = String(day.date.getMonth() + 1).padStart(2, '0')
+      const dayDay = String(day.date.getDate()).padStart(2, '0')
+      const dayString = `${dayYear}-${dayMonth}-${dayDay}`
 
       // Filter events for this specific day that are upcoming (client-side check)
       const dayEvents = events.filter((event) => {
@@ -131,7 +142,10 @@ export function CalendarWidget({ events = [], onDateFilter, onClearFilter, isMob
         const eventDate = safeParseDate(event.date)
         if (!eventDate) return false
 
-        const eventDateString = eventDate.toISOString().split("T")[0]
+        const ey = eventDate.getFullYear()
+        const em = String(eventDate.getMonth() + 1).padStart(2, '0')
+        const ed = String(eventDate.getDate()).padStart(2, '0')
+        const eventDateString = `${ey}-${em}-${ed}`
         return eventDateString === dayString && isEventUpcoming(event)
       })
 
@@ -300,7 +314,7 @@ export function CalendarWidget({ events = [], onDateFilter, onClearFilter, isMob
                 key={index}
                 className={cn(
                   "p-2 border-r border-b border-gray-100 cursor-pointer transition-all duration-200 relative",
-                  isMobile ? "min-h-[64px]" : "min-h-[56px]",
+                  isMobile ? "min-h-16" : "min-h-14",
                   "hover:bg-gray-50 active:bg-gray-100",
                   !day.isCurrentMonth && "bg-gray-50/50",
                   day.isToday && "bg-gray-900 text-white",
@@ -364,7 +378,7 @@ export function CalendarWidget({ events = [], onDateFilter, onClearFilter, isMob
                         )} />
                       ) : (
                         <div className={cn(
-                          "text-xs px-1.5 py-0.5 rounded-full transition-all duration-200 group-hover:scale-110 group-active:scale-95 font-semibold text-center min-w-[20px]",
+                          "text-xs px-1.5 py-0.5 rounded-full transition-all duration-200 group-hover:scale-110 group-active:scale-95 font-semibold text-center min-w-5",
                           day.isToday ? "bg-white text-gray-900" : "bg-blue-600 text-white"
                         )}>
                           {day.events.length}

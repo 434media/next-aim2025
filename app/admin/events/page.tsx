@@ -82,6 +82,13 @@ export default function EventsAdminPage() {
         loadEvents()
     }, [])
 
+    // Parse YYYY-MM-DD in local timezone (avoids UTC shift)
+    const parseLocalDate = (dateString: string) => {
+        const cleanDateStr = dateString.split('T')[0]
+        const [year, month, day] = cleanDateStr.split('-').map(Number)
+        return new Date(year, month - 1, day)
+    }
+
     useEffect(() => {
         const today = new Date()
         today.setHours(0, 0, 0, 0)
@@ -99,12 +106,12 @@ export default function EventsAdminPage() {
 
         // Sort by date ascending (coming up next first)
         const sorted = [...filtered].sort(
-            (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+            (a, b) => parseLocalDate(a.date).getTime() - parseLocalDate(b.date).getTime()
         )
 
-        const upcoming = sorted.filter((event) => new Date(event.date) >= today)
+        const upcoming = sorted.filter((event) => parseLocalDate(event.date) >= today)
         const past = sorted
-            .filter((event) => new Date(event.date) < today)
+            .filter((event) => parseLocalDate(event.date) < today)
             .reverse() // Most recent past events first
 
         setUpcomingEvents(upcoming)
@@ -201,7 +208,9 @@ export default function EventsAdminPage() {
     }
 
     const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString("en-US", {
+        const cleanDateStr = dateString.split('T')[0]
+        const [year, month, day] = cleanDateStr.split('-').map(Number)
+        return new Date(year, month - 1, day).toLocaleDateString("en-US", {
             weekday: "short",
             month: "short",
             day: "numeric",

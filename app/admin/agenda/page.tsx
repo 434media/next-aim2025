@@ -11,6 +11,7 @@ import {
 import Link from "next/link"
 import { useCallback, useEffect, useState } from "react"
 import { AdminShell } from "../../../components/admin/AdminShell"
+import { WhovaLockedOverlay } from "../../../components/admin/WhovaLockedOverlay"
 
 interface Stats {
     speakers: number
@@ -117,86 +118,88 @@ export default function AdminAgendaPage() {
             title="Agenda Overview"
             description="Manage speakers, schedule, and sponsors that appear on the public agenda page."
         >
-            {/* Stats Grid */}
-            {loading ? (
-                <div className="flex items-center justify-center py-20">
-                    <Loader2 className="h-8 w-8 animate-spin text-[#548cac]" />
-                </div>
-            ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
-                    {statCards.map((card) => (
-                        <Link
-                            key={card.label}
-                            href={card.href}
-                            className="rounded-xl border border-gray-200 bg-white p-4 hover:shadow-md transition-shadow"
-                        >
-                            <div className="flex items-center gap-3 mb-2">
-                                <div
-                                    className={`flex items-center justify-center w-8 h-8 rounded-lg ${card.bg}`}
-                                >
-                                    <card.icon className={`w-4 h-4 ${card.color}`} />
+            <WhovaLockedOverlay>
+                {/* Stats Grid */}
+                {loading ? (
+                    <div className="flex items-center justify-center py-20">
+                        <Loader2 className="h-8 w-8 animate-spin text-[#548cac]" />
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+                        {statCards.map((card) => (
+                            <Link
+                                key={card.label}
+                                href={card.href}
+                                className="rounded-xl border border-gray-200 bg-white p-4 hover:shadow-md transition-shadow"
+                            >
+                                <div className="flex items-center gap-3 mb-2">
+                                    <div
+                                        className={`flex items-center justify-center w-8 h-8 rounded-lg ${card.bg}`}
+                                    >
+                                        <card.icon className={`w-4 h-4 ${card.color}`} />
+                                    </div>
                                 </div>
-                            </div>
-                            <p className="text-2xl font-bold text-gray-900">
-                                {card.value}
-                            </p>
-                            <p className="text-xs text-gray-500 mt-1">{card.label}</p>
-                        </Link>
-                    ))}
+                                <p className="text-2xl font-bold text-gray-900">
+                                    {card.value}
+                                </p>
+                                <p className="text-xs text-gray-500 mt-1">{card.label}</p>
+                            </Link>
+                        ))}
+                    </div>
+                )}
+
+                {/* Quick Links */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                    <Link
+                        href="/admin/speakers"
+                        className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-5 hover:shadow-md transition-shadow group"
+                    >
+                        <div className="flex items-center gap-3">
+                            <Mic2 className="w-5 h-5 text-[#548cac]" />
+                            <span className="font-semibold text-gray-900">
+                                Manage Speakers
+                            </span>
+                        </div>
+                        <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#548cac] transition-colors" />
+                    </Link>
+                    <Link
+                        href="/admin/schedule"
+                        className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-5 hover:shadow-md transition-shadow group"
+                    >
+                        <div className="flex items-center gap-3">
+                            <CalendarDays className="w-5 h-5 text-[#548cac]" />
+                            <span className="font-semibold text-gray-900">
+                                Manage Schedule
+                            </span>
+                        </div>
+                        <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#548cac] transition-colors" />
+                    </Link>
+                    <Link
+                        href="/admin/sponsors"
+                        className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-5 hover:shadow-md transition-shadow group"
+                    >
+                        <div className="flex items-center gap-3">
+                            <Award className="w-5 h-5 text-[#548cac]" />
+                            <span className="font-semibold text-gray-900">
+                                Manage Sponsors
+                            </span>
+                        </div>
+                        <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#548cac] transition-colors" />
+                    </Link>
                 </div>
-            )}
 
-            {/* Quick Links */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                <Link
-                    href="/admin/speakers"
-                    className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-5 hover:shadow-md transition-shadow group"
-                >
-                    <div className="flex items-center gap-3">
-                        <Mic2 className="w-5 h-5 text-[#548cac]" />
-                        <span className="font-semibold text-gray-900">
-                            Manage Speakers
-                        </span>
-                    </div>
-                    <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#548cac] transition-colors" />
-                </Link>
-                <Link
-                    href="/admin/schedule"
-                    className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-5 hover:shadow-md transition-shadow group"
-                >
-                    <div className="flex items-center gap-3">
-                        <CalendarDays className="w-5 h-5 text-[#548cac]" />
-                        <span className="font-semibold text-gray-900">
-                            Manage Schedule
-                        </span>
-                    </div>
-                    <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#548cac] transition-colors" />
-                </Link>
-                <Link
-                    href="/admin/sponsors"
-                    className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-5 hover:shadow-md transition-shadow group"
-                >
-                    <div className="flex items-center gap-3">
-                        <Award className="w-5 h-5 text-[#548cac]" />
-                        <span className="font-semibold text-gray-900">
-                            Manage Sponsors
-                        </span>
-                    </div>
-                    <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#548cac] transition-colors" />
-                </Link>
-            </div>
-
-            {/* Public Page Link */}
-            <div className="mt-6 text-center">
-                <Link
-                    href="/agenda"
-                    target="_blank"
-                    className="inline-flex items-center gap-2 text-sm text-[#548cac] hover:underline"
-                >
-                    <ExternalLink className="w-4 h-4" />
-                    View Public Agenda Page
-                </Link>
-            </div>
+                {/* Public Page Link */}
+                <div className="mt-6 text-center">
+                    <Link
+                        href="/agenda"
+                        target="_blank"
+                        className="inline-flex items-center gap-2 text-sm text-[#548cac] hover:underline"
+                    >
+                        <ExternalLink className="w-4 h-4" />
+                        View Public Agenda Page
+                    </Link>
+                </div>
+            </WhovaLockedOverlay>
         </AdminShell>
     )
 }

@@ -1,7 +1,14 @@
 import type { Event } from "../types/event"
 
+// Parse YYYY-MM-DD string in local timezone (avoids UTC shift)
+export function parseLocalDate(dateString: string): Date {
+  const cleanDateStr = dateString.split('T')[0]
+  const [year, month, day] = cleanDateStr.split('-').map(Number)
+  return new Date(year, month - 1, day)
+}
+
 export function isEventUpcoming(event: Event): boolean {
-  const eventDate = new Date(event.date)
+  const eventDate = parseLocalDate(event.date)
   const now = new Date()
 
   // Set time to end of day for the event date
@@ -29,7 +36,7 @@ export function formatEventTime(timeString: string): string {
     const hour = Number.parseInt(hours)
     const ampm = hour >= 12 ? "PM" : "AM"
     const displayHour = hour % 12 || 12
-    return `${displayHour}:${minutes} ${ampm}`
+    return `${displayHour}:${minutes} ${ampm} CST`
   } catch {
     return timeString
   }
