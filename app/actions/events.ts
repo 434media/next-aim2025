@@ -1,67 +1,32 @@
 "use server"
 
+import { getAdminDb } from "../../lib/firebase-admin"
 import type { Event } from "../../types/event"
 
-const API_BASE_URL = process.env.EVENTS_API_URL || "https://434media.com"
-const API_KEY = process.env.EVENTS_API_KEY
-
-interface EventsApiResponse {
-  success: boolean
-  events: Event[]
-  count: number
-  timestamp: string
-  error?: string
-}
-
-export async function getEventsAction(filter: "all" | "upcoming" | "past" = "all"): Promise<{
+export async function getEventsAction(): Promise<{
   success: boolean
   events: Event[]
   error?: string
 }> {
   try {
-    const url = new URL(`${API_BASE_URL}/api/public/events`)
-    if (filter !== "all") {
-      url.searchParams.set("filter", filter)
-    }
+    const adminDb = getAdminDb()
+    const snapshot = await adminDb.collection("events").orderBy("date", "asc").get()
 
-    const response = await fetch(url.toString(), {
-      headers: {
-        "X-API-Key": API_KEY || "",
-        "Content-Type": "application/json",
-      },
-      next: { revalidate: 60 }, // Cache for 60 seconds
-    })
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch events: ${response.status}`)
-    }
-
-    const data: EventsApiResponse = await response.json()
-
-    if (!data.success) {
-      throw new Error(data.error || "Failed to fetch events")
-    }
+    const events = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as Event[]
 
     return {
       success: true,
-      events: data.events,
+      events,
     }
   } catch (error) {
-    console.error("[Events API] Error fetching events:", error)
-    
-    // Check if it's a configuration error
-    if (!API_KEY) {
-      return { 
-        success: false, 
-        error: "Events API not configured. Please set EVENTS_API_URL and EVENTS_API_KEY environment variables.", 
-        events: [] 
-      }
-    }
-    
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : "Failed to load events", 
-      events: [] 
+    console.error("[Events] Error fetching events:", error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to load events",
+      events: [],
     }
   }
 }

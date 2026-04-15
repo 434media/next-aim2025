@@ -19,7 +19,7 @@ function formatEventDate(dateString: string): string {
     const date = new Date(year, month - 1, day)
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric'
     })
   } catch {
@@ -27,7 +27,7 @@ function formatEventDate(dateString: string): string {
   }
 }
 
-// Format time to 12-hour format
+// Format time to 12-hour format with CST timezone
 function formatEventTime(timeString: string): string {
   if (!timeString) return ""
   try {
@@ -35,7 +35,7 @@ function formatEventTime(timeString: string): string {
     const hour = Number.parseInt(hours)
     const ampm = hour >= 12 ? "PM" : "AM"
     const displayHour = hour % 12 || 12
-    return `${displayHour}:${minutes} ${ampm}`
+    return `${displayHour}:${minutes} ${ampm} CST`
   } catch {
     return timeString
   }
@@ -45,103 +45,107 @@ export function PastEventsSection({ events }: PastEventsSectionProps) {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
-    <div className="max-w-7xl mx-auto px-4 lg:px-8 pb-16 pt-10 border-t border-gray-200">
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="flex items-center gap-3 mb-8 text-gray-900 hover:text-gray-600 transition-colors group"
-      >
-        <h2 className="text-2xl font-semibold tracking-tight">Past Events</h2>
-        <span className="text-sm font-medium text-gray-500 bg-gray-100 px-2.5 py-0.5 rounded-full">{events.length}</span>
-        {isExpanded ? (
-          <ChevronUp className="w-5 h-5 text-gray-400 group-hover:-translate-y-0.5 transition-transform" />
-        ) : (
-          <ChevronDown className="w-5 h-5 text-gray-400 group-hover:translate-y-0.5 transition-transform" />
-        )}
-      </button>
+    <div className="bg-white border-t border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16 pt-10">
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="flex items-center gap-3 mb-8 group"
+        >
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900">Past Events</h2>
+          <span className="text-xs font-bold text-[#548cac] bg-[#548cac]/10 px-2.5 py-1 rounded-full ring-1 ring-inset ring-[#548cac]/20">{events.length}</span>
+          {isExpanded ? (
+            <ChevronUp className="w-5 h-5 text-gray-400 group-hover:-translate-y-0.5 transition-transform" />
+          ) : (
+            <ChevronDown className="w-5 h-5 text-gray-400 group-hover:translate-y-0.5 transition-transform" />
+          )}
+        </button>
 
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden"
-          >
-            <div className="flex flex-col gap-4">
-              {events.map((event, index) => (
-                <motion.div
-                  key={event.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.03 }}
-                  className="bg-gray-50 rounded-xl p-5 border border-gray-100 hover:border-gray-200 hover:bg-gray-100/50 transition-all duration-200"
-                >
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      {event.url ? (
-                        <a
-                          href={event.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-base font-semibold leading-6 text-gray-900 hover:text-blue-600 transition-colors block mb-1"
-                        >
-                          {event.title}
-                        </a>
-                      ) : (
-                        <h3 className="text-base font-semibold leading-6 text-gray-900 mb-1">{event.title}</h3>
-                      )}
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="overflow-hidden"
+            >
+              <div className="flex flex-col gap-3">
+                {events.map((event, index) => (
+                  <motion.div
+                    key={event.id}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.03 }}
+                    className="bg-gray-50 rounded-xl p-5 ring-1 ring-gray-200 hover:ring-[#548cac]/30 transition-all duration-200"
+                  >
+                    <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
+                      <div className="flex-1 min-w-0">
+                        {event.url ? (
+                          <a
+                            href={event.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-base font-bold leading-6 tracking-tight text-gray-900 hover:text-[#548cac] transition-colors block mb-1"
+                          >
+                            {event.title}
+                          </a>
+                        ) : (
+                          <h3 className="text-base font-bold leading-6 tracking-tight text-gray-900 mb-1">{event.title}</h3>
+                        )}
 
-                      {event.description && (
-                        <p className="text-sm text-gray-500 line-clamp-1 leading-5 mb-3" style={{ maxWidth: '60ch' }}>
-                          {event.description}
-                        </p>
-                      )}
+                        {event.description && (
+                          <p className="text-sm text-gray-500 line-clamp-1 leading-5 mb-3" style={{ maxWidth: '55ch' }}>
+                            {event.description}
+                          </p>
+                        )}
 
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-gray-500">
-                        <div className="flex items-center gap-1.5">
-                          <Calendar className="w-3.5 h-3.5 text-gray-400" />
-                          <span>{formatEventDate(event.date)}</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <Clock className="w-3.5 h-3.5 text-gray-400" />
-                          <span>{formatEventTime(event.time)}</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <MapPin className="w-3.5 h-3.5 text-gray-400" />
-                          <span className="truncate max-w-[200px]">{event.location}</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <Users className="w-3.5 h-3.5 text-gray-400" />
-                          <span>{event.organizer}</span>
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-gray-500">
+                          <div className="flex items-center gap-1.5">
+                            <Calendar className="w-3.5 h-3.5 text-gray-400" />
+                            <span className="font-medium text-gray-600">{formatEventDate(event.date)}</span>
+                          </div>
+                          {event.time && (
+                            <div className="flex items-center gap-1.5">
+                              <Clock className="w-3.5 h-3.5 text-gray-400" />
+                              <span>{formatEventTime(event.time)}</span>
+                            </div>
+                          )}
+                          <div className="flex items-center gap-1.5">
+                            <MapPin className="w-3.5 h-3.5 text-gray-400" />
+                            <span className="truncate max-w-48">{event.location}</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <Users className="w-3.5 h-3.5 text-gray-400" />
+                            <span>{event.organizer}</span>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    {event.tags && (() => {
-                      const parsedTags = event.tags.split(',').map((tag) => tag.trim()).filter(Boolean)
-                      return parsedTags.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 md:justify-end md:max-w-[200px]">
-                          {parsedTags.slice(0, 3).map((tag) => (
-                            <span key={tag} className={`px-2 py-0.5 rounded-full text-xs font-medium ${getTagColor(tag)}`}>
-                              {tag}
-                            </span>
-                          ))}
-                          {parsedTags.length > 3 && (
-                            <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-gray-200 text-gray-600">
-                              +{parsedTags.length - 3}
-                            </span>
-                          )}
-                        </div>
-                      )
-                    })()}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                      {event.tags && (() => {
+                        const parsedTags = event.tags.split(',').map((tag) => tag.trim()).filter(Boolean)
+                        return parsedTags.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5 md:justify-end md:max-w-48">
+                            {parsedTags.slice(0, 3).map((tag) => (
+                              <span key={tag} className={`px-2 py-0.5 rounded-full text-xs font-medium ${getTagColor(tag)}`}>
+                                {tag}
+                              </span>
+                            ))}
+                            {parsedTags.length > 3 && (
+                              <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-gray-200 text-gray-600">
+                                +{parsedTags.length - 3}
+                              </span>
+                            )}
+                          </div>
+                        )
+                      })()}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   )
 }
