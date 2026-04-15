@@ -24,18 +24,3 @@ export function EventCardSkeleton() {
     </div>
   )
 }
-
-export function CalendarSkeleton() {
-  return (
-    <div className="bg-white rounded-2xl ring-1 ring-gray-200 p-5 animate-pulse">
-      <div className="space-y-4">
-        <div className="h-7 bg-gray-200 rounded w-1/2 mx-auto" />
-        <div className="grid grid-cols-7 gap-2">
-          {Array.from({ length: 35 }).map((_, i) => (
-            <div key={i} className="h-8 bg-gray-100 rounded" />
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
