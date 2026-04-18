@@ -125,7 +125,7 @@ const SUMMIT_THEMES: SummitTheme[] = [
       {
         title: "The 10 Day Solution: AI, Repurposing + Rapid Response",
         speakers: [
-          { name: "Corey Hallum", title: "Texas Biomedical Research Institute" },
+          { name: "Cory Hallam", title: "Texas Biomedical Research Institute" },
         ],
       },
       {
