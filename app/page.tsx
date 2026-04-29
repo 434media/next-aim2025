@@ -8,8 +8,9 @@ import { PropelCTA } from "../components/PropelCTA"
 import { WelcomeReception } from "../components/WelcomeReception"
 import { HeroTextSection } from "../components/ui/HeroTextSection"
 import { HeroVideo } from "../components/ui/HeroVideo"
+import { Aim2026Sponsors } from "../components/ui/Aim2026Sponsors"
 import { PartnerMarquee } from "../components/ui/PartnerMarquee"
-import { additionalPartners, mainPartners } from "../data/partners"
+import { additionalPartners, aim2026SponsorsBottom, aim2026SponsorsTop, mainPartners } from "../data/partners"
 
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false)
@@ -100,6 +101,14 @@ export default function Home() {
           AIM 2025 Event Recap
         </h2>
         <EventRecapCarousel />
+      </section>
+
+      {/* AIM 2026 Sponsors */}
+      <section aria-labelledby="aim2026-sponsors-heading" className="w-full">
+        <h2 id="aim2026-sponsors-heading" className="sr-only">
+          AIM 2026 Sponsors
+        </h2>
+        <Aim2026Sponsors topSponsors={aim2026SponsorsTop} bottomSponsors={aim2026SponsorsBottom} />
       </section>
     </main>
   )
