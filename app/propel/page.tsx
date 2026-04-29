@@ -242,7 +242,7 @@ export default function ProPELPage() {
   return (
     <main className="min-dvh bg-white text-neutral-900">
       {/* ── HERO ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden pt-28 pb-12 md:pb-16 min-h-[calc(100dvh-4rem)] flex items-center">
+      <section className="relative overflow-hidden pt-28 pb-12 md:pb-16 min-h-dvh flex items-center">
         {/* Background image with navy overlay */}
         <div className="absolute inset-0">
           <Image

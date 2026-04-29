@@ -326,11 +326,10 @@ export default function PartnersAdminPage() {
                                         </h3>
 
                                         {partner.group && (
-                                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold mb-3 ${
-                                                partner.group === "main"
+                                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold mb-3 ${partner.group === "main"
                                                     ? "bg-[#548cac]/10 text-[#548cac]"
                                                     : "bg-gray-100 text-gray-600"
-                                            }`}>
+                                                }`}>
                                                 {partner.group === "main" ? "Main Row" : "Additional Row"}
                                             </span>
                                         )}

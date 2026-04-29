@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowRight, Calendar, CalendarDays, MapPin } from "lucide-react"
+import { ArrowRight, CalendarDays, MapPin } from "lucide-react"
 import { motion, useInView } from "motion/react"
 import Link from "next/link"
 import Script from "next/script"
@@ -281,7 +281,7 @@ export default function AgendaPage() {
   return (
     <main className="flex min-h-screen flex-col items-center bg-white" aria-label="Agenda page">
       {/* ── Hero (keeps dark overlay on photo) ──────────────────── */}
-      <section className="relative w-full overflow-hidden pt-32 md:pt-40 lg:pt-48 pb-20 sm:pb-28">
+      <section className="relative w-full min-h-dvh overflow-hidden pt-32 md:pt-40 lg:pt-48 pb-20 sm:pb-28 flex flex-col justify-center">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/aimsatx%2F0P3A0058.jpg?alt=media"
           alt=""
@@ -291,7 +291,7 @@ export default function AgendaPage() {
         <div className="absolute inset-0 bg-[#0a1628]/88" />
 
         <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
-          
+
           <FadeUp delay={0.1}>
             <h1
               className="mb-6"

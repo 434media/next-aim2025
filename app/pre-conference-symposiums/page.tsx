@@ -95,12 +95,12 @@ export default function PreConferenceSymposiums() {
 
   return (
     <main
-      className="min-h-screen bg-white text-neutral-900 pt-20 sm:pt-28"
+      className="min-h-dvh bg-white text-neutral-900 pt-20 sm:pt-28"
       id="main-content"
       aria-labelledby="page-heading"
     >
       {/* New Hero Section - Matching Reference Layout */}
-      <section className="py-16 sm:py-20 lg:py-24">
+      <section className="py-16 sm:py-20 lg:py-24 min-h-dvh flex flex-col justify-center">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Content */}

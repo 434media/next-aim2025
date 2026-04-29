@@ -70,7 +70,7 @@ export default function ContactUs() {
   }
 
   return (
-    <div className="relative isolate bg-white">
+    <div className="relative isolate bg-white min-h-dvh">
       <div className="mx-auto grid max-w-5xl grid-cols-1 lg:grid-cols-2">
         <motion.div
           className="relative px-6 pt-36 pb-8 lg:static lg:px-8 lg:pt-40 lg:pb-16"

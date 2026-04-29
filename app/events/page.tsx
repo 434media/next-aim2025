@@ -150,7 +150,7 @@ export default function EventsPage() {
             </div>
 
             {/* Desktop: side-by-side layout */}
-            <div className="hidden lg:flex lg:gap-16 xl:gap-20 min-h-screen pt-40 pb-16">
+            <div className="hidden lg:flex lg:gap-16 xl:gap-20 min-h-dvh pt-40 pb-16">
               {/* Left column — sticky hero text */}
               <div className="lg:w-[36%] xl:w-[34%] shrink-0">
                 <div className="sticky top-36">
