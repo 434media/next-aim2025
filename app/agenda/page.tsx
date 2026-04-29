@@ -281,9 +281,9 @@ export default function AgendaPage() {
   return (
     <main className="flex min-h-screen flex-col items-center bg-white" aria-label="Agenda page">
       {/* ── Hero (keeps dark overlay on photo) ──────────────────── */}
-      <section className="relative w-full overflow-hidden pt-32 md:pt-40 pb-20 sm:pb-28">
+      <section className="relative w-full overflow-hidden pt-32 md:pt-40 lg:pt-48 pb-20 sm:pb-28">
         <img
-          src="https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/aimsatx%2FCopy%20of%20DSCF3694.jpg?alt=media"
+          src="https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/aimsatx%2F0P3A0058.jpg?alt=media"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover object-center"
@@ -291,14 +291,7 @@ export default function AgendaPage() {
         <div className="absolute inset-0 bg-[#0a1628]/88" />
 
         <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
-          <FadeUp>
-            <div className="mb-6 flex justify-center">
-              <div className="inline-flex items-center rounded-full bg-white/10 px-6 py-2 text-sm font-medium text-white ring-1 ring-white/20 backdrop-blur-sm" style={{ lineHeight: 1.5 }}>
-                <Calendar className="mr-2 h-4 w-4" />
-                May 19, 2026 &middot; San Antonio, TX
-              </div>
-            </div>
-          </FadeUp>
+          
           <FadeUp delay={0.1}>
             <h1
               className="mb-6"

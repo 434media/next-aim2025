@@ -15,6 +15,7 @@ import {
     MessageSquare,
     Mic2,
     User,
+    Users,
     X,
 } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
@@ -55,6 +56,7 @@ const navigationGroups: NavGroup[] = [
             { name: "Agenda Overview", href: "/admin/agenda", icon: BookOpen },
             { name: "Speakers", href: "/admin/speakers", icon: Mic2 },
             { name: "Schedule", href: "/admin/schedule", icon: CalendarDays },
+            { name: "Partners", href: "/admin/partners", icon: Users },
             { name: "Sponsors", href: "/admin/sponsors", icon: Award },
         ],
     },

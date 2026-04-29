@@ -130,13 +130,11 @@ export const aim2026SponsorsBottom = [
     href: "https://ausmedglobal.com.hk",
   },
   {
-    // TODO: upload logo asset to Firebase and replace src
     name: "BioMed SA",
     src: "https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/aimsatx%2Fbiomedsa.webp?alt=media",
     href: "https://www.biomedsa.org/",
   },
   {
-    // TODO: upload logo asset to Firebase and replace src
     name: "DLH Corp",
     src: "https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/aimsatx%2Fdlh-logo.webp?alt=media",
     href: "https://www.dlhcorp.com/",

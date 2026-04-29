@@ -1,87 +1,29 @@
 import { FieldValue } from "firebase-admin/firestore"
 import { NextResponse } from "next/server"
+import { aim2026SponsorsBottom, aim2026SponsorsTop } from "../../../../data/partners"
 import { getAdminDb } from "../../../../lib/firebase-admin"
 
-// Testimonial data to seed as sponsors
-const testimonialSponsors = [
-    {
-        name: "Audicin",
-        description: "At Audicin, we develop audio solutions to enhance focus, recovery, and sleep for active duty service members and veterans. Engineered for operational demands and post-service care for PTSD, Audicin supports cognitive readiness, stress regulation, and long-term resilience through mission-tested sound therapy",
-        contactName: "Laura Avonius",
-        contactTitle: "Founder & CEO, Audicin",
-        contactImage: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/laura-audicin.jpeg",
-        src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/HorizontalLogo_Audicin-02.png",
-        alt: "Audicin Logo",
-        website: "https://www.audicin.com/",
-        tier: "partner",
-        order: 1,
+// AIM 2026 sponsors derived from data/partners.ts
+// href → website field mapping; tier label added
+const aim2026Sponsors = [
+    ...aim2026SponsorsTop.map((s, i) => ({
+        name: s.name,
+        src: s.src,
+        website: s.href,
+        description: "",
+        tier: "tier-1",
+        order: i + 1,
         featured: true,
-    },
-    {
-        name: "The Metis Foundation",
-        description: "At Metis Foundation, we are scientists serving scientists—advancing military medicine through mission-focused innovation, strategic collaboration, and sustainable funding to deliver real-world solutions from bench to battlefield.",
-        contactName: "Anders Carlsson, PhD",
-        contactTitle: "COO, The Metis Foundation",
-        contactImage: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/metis-profile.jpeg",
-        src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Sponsor%20Logos/High%20resolution%2C%20no%20background%20logo.png",
-        alt: "The Metis Foundation Logo",
-        website: "https://metisfoundationusa.org/",
-        tier: "partner",
-        order: 2,
-        featured: true,
-    },
-    {
-        name: "TRC4",
-        description: "We're grateful to the AIM Summit for providing a powerful platform to connect with academic, industry, and military leaders",
-        contactName: "Christina Spencer",
-        contactTitle: "Director, Research Operations, TRC4",
-        contactImage: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/spenser-trc4.jpeg",
-        src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/TRC4%20UT%20System%20Logo.png",
-        alt: "TRC4 Logo",
-        website: "https://trc4.org/",
-        tier: "partner",
-        order: 3,
-        featured: true,
-    },
-    {
-        name: "StemBioSys",
-        description: "StemBioSys develops primary cell-derived extracellular matrices that bring in vitro research closer to human biology. By enhancing the relevance and reliability of preclinical data, we support AIM's mission to accelerate transformative healthcare innovations for military and civilian populations.",
-        contactName: "Bob Hutchens",
-        contactTitle: "CEO, StemBioSys",
-        contactImage: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/bob-stembios.jpeg",
-        src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/stembiosys.png",
-        alt: "StemBioSys Logo",
-        website: "https://www.stembiosys.com/",
-        tier: "partner",
-        order: 4,
-        featured: true,
-    },
-    {
-        name: "Molecular You",
-        description: "At Molecular You, we believe in honouring those who serve by helping them stay mission-ready and healthy—long after the mission ends. Our pre-diagnostic health assessment offers early detection of chronic disease risks through a single blood test, empowering active military personnel to extend their service and supporting veterans with personalized health insights to thrive in civilian life.",
-        contactName: "Rob Fraser",
-        contactTitle: "CSO & Co-Founder, Molecular You",
-        contactImage: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Rob%20Fraser%201.1%20(3).png",
-        src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/MYHi%20logo%20file%20copy%20sideways-01%20(2).png",
-        alt: "Molecular You Logo",
-        website: "https://www.molecularyou.com/",
-        tier: "partner",
-        order: 5,
-        featured: true,
-    },
-    {
-        name: "The Defense Health Agency",
-        description: "Forums like AIM give us the opportunity to collaborate with organizations outside of DoD so they have a better idea how to engage with the military's medical mission and advance healthcare innovation",
-        contactName: "Dr. Sean Biggerstaff",
-        contactTitle: "Acting Deputy Assistant Director, Research and Engineering, Defense Health Agency",
-        contactImage: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/biggerstaff.jpeg",
-        src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Sponsor%20Logos/dha_logo.png",
-        alt: "Defense Health Agency Logo",
-        website: "https://dha.mil/",
-        tier: "government",
-        order: 6,
-        featured: true,
-    },
+    })),
+    ...aim2026SponsorsBottom.map((s, i) => ({
+        name: s.name,
+        src: s.src,
+        website: s.href,
+        description: "",
+        tier: "tier-2",
+        order: aim2026SponsorsTop.length + i + 1,
+        featured: false,
+    })),
 ]
 
 // POST - Seed sponsors from testimonials (run once)
@@ -89,7 +31,7 @@ export async function POST(request: Request) {
     try {
         // Simple protection - require a secret key
         const { secret } = await request.json()
-        
+
         if (secret !== process.env.SEED_SECRET && secret !== "aim2025-seed-sponsors") {
             return NextResponse.json(
                 { success: false, error: "Unauthorized" },
@@ -112,8 +54,8 @@ export async function POST(request: Request) {
 
         // Add each sponsor
         const createdSponsors: { id: string; name: string }[] = []
-        
-        for (const sponsor of testimonialSponsors) {
+
+        for (const sponsor of aim2026Sponsors) {
             const docRef = sponsorsRef.doc()
             batch.set(docRef, {
                 ...sponsor,
@@ -149,8 +91,8 @@ export async function GET() {
         return NextResponse.json({
             success: true,
             sponsorCount: snapshot.size,
-            message: snapshot.empty 
-                ? "No sponsors in database. Ready to seed." 
+            message: snapshot.empty
+                ? "No sponsors in database. Ready to seed."
                 : `${snapshot.size} sponsors already in database.`,
         })
     } catch (error) {
