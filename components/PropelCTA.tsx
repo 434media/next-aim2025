@@ -118,7 +118,7 @@ export function PropelCTA() {
                                         fontWeight: 700,
                                     }}
                                 >
-                                    1:00–4:30 p.m.&nbsp; |&nbsp; May 18, 2026&nbsp; |&nbsp; VelocityTX
+                                    1:00–5:30 p.m.&nbsp; |&nbsp; May 18, 2026&nbsp; |&nbsp; VelocityTX
                                 </p>
                                 <p
                                     className="italic text-gray-400 mb-6"

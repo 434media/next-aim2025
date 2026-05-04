@@ -323,7 +323,7 @@ export default function ProPELPage() {
               <div className="flex flex-col items-center justify-center gap-1 text-sm text-white/60 font-medium">
                 <span className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#C19A2E]" />
-                  1:00 – 4:30 P.M. CT &nbsp;|&nbsp; ProPEL Research Symposium
+                  1:00 – 5:30 P.M. CT &nbsp;|&nbsp; ProPEL Research Symposium
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-white/50" />
