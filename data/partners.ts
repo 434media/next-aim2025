@@ -63,6 +63,16 @@ export const aim2026SponsorsTop = [
     src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/sa-med-foundation-logo.svg",
     href: "https://www.samedfoundation.org/",
   },
+  {
+    name: "USAA",
+    src: "https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/aimsatx%2FUSAA.webp?alt=media",
+    href: "https://www.usaa.com/",
+  },
+  {
+    name: "AlexiGen",
+    src: "https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/aimsatx%2FAlexigen%20Logo.png?alt=media",
+    href: "https://www.alexigen.com/",
+  },
 ]
 
 /**
