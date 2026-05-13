@@ -2,7 +2,6 @@
 
 import { ArrowRight, Calendar, Clock, MapPin } from "lucide-react"
 import { motion, useInView } from "motion/react"
-import Link from "next/link"
 import { useRef } from "react"
 import { useMediaQuery } from "../hooks/useMediaQuery"
 
@@ -174,14 +173,16 @@ export function WelcomeReception() {
                             transition={{ duration: 0.55, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
                             className="mt-8"
                         >
-                            <Link
-                                href="/agenda"
+                            <a
+                                href="https://www.google.com/maps/dir/?api=1&destination=1305+E+Houston+St+San+Antonio+TX+78205"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="group inline-flex items-center gap-2 bg-white text-[#0a1628] font-bold px-7 py-3.5 rounded-lg hover:bg-neutral-100 transition-colors duration-200"
                                 style={{ fontSize: "0.9375rem", lineHeight: 1.2 }}
                             >
-                                View Full Agenda
+                                Get Directions
                                 <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-                            </Link>
+                            </a>
                         </motion.div>
                     </div>
                 </div>

@@ -79,20 +79,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* AIM Welcome Reception */}
-      <section aria-labelledby="reception-heading" className="w-full">
-        <h2 id="reception-heading" className="sr-only">
-          AIM Welcome Reception
-        </h2>
-        <WelcomeReception />
-      </section>
-
       {/* ProPEL 2026 CTA */}
       <section aria-labelledby="propel-heading" className="w-full">
         <h2 id="propel-heading" className="sr-only">
           ProPEL 2026 Pre-Summit Symposium
         </h2>
         <PropelCTA />
+      </section>
+
+      {/* AIM Welcome Reception */}
+      <section aria-labelledby="reception-heading" className="w-full">
+        <h2 id="reception-heading" className="sr-only">
+          AIM Welcome Reception
+        </h2>
+        <WelcomeReception />
       </section>
 
       {/* Event Recap Carousel */}
