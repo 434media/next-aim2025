@@ -32,6 +32,15 @@ const nextConfig: NextConfig = {
       canvas: './empty-module.ts',
     }
   },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        destination: "https://velocitytx.org/BRDG/",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withBotId(nextConfig);
