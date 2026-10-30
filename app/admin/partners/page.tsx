@@ -144,12 +144,15 @@ export default function PartnersAdminPage() {
 
     const handleSeedPartners = async () => {
         if (!confirm("This will seed all partners from the site data (Main + Additional marquee rows) into the database. Continue?")) return
+        // The key lives only in the SEED_SECRET env var; it is asked for, never stored.
+        const secret = prompt("Enter the seed key (SEED_SECRET) to continue")
+        if (!secret) return
         setIsSeeding(true)
         try {
             const response = await fetch("/api/admin/seed-partners", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ secret: "aim2026-seed-partners" }),
+                body: JSON.stringify({ secret }),
             })
             const data = await response.json()
             if (data.success) {
