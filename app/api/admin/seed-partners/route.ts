@@ -2,6 +2,7 @@ import { FieldValue } from "firebase-admin/firestore"
 import { NextResponse } from "next/server"
 import { additionalPartners, mainPartners } from "../../../../data/partners"
 import { getAdminDb } from "../../../../lib/firebase-admin"
+import { rejectUnlessSeedSecret } from "../../../../lib/seed-secret"
 
 // Partners derived from data/partners.ts — group label preserved
 const partnersToSeed = [
@@ -26,12 +27,8 @@ export async function POST(request: Request) {
     try {
         const { secret } = await request.json()
 
-        if (secret !== process.env.SEED_SECRET && secret !== "aim2026-seed-partners") {
-            return NextResponse.json(
-                { success: false, error: "Unauthorized" },
-                { status: 401 }
-            )
-        }
+        const rejected = rejectUnlessSeedSecret(secret)
+        if (rejected) return rejected
 
         const db = getAdminDb()
         const partnersRef = db.collection("partners")

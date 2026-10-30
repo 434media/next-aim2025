@@ -1,6 +1,7 @@
 import Airtable from "airtable"
 import { NextResponse } from "next/server"
 import { getAdminDb } from "../../../../lib/firebase-admin"
+import { rejectUnlessSeedSecret } from "../../../../lib/seed-secret"
 
 const airtableBaseId = process.env.AIRTABLE_BASE_ID
 const airtableApiKey = process.env.AIRTABLE_API_KEY
@@ -42,15 +43,10 @@ interface AirtableContactRecord {
 // POST - Run migration from Airtable to Firestore
 export async function POST(request: Request) {
   try {
-    // Simple protection - require a secret key
     const { secret, type, forceRemigrate } = await request.json()
     
-    if (secret !== process.env.SEED_SECRET && secret !== "aim2025-migrate") {
-      return NextResponse.json(
-        { success: false, error: "Unauthorized" },
-        { status: 401 }
-      )
-    }
+    const rejected = rejectUnlessSeedSecret(secret)
+    if (rejected) return rejected
 
     if (!base) {
       return NextResponse.json(

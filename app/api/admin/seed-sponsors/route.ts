@@ -2,6 +2,7 @@ import { FieldValue } from "firebase-admin/firestore"
 import { NextResponse } from "next/server"
 import { aim2026SponsorsBottom, aim2026SponsorsTop } from "../../../../data/partners"
 import { getAdminDb } from "../../../../lib/firebase-admin"
+import { rejectUnlessSeedSecret } from "../../../../lib/seed-secret"
 
 // AIM 2026 sponsors derived from data/partners.ts
 // href → website field mapping; tier label added
@@ -29,15 +30,10 @@ const aim2026Sponsors = [
 // POST - Seed sponsors from testimonials (run once)
 export async function POST(request: Request) {
     try {
-        // Simple protection - require a secret key
         const { secret } = await request.json()
 
-        if (secret !== process.env.SEED_SECRET && secret !== "aim2025-seed-sponsors") {
-            return NextResponse.json(
-                { success: false, error: "Unauthorized" },
-                { status: 401 }
-            )
-        }
+        const rejected = rejectUnlessSeedSecret(secret)
+        if (rejected) return rejected
 
         const db = getAdminDb()
         const batch = db.batch()

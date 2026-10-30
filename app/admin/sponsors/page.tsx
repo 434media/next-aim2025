@@ -157,6 +157,9 @@ export default function SponsorsAdminPage() {
 
     const handleSeedSponsors = async () => {
         if (!confirm("This will seed all AIM 2026 Tier 1 and Tier 2 sponsors from the site data into the database. Continue?")) return
+        // The key lives only in the SEED_SECRET env var; it is asked for, never stored.
+        const secret = prompt("Enter the seed key (SEED_SECRET) to continue")
+        if (!secret) return
 
         setIsSeeding(true)
 
@@ -164,7 +167,7 @@ export default function SponsorsAdminPage() {
             const response = await fetch("/api/admin/seed-sponsors", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ secret: "aim2025-seed-sponsors" }),
+                body: JSON.stringify({ secret }),
             })
             const data = await response.json()
 
