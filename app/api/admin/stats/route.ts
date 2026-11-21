@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { getAdminDb } from "../../../../lib/firebase-admin"
+import { refuseUnlessAdmin } from "../../../../lib/admin-session"
 
 interface Contact {
   id: string
@@ -32,6 +33,9 @@ interface Sponsor {
 }
 
 export async function GET() {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   try {
     const adminDb = getAdminDb()
 

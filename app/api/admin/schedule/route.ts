@@ -1,6 +1,7 @@
 import { FieldValue } from "firebase-admin/firestore"
 import { NextResponse } from "next/server"
 import { getAdminDb } from "../../../../lib/firebase-admin"
+import { refuseUnlessAdmin } from "../../../../lib/admin-session"
 
 interface ScheduleItem {
     id: string
@@ -19,6 +20,9 @@ interface ScheduleItem {
 
 // GET - Fetch all schedule items
 export async function GET() {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const db = getAdminDb()
         const scheduleRef = db.collection("schedule")
@@ -51,6 +55,9 @@ export async function GET() {
 
 // POST - Create new schedule item
 export async function POST(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const db = getAdminDb()
         const body = await request.json()
@@ -97,6 +104,9 @@ export async function POST(request: Request) {
 
 // PATCH - Update schedule item
 export async function PATCH(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const db = getAdminDb()
         const body = await request.json()
@@ -128,6 +138,9 @@ export async function PATCH(request: Request) {
 
 // DELETE - Delete schedule item
 export async function DELETE(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const db = getAdminDb()
         const body = await request.json()

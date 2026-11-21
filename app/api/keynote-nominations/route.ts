@@ -1,6 +1,7 @@
 import Airtable from "airtable"
 import { checkBotId } from "botid/server"
 import { NextResponse } from "next/server"
+import { refuseUnlessAdmin } from "../../../lib/admin-session"
 
 const isDevelopment = process.env.NODE_ENV === "development"
 
@@ -132,6 +133,9 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   if (!base) {
     return NextResponse.json({ error: "Airtable not configured" }, { status: 503 })
   }

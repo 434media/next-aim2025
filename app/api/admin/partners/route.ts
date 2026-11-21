@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server"
 import { getAdminDb } from "../../../../lib/firebase-admin"
+import { refuseUnlessAdmin } from "../../../../lib/admin-session"
 
 // Get all partners
 export async function GET() {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const adminDb = getAdminDb()
         const snapshot = await adminDb
@@ -31,6 +35,9 @@ export async function GET() {
 
 // Create a new partner
 export async function POST(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const partnerData = await request.json()
 
@@ -80,6 +87,9 @@ export async function POST(request: Request) {
 
 // Update a partner
 export async function PATCH(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const { id, ...partnerData } = await request.json()
 
@@ -111,6 +121,9 @@ export async function PATCH(request: Request) {
 
 // Delete a partner
 export async function DELETE(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const { id } = await request.json()
 

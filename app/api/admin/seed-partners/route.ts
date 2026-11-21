@@ -3,6 +3,7 @@ import { NextResponse } from "next/server"
 import { additionalPartners, mainPartners } from "../../../../data/partners"
 import { getAdminDb } from "../../../../lib/firebase-admin"
 import { rejectUnlessSeedSecret } from "../../../../lib/seed-secret"
+import { refuseUnlessAdmin } from "../../../../lib/admin-session"
 
 // Partners derived from data/partners.ts — group label preserved
 const partnersToSeed = [
@@ -72,6 +73,9 @@ export async function POST(request: Request) {
 
 // GET — check seed status
 export async function GET() {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const db = getAdminDb()
         const snapshot = await db.collection("partners").get()

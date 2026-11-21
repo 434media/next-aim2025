@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server"
 import { getAdminDb } from "../../../../lib/firebase-admin"
+import { refuseUnlessAdmin } from "../../../../lib/admin-session"
 
 // Get all sponsors
 export async function GET() {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   try {
     const adminDb = getAdminDb()
     const sponsorsRef = adminDb.collection("sponsors")
@@ -33,6 +37,9 @@ export async function GET() {
 
 // Create a new sponsor
 export async function POST(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   try {
     const sponsorData = await request.json()
 
@@ -85,6 +92,9 @@ export async function POST(request: Request) {
 
 // Update a sponsor
 export async function PATCH(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   try {
     const { id, ...sponsorData } = await request.json()
 
@@ -119,6 +129,9 @@ export async function PATCH(request: Request) {
 
 // Delete a sponsor
 export async function DELETE(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   try {
     const { id } = await request.json()
 

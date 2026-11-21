@@ -1,9 +1,13 @@
 import { FieldValue } from "firebase-admin/firestore"
 import { NextResponse } from "next/server"
 import { getAdminDb } from "../../../../lib/firebase-admin"
+import { refuseUnlessAdmin } from "../../../../lib/admin-session"
 
 // GET - Fetch all speakers
 export async function GET() {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const db = getAdminDb()
         const speakersRef = db.collection("speakers")
@@ -26,6 +30,9 @@ export async function GET() {
 
 // POST - Create new speaker
 export async function POST(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const db = getAdminDb()
         const body = await request.json()
@@ -69,6 +76,9 @@ export async function POST(request: Request) {
 
 // PATCH - Update speaker
 export async function PATCH(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const db = getAdminDb()
         const body = await request.json()
@@ -100,6 +110,9 @@ export async function PATCH(request: Request) {
 
 // DELETE - Delete speaker
 export async function DELETE(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const db = getAdminDb()
         const body = await request.json()

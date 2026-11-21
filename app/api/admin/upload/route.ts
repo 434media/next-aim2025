@@ -1,7 +1,11 @@
 import { put } from "@vercel/blob"
 import { NextRequest, NextResponse } from "next/server"
+import { refuseUnlessAdmin } from "../../../../lib/admin-session"
 
 export async function POST(request: NextRequest) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const formData = await request.formData()
         const file = formData.get("file") as File | null
@@ -54,4 +58,4 @@ export async function POST(request: NextRequest) {
     }
 }
 
-export const runtime = "edge"
+// Node.js runtime: the admin check uses firebase-admin, which does not run on the edge.
