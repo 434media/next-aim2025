@@ -1,9 +1,13 @@
 import { FieldValue } from "firebase-admin/firestore"
 import { NextResponse } from "next/server"
 import { getAdminDb } from "../../../../lib/firebase-admin"
+import { refuseUnlessAdmin } from "../../../../lib/admin-session"
 
 // POST - Seed agenda data (keynotes + full day-of schedule from official PDF) into Firestore
 export async function POST() {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const db = getAdminDb()
         const batch = db.batch()

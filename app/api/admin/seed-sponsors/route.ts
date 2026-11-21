@@ -3,6 +3,7 @@ import { NextResponse } from "next/server"
 import { aim2026SponsorsBottom, aim2026SponsorsTop } from "../../../../data/partners"
 import { getAdminDb } from "../../../../lib/firebase-admin"
 import { rejectUnlessSeedSecret } from "../../../../lib/seed-secret"
+import { refuseUnlessAdmin } from "../../../../lib/admin-session"
 
 // AIM 2026 sponsors derived from data/partners.ts
 // href → website field mapping; tier label added
@@ -79,6 +80,9 @@ export async function POST(request: Request) {
 
 // GET - Check seed status
 export async function GET() {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
     try {
         const db = getAdminDb()
         const sponsorsRef = db.collection("sponsors")

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { getAdminDb } from "../../../../lib/firebase-admin"
+import { refuseUnlessAdmin } from "../../../../lib/admin-session"
 
 interface Comment {
   id: string
@@ -10,6 +11,9 @@ interface Comment {
 }
 
 export async function GET() {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   try {
     const adminDb = getAdminDb()
     const contactsRef = adminDb.collection("contact_submissions")
@@ -42,6 +46,9 @@ export async function GET() {
 }
 
 export async function PATCH(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   try {
     const body = await request.json()
     const { id, status, comment, authorName, authorEmail } = body
@@ -119,6 +126,9 @@ export async function PATCH(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   try {
     const { id } = await request.json()
 

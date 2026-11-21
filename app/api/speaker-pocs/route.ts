@@ -25,10 +25,10 @@ export async function GET() {
       })
       .all()
 
+    // Names only: the public nomination form shows a name, and emails are never sent to the browser.
     const speakerPOCs = records.map(record => ({
       id: record.id,
       name: record.fields.Name || "",
-      email: record.fields.Email || "",
     }))
 
     return NextResponse.json(speakerPOCs, { status: 200 })

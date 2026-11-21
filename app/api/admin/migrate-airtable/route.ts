@@ -2,6 +2,7 @@ import Airtable from "airtable"
 import { NextResponse } from "next/server"
 import { getAdminDb } from "../../../../lib/firebase-admin"
 import { rejectUnlessSeedSecret } from "../../../../lib/seed-secret"
+import { refuseUnlessAdmin } from "../../../../lib/admin-session"
 
 const airtableBaseId = process.env.AIRTABLE_BASE_ID
 const airtableApiKey = process.env.AIRTABLE_API_KEY
@@ -236,6 +237,9 @@ export async function POST(request: Request) {
 
 // GET - Check migration status
 export async function GET() {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   try {
     const db = getAdminDb()
     

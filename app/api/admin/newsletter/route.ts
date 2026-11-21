@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { getAdminDb } from "../../../../lib/firebase-admin"
+import { refuseUnlessAdmin } from "../../../../lib/admin-session"
 
 interface Subscriber {
   id: string
@@ -11,6 +12,9 @@ interface Subscriber {
 }
 
 export async function GET(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   try {
     const { searchParams } = new URL(request.url)
     const startDate = searchParams.get("startDate")
@@ -74,6 +78,9 @@ export async function GET(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   try {
     const { id } = await request.json()
 

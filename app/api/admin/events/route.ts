@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server"
 import { getAdminDb } from "../../../../lib/firebase-admin"
+import { refuseUnlessAdmin } from "../../../../lib/admin-session"
 
 // Get all events for admin
 export async function GET() {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   try {
     const adminDb = getAdminDb()
     const eventsRef = adminDb.collection("events")
@@ -33,6 +37,9 @@ export async function GET() {
 
 // Create a new event
 export async function POST(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   try {
     const eventData = await request.json()
 
@@ -77,6 +84,9 @@ export async function POST(request: Request) {
 
 // Update an event
 export async function PATCH(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   try {
     const { id, ...eventData } = await request.json()
 
@@ -111,6 +121,9 @@ export async function PATCH(request: Request) {
 
 // Delete an event
 export async function DELETE(request: Request) {
+  const refused = await refuseUnlessAdmin()
+  if (refused) return refused
+
   try {
     const { id } = await request.json()
 
